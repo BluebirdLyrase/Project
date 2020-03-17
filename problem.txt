@@ -1,0 +1,7 @@
+https://jazz.net/forum/questions/199375/add-external-jars-into-eclipse-plugin-project
+
+https://jazz.net/forum/questions/93445/server-side-extension-and-spring
+
+http://robertvarttinen.blogspot.com/2007/01/adding-third-party-jar-to-your-eclipse.html
+
+May fix external lib problem

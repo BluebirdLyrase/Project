@@ -1,0 +1,5 @@
+https://stackoverflow.com/questions/4308554/simplest-way-to-read-json-from-a-url-in-java
+
+deCoding stack GZIP
+
+https://stackoverflow.com/questions/23560740/how-to-decode-the-stack-exchange-api-response
