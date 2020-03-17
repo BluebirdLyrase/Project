@@ -21,9 +21,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 public class PrototypeHandler extends AbstractHandler {
 
 	@Override
-	public Object execute(ExecutionEvent event) throws ExecutionException{
-		System.loadLibrary("org.json.JSONException");
-		System.loadLibrary("org.json.JSONObject");
+	public Object execute(ExecutionEvent event) throws ExecutionException{;
 		String url = "https://api.stackexchange.com/2.2/questions/60719951?order=desc&sort=activity&site=stackoverflow&filter=!9Z(-wwYGT";
 		String title = "title";
 		String body = "body";
