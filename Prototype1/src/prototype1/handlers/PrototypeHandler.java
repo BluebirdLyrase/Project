@@ -35,10 +35,10 @@ public class PrototypeHandler extends AbstractHandler {
 		} catch (JSONException e) {
 	
 			e.printStackTrace();
-		}
-
+		}finally {
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 		MessageDialog.openInformation(window.getShell(),title,body);
+		}
 		return null;
 		
 	}
