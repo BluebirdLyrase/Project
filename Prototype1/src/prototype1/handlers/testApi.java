@@ -23,6 +23,7 @@ public class testApi {
 		    StringBuilder sb = new StringBuilder();
 		    int cp;
 		    while ((cp = rd.read()) != -1) {
+		    System.out.println(cp);
 		      sb.append((char) cp);
 		    }
 		    return sb.toString();
