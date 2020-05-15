@@ -13,11 +13,11 @@ import org.eclipse.swt.widgets.Text;
 
 public class UserInputDialog extends TitleAreaDialog {
 
-	private Text txtFirstName;
-	private Text lastNameText;
+	private Text txtSearchText;
+	private Text txtTagText;
 
-	private String firstName;
-	private String lastName;
+	private String SearchText;
+	private String TagText;
 
 	public UserInputDialog(Shell parentShell) {
 		super(parentShell);
@@ -38,33 +38,33 @@ public class UserInputDialog extends TitleAreaDialog {
 		GridLayout layout = new GridLayout(2, false);
 		container.setLayout(layout);
 
-		createFirstName(container);
-		createLastName(container);
+		createSearchText(container);
+		createTagText(container);
 
 		return area;
 	}
 
-	private void createFirstName(Composite container) {
-		Label lbtFirstName = new Label(container, SWT.NONE);
-		lbtFirstName.setText("First Name");
+	private void createSearchText(Composite container) {
+		Label lbtSearchText = new Label(container, SWT.NONE);
+		lbtSearchText.setText("Search");
 
-		GridData dataFirstName = new GridData();
-		dataFirstName.grabExcessHorizontalSpace = true;
-		dataFirstName.horizontalAlignment = GridData.FILL;
+		GridData dataSearchText = new GridData();
+		dataSearchText.grabExcessHorizontalSpace = true;
+		dataSearchText.horizontalAlignment = GridData.FILL;
 
-		txtFirstName = new Text(container, SWT.BORDER);
-		txtFirstName.setLayoutData(dataFirstName);
+		txtSearchText = new Text(container, SWT.BORDER);
+		txtSearchText.setLayoutData(dataSearchText);
 	}
 
-	private void createLastName(Composite container) {
-		Label lbtLastName = new Label(container, SWT.NONE);
-		lbtLastName.setText("Last Name");
+	private void createTagText(Composite container) {
+		Label lbtTagText = new Label(container, SWT.NONE);
+		lbtTagText.setText("TAG");
 
-		GridData dataLastName = new GridData();
-		dataLastName.grabExcessHorizontalSpace = true;
-		dataLastName.horizontalAlignment = GridData.FILL;
-		lastNameText = new Text(container, SWT.BORDER);
-		lastNameText.setLayoutData(dataLastName);
+		GridData dataTagText = new GridData();
+		dataTagText.grabExcessHorizontalSpace = true;
+		dataTagText.horizontalAlignment = GridData.FILL;
+		txtTagText = new Text(container, SWT.BORDER);
+		txtTagText.setLayoutData(dataTagText);
 	}
 
 	@Override
@@ -75,8 +75,8 @@ public class UserInputDialog extends TitleAreaDialog {
 	// save content of the Text fields because they get disposed
 	// as soon as the Dialog closes
 	private void saveInput() {
-		firstName = txtFirstName.getText();
-		lastName = lastNameText.getText();
+		SearchText = txtSearchText.getText();
+		TagText = txtTagText.getText();
 
 	}
 
@@ -86,11 +86,11 @@ public class UserInputDialog extends TitleAreaDialog {
 		super.okPressed();
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getSearchText() {
+		return SearchText;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getTagText() {
+		return TagText;
 	}
 }
