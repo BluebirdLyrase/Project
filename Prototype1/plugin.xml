@@ -10,7 +10,7 @@
       </category>
       <command
             categoryId="Prototype1.commands.category"
-            name="Sample Command"
+            name="get one Answer"
             id="Prototype1.commands.sampleCommand">
       </command>
    </extension>
@@ -36,7 +36,7 @@
             locationURI="menu:org.eclipse.ui.main.menu?after=additions">
          <menu
                id="Prototype1.menus.sampleMenu"
-               label="Sample Menu"
+               label="Test StackOverflos API"
                mnemonic="M">
             <command
                   commandId="Prototype1.commands.sampleCommand"
