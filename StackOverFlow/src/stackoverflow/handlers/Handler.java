@@ -31,7 +31,7 @@ public class Handler extends AbstractHandler {
 //			}
 //			System.out.println(title);
 //			System.out.println(body);
-			MessageDialog.openInformation(window.getShell(),title,body);
+			MessageDialog.openInformation(window.getShell(),"This should be the title","this should be the body");
 		    }
 		return null;
 	}
