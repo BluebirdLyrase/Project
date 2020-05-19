@@ -28,14 +28,28 @@ public class Handler extends AbstractHandler {
 			intitle = dialog.getSearchText();
 			System.out.println(dialog.getSearchText());
 
-//			QuickSearchResult qSearchResult;
-			Teststub qSearchResult;
-			qSearchResult = new Teststub(intitle);
-			body = qSearchResult.getBody();
-			title = qSearchResult.getTitle();
-
-			SearchResultDialog searchResult = new SearchResultDialog(window.getShell(), title, body);
-			searchResult.open();
+			QuickSearchResult qSearchResult;
+//			Teststub qSearchResult;
+//			qSearchResult = new Teststub(intitle);
+			
+			try {
+				qSearchResult = new QuickSearchResult(intitle);
+				body = qSearchResult.getBody();
+				title = qSearchResult.getTitle();
+				SearchResultDialog searchResult = new SearchResultDialog(window.getShell(), title, body);
+				searchResult.open();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			}
+//			body = qSearchResult.getBody();
+//			title = qSearchResult.getTitle();
+//			SearchResultDialog searchResult = new SearchResultDialog(window.getShell(), title, body);
+//			searchResult.open();
 
 			// MessageDialog.openInformation(window.getShell(),"This should be the
 			// title","this should be the body");
