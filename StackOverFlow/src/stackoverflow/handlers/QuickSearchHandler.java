@@ -29,15 +29,18 @@ public class QuickSearchHandler extends AbstractHandler {
 			System.out.println(dialog.getSearchText());
 
 			QuickSearchResult qSearchResult;
-//			Teststub qSearchResult;
-//			qSearchResult = new Teststub(intitle);
 			
 			try {
 				qSearchResult = new QuickSearchResult(intitle);
+				if(qSearchResult.haveResult()) {
 				body = qSearchResult.getBody();
 				title = qSearchResult.getTitle();
 				SearchResultDialog searchResult = new SearchResultDialog(window.getShell(), title, body);
-				searchResult.open();
+				searchResult.open();	
+				}
+				else {
+				MessageDialog.openError(window.getShell(), "Error", "not found the result you are searching");
+				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -46,13 +49,6 @@ public class QuickSearchHandler extends AbstractHandler {
 				e.printStackTrace();
 				
 			}
-//			body = qSearchResult.getBody();
-//			title = qSearchResult.getTitle();
-//			SearchResultDialog searchResult = new SearchResultDialog(window.getShell(), title, body);
-//			searchResult.open();
-
-			// MessageDialog.openInformation(window.getShell(),"This should be the
-			// title","this should be the body");
 
 		}
 		return null;
