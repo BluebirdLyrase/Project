@@ -13,12 +13,25 @@
             name="QuickSearch Command"
             id="StackOverFlow.commands.QuickSearchCommand">
       </command>
+      <command
+            categoryId="StackOverFlow.commands.SearchCategory"
+            id="StackOverFlow.commands.SearchCommand"
+            name="Search Command">
+      </command>
+      <category
+            id="StackOverFlow.commands.SearchCategory"
+            name="Search Category">
+      </category>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
             class="stackoverflow.handlers.QuickSearchHandler"
             commandId="StackOverFlow.commands.QuickSearchCommand">
+      </handler>
+      <handler
+            class="stackoverflow.handlers.SearchHandler"
+            commandId="StackOverFlow.commands.SearchCommand">
       </handler>
    </extension>
    <extension
@@ -27,6 +40,12 @@
             commandId="StackOverFlow.commands.QuickSearchCommand"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             contextId="org.eclipse.ui.contexts.window"
+            sequence="M1+6">
+      </key>
+      <key
+            commandId="StackOverFlow.commands.SearchCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+6">
       </key>
    </extension>
@@ -53,6 +72,31 @@
                   id="StackOverFlow.toolbars.QuickSearchCommand"
                   commandId="StackOverFlow.commands.QuickSearchCommand"
                   icon="icons/sample.png"
+                  tooltip="Say hello world">
+            </command>
+         </toolbar>
+      </menuContribution>
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="StackOverFlow.menus.StackOverFlowMenu"
+               label="StackOverFlow"
+               mnemonic="M">
+            <command
+                  commandId="StackOverFlow.commands.SearchCommand"
+                  id="StackOverFlow.menus.SearchCommand"
+                  mnemonic="S">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="StackOverFlow.toolbars.SearchToolbar">
+            <command
+                  commandId="StackOverFlow.commands.SearchCommand"
+                  icon="icons/sample.png"
+                  id="StackOverFlow.toolbars.SearchCommand"
                   tooltip="Say hello world">
             </command>
          </toolbar>
