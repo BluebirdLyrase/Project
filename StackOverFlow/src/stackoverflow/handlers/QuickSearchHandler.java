@@ -14,7 +14,7 @@ import stackoverflow.APIConnecter.Teststub;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 
-public class Handler extends AbstractHandler {
+public class QuickSearchHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {

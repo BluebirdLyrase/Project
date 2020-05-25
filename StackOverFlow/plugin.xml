@@ -5,26 +5,26 @@
    <extension
          point="org.eclipse.ui.commands">
       <category
-            id="StackOverFlow.commands.category"
-            name="Sample Category">
+            id="StackOverFlow.commands.QuickSearchCategory"
+            name="QuickSearch Category">
       </category>
       <command
-            categoryId="StackOverFlow.commands.category"
-            name="Search"
-            id="StackOverFlow.commands.sampleCommand">
+            categoryId="StackOverFlow.commands.QuickSearchCategory"
+            name="QuickSearch Command"
+            id="StackOverFlow.commands.QuickSearchCommand">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="stackoverflow.handlers.Handler"
-            commandId="StackOverFlow.commands.sampleCommand">
+            class="stackoverflow.handlers.QuickSearchHandler"
+            commandId="StackOverFlow.commands.QuickSearchCommand">
       </handler>
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
       <key
-            commandId="StackOverFlow.commands.sampleCommand"
+            commandId="StackOverFlow.commands.QuickSearchCommand"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             contextId="org.eclipse.ui.contexts.window"
             sequence="M1+6">
@@ -35,12 +35,12 @@
       <menuContribution
             locationURI="menu:org.eclipse.ui.main.menu?after=additions">
          <menu
-               id="StackOverFlow.menus.sampleMenu"
+               id="StackOverFlow.menus.StackOverFlowMenu"
                label="StackOverFlow"
                mnemonic="M">
             <command
-                  commandId="StackOverFlow.commands.sampleCommand"
-                  id="StackOverFlow.menus.sampleCommand"
+                  commandId="StackOverFlow.commands.QuickSearchCommand"
+                  id="StackOverFlow.menus.QuickSearchCommand"
                   mnemonic="S">
             </command>
          </menu>
@@ -48,10 +48,10 @@
       <menuContribution
             locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
          <toolbar
-               id="StackOverFlow.toolbars.sampleToolbar">
+               id="StackOverFlow.toolbars.QuickSearchToolbar">
             <command
-                  id="StackOverFlow.toolbars.sampleCommand"
-                  commandId="StackOverFlow.commands.sampleCommand"
+                  id="StackOverFlow.toolbars.QuickSearchCommand"
+                  commandId="StackOverFlow.commands.QuickSearchCommand"
                   icon="icons/sample.png"
                   tooltip="Say hello world">
             </command>

@@ -5,26 +5,26 @@
    <extension
          point="org.eclipse.ui.commands">
       <category
-            id="Prototype1.commands.category"
-            name="Sample Category">
+            id="Prototype1.commands.getoneAnswerCategory"
+            name="get one Answer">
       </category>
       <command
-            categoryId="Prototype1.commands.category"
+            categoryId="Prototype1.commands.getoneAnswerCategory"
             name="get one Answer"
-            id="Prototype1.commands.sampleCommand">
+            id="Prototype1.commands.getoneAnswer">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
             class="prototype1.handlers.PrototypeHandler"
-            commandId="Prototype1.commands.sampleCommand">
+            commandId="Prototype1.commands.getoneAnswer">
       </handler>
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
       <key
-            commandId="Prototype1.commands.sampleCommand"
+            commandId="Prototype1.commands.getoneAnswer"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             contextId="org.eclipse.ui.contexts.window"
             sequence="M1+6">
@@ -39,8 +39,8 @@
                label="Test StackOverflos API"
                mnemonic="M">
             <command
-                  commandId="Prototype1.commands.sampleCommand"
-                  id="Prototype1.menus.sampleCommand"
+                  commandId="Prototype1.commands.getoneAnswer"
+                  id="Prototype1.menus.getoneAnswer"
                   mnemonic="S">
             </command>
          </menu>
@@ -50,8 +50,8 @@
          <toolbar
                id="Prototype1.toolbars.sampleToolbar">
             <command
-                  id="Prototype1.toolbars.sampleCommand"
-                  commandId="Prototype1.commands.sampleCommand"
+                  id="Prototype1.toolbars.getoneAnswer"
+                  commandId="Prototype1.commands.getoneAnswer"
                   icon="icons/sample.png"
                   tooltip="Say hello world">
             </command>
