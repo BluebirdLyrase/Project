@@ -116,6 +116,18 @@
             inject="true"
             name="New Views">
       </view>
+      <category
+            id="TableViewCategory"
+            name="TableView Category">
+      </category>
+      <view
+            category="TableViewCategory"
+            class="prototype1.NewViews.TableView"
+            icon="icons/sample.png"
+            id="prototype1.NewViews.TableView"
+            inject="true"
+            name="Table View">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -128,9 +140,21 @@
                relative="org.eclipse.ui.views.ProblemView">
          </view>
       </perspectiveExtension>
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               id="prototype1.NewViews.TableView"
+               ratio="0.5"
+               relationship="right"
+               relative="org.eclipse.ui.views.ProblemView">
+         </view>
+      </perspectiveExtension>
    </extension>
    <extension
          point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
       <contexts
             file="contexts.xml">
       </contexts>
