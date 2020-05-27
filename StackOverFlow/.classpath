@@ -7,6 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="lib" path="C:/Users/pisit/Documents/GitHub/ProjectStackOverFlow/StackOverFlow/libs/java-json.jar"/>
+	<classpathentry kind="lib" path="libs/java-json.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
