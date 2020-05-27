@@ -1,6 +1,4 @@
-package stackoverflow.handlers;
-
-import java.io.IOException;
+package stackoverflow.ViewAndDialog;
 
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -12,27 +10,22 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.json.JSONException;
 
-import stackoverflow.APIConnecter.QuickSearchResult;
+public class UserInputDialog extends TitleAreaDialog {
 
-public class SearchResultDialog extends TitleAreaDialog {
+	private Text txtSearchText;
 
-	private String resultText;
-	private String title;
-	private String body;
+	private String SearchText;
 
-	public SearchResultDialog(Shell parentShell, String title, String body) {
+	public UserInputDialog(Shell parentShell) {
 		super(parentShell);
-		this.title = title;
-		this.body = body;
 	}
 
 	@Override
 	public void create() {
 		super.create();
-		setTitle("This is your search result");
-		setMessage(title, IMessageProvider.INFORMATION);
+		setTitle("This is my first custom dialog");
+		setMessage("This is a TitleAreaDialog", IMessageProvider.INFORMATION);
 	}
 
 	@Override
@@ -43,17 +36,21 @@ public class SearchResultDialog extends TitleAreaDialog {
 		GridLayout layout = new GridLayout(2, false);
 		container.setLayout(layout);
 
-			stackOverFlowResult(container);
-
+		createSearchText(container);
 
 		return area;
 	}
 
-	private void stackOverFlowResult(Composite container) {
-		Label lbResult = new Label(container, SWT.NONE);
+	private void createSearchText(Composite container) {
+		Label lbtSearchText = new Label(container, SWT.NONE);
+		lbtSearchText.setText("Search");
 
-		lbResult.setText(body);
+		GridData dataSearchText = new GridData();
+		dataSearchText.grabExcessHorizontalSpace = true;
+		dataSearchText.horizontalAlignment = GridData.FILL;
 
+		txtSearchText = new Text(container, SWT.BORDER);
+		txtSearchText.setLayoutData(dataSearchText);
 	}
 
 	@Override
@@ -63,17 +60,18 @@ public class SearchResultDialog extends TitleAreaDialog {
 
 	// save content of the Text fields because they get disposed
 	// as soon as the Dialog closes
+	private void saveInput() {
+		SearchText = txtSearchText.getText();
+
+	}
 
 	@Override
 	protected void okPressed() {
+		saveInput();
 		super.okPressed();
 	}
 
-//	    public String getFirstName() {
-//	        return firstName;
-//	    }
-//
-//	    public String getLastName() {
-//	        return lastName;
-//	    }
+	public String getSearchText() {
+		return SearchText;
+	}
 }

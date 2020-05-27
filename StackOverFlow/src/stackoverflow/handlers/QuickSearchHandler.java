@@ -11,6 +11,9 @@ import org.json.JSONException;
 
 import stackoverflow.APIConnecter.QuickSearchResult;
 import stackoverflow.APIConnecter.Teststub;
+import stackoverflow.ViewAndDialog.SearchResultDialog;
+import stackoverflow.ViewAndDialog.UserInputDialog;
+
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 
