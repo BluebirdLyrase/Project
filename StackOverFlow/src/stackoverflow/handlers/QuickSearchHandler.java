@@ -11,7 +11,7 @@ import org.json.JSONException;
 
 import stackoverflow.APIConnecter.QuickSearchResult;
 import stackoverflow.APIConnecter.Teststub;
-import stackoverflow.ViewAndDialog.SearchResultDialog;
+import stackoverflow.ViewAndDialog.QuickSearchResultDialog;
 import stackoverflow.ViewAndDialog.UserInputDialog;
 
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -38,7 +38,7 @@ public class QuickSearchHandler extends AbstractHandler {
 				if(qSearchResult.haveResult()) {
 				body = qSearchResult.getBody();
 				title = qSearchResult.getTitle();
-				SearchResultDialog searchResult = new SearchResultDialog(window.getShell(), title, body);
+				QuickSearchResultDialog searchResult = new QuickSearchResultDialog(window.getShell(), title, body);
 				searchResult.open();	
 				}
 				else {

@@ -16,13 +16,13 @@ import org.json.JSONException;
 
 import stackoverflow.APIConnecter.QuickSearchResult;
 
-public class SearchResultDialog extends TitleAreaDialog {
+public class QuickSearchResultDialog extends TitleAreaDialog {
 
 	private String resultText;
 	private String title;
 	private String body;
 
-	public SearchResultDialog(Shell parentShell, String title, String body) {
+	public QuickSearchResultDialog(Shell parentShell, String title, String body) {
 		super(parentShell);
 		this.title = title;
 		this.body = body;
