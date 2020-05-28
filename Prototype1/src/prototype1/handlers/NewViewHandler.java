@@ -13,12 +13,9 @@ public class NewViewHandler extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-//		MessageDialog.openInformation(
-//				window.getShell(),
-//				"Prototype1",
-//				"Hello, Eclipse world");
 		try {
-			HandlerUtil.getActiveWorkbenchWindow(event).getActivePage().showView("prototype1.NewViews.NewViews");
+//			HandlerUtil.getActiveWorkbenchWindow(event).getActivePage().showView("prototype1.NewViews.NewViews");
+			HandlerUtil.getActiveWorkbenchWindow(event).getActivePage().showView("prototype1.NewViews.TableView");
 		} catch (PartInitException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
