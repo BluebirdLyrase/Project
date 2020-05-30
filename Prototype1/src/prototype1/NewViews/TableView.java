@@ -45,7 +45,6 @@ public class TableView extends ViewPart {
 	private Action action2;
 	private Action doubleClickAction;
 	 
-
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 		@Override
 		public String getColumnText(Object obj, int index) {
@@ -63,10 +62,16 @@ public class TableView extends ViewPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		
+		String[] titleList = new String[30];
+		for(int i=0;i<titleList.length;i++) {
+			titleList[i] = "Question Title number "+(1+i);
+		}
+		
+		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.setContentProvider(ArrayContentProvider.getInstance());
-		viewer.setInput(new String[] { "One", "Two", "Three" });
+//		viewer.setInput(new String[] { "One", "Two", "Three" , "four" });
+		viewer.setInput(titleList);
 	viewer.setLabelProvider(new ViewLabelProvider());
 
 		// Create the help context id for the viewer's control
