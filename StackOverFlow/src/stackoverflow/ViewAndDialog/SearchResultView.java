@@ -60,17 +60,17 @@ public class SearchResultView extends ViewPart {
 			return workbench.getSharedImages().getImage(ISharedImages.IMG_OBJ_ELEMENT);
 		}
 	}
-
+	
+	String[] titleList;
+	public void setTitlelist(String[] titleList) {
+	this.titleList = titleList;
+	viewer.setInput(titleList);
+	}
+	
 	@Override
 	public void createPartControl(Composite parent) {
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-		String[] titleList = new String[30];
-		for(int i=0;i<titleList.length;i++) {
-		titleList[i] = "Question Title number "+(1+i);
-		}
-
 		viewer.setContentProvider(ArrayContentProvider.getInstance());
-		viewer.setInput(titleList);
 	viewer.setLabelProvider(new ViewLabelProvider());
 
 		// Create the help context id for the viewer's control

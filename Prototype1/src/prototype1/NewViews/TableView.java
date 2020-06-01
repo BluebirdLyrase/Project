@@ -77,20 +77,9 @@ public class TableView extends ViewPart {
 	@Override
 	public void createPartControl(Composite parent) {
 		
-		UNUSEDSearchResultReader q;
-//		try {
-//		q = new SearchResultReader();
-//		String[] titleList = q.getTitleList();
-		
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.setContentProvider(ArrayContentProvider.getInstance());
-//		viewer.setInput(x);
-//		viewer.setInput(titleList);
 		viewer.setLabelProvider(new ViewLabelProvider());
-//		} catch (IOException | JSONException e) {
-//			e.printStackTrace();
-//		}
-		// Create the help context id for the viewer's control
 		workbench.getHelpSystem().setHelp(viewer.getControl(), "Prototype1.viewer");
 		getSite().setSelectionProvider(viewer);
 		makeActions();

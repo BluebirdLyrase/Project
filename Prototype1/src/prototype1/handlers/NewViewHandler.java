@@ -28,7 +28,7 @@ public class NewViewHandler extends AbstractHandler {
 	
 				SearchResultList searchResultList;
 				try {
-					searchResultList = new SearchResultList("Eclipse");
+				searchResultList = new SearchResultList("Eclipse");
 				String[] titleList = searchResultList.getTitleList();
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				IViewPart viewPart = page.findView("prototype1.NewViews.TableView");

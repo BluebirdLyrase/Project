@@ -8,21 +8,11 @@ import stackoverflow.APIConnecter.SearchResult;
 
 public class SearchResultTest {
 
-	public static void main(String[] args) {
-		String title = "title";
-		String body = "body";
-		String intitle = "Eclipse";
-		System.out.println("title");
-		
-		try {
-			SearchResult s = new SearchResult(intitle);
-			title = s.getTitle();
-			body = s.getBody();
-		} catch (IOException | JSONException e) {
-			e.printStackTrace();
-		}
-		System.out.println(title);
-		System.out.println(body);
+	public static void main(String[] args) throws IOException, JSONException {
+		SearchResult s = new SearchResult("Eclipse");
+		String[] x = s.getTitleList();
+		for(int i=0;i<x.length;i++)
+			System.out.println(x[i]);
 		
 	}
 
