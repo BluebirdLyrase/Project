@@ -3,6 +3,11 @@ package prototype1.NewViews;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
+import org.json.JSONException;
+
+import prototype1.APIconnecter.UNUSEDJSONFileReader;
+import prototype1.APIconnecter.UNUSEDSearchResultReader;
+
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.jface.action.*;
@@ -10,6 +15,9 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.*;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.SWT;
+
+import java.io.IOException;
+
 import javax.inject.Inject;
 
 
@@ -59,25 +67,29 @@ public class TableView extends ViewPart {
 			return workbench.getSharedImages().getImage(ISharedImages.IMG_OBJ_ELEMENT);
 		}
 	}
-	String[] titleList = new String[30];
-	public void setTitleList(String[] titleList) {
-		this.titleList = titleList;
-	}
 
+		String[] x;
+	public void setTitlelist(String[] x) {
+		this.x = x;
+		viewer.setInput(x);
+	}
+	
 	@Override
 	public void createPartControl(Composite parent) {
 		
-		
-//		for(int i=0;i<titleList.length;i++) {
-//			titleList[i] = "Question Title number "+(1+i);
-//		}
+		UNUSEDSearchResultReader q;
+//		try {
+//		q = new SearchResultReader();
+//		String[] titleList = q.getTitleList();
 		
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.setContentProvider(ArrayContentProvider.getInstance());
-//		viewer.setInput(new String[] { "One", "Two", "Three" , "four" });
-		viewer.setInput(titleList);
-	viewer.setLabelProvider(new ViewLabelProvider());
-
+//		viewer.setInput(x);
+//		viewer.setInput(titleList);
+		viewer.setLabelProvider(new ViewLabelProvider());
+//		} catch (IOException | JSONException e) {
+//			e.printStackTrace();
+//		}
 		// Create the help context id for the viewer's control
 		workbench.getHelpSystem().setHelp(viewer.getControl(), "Prototype1.viewer");
 		getSite().setSelectionProvider(viewer);

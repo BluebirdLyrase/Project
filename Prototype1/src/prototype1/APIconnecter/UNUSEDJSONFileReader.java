@@ -10,7 +10,7 @@ import java.io.Reader;
 import java.nio.charset.Charset;
 import org.json.JSONException;
 import org.json.JSONObject;
-public class JSONFileReader {
+public class UNUSEDJSONFileReader {
 	String location;
 	JSONObject json;
 	
@@ -23,9 +23,7 @@ public class JSONFileReader {
 		return sb.toString();
 	}
 
-	protected JSONObject readJsonFromFile(String location) throws IOException, JSONException {
-		System.out.println("location of file is"+location);
-		File file = new File(location);
+	protected JSONObject readJsonFromFile(File file) throws IOException, JSONException {
 		InputStream is = new FileInputStream(file);
 		
 		try {
