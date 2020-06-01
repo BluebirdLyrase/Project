@@ -3,8 +3,10 @@ Bundle-ManifestVersion: 2
 Bundle-Name: StackOverFlow
 Bundle-SymbolicName: StackOverFlow;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Require-Bundle: org.eclipse.ui
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
 Automatic-Module-Name: StackOverFlow
 Bundle-RequiredExecutionEnvironment: JavaSE-13
 Bundle-ClassPath: libs/java-json.jar,
  .
+Import-Package: javax.inject

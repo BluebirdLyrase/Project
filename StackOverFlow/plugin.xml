@@ -102,5 +102,38 @@
          </toolbar>
       </menuContribution>
    </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="SearchResultView"
+            name="SearchResultView Category">
+      </category>
+      <view
+            category="SearchResultView"
+            class="stackoverflow.ViewAndDialog.SearchResultView"
+            icon="icons/sample.png"
+            id="stackoverflow.ViewAndDialog.SearchResultView"
+            inject="true"
+            name="SearchResult View">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               id="stackoverflow.ViewAndDialog.SearchResultView"
+               ratio="0.5"
+               relationship="right"
+               relative="org.eclipse.ui.views.ProblemView">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
 
 </plugin>

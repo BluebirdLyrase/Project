@@ -1,4 +1,4 @@
-package prototype1.NewViews;
+package stackoverflow.ViewAndDialog;
 
 
 import org.eclipse.swt.widgets.Composite;
@@ -31,12 +31,12 @@ import javax.inject.Inject;
  * <p>
  */
 
-public class TableView extends ViewPart {
+public class SearchResultView extends ViewPart {
 
 	/**
 	 * The ID of the view as specified by the extension.
 	 */
-	public static final String ID = "prototype1.NewViews.TableView";
+	public static final String ID = "stackoverflow.ViewAndDialog.SearchResultView";
 
 	@Inject IWorkbench workbench;
 	
@@ -45,6 +45,7 @@ public class TableView extends ViewPart {
 	private Action action2;
 	private Action doubleClickAction;
 	 
+
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 		@Override
 		public String getColumnText(Object obj, int index) {
@@ -59,27 +60,21 @@ public class TableView extends ViewPart {
 			return workbench.getSharedImages().getImage(ISharedImages.IMG_OBJ_ELEMENT);
 		}
 	}
-	String[] titleList = new String[30];
-	public void setTitleList(String[] titleList) {
-		this.titleList = titleList;
-	}
 
 	@Override
 	public void createPartControl(Composite parent) {
-		
-		
-//		for(int i=0;i<titleList.length;i++) {
-//			titleList[i] = "Question Title number "+(1+i);
-//		}
-		
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+		String[] titleList = new String[30];
+		for(int i=0;i<titleList.length;i++) {
+		titleList[i] = "Question Title number "+(1+i);
+		}
+
 		viewer.setContentProvider(ArrayContentProvider.getInstance());
-//		viewer.setInput(new String[] { "One", "Two", "Three" , "four" });
 		viewer.setInput(titleList);
 	viewer.setLabelProvider(new ViewLabelProvider());
 
 		// Create the help context id for the viewer's control
-		workbench.getHelpSystem().setHelp(viewer.getControl(), "Prototype1.viewer");
+		workbench.getHelpSystem().setHelp(viewer.getControl(), "StackOverFlow.viewer");
 		getSite().setSelectionProvider(viewer);
 		makeActions();
 		hookContextMenu();
@@ -92,7 +87,7 @@ public class TableView extends ViewPart {
 		menuMgr.setRemoveAllWhenShown(true);
 		menuMgr.addMenuListener(new IMenuListener() {
 			public void menuAboutToShow(IMenuManager manager) {
-				TableView.this.fillContextMenu(manager);
+				SearchResultView.this.fillContextMenu(manager);
 			}
 		});
 		Menu menu = menuMgr.createContextMenu(viewer.getControl());
@@ -163,7 +158,7 @@ public class TableView extends ViewPart {
 	private void showMessage(String message) {
 		MessageDialog.openInformation(
 			viewer.getControl().getShell(),
-			"Table View",
+			"SearchResult View",
 			message);
 	}
 

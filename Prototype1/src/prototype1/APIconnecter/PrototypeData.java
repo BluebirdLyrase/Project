@@ -13,9 +13,6 @@ public class PrototypeData extends StackOverFlowConnecter{
 		this.json = readJsonFromUrl(this.url);
 	}
 
-	
-
-	
 	public String getTitle() throws JSONException{
 		title = json.getJSONArray("items").getJSONObject(0).get("title").toString();
 		return title;
