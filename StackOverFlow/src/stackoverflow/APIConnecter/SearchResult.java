@@ -6,10 +6,13 @@ public class SearchResult extends StackOverFlowConnecter{
 
 	String[] titleList;
 	String[] questionIdList;
+	String item;
+	Boolean result;
 	
 	public SearchResult(String intitle) throws IOException, JSONException {
-		this.url = "https://api.stackexchange.com/2.2/search?pagesize=20&order=asc&sort=relevance&intitle="+intitle+"&site=stackoverflow&filter=!)5IW-1CBLPytOiimbWji6k(KM(r5";
-		this.json = readJsonFromUrl(this.url);
+		this.url = "https://api.stackexchange.com/2.2/search/advanced?pagesize=20&order=asc&sort=relevance&q="+intitle+"&site=stackoverflow&filter=!)5IW-1CBLPytOiimbWji6k(KM(r5";
+		String newUrl = this.url.replaceAll(" ", "%20");
+		this.json = readJsonFromUrl(newUrl);
 	}
 
 	public String[] getTitleList() throws JSONException {
@@ -28,6 +31,14 @@ public class SearchResult extends StackOverFlowConnecter{
 			questionIdList[i] = json.getJSONArray("items").getJSONObject(i).get("question_id").toString();
 		}
 		return questionIdList;
+	}
+	
+	public Boolean haveResult() throws JSONException {
+	item = json.getJSONArray("items").toString();
+	LOGGER.warning("There is no result");
+	if(item.equals("[]")) result = false;
+	else result = true;	
+	return result;
 	}
 	
 	

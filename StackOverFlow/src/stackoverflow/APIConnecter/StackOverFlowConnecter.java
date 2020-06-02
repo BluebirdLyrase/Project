@@ -1,5 +1,6 @@
 package stackoverflow.APIConnecter;
 import java.io.BufferedReader;
+import java.util.logging.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -12,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class StackOverFlowConnecter {
+	protected static final Logger LOGGER = Logger.getLogger(StackOverFlowConnecter.class.getName());
 	String url;
 	JSONObject json;
 	
@@ -25,6 +27,7 @@ public class StackOverFlowConnecter {
 	}
 
 	protected JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
+		LOGGER.info("["+LOGGER.getName()+"] "+"url : "+url);
 		InputStream is = new URL(url).openStream();
 		is = new GZIPInputStream(is);
 		try {

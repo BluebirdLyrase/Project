@@ -36,13 +36,17 @@ public class SearchHandler extends AbstractHandler {
 			
 			try {
 				HandlerUtil.getActiveWorkbenchWindow(event).getActivePage().showView("stackoverflow.ViewAndDialog.SearchResultView");
-				searchResult = new SearchResult("Eclipse");
+				searchResult = new SearchResult(intitle);
+				if(searchResult.haveResult()) {
 				String[] titleList = searchResult.getTitleList();
 				String[] questionIdList = searchResult.getQuestionIdList();
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				IViewPart viewPart = page.findView("stackoverflow.ViewAndDialog.SearchResultView");
 				SearchResultView myView = (SearchResultView) viewPart;
 				myView.setSearchResult(titleList,questionIdList);
+				}else {
+				MessageDialog.openError(window.getShell(), "Error", "not found the result you are searching");	
+				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

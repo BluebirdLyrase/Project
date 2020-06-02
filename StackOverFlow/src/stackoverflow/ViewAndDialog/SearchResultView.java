@@ -70,7 +70,6 @@ public class SearchResultView extends ViewPart {
 	///setData to next result page
 	for(int i=0;i<questionIdList.length;i++) {
 	viewer.setData("questionId"+i, questionIdList[i]);
-	System.out.println("index"+i+" : "+questionIdList[i]);
 	}
 	viewer.setInput(titleList);
 	}
