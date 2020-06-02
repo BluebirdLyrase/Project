@@ -10,7 +10,7 @@ public class SearchResultTest {
 
 	public static void main(String[] args) throws IOException, JSONException {
 //		SearchResult s = new SearchResult("Eclipse");
-		SearchResult s = new SearchResult("Eclipseccccccccccccccccccc");
+		SearchResult s = new SearchResult("Eclipse");
 		if(s.haveResult()) {
 		String[] x = s.getTitleList();
 		String[] y = s.getQuestionIdList();
