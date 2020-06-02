@@ -35,8 +35,10 @@ public class SearchResult extends StackOverFlowConnecter{
 	
 	public Boolean haveResult() throws JSONException {
 	item = json.getJSONArray("items").toString();
-	LOGGER.warning("There is no result");
-	if(item.equals("[]")) result = false;
+	if(item.equals("[]")) {
+		LOGGER.warning("There is no result");
+		result = false;
+	}
 	else result = true;	
 	return result;
 	}
