@@ -11,9 +11,11 @@ public class SearchResultTest {
 	public static void main(String[] args) throws IOException, JSONException {
 		SearchResult s = new SearchResult("Eclipse");
 		String[] x = s.getTitleList();
-		for(int i=0;i<x.length;i++)
+		String[] y = s.getQuestionIdList();
+		for(int i=0;i<x.length;i++) {
 			System.out.println(x[i]);
-		
+			System.out.println(y[i]);
+		}
 	}
 
 }

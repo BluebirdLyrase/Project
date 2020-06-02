@@ -62,8 +62,16 @@ public class SearchResultView extends ViewPart {
 	}
 	
 	String[] titleList;
-	public void setTitlelist(String[] titleList) {
+	String[] questionIdList;
+	
+	public void setSearchResult(String[] titleList,String[] questionIdList) {
 	this.titleList = titleList;
+	this.questionIdList = questionIdList;
+	///setData to next result page
+	for(int i=0;i<questionIdList.length;i++) {
+	viewer.setData("questionId"+i, questionIdList[i]);
+	System.out.println("index"+i+" : "+questionIdList[i]);
+	}
 	viewer.setInput(titleList);
 	}
 	
@@ -142,8 +150,10 @@ public class SearchResultView extends ViewPart {
 		doubleClickAction = new Action() {
 			public void run() {
 				IStructuredSelection selection = viewer.getStructuredSelection();
+				int index = viewer.getTable().getSelectionIndex();
 				Object obj = selection.getFirstElement();
-				showMessage("Double-click detected on "+obj.toString());
+				showMessage("Double-click detected on Index : "+index+" id : "+viewer.getData("questionId"+index));
+
 			}
 		};
 	}
