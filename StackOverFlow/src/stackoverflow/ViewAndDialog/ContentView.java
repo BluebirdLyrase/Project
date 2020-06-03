@@ -65,19 +65,27 @@ public class ContentView extends ViewPart {
 //	    	label.setText("LABEL");
 //	    	
 //	    	label.setBackground(col);
+		 
+		 
+		 
 	    	
 	    	Label[] collection = new Label[5];
 	    	Label[] sap = new Label[5];
-	    	String[] content = {"Title","I fuck up my codeplz help","code code code","d","d"};
+	    	String[] content = {"Title","I fuck up my codeplz helpadasdasdasdad  I fuck up my codeplz helpadasdasdasdad I fuck up my codeplz helpadasdasdasdad I fuck up my codeplz helpadasdasdasdad I fuck up my codeplz helpadasdasdasdadI fuck up my codeplz helpadasdasdasdad I fuck up my codeplz helpadasdasdasdad","code code code","d","d"};
 	    	for(int i=0 ;i<5;i++) {
-	    		collection[i] = new Label(parent,SWT.NONE);
+	    		collection[i] = new Label(parent,SWT.WRAP);
 	    		collection[i].setText(content[i]);
 	    		Color col2 = new Color(null, 150,100,0+(i*20));
 	    		collection[i].setBackground(col2);
-	    		collection[i].setSize(100,30);
-	    		collection[i].setLocation(50, 50);
+
 	    	}
-	    	
+	    	GridLayout gridLayout = new GridLayout(1, false);
+			gridLayout.marginWidth = 5;
+			gridLayout.marginHeight = 5;
+			gridLayout.verticalSpacing = 0;
+			gridLayout.horizontalSpacing = 0;
+			parent.setLayout(gridLayout);
+			
 	    	}
 	 
 
