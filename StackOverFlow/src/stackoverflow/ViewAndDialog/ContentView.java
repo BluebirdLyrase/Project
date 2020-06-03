@@ -66,7 +66,19 @@ public class ContentView extends ViewPart {
 //	    	
 //	    	label.setBackground(col);
 	    	
-		 setLocation(50, 50);
+	    	Label[] collection = new Label[5];
+	    	Label[] sap = new Label[5];
+	    	String[] content = {"Title","I fuck up my codeplz help","code code code","d","d"};
+	    	for(int i=0 ;i<5;i++) {
+	    		collection[i] = new Label(parent,SWT.NONE);
+	    		collection[i].setText(content[i]);
+	    		Color col2 = new Color(null, 150,100,0+(i*20));
+	    		collection[i].setBackground(col2);
+	    		collection[i].setSize(100,30);
+	    		collection[i].setLocation(50, 50);
+	    	}
+	    	
+	    	}
 	 
 
 	         
