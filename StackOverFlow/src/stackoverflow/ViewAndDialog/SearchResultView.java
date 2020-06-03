@@ -78,7 +78,7 @@ public class SearchResultView extends ViewPart {
 	public void createPartControl(Composite parent) {
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.setContentProvider(ArrayContentProvider.getInstance());
-	viewer.setLabelProvider(new ViewLabelProvider());
+		viewer.setLabelProvider(new ViewLabelProvider());
 
 		// Create the help context id for the viewer's control
 		workbench.getHelpSystem().setHelp(viewer.getControl(), "StackOverFlow.viewer");

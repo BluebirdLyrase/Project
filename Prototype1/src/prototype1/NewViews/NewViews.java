@@ -1,6 +1,5 @@
 package prototype1.NewViews;
 
-import java.awt.Label;
 import java.util.ArrayList;
 
 import org.eclipse.swt.widgets.Composite;
@@ -8,6 +7,7 @@ import org.eclipse.ui.part.*;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.jface.action.*;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.*;
@@ -17,6 +17,8 @@ import org.eclipse.core.runtime.IAdaptable;
 import javax.inject.Inject;
 import javax.swing.text.LabelView;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.*;
+import org.eclipse.swt.SWT;
 
 /**
  * This sample class demonstrates how to plug-in a new
@@ -49,6 +51,12 @@ public class NewViews extends ViewPart {
     	Label[] collection = new Label[5];
     	Label[] sap = new Label[5];
     	String[] content = {"Title","I fuck up my codeplz help","code code code","d","d"};
+    	GridLayout gridLayout = new GridLayout(1, false);
+		gridLayout.marginWidth = 5;
+		gridLayout.marginHeight = 5;
+		gridLayout.verticalSpacing = 0;
+		gridLayout.horizontalSpacing = 0;
+		parent.setLayout(gridLayout);
     	for(int i=0 ;i<5;i++) {
     		collection[i] = new Label(parent,SWT.NONE);
     		collection[i].setText(content[i]);
@@ -58,9 +66,14 @@ public class NewViews extends ViewPart {
     		collection[i].setLocation(50, 50);
     	}
     	
+    	
+    	
+    	
+    	
+    	
     	}
         
-	}
+	
 
 	@Override
 	public void setFocus() {

@@ -104,12 +104,8 @@
    </extension>
    <extension
          point="org.eclipse.ui.views">
-      <category
-            id="SearchResultView"
-            name="SearchResultView Category">
-      </category>
       <view
-            category="SearchResultView"
+            category="StackOverFlow"
             class="stackoverflow.ViewAndDialog.SearchResultView"
             icon="icons/sample.png"
             id="stackoverflow.ViewAndDialog.SearchResultView"
@@ -118,7 +114,7 @@
       </view>
       <category
             id="StackOverFlow"
-            name="Content View Category">
+            name="StackOverFlow Category">
       </category>
       <view
             category="StackOverFlow"
@@ -127,6 +123,14 @@
             id="stackoverflow.ViewAndDialog.ContentView"
             inject="true"
             name="Content View">
+      </view>
+      <view
+            category="StackOverFlow"
+            class="stackoverflow.ViewAndDialog.TestView"
+            icon="icons/sample.png"
+            id="stackoverflow.ViewAndDialog.TestView"
+            inject="true"
+            name="Test View">
       </view>
    </extension>
    <extension
@@ -152,9 +156,21 @@
                relative="org.eclipse.ui.views.ProblemView">
          </view>
       </perspectiveExtension>
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               id="stackoverflow.ViewAndDialog.TestView"
+               ratio="0.5"
+               relationship="right"
+               relative="org.eclipse.ui.views.ProblemView">
+         </view>
+      </perspectiveExtension>
    </extension>
    <extension
          point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
       <contexts
             file="contexts.xml">
       </contexts>

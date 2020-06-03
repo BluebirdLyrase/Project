@@ -10,7 +10,8 @@ public class SearchResult extends StackOverFlowConnecter{
 	Boolean result;
 	
 	public SearchResult(String intitle) throws IOException, JSONException {
-		this.url = "https://api.stackexchange.com/2.2/search/advanced?pagesize=20&order=asc&sort=relevance&q="+intitle+"&site=stackoverflow&filter=!)5IW-1CBLPytOiimbWji6k(KM(r5";
+//		this.url = "https://api.stackexchange.com/2.2/search/advanced?pagesize=20&order=asc&sort=relevance&q="+intitle+"&site=stackoverflow&filter=!)5IW-1CBLPytOiimbWji6k(KM(r5";
+		this.url = "https://api.stackexchange.com/2.2/search/advanced?pagesize=40&order=asc&sort=relevance&q="+intitle+"&site=stackoverflow&filter=!)5IW-1CBLPytOiimbWji6k(KM(r5";
 		String newUrl = this.url.replaceAll(" ", "%20");
 		this.json = readJsonFromUrl(newUrl);
 	}

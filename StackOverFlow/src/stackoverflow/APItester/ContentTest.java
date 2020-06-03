@@ -2,6 +2,8 @@ package stackoverflow.APItester;
 
 import java.io.IOException;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Label;
 import org.json.JSONException;
 
 import stackoverflow.APIConnecter.AllContent;
@@ -18,6 +20,8 @@ public class ContentTest {
 		Question q = c.getAllConetent();
 		System.out.println(q.getBody());
 		System.out.println(q.getTitle());
+		
+
 
 		if (q.isHaveComment()) {
 
