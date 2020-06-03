@@ -12,9 +12,9 @@ public class ContentTest {
 
 	public static void main(String[] args) throws IOException, JSONException {
 //		SearchResult s = new SearchResult("Eclipse");
-//		AllContent c = new AllContent("62153976");
+		AllContent c = new AllContent("62153976");
 //		AllContent c = new AllContent("62153991");
-		AllContent c = new AllContent("1678122");
+//		AllContent c = new AllContent("1678122");
 		Question q = c.getAllConetent();
 		System.out.println(q.getBody());
 		System.out.println(q.getTitle());
@@ -37,9 +37,10 @@ public class ContentTest {
 				System.out.println(a[i].getBody());
 				System.out.println(a[i].getScore());
 				if (a[i].isHaveComment()) {
+					String[] comment = a[i].getComment();
 					for (int j = 0; j < a[i].getComment().length; j++) {
 						System.out.println("Loop j : "+j );
-						System.out.println(a[i].getComment());
+						System.out.println(comment[j]);
 					}
 				}
 			}
