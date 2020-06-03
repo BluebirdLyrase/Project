@@ -47,31 +47,27 @@ public class ContentView extends ViewPart {
 	    public void createPartControl(Composite parent) {
 		 
 
-	        StyledText sText = new StyledText(parent, SWT.CENTER);
-	    	sText.setText("0123456789 ABCDEFGHIJKLM NOPQRSTUVWXYZ");
-	    	// make 0123456789 appear bold
-	    	StyleRange style1 = new StyleRange();
-	    	style1.start = 0;
-	    	style1.length = 10;
-	    	style1.fontStyle = SWT.BOLD;
-	    	sText.setStyleRange(style1);
-
-	        Label label = new Label(parent,SWT.CENTER);
-	        Color col = new Color(null, 150,100,100);
-	        parent.setLayout (new FillLayout ());
-	        
-	    	new Label (parent, SWT.SEPARATOR | SWT.VERTICAL);
-	    	parent.setSize (200, 200);
-	    	label.setText("LABEL");
+//	        StyledText sText = new StyledText(parent, SWT.CENTER);
+//	    	sText.setText("0123456789 ABCDEFGHIJKLM NOPQRSTUVWXYZ");
+//	    	// make 0123456789 appear bold
+//	    	StyleRange style1 = new StyleRange();
+//	    	style1.start = 0;
+//	    	style1.length = 10;
+//	    	style1.fontStyle = SWT.BOLD;
+//	    	sText.setStyleRange(style1);
+//
+//	        Label label = new Label(parent,SWT.CENTER);
+//	        Color col = new Color(null, 150,100,100);
+//	        parent.setLayout (new FillLayout ());
+//	        
+//	    	new Label (parent, SWT.SEPARATOR | SWT.VERTICAL);
+//	    	parent.setSize (200, 200);
+//	    	label.setText("LABEL");
+//	    	
+//	    	label.setBackground(col);
 	    	
-	    	label.setBackground(col);
-	    	
-	    	for(int i=0 ;i<5;i++) {
-	    		
-	    	}
-	    	
-	    	}
-	 		
+		 setLocation(50, 50);
+	 
 
 	         
 	    
