@@ -66,6 +66,9 @@ public class ContentView extends ViewPart {
 	    	
 	    	label.setBackground(col);
 	    	
+	    	for(int i=0 ;i<5;i++) {
+	    		
+	    	}
 	    	
 	    	}
 	 		
