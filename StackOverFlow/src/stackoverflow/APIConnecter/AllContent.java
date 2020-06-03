@@ -116,7 +116,7 @@ public class AllContent extends StackOverFlowConnecter {
 				}
 			}
 
-			new Answer(aBody, score, is_accepted, Acomment, haveAComment);
+			answer[i] = new Answer(aBody, score, is_accepted, Acomment, haveAComment);
 		}
 		
 		}

@@ -9,35 +9,31 @@ public class Question {
 		this.haveComment = haveComment;
 		this.haveAnswer = haveAnswer;
 	}
+	
 	private String title;
 	private String body;
 	private String[] comment;
 	private Answer[] answer;
 	boolean haveComment;
+	
+	public boolean isHaveComment() {
+		return haveComment;
+	}
+	public boolean isHaveAnswer() {
+		return haveAnswer;
+	}
 	boolean haveAnswer;
 	public String getTitle() {
 		return title;
 	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
 	public String getBody() {
 		return body;
-	}
-	public void setBody(String body) {
-		this.body = body;
 	}
 	public String[] getComment() {
 		return comment;
 	}
-	public void setComment(String[] comment) {
-		this.comment = comment;
-	}
 	public Answer[] getAnswer() {
 		return answer;
-	}
-	public void setAnswer(Answer[] answer) {
-		this.answer = answer;
 	}
 	
 	
