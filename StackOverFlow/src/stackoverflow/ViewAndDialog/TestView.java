@@ -70,8 +70,6 @@ public class TestView extends ViewPart {
 			composite.setLayout(gridLayout);
 			c = new AllContent("62170002");
 
-			
-	
 //		AllContent c = new AllContent("62153991");
 //		AllContent c = new AllContent("1678122");
 			Question q = c.getAllConetent();
