@@ -5,9 +5,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.jface.action.*;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.*;
+import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.SWT;
 import javax.inject.Inject;
@@ -63,8 +65,10 @@ public class SearchResultView extends ViewPart {
 	
 	String[] titleList;
 	String[] questionIdList;
+	ExecutionEvent event;
 	
-	public void setSearchResult(String[] titleList,String[] questionIdList) {
+	public void setSearchResult(String[] titleList,String[] questionIdList,ExecutionEvent event) {
+	this.event = event;
 	this.titleList = titleList;
 	this.questionIdList = questionIdList;
 	///setData to next result page
@@ -151,7 +155,18 @@ public class SearchResultView extends ViewPart {
 				IStructuredSelection selection = viewer.getStructuredSelection();
 				int index = viewer.getTable().getSelectionIndex();
 				Object obj = selection.getFirstElement();
-				showMessage("Double-click detected on Index : "+index+" id : "+viewer.getData("questionId"+index));
+//				showMessage("Double-click detected on Index : "+index+" id : "+viewer.getData("questionId"+index));
+				
+				try {
+					HandlerUtil.getActiveWorkbenchWindow(event).getActivePage().showView("stackoverflow.ViewAndDialog.TestView");
+					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+					IViewPart viewPart = page.findView("stackoverflow.ViewAndDialog.TestView");
+					TestView myView = (TestView) viewPart;
+					myView.setContent(viewer.getData("questionId"+index).toString());
+				} catch (PartInitException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 			}
 		};
