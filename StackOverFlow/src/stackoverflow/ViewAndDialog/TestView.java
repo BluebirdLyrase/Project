@@ -57,14 +57,16 @@ public class TestView extends ViewPart {
 
 	public void setContent(String id) {
 		
-//		Control[] children = parent.getChildren();
-//		System.out.println("Children = "+children.length);
-//		int length = children.length;
-//		for(int i = length-1;i>=0;i--) {
-//			System.out.println(children[i]+" "+i);
-//			children[0].dispose();
-//		}
-
+		///////////////need to add this on top off ContentView setContent///////////////
+		
+		Control[] children = parent.getChildren();
+		System.out.println("Children = "+children.length);
+		int length = children.length;
+		for(int i = 0;i<length;i++) {
+			System.out.println(children[i]+" "+i);
+			children[i].dispose();
+		}
+		////////////////////////////////////////////////////////////////////////////////
 
 		ScrolledComposite sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
 		Composite composite = new Composite(sc, SWT.BORDER | SWT.WRAP | SWT.MULTI);
@@ -154,6 +156,7 @@ public class TestView extends ViewPart {
 		sc.setExpandHorizontal(true);
 		sc.setExpandVertical(true);
 		sc.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		parent.pack(); //need to add this on top off ContentView setContent//
 
 	}
 
