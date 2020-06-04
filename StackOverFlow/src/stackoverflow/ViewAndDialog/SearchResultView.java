@@ -80,7 +80,7 @@ public class SearchResultView extends ViewPart {
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.setContentProvider(ArrayContentProvider.getInstance());
 		viewer.setLabelProvider(new ViewLabelProvider());
-
+		viewer.setInput(null);
 		// Create the help context id for the viewer's control
 		workbench.getHelpSystem().setHelp(viewer.getControl(), "StackOverFlow.viewer");
 		getSite().setSelectionProvider(viewer);
@@ -149,10 +149,9 @@ public class SearchResultView extends ViewPart {
 		doubleClickAction = new Action() {
 			public void run() {
 				int index = viewer.getTable().getSelectionIndex();
+				String viewerID = "stackoverflow.ViewAndDialog.TestView";
 				try {
 
-					String viewerID = "stackoverflow.ViewAndDialog.TestView";
-					
 					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 					IViewPart openedPage = page.findView(viewerID);
 					System.out.println("I DONT KNOW WHAT IS THIS : " + openedPage);

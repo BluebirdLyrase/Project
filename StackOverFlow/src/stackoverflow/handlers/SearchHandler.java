@@ -27,28 +27,32 @@ public class SearchHandler extends AbstractHandler {
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 		UserInputDialog dialog = new UserInputDialog(window.getShell());
 		dialog.create();
-		
+
 		if (dialog.open() == Window.OK) {
-			
+
 			intitle = dialog.getSearchText();
 			System.out.println("intitle = " + intitle);
 			SearchResult searchResult;
-			
+			String viewerID = "stackoverflow.ViewAndDialog.SearchResultView";
+
 			try {
-				HandlerUtil.getActiveWorkbenchWindow(event).getActivePage().showView("stackoverflow.ViewAndDialog.SearchResultView");
+
 				searchResult = new SearchResult(intitle);
-				if(searchResult.haveResult()) {
-					
-				String[] titleList = searchResult.getTitleList();
-				String[] questionIdList = searchResult.getQuestionIdList();
-				
-				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-				IViewPart viewPart = page.findView("stackoverflow.ViewAndDialog.SearchResultView");
-				SearchResultView myView = (SearchResultView) viewPart;
-				myView.setSearchResult(titleList,questionIdList,event);
-				
-				}else {
-				MessageDialog.openError(window.getShell(), "Error", "not found the result you are searching");	
+				if (searchResult.haveResult()) {
+
+					String[] titleList = searchResult.getTitleList();
+					String[] questionIdList = searchResult.getQuestionIdList();
+
+					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+					window.getActivePage().showView(viewerID);
+
+					IViewPart viewPart = page.findView(viewerID);
+					SearchResultView myView = (SearchResultView) viewPart;
+
+					myView.setSearchResult(titleList, questionIdList, event);
+
+				} else {
+					MessageDialog.openError(window.getShell(), "Error", "not found the result you are searching");
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
