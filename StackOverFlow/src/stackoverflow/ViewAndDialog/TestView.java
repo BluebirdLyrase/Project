@@ -51,13 +51,13 @@ public class TestView extends ViewPart {
 
 	@Inject
 	IWorkbench workbench;
-	
+
 	Composite parent;
-	
+
 	public void setContent(String id) {
-		
+
 		ScrolledComposite sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
-		Composite composite = new Composite(sc, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL | SWT.MULTI);
+		Composite composite = new Composite(sc, SWT.BORDER | SWT.WRAP | SWT.MULTI);
 		sc.setContent(composite);
 
 		composite.setLayout(new GridLayout(2, false));
@@ -81,12 +81,12 @@ public class TestView extends ViewPart {
 
 			qTitle.setText(q.getTitle());
 			qBody.setText(q.getBody());
-			
+
 			Label commentHeader = new Label(composite, SWT.BOLD);
 			commentHeader.setText("Comment is here");
-			
-			Color commentColor = new Color(null,197,197,197);
-			
+
+			Color commentColor = new Color(null, 197, 197, 197);
+
 			if (q.isHaveComment()) {
 
 				String[] comment = q.getComment();
@@ -102,26 +102,25 @@ public class TestView extends ViewPart {
 			}
 
 			if (q.isHaveAnswer()) {
-				
+
 				Answer[] answers = q.getAnswer();
 				Label[] lAnswers = new Label[answers.length];
 				Label[] lAnswersHeader = new Label[answers.length];
-				
+
 				for (int i = 0; i < answers.length; i++) {
 					System.out.println("Loop i : " + i);
 					System.out.println(answers[i].getBody());
 					System.out.println(answers[i].getScore());
 					lAnswersHeader[i] = new Label(composite, SWT.NONE);
-					lAnswersHeader[i].setText("Answer "+i);
+					lAnswersHeader[i].setText("Answer " + i);
 					lAnswers[i] = new Label(composite, SWT.NONE);
 					lAnswers[i].setText(answers[i].getBody());
 
-					
 					if (answers[i].isHaveComment()) {
-						
+
 						String[] aComment = answers[i].getComment();
 						Label[] lAComment = new Label[answers[i].getComment().length];
-						
+
 						for (int j = 0; j < answers[i].getComment().length; j++) {
 							System.out.println("Loop j : " + j);
 							System.out.println(aComment[j]);
@@ -145,15 +144,15 @@ public class TestView extends ViewPart {
 		sc.setExpandHorizontal(true);
 		sc.setExpandVertical(true);
 		sc.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-		
+
 	}
 
 	@Override
 	public void createPartControl(Composite parent) {
 		this.parent = parent;
-
-//		ScrolledComposite sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
-//		Composite composite = new Composite(sc, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL | SWT.MULTI);
+//
+//		ScrolledComposite sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL );
+//		Composite composite = new Composite(sc, SWT.BORDER | SWT.WRAP | SWT.MULTI);
 //		sc.setContent(composite);
 //
 //		composite.setLayout(new GridLayout(2, false));
@@ -174,15 +173,14 @@ public class TestView extends ViewPart {
 //
 //			Label qTitle = new Label(composite, SWT.BOLD);
 //			Label qBody = new Label(composite, SWT.NONE);
-//
 //			qTitle.setText(q.getTitle());
 //			qBody.setText(q.getBody());
-//			
+//
 //			Label commentHeader = new Label(composite, SWT.BOLD);
 //			commentHeader.setText("Comment is here");
-//			
-//			Color commentColor = new Color(null,197,197,197);
-//			
+//
+//			Color commentColor = new Color(null, 197, 197, 197);
+//
 //			if (q.isHaveComment()) {
 //
 //				String[] comment = q.getComment();
@@ -198,26 +196,25 @@ public class TestView extends ViewPart {
 //			}
 //
 //			if (q.isHaveAnswer()) {
-//				
+//
 //				Answer[] answers = q.getAnswer();
 //				Label[] lAnswers = new Label[answers.length];
 //				Label[] lAnswersHeader = new Label[answers.length];
-//				
+//
 //				for (int i = 0; i < answers.length; i++) {
 //					System.out.println("Loop i : " + i);
 //					System.out.println(answers[i].getBody());
 //					System.out.println(answers[i].getScore());
 //					lAnswersHeader[i] = new Label(composite, SWT.NONE);
-//					lAnswersHeader[i].setText("Answer "+i);
+//					lAnswersHeader[i].setText("Answer " + i);
 //					lAnswers[i] = new Label(composite, SWT.NONE);
 //					lAnswers[i].setText(answers[i].getBody());
 //
-//					
 //					if (answers[i].isHaveComment()) {
-//						
+//
 //						String[] aComment = answers[i].getComment();
 //						Label[] lAComment = new Label[answers[i].getComment().length];
-//						
+//
 //						for (int j = 0; j < answers[i].getComment().length; j++) {
 //							System.out.println("Loop j : " + j);
 //							System.out.println(aComment[j]);
