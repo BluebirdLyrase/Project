@@ -153,11 +153,12 @@ public class SearchResultView extends ViewPart {
 				try {
 
 					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-					IViewPart openedPage = page.findView(viewerID);
-					System.out.println("I DONT KNOW WHAT IS THIS : " + openedPage);
-					if (openedPage != null) {
-						page.hideView(openedPage);
-					}
+//					IViewPart openedPage = page.findView(viewerID);
+//					System.out.println("I DONT KNOW WHAT IS THIS : " + openedPage);
+//					if (openedPage != null) {
+//						page.hideView(openedPage);
+//					} /////this will cause an ERROR 
+					
 					HandlerUtil.getActiveWorkbenchWindow(event).getActivePage().showView(viewerID);
 					IViewPart viewPart = page.findView(viewerID);
 					TestView myView = (TestView) viewPart;

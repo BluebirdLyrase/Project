@@ -1,6 +1,7 @@
 package stackoverflow.ViewAndDialog;
 
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.part.*;
 import org.json.JSONException;
@@ -55,6 +56,15 @@ public class TestView extends ViewPart {
 	Composite parent;
 
 	public void setContent(String id) {
+		
+//		Control[] children = parent.getChildren();
+//		System.out.println("Children = "+children.length);
+//		int length = children.length;
+//		for(int i = length-1;i>=0;i--) {
+//			System.out.println(children[i]+" "+i);
+//			children[0].dispose();
+//		}
+
 
 		ScrolledComposite sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
 		Composite composite = new Composite(sc, SWT.BORDER | SWT.WRAP | SWT.MULTI);
@@ -73,8 +83,8 @@ public class TestView extends ViewPart {
 			c = new AllContent(id);
 
 			Question q = c.getAllConetent();
-			System.out.println(q.getBody());
-			System.out.println(q.getTitle());
+//			System.out.println(q.getBody());
+//			System.out.println(q.getTitle());
 
 			Label qTitle = new Label(composite, SWT.BOLD);
 			Label qBody = new Label(composite, SWT.NONE);
@@ -90,10 +100,10 @@ public class TestView extends ViewPart {
 			if (q.isHaveComment()) {
 
 				String[] comment = q.getComment();
-				System.out.println(comment.length);
+//				System.out.println(comment.length);
 				Label[] lComment = new Label[comment.length];
 				for (int i = 0; i < comment.length; i++) {
-					System.out.println(comment[i]);
+//					System.out.println(comment[i]);
 					lComment[i] = new Label(composite, SWT.NONE);
 					lComment[i].setText(comment[i]);
 					lComment[i].setBackground(commentColor);
@@ -108,9 +118,9 @@ public class TestView extends ViewPart {
 				Label[] lAnswersHeader = new Label[answers.length];
 
 				for (int i = 0; i < answers.length; i++) {
-					System.out.println("Loop i : " + i);
-					System.out.println(answers[i].getBody());
-					System.out.println(answers[i].getScore());
+//					System.out.println("Loop i : " + i);
+//					System.out.println(answers[i].getBody());
+//					System.out.println(answers[i].getScore());
 					lAnswersHeader[i] = new Label(composite, SWT.NONE);
 					lAnswersHeader[i].setText("Answer " + i);
 					lAnswers[i] = new Label(composite, SWT.NONE);
@@ -122,8 +132,8 @@ public class TestView extends ViewPart {
 						Label[] lAComment = new Label[answers[i].getComment().length];
 
 						for (int j = 0; j < answers[i].getComment().length; j++) {
-							System.out.println("Loop j : " + j);
-							System.out.println(aComment[j]);
+//							System.out.println("Loop j : " + j);
+//							System.out.println(aComment[j]);
 							lAComment[j] = new Label(composite, SWT.NONE);
 							lAComment[j].setText(aComment[j]);
 							lAComment[j].setBackground(commentColor);
@@ -150,8 +160,9 @@ public class TestView extends ViewPart {
 	@Override
 	public void createPartControl(Composite parent) {
 		this.parent = parent;
-//
-//		ScrolledComposite sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL );
+
+
+////		ScrolledComposite sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL );
 //		Composite composite = new Composite(sc, SWT.BORDER | SWT.WRAP | SWT.MULTI);
 //		sc.setContent(composite);
 //
