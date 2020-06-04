@@ -1,6 +1,5 @@
 package stackoverflow.ViewAndDialog;
 
-
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
 import org.eclipse.jface.viewers.*;
@@ -14,22 +13,18 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.SWT;
 import javax.inject.Inject;
 
-
 /**
- * This sample class demonstrates how to plug-in a new
- * workbench view. The view shows data obtained from the
- * model. The sample creates a dummy model on the fly,
- * but a real implementation would connect to the model
- * available either in this or another plug-in (e.g. the workspace).
- * The view is connected to the model using a content provider.
+ * This sample class demonstrates how to plug-in a new workbench view. The view
+ * shows data obtained from the model. The sample creates a dummy model on the
+ * fly, but a real implementation would connect to the model available either in
+ * this or another plug-in (e.g. the workspace). The view is connected to the
+ * model using a content provider.
  * <p>
- * The view uses a label provider to define how model
- * objects should be presented in the view. Each
- * view can present the same model objects using
- * different labels and icons, if needed. Alternatively,
- * a single label provider can be shared between views
- * in order to ensure that objects of the same type are
- * presented in the same way everywhere.
+ * The view uses a label provider to define how model objects should be
+ * presented in the view. Each view can present the same model objects using
+ * different labels and icons, if needed. Alternatively, a single label provider
+ * can be shared between views in order to ensure that objects of the same type
+ * are presented in the same way everywhere.
  * <p>
  */
 
@@ -40,44 +35,46 @@ public class SearchResultView extends ViewPart {
 	 */
 	public static final String ID = "stackoverflow.ViewAndDialog.SearchResultView";
 
-	@Inject IWorkbench workbench;
-	
+	@Inject
+	IWorkbench workbench;
+
 	private TableViewer viewer;
 	private Action action1;
 	private Action action2;
 	private Action doubleClickAction;
-	 
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 		@Override
 		public String getColumnText(Object obj, int index) {
 			return getText(obj);
 		}
+
 		@Override
 		public Image getColumnImage(Object obj, int index) {
 			return getImage(obj);
 		}
+
 		@Override
 		public Image getImage(Object obj) {
 			return workbench.getSharedImages().getImage(ISharedImages.IMG_OBJ_ELEMENT);
 		}
 	}
-	
+
 	String[] titleList;
 	String[] questionIdList;
 	ExecutionEvent event;
-	
-	public void setSearchResult(String[] titleList,String[] questionIdList,ExecutionEvent event) {
-	this.event = event;
-	this.titleList = titleList;
-	this.questionIdList = questionIdList;
-	///setData to next result page
-	for(int i=0;i<questionIdList.length;i++) {
-	viewer.setData("questionId"+i, questionIdList[i]);
+
+	public void setSearchResult(String[] titleList, String[] questionIdList, ExecutionEvent event) {
+		this.event = event;
+		this.titleList = titleList;
+		this.questionIdList = questionIdList;
+		/// setData to next result page
+		for (int i = 0; i < questionIdList.length; i++) {
+			viewer.setData("questionId" + i, questionIdList[i]);
+		}
+		viewer.setInput(titleList);
 	}
-	viewer.setInput(titleList);
-	}
-	
+
 	@Override
 	public void createPartControl(Composite parent) {
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
@@ -124,7 +121,7 @@ public class SearchResultView extends ViewPart {
 		// Other plug-ins can contribute there actions here
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
-	
+
 	private void fillLocalToolBar(IToolBarManager manager) {
 		manager.add(action1);
 		manager.add(action2);
@@ -138,9 +135,9 @@ public class SearchResultView extends ViewPart {
 		};
 		action1.setText("Action 1");
 		action1.setToolTipText("Action 1 tooltip");
-		action1.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-			getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
-		
+		action1.setImageDescriptor(
+				PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+
 		action2 = new Action() {
 			public void run() {
 				showMessage("Action 2 executed");
@@ -148,21 +145,26 @@ public class SearchResultView extends ViewPart {
 		};
 		action2.setText("Action 2");
 		action2.setToolTipText("Action 2 tooltip");
-		action2.setImageDescriptor(workbench.getSharedImages().
-				getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+		action2.setImageDescriptor(workbench.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
 		doubleClickAction = new Action() {
 			public void run() {
-				IStructuredSelection selection = viewer.getStructuredSelection();
 				int index = viewer.getTable().getSelectionIndex();
-				Object obj = selection.getFirstElement();
-//				showMessage("Double-click detected on Index : "+index+" id : "+viewer.getData("questionId"+index));
-				
 				try {
-					HandlerUtil.getActiveWorkbenchWindow(event).getActivePage().showView("stackoverflow.ViewAndDialog.TestView");
+
+					String viewerID = "stackoverflow.ViewAndDialog.TestView";
+					
 					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-					IViewPart viewPart = page.findView("stackoverflow.ViewAndDialog.TestView");
+					IViewPart openedPage = page.findView(viewerID);
+					System.out.println("I DONT KNOW WHAT IS THIS : " + openedPage);
+					if (openedPage != null) {
+						page.hideView(openedPage);
+					}
+					HandlerUtil.getActiveWorkbenchWindow(event).getActivePage().showView(viewerID);
+					IViewPart viewPart = page.findView(viewerID);
 					TestView myView = (TestView) viewPart;
-					myView.setContent(viewer.getData("questionId"+index).toString());
+
+					myView.setContent(viewer.getData("questionId" + index).toString());
+
 				} catch (PartInitException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -179,11 +181,9 @@ public class SearchResultView extends ViewPart {
 			}
 		});
 	}
+
 	private void showMessage(String message) {
-		MessageDialog.openInformation(
-			viewer.getControl().getShell(),
-			"SearchResult View",
-			message);
+		MessageDialog.openInformation(viewer.getControl().getShell(), "SearchResult View", message);
 	}
 
 	@Override
