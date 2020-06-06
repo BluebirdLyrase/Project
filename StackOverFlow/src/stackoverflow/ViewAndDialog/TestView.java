@@ -89,8 +89,7 @@ public class TestView extends ViewPart {
 //			System.out.println(q.getTitle());
 
 			Label qTitle = new Label(composite, SWT.BOLD);
-			Label qBody = new Label(composite, SWT.NONE);
-
+			Text qBody = new Text(composite, SWT.WRAP);
 			qTitle.setText(q.getTitle());
 			qBody.setText(q.getBody());
 
@@ -155,8 +154,8 @@ public class TestView extends ViewPart {
 
 		sc.setExpandHorizontal(true);
 		sc.setExpandVertical(true);
-		sc.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		parent.pack(); //need to add this on top off ContentView setContent//
+		sc.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 
 	}
 
