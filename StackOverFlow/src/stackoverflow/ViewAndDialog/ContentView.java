@@ -54,6 +54,18 @@ public class ContentView extends ViewPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
+		
+		
+		
+		Control[] children = parent.getChildren();
+		System.out.println("Children = "+children.length);
+		int length = children.length;
+		for(int i = 0;i<length;i++) {
+			System.out.println(children[i]+" "+i);
+			children[i].dispose();
+		}
+		
+		
 		ScrolledComposite sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
 		Composite composite = new Composite(sc, SWT.BORDER | SWT.WRAP  | SWT.MULTI);
 		sc.setContent(composite);
@@ -148,6 +160,7 @@ public class ContentView extends ViewPart {
 
 		sc.setExpandHorizontal(true);
 		sc.setExpandVertical(true);
+		parent.pack();
 		sc.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 	}
 
