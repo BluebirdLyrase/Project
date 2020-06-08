@@ -72,7 +72,7 @@ public class AllContentStub {
 
 	public AllContentStub(String question_id) throws IOException, JSONException {
 
-		this.url = "lib/content.json";
+		this.url = "libs/content.json";
 		Bundle bundle = Platform.getBundle("StackOverFlow");
 		URL fileURL = bundle.getEntry(url);
 		File file = null;

@@ -5,6 +5,7 @@ import org.eclipse.ui.part.*;
 import org.json.JSONException;
 
 import stackoverflow.APIConnecter.AllContent;
+import stackoverflow.APIConnecter.AllContentStub;
 import stackoverflow.DataClass.Answer;
 import stackoverflow.DataClass.Question;
 
@@ -54,23 +55,13 @@ public class ContentView extends ViewPart {
 	
 	public void setContent(String id) {
 		
-		
-		Control[] children = parent.getChildren();
-		System.out.println("Children = "+children.length);
-		int length = children.length;
-		for(int i = 0;i<length;i++) {
-			System.out.println(children[i]+" "+i);
-			children[i].dispose();
-		}
-		
-		
 		ScrolledComposite sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
 		Composite composite = new Composite(sc, SWT.BORDER | SWT.WRAP  | SWT.MULTI);
 		sc.setContent(composite);
 
 		composite.setLayout(new GridLayout(2, false));
-
-		AllContent c;
+//		AllContentStub content;
+		AllContent content;
 		try {
 			GridLayout gridLayout = new GridLayout(1, false);
 			gridLayout.marginWidth = 5;
@@ -79,9 +70,10 @@ public class ContentView extends ViewPart {
 			gridLayout.horizontalSpacing = 0;
 
 			composite.setLayout(gridLayout);
-			c = new AllContent(id);
+			content = new AllContent(id);
+//			content = new AllContentStub("no");
 
-			Question q = c.getAllConetent();
+			Question q = content.getAllConetent();
 			System.out.println(q.getBody());
 			System.out.println(q.getTitle());
 
@@ -158,8 +150,8 @@ public class ContentView extends ViewPart {
 
 		sc.setExpandHorizontal(true);
 		sc.setExpandVertical(true);
-		parent.pack();
 		sc.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+//		parent.pack();
 		
 	}
 

@@ -44,7 +44,6 @@ public class AllContent extends StackOverFlowConnecter {
 
 		String strComment_count = itemObject.get("comment_count").toString();
 		int comment_count = Integer.parseInt(strComment_count);
-//		System.out.println(comment_count);
 		if (comment_count > 0) {
 			haveComment = true;
 		} else {
@@ -96,8 +95,6 @@ public class AllContent extends StackOverFlowConnecter {
 			
 			String strAComment_count = currentAnswerObject.get("comment_count").toString();
 			int AComment_count = Integer.parseInt(strAComment_count);
-			
-//			System.out.println(AComment_count);
 			
 			if (AComment_count > 0) {
 				haveAComment = true;

@@ -37,7 +37,8 @@ public class SearchResultView extends ViewPart {
 
 	@Inject
 	IWorkbench workbench;
-
+	
+	private int secondaryId = 1;
 	private TableViewer viewer;
 	private Action action1;
 	private Action action2;
@@ -153,10 +154,12 @@ public class SearchResultView extends ViewPart {
 				try {
 
 					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();			
-					HandlerUtil.getActiveWorkbenchWindow(event).getActivePage().showView(viewerID);
-					IViewPart viewPart = page.findView(viewerID);
+					HandlerUtil.getActiveWorkbenchWindow(event).getActivePage().showView(viewerID, Integer.toString(secondaryId), IWorkbenchPage.VIEW_ACTIVATE);
+					IViewReference currentView = page.findViewReference(viewerID, Integer.toString(secondaryId));
+					IViewPart viewPart = currentView.getView(true);
 					ContentView myView = (ContentView) viewPart;
-
+					secondaryId++;
+ 
 					myView.setContent(viewer.getData("questionId" + index).toString());
 
 				} catch (PartInitException e) {
