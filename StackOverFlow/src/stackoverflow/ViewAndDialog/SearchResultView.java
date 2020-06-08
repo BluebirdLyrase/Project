@@ -149,19 +149,13 @@ public class SearchResultView extends ViewPart {
 		doubleClickAction = new Action() {
 			public void run() {
 				int index = viewer.getTable().getSelectionIndex();
-				String viewerID = "stackoverflow.ViewAndDialog.TestView";
+				String viewerID = "stackoverflow.ViewAndDialog.ContentView";
 				try {
 
-					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-//					IViewPart openedPage = page.findView(viewerID);
-//					System.out.println("I DONT KNOW WHAT IS THIS : " + openedPage);
-//					if (openedPage != null) {
-//						page.hideView(openedPage);
-//					} /////this will cause an ERROR 
-					
+					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();			
 					HandlerUtil.getActiveWorkbenchWindow(event).getActivePage().showView(viewerID);
 					IViewPart viewPart = page.findView(viewerID);
-					TestView myView = (TestView) viewPart;
+					ContentView myView = (ContentView) viewPart;
 
 					myView.setContent(viewer.getData("questionId" + index).toString());
 

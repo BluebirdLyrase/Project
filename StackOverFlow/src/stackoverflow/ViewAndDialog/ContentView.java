@@ -51,10 +51,8 @@ public class ContentView extends ViewPart {
 
 	Composite parent;
 	public static final String ID = "stackoverflow.ViewAndDialog.ContentView";
-
-	@Override
-	public void createPartControl(Composite parent) {
-		
+	
+	public void setContent(String id) {
 		
 		
 		Control[] children = parent.getChildren();
@@ -81,7 +79,7 @@ public class ContentView extends ViewPart {
 			gridLayout.horizontalSpacing = 0;
 
 			composite.setLayout(gridLayout);
-			c = new AllContent("62170002");
+			c = new AllContent(id);
 
 			Question q = c.getAllConetent();
 			System.out.println(q.getBody());
@@ -162,6 +160,12 @@ public class ContentView extends ViewPart {
 		sc.setExpandVertical(true);
 		parent.pack();
 		sc.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		
+	}
+
+	@Override
+	public void createPartControl(Composite parent) {
+		this.parent = parent;
 	}
 
 	@Override
