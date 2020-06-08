@@ -10,9 +10,7 @@ import stackoverflow.APIConnecter.AllContent;
 import stackoverflow.DataClass.Answer;
 import stackoverflow.DataClass.Question;
 
-import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.jface.action.*;
@@ -56,27 +54,28 @@ public class TestView extends ViewPart {
 	Composite parent;
 
 	public void setContent(String id) {
-		
-		///////////////need to add this on top off ContentView setContent///////////////
-		
+
+		/////////////// need to add this on top off ContentView
 		Control[] children = parent.getChildren();
-		System.out.println("Children = "+children.length);
+		System.out.println("Children = " + children.length);
 		int length = children.length;
-		for(int i = 0;i<length;i++) {
-			System.out.println(children[i]+" "+i);
+		for (int i = 0; i < length; i++) {
+			System.out.println(children[i] + " " + i);
 			children[i].dispose();
 		}
 		////////////////////////////////////////////////////////////////////////////////
 
+		/////////////// setContent///////////////
 		ScrolledComposite sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
 		Composite composite = new Composite(sc, SWT.BORDER | SWT.WRAP | SWT.MULTI);
+		composite.setSize(parent.computeSize(SWT.DEFAULT,SWT.DEFAULT));
 		sc.setContent(composite);
 
-		composite.setLayout(new GridLayout(2, false));
+//		composite.setLayout(new GridLayout(2, false));
 
 		AllContent c;
 		try {
-			GridLayout gridLayout = new GridLayout(1, false);
+			GridLayout gridLayout = new GridLayout(1,false);
 			gridLayout.marginWidth = 5;
 			gridLayout.marginHeight = 5;
 			gridLayout.verticalSpacing = 0;
@@ -154,15 +153,13 @@ public class TestView extends ViewPart {
 
 		sc.setExpandHorizontal(true);
 		sc.setExpandVertical(true);
-		parent.pack(); //need to add this on top off ContentView setContent//
 		sc.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-
+		parent.pack(); // need to add this on top off ContentView setContent//
 	}
 
 	@Override
 	public void createPartControl(Composite parent) {
 		this.parent = parent;
-
 
 ////		ScrolledComposite sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL );
 //		Composite composite = new Composite(sc, SWT.BORDER | SWT.WRAP | SWT.MULTI);
