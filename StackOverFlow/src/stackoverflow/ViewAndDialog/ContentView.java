@@ -77,9 +77,9 @@ public class ContentView extends ViewPart {
 			System.out.println(q.getBody());
 			System.out.println(q.getTitle());
 
-			Label qTitle = new Label(composite, SWT.FILL);
+			Text qTitle = new Text(composite, SWT.MULTI | SWT.READ_ONLY);
 
-			Label qBody = new Label(composite, SWT.FILL);
+			Text qBody = new Text(composite, SWT.MULTI | SWT.READ_ONLY);
 
 			qTitle.setText(q.getTitle());
 
@@ -89,7 +89,7 @@ public class ContentView extends ViewPart {
 			qBody.setText(q.getBody());
 			qBody.setFont(new Font(null, "Times New Roman", 12, SWT.WRAP| SWT.READ_ONLY));
 			qBody.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-			Label commentHeader = new Label(composite, SWT.BOLD|SWT.READ_ONLY);
+			Text commentHeader = new Text(composite, SWT.BOLD|SWT.READ_ONLY);
 			commentHeader.setText("Comment is here");
 
 			Color commentColor = new Color(null, 197, 197, 197);
@@ -98,10 +98,10 @@ public class ContentView extends ViewPart {
 
 				String[] comment = q.getComment();
 				System.out.println(comment.length);
-				Label[] lComment = new Label[comment.length];
+				Text[] lComment = new Text[comment.length];
 				for (int i = 0; i < comment.length; i++) {
 					System.out.println(comment[i]);
-					lComment[i] = new Label(composite, SWT.NONE);
+					lComment[i] = new Text(composite, SWT.MULTI | SWT.READ_ONLY);
 					lComment[i].setText(comment[i]);
 					lComment[i].setBackground(commentColor);
 				}
@@ -111,27 +111,27 @@ public class ContentView extends ViewPart {
 			if (q.isHaveAnswer()) {
 
 				Answer[] answers = q.getAnswer();
-				Label[] lAnswers = new Label[answers.length];
-				Label[] lAnswersHeader = new Label[answers.length];
+				Text[] lAnswers = new Text[answers.length];
+				Text[] lAnswersHeader = new Text[answers.length];
 
 				for (int i = 0; i < answers.length; i++) {
 					System.out.println("Loop i : " + i);
 					System.out.println(answers[i].getBody());
 					System.out.println(answers[i].getScore());
-					lAnswersHeader[i] = new Label(composite, SWT.NONE);
+					lAnswersHeader[i] = new Text(composite,SWT.MULTI | SWT.READ_ONLY);
 					lAnswersHeader[i].setText("Answer index " + i);
-					lAnswers[i] = new Label(composite, SWT.NONE);
+					lAnswers[i] = new Text(composite,SWT.MULTI | SWT.READ_ONLY);
 					lAnswers[i].setText(answers[i].getBody());
 
 					if (answers[i].isHaveComment()) {
 
 						String[] aComment = answers[i].getComment();
-						Label[] lAComment = new Label[answers[i].getComment().length];
+						Text[] lAComment = new Text[answers[i].getComment().length];
 
 						for (int j = 0; j < answers[i].getComment().length; j++) {
 							System.out.println("Loop j : " + j);
 							System.out.println(aComment[j]);
-							lAComment[j] = new Label(composite, SWT.NONE);
+							lAComment[j] = new Text(composite, SWT.NONE| SWT.MULTI | SWT.READ_ONLY);
 							lAComment[j].setText(aComment[j]);
 							lAComment[j].setBackground(commentColor);
 						}
