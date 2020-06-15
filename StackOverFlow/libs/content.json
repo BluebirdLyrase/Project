@@ -1,1 +1,206 @@
-{"items":[{"comments":[{"score":1,"comment_id":22537789,"body":"Please check this item, it explains the use of override. I believe this practice is very important for everything not only for this situation in particularly. <a href=\"http://stackoverflow.com/questions/94361/when-do-you-use-javas-override-annotation-and-why\" title=\"when do you use javas override annotation and why\">stackoverflow.com/questions/94361/&hellip;</a>"}],"answers":[{"comments":[{"score":35,"comment_id":5521624,"body":"My project was set to 1.6, so I shot for the stars and set it to 1.5, rebuilt, then back to 1.6. Miraculously this resolved my issue. Thanks for pointing me in the right direction!"},{"score":6,"comment_id":8634234,"body":"having the same issue...tried the suggestion given in this answer but still not successful. :( :("},{"score":6,"comment_id":11683836,"body":"@MichaelKrauklis I&#39;m 1.6 and I&#39;m having this issue. I&#39;ve set to 1.5 and cleaned it and set back to 1.6 and cleaned it again. Still not resolved. Any ideas?"},{"score":6,"comment_id":15349781,"body":"Same problem here, in my case, I had not installed JDK 1.6, only the latest 1.7, which apparently doesn&#39;t work with Android. Installing the older 1.6 and then following these instructions, should work :)"},{"score":0,"comment_id":17442021,"body":"If the above solutions did not work, you can simply delete the errors in the Problems view after setting the compiler to 1.6"},{"score":4,"comment_id":24046961,"body":"It should be mentioned (like in the comments to the other answers) a clean build followed by a restart is often required."},{"score":2,"comment_id":29162385,"body":"Just modify 1.5 to 1.6 in your YourProject-&gt;RightClick-&gt;Properties-&gt;Java Compiler-&gt;1.5, to 1.6. Apply and Yes to rebuild."},{"score":1,"comment_id":38891568,"body":"Many thx, thought I was going mad (project was 1.6, but just like Michael setting it to 1.5 and back did fix this problem)!"},{"score":0,"comment_id":50023441,"body":"Like Anand Sunderraman said this answer combined with the next answer here is the solution."},{"score":0,"comment_id":58873576,"body":"FIXED. I couldn&#39;t reliably get rid of the problem until I configured Maven (instead of Eclipse) by <code>&lt;build&gt;     &lt;plugins&gt;         &lt;plugin&gt;             &lt;groupId&gt;org.apache.maven.plugins&lt;&#47;groupId&gt;             &lt;artifactId&gt;maven-compiler-plugin&lt;&#47;artifactId&gt;             &lt;version&gt;3.5.1&lt;&#47;version&gt;             &lt;configuration&gt;                 &lt;source&gt;1.6&lt;&#47;source&gt;                 &lt;target&gt;1.6&lt;&#47;target&gt;                 &lt;encoding&gt;UTF-8&lt;&#47;encoding&gt;             &lt;&#47;configuration&gt;         &lt;&#47;plugin&gt;     &lt;&#47;plugins&gt; &lt;&#47;build&gt;</code>"},{"score":0,"comment_id":71053304,"body":"Thanks. Setting Java Version in Project-&gt;Properties-&gt;Project Facets-&gt;Java from 1.5 to 1.6 helps too, to solve this problem."}],"comment_count":11,"is_accepted":true,"score":1433,"answer_id":1678170,"body":"<p>Eclipse is defaulting to Java 1.5 and you have classes implementing interface methods (which in Java 1.6 can be annotated with <code>@Override</code>, but in Java 1.5 can only be applied to methods overriding a superclass method).</p>\n\n<p>Go to your project/IDE preferences and set the Java compiler level to 1.6 and also make sure you select JRE 1.6 to execute your program from Eclipse.</p>\n"},{"comment_count":0,"is_accepted":false,"score":308,"answer_id":3664516,"body":"<p>With <strong>Eclipse Galileo</strong> you go to Eclipse -> Preferences menu item, then select Java and Compiler in the dialog.</p>\n\n<p>Now it still may show compiler compliance level at 1.6, yet you still see this problem.  So now select the link \"<em>Configure Project Specific Settings...</em>\" and in there you'll see the project is set to 1.5, now change this to 1.6.  You'll need to do this for all affected projects.</p>\n\n<p>This byzantine menu / dialog interface is typical of Eclipse's poor UI design.  </p>\n"},{"comments":[{"score":4,"comment_id":14732776,"body":"I did not only that, but unchecked &quot;Start a build automatically&quot; on the Clean dialog. Only then it worked for me."},{"score":3,"comment_id":19538684,"body":"I had to restart eclipse as well, even after deleting the errors."}],"comment_count":2,"is_accepted":false,"score":78,"answer_id":4807675,"body":"<p>In case this happens to anyone else who tried both alphazero and Paul's method and still didn't work. </p>\n\n<p>For me, eclipse somehow 'cached' the compile errors even after doing a Project > Clean...</p>\n\n<p>I had to uncheck Project > Build Automatically, then do a Project > Clean, and then build again.</p>\n\n<p><strong>Also, when in doubt, try restarting Eclipse</strong>. This can fix a lot of awkward, unexplainable errors. </p>\n"},{"comment_count":0,"is_accepted":false,"score":42,"answer_id":8634516,"body":"<p>To resolve this issue,  Go to your Project properties -> Java compiler -> Select compiler compliance level to 1.6-> Apply. </p>\n"},{"comment_count":0,"is_accepted":false,"score":14,"answer_id":8660916,"body":"<p>Guys in my case none of the solutions above worked.</p>\n\n<p>I had to delete the files within the Project workspace:</p>\n\n<ul>\n<li>.project</li>\n<li>.classpath</li>\n</ul>\n\n<p>And the folder:</p>\n\n<ul>\n<li>.settings</li>\n</ul>\n\n<p>Then I copied the ones from a similar project that was working before. This managed to fix my broken project.</p>\n\n<p>Of course do not use this method before trying the previous alternatives!.</p>\n"},{"comment_count":0,"is_accepted":false,"score":11,"answer_id":13873683,"body":"<p>This is my second time encounter this problem.\nfirst time according the alphazero's recommendation it worked.\nbut in the second time I set to 1.6 it don't work it just like 'CACHE' this error after clean and rebuild.</p>\n\n<p>Try to switch off 'Build Automatically' as Rollin_s said -> error still here!</p>\n\n<p>So I removed the problem project (already set to 1.6) from Package Explorer and import it again -> it start a rebuild and no error this time</p>\n\n<p>Hope this help someone</p>\n"},{"comment_count":0,"is_accepted":false,"score":6,"answer_id":17130220,"body":"<p>In my case, none the solutions above works. I have to checkout my source code to another folder. From eclipse select File > Switch workSpaces > Other... and then import code to the new workspaces. it works after that.  </p>\n"},{"comment_count":0,"is_accepted":false,"score":22,"answer_id":21582730,"body":"<p>The answer by Paul worked for me partially. I still had one error then. So, in addition to that, I also had to go to Properties-> Project Facets and there set the Java version from 1.5 to 1.6.</p>\n\n<p>Maybe that helps.</p>\n"},{"comment_count":0,"is_accepted":false,"score":10,"answer_id":29764434,"body":"<p>Fixing  must override a super class method error is not difficult, You just need to change Java source version to 1.6 because from Java 1.6 @Override annotation can be used along with interface method. In order to change source version to 1.6 follow below steps :</p>\n\n<ol>\n<li>Select Project , Right click , Properties</li>\n<li>Select Java Compiler and check the check box \"Enable project specific settings\"</li>\n<li>Now make Compiler compliance level to 1.6</li>\n<li>Apply changes</li>\n</ol>\n"},{"comments":[{"score":2,"comment_id":71945373,"body":"I selected an &quot;Execution Environment&quot; then pressed OK and the error was gone. Then I came back to this same dialog, and selected &quot;Workspace default JRE (...)&quot;, which was my previous selection when I was getting the error from Eclipse, then pressed OK, and the error did not happened ?!? This must be an Eclipse UI bug or something like that (I am on Eclipse Neon 4.6.2)"}],"comment_count":1,"is_accepted":false,"score":14,"answer_id":32406999,"body":"<p>If nothing of the above helps, make sure you have a proper \"<strong>Execution environment</strong>\" selected, and <em>not</em> an \"Alternate JRE\".</p>\n\n<p>To be found under:</p>\n\n<blockquote>\n  <p>Project -> Build Path -> Libraries</p>\n</blockquote>\n\n<p>Select the <code>JRE System Library</code> and click <code>Edit...</code>.</p>\n\n<p>If \"Alternate JRE ...\" is selected, change it to a fitting \"Execution Environment\" like <code>JavaSE-1.8 (jre1.8.0_60)</code>. No idea why, but this will solve it.</p>\n"},{"comments":[{"score":0,"comment_id":74407994,"body":"Thanks, I guess this overrides parent pom configuration or something. (I ad the problem the other way around, no problem from eclipse, but maven&#39;s compiler threw me &quot;must override etc.&quot;)"}],"comment_count":1,"is_accepted":false,"score":10,"answer_id":42399517,"body":"<p>In my case this problem happened when I imported a Maven project into Eclipse. To solve this, I added the following in <code>pom.xml</code>:</p>\n\n<pre><code>&lt;properties&gt;\n   ...\n   &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;\n   &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;\n&lt;/properties&gt;\n</code></pre>\n\n<p>Then in the context menu of the project, go to \"Maven -> Update Project ...\", and press OK.</p>\n\n<p>That's it. Hope this helps.</p>\n"},{"comment_count":0,"is_accepted":false,"score":2,"answer_id":53889090,"body":"<p>This happens when your maven project uses different Compiler Compliance level and Eclipse IDE uses different Compiler Compliance level. In order to fix this we need to change the Compiler Compliance level of Maven project to the level IDE uses.</p>\n\n<p>1) To See Java Compiler Compliance level uses in Eclipse IDE </p>\n\n<p>*) Window -> Preferences -> Compiler -> Compiler Compliance level : 1.8 (or 1.7, 1.6 ,, ect) </p>\n\n<p>2) To Change Java Compiler Compliance level of Maven project</p>\n\n<p>*) Go to  \"Project\" ->  \"Properties\" -> Select \"Java Compiler\" -> Change the Compiler Compliance level : 1.8 (or 1.7, 1.6 ,, ect)  </p>\n"}],"comment_count":1,"accepted_answer_id":1678170,"answer_count":12,"last_activity_date":1587294815,"question_id":1678122,"title":"&#39;Must Override a Superclass Method&#39; Errors after importing a project into Eclipse","body":"<p>Anytime I have to re-import my projects into Eclipse (if I reinstalled Eclipse, or changed the location of the projects), <strong>almost all</strong> of my overridden methods are not formatted correctly, causing the error:</p>\n\n<blockquote>\n  <p>The method must override a superclass method</p>\n</blockquote>\n\n<p>It may be noteworthy to mention this is with Android projects for whatever reason, the method argument values are not always populated, so I have to manually populate them myself. For instance:</p>\n\n<pre><code>list.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {\n\n    //These arguments have their correct names\n    public void onCreateContextMenu(ContextMenu menu, View v, \n                                    ContextMenuInfo menuInfo) {                 \n    }\n\n});\n</code></pre>\n\n<p>will be initially populated like this:</p>\n\n<pre><code>list.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {\n\n    //This methods arguments were not automatically provided    \n    public void onCreateContextMenu(ContextMenu arg1, View arg2,\n                                    ContextMenuInfo arg3) {\n    }\n\n});\n</code></pre>\n\n<p>The odd thing is, if I remove my code, and have Eclipse automatically recreate the method, it uses the same argument names I already had, so I don't really know where the problem is, other then it auto-formatting the method for me.</p>\n\n<p>This becomes quite a pain having to manually recreate ALL my overridden methods by hand. If anyone can explain why this happens or how to fix it. I would be very happy.</p>\n\n<p>Maybe it is due to the way I am formatting the methods, which are inside an argument of another method?</p>\n"}],"has_more":false}
+{
+   "items":[
+      {
+         "comments":[
+            {
+               "score":1,
+               "comment_id":22537789,
+               "body":"Please check this item, it explains the use of override. I believe this practice is very important for everything not only for this situation in particularly. <a href=\"http://stackoverflow.com/questions/94361/when-do-you-use-javas-override-annotation-and-why\" title=\"when do you use javas override annotation and why\">stackoverflow.com/questions/94361/&hellip;</a>"
+            },            {
+               "score":1,
+               "comment_id":22537789,
+               "body":"Please check this item, it explains the use of override. I believe this practice is very important for everything not only for this situation in particularly. <a href=\"http://stackoverflow.com/questions/94361/when-do-you-use-javas-override-annotation-and-why\" title=\"when do you use javas override annotation and why\">stackoverflow.com/questions/94361/&hellip;</a>"
+            }
+
+         ],
+         "answers":[
+            {
+               "comments":[
+                  {
+                     "score":35,
+                     "comment_id":5521624,
+                     "body":"My project was set to 1.6, so I shot for the stars and set it to 1.5, rebuilt, then back to 1.6. Miraculously this resolved my issue. Thanks for pointing me in the right direction!"
+                  },
+                  {
+                     "score":6,
+                     "comment_id":8634234,
+                     "body":"having the same issue...tried the suggestion given in this answer but still not successful. :( :("
+                  },
+                  {
+                     "score":6,
+                     "comment_id":11683836,
+                     "body":"@MichaelKrauklis I&#39;m 1.6 and I&#39;m having this issue. I&#39;ve set to 1.5 and cleaned it and set back to 1.6 and cleaned it again. Still not resolved. Any ideas?"
+                  },
+                  {
+                     "score":6,
+                     "comment_id":15349781,
+                     "body":"Same problem here, in my case, I had not installed JDK 1.6, only the latest 1.7, which apparently doesn&#39;t work with Android. Installing the older 1.6 and then following these instructions, should work :)"
+                  },
+                  {
+                     "score":0,
+                     "comment_id":17442021,
+                     "body":"If the above solutions did not work, you can simply delete the errors in the Problems view after setting the compiler to 1.6"
+                  },
+                  {
+                     "score":4,
+                     "comment_id":24046961,
+                     "body":"It should be mentioned (like in the comments to the other answers) a clean build followed by a restart is often required."
+                  },
+                  {
+                     "score":2,
+                     "comment_id":29162385,
+                     "body":"Just modify 1.5 to 1.6 in your YourProject-&gt;RightClick-&gt;Properties-&gt;Java Compiler-&gt;1.5, to 1.6. Apply and Yes to rebuild."
+                  },
+                  {
+                     "score":1,
+                     "comment_id":38891568,
+                     "body":"Many thx, thought I was going mad (project was 1.6, but just like Michael setting it to 1.5 and back did fix this problem)!"
+                  },
+                  {
+                     "score":0,
+                     "comment_id":50023441,
+                     "body":"Like Anand Sunderraman said this answer combined with the next answer here is the solution."
+                  },
+                  {
+                     "score":0,
+                     "comment_id":58873576,
+                     "body":"FIXED. I couldn&#39;t reliably get rid of the problem until I configured Maven (instead of Eclipse) by <code>&lt;build&gt;     &lt;plugins&gt;         &lt;plugin&gt;             &lt;groupId&gt;org.apache.maven.plugins&lt;&#47;groupId&gt;             &lt;artifactId&gt;maven-compiler-plugin&lt;&#47;artifactId&gt;             &lt;version&gt;3.5.1&lt;&#47;version&gt;             &lt;configuration&gt;                 &lt;source&gt;1.6&lt;&#47;source&gt;                 &lt;target&gt;1.6&lt;&#47;target&gt;                 &lt;encoding&gt;UTF-8&lt;&#47;encoding&gt;             &lt;&#47;configuration&gt;         &lt;&#47;plugin&gt;     &lt;&#47;plugins&gt; &lt;&#47;build&gt;</code>"
+                  },
+                  {
+                     "score":0,
+                     "comment_id":71053304,
+                     "body":"Thanks. Setting Java Version in Project-&gt;Properties-&gt;Project Facets-&gt;Java from 1.5 to 1.6 helps too, to solve this problem."
+                  }
+               ],
+               "comment_count":11,
+               "is_accepted":true,
+               "score":1433,
+               "answer_id":1678170,
+               "body_markdown":"Eclipse is defaulting to Java 1.5 and you have classes implementing interface methods (which in Java 1.6 can be annotated with `@Override`, but in Java 1.5 can only be applied to methods overriding a superclass method).\r\n\r\nGo to your project/IDE preferences and set the Java compiler level to 1.6 and also make sure you select JRE 1.6 to execute your program from Eclipse.",
+               "body":"<p>Eclipse is defaulting to Java 1.5 and you have classes implementing interface methods (which in Java 1.6 can be annotated with <code>@Override</code>, but in Java 1.5 can only be applied to methods overriding a superclass method).</p>\n\n<p>Go to your project/IDE preferences and set the Java compiler level to 1.6 and also make sure you select JRE 1.6 to execute your program from Eclipse.</p>\n"
+            },
+            {
+               "comment_count":0,
+               "is_accepted":false,
+               "score":309,
+               "answer_id":3664516,
+               "body_markdown":"With **Eclipse Galileo** you go to Eclipse -&gt; Preferences menu item, then select Java and Compiler in the dialog.\r\n\r\nNow it still may show compiler compliance level at 1.6, yet you still see this problem.  So now select the link &quot;*Configure Project Specific Settings...*&quot; and in there you&#39;ll see the project is set to 1.5, now change this to 1.6.  You&#39;ll need to do this for all affected projects.\r\n\r\nThis byzantine menu / dialog interface is typical of Eclipse&#39;s poor UI design.  ",
+               "body":"<p>With <strong>Eclipse Galileo</strong> you go to Eclipse -> Preferences menu item, then select Java and Compiler in the dialog.</p>\n\n<p>Now it still may show compiler compliance level at 1.6, yet you still see this problem.  So now select the link \"<em>Configure Project Specific Settings...</em>\" and in there you'll see the project is set to 1.5, now change this to 1.6.  You'll need to do this for all affected projects.</p>\n\n<p>This byzantine menu / dialog interface is typical of Eclipse's poor UI design.  </p>\n"
+            },
+            {
+               "comments":[
+                  {
+                     "score":4,
+                     "comment_id":14732776,
+                     "body":"I did not only that, but unchecked &quot;Start a build automatically&quot; on the Clean dialog. Only then it worked for me."
+                  },
+                  {
+                     "score":3,
+                     "comment_id":19538684,
+                     "body":"I had to restart eclipse as well, even after deleting the errors."
+                  }
+               ],
+               "comment_count":2,
+               "is_accepted":false,
+               "score":78,
+               "answer_id":4807675,
+               "body_markdown":"In case this happens to anyone else who tried both alphazero and Paul&#39;s method and still didn&#39;t work. \r\n\r\nFor me, eclipse somehow &#39;cached&#39; the compile errors even after doing a Project &gt; Clean...\r\n\r\nI had to uncheck Project &gt; Build Automatically, then do a Project &gt; Clean, and then build again.\r\n\r\n**Also, when in doubt, try restarting Eclipse**. This can fix a lot of awkward, unexplainable errors. ",
+               "body":"<p>In case this happens to anyone else who tried both alphazero and Paul's method and still didn't work. </p>\n\n<p>For me, eclipse somehow 'cached' the compile errors even after doing a Project > Clean...</p>\n\n<p>I had to uncheck Project > Build Automatically, then do a Project > Clean, and then build again.</p>\n\n<p><strong>Also, when in doubt, try restarting Eclipse</strong>. This can fix a lot of awkward, unexplainable errors. </p>\n"
+            },
+            {
+               "comment_count":0,
+               "is_accepted":false,
+               "score":42,
+               "answer_id":8634516,
+               "body_markdown":"To resolve this issue,  Go to your Project properties -&gt; Java compiler -&gt; Select compiler compliance level to 1.6-&gt; Apply. ",
+               "body":"<p>To resolve this issue,  Go to your Project properties -> Java compiler -> Select compiler compliance level to 1.6-> Apply. </p>\n"
+            },
+            {
+               "comment_count":0,
+               "is_accepted":false,
+               "score":14,
+               "answer_id":8660916,
+               "body_markdown":"Guys in my case none of the solutions above worked.\r\n\r\nI had to delete the files within the Project workspace:\r\n\r\n - .project\r\n - .classpath\r\n\r\nAnd the folder:\r\n\r\n - .settings\r\n\r\nThen I copied the ones from a similar project that was working before. This managed to fix my broken project.\r\n\r\nOf course do not use this method before trying the previous alternatives!.\r\n",
+               "body":"<p>Guys in my case none of the solutions above worked.</p>\n\n<p>I had to delete the files within the Project workspace:</p>\n\n<ul>\n<li>.project</li>\n<li>.classpath</li>\n</ul>\n\n<p>And the folder:</p>\n\n<ul>\n<li>.settings</li>\n</ul>\n\n<p>Then I copied the ones from a similar project that was working before. This managed to fix my broken project.</p>\n\n<p>Of course do not use this method before trying the previous alternatives!.</p>\n"
+            },
+            {
+               "comment_count":0,
+               "is_accepted":false,
+               "score":11,
+               "answer_id":13873683,
+               "body_markdown":"This is my second time encounter this problem.\r\nfirst time according the alphazero&#39;s recommendation it worked.\r\nbut in the second time I set to 1.6 it don&#39;t work it just like &#39;CACHE&#39; this error after clean and rebuild.\r\n\r\nTry to switch off &#39;Build Automatically&#39; as Rollin_s said -&gt; error still here!\r\n\r\nSo I removed the problem project (already set to 1.6) from Package Explorer and import it again -&gt; it start a rebuild and no error this time\r\n\r\nHope this help someone\r\n",
+               "body":"<p>This is my second time encounter this problem.\nfirst time according the alphazero's recommendation it worked.\nbut in the second time I set to 1.6 it don't work it just like 'CACHE' this error after clean and rebuild.</p>\n\n<p>Try to switch off 'Build Automatically' as Rollin_s said -> error still here!</p>\n\n<p>So I removed the problem project (already set to 1.6) from Package Explorer and import it again -> it start a rebuild and no error this time</p>\n\n<p>Hope this help someone</p>\n"
+            },
+            {
+               "comment_count":0,
+               "is_accepted":false,
+               "score":6,
+               "answer_id":17130220,
+               "body_markdown":"In my case, none the solutions above works. I have to checkout my source code to another folder. From eclipse select File &gt; Switch workSpaces &gt; Other... and then import code to the new workspaces. it works after that.  ",
+               "body":"<p>In my case, none the solutions above works. I have to checkout my source code to another folder. From eclipse select File > Switch workSpaces > Other... and then import code to the new workspaces. it works after that.  </p>\n"
+            },
+            {
+               "comment_count":0,
+               "is_accepted":false,
+               "score":22,
+               "answer_id":21582730,
+               "body_markdown":"The answer by Paul worked for me partially. I still had one error then. So, in addition to that, I also had to go to Properties-&gt; Project Facets and there set the Java version from 1.5 to 1.6.\r\n\r\nMaybe that helps.",
+               "body":"<p>The answer by Paul worked for me partially. I still had one error then. So, in addition to that, I also had to go to Properties-> Project Facets and there set the Java version from 1.5 to 1.6.</p>\n\n<p>Maybe that helps.</p>\n"
+            },
+            {
+               "comment_count":0,
+               "is_accepted":false,
+               "score":10,
+               "answer_id":29764434,
+               "body_markdown":"Fixing  must override a super class method error is not difficult, You just need to change Java source version to 1.6 because from Java 1.6 @Override annotation can be used along with interface method. In order to change source version to 1.6 follow below steps :\r\n\r\n 1. Select Project , Right click , Properties\r\n 2. Select Java Compiler and check the check box &quot;Enable project specific settings&quot;\r\n 3. Now make Compiler compliance level to 1.6\r\n 4. Apply changes\r\n",
+               "body":"<p>Fixing  must override a super class method error is not difficult, You just need to change Java source version to 1.6 because from Java 1.6 @Override annotation can be used along with interface method. In order to change source version to 1.6 follow below steps :</p>\n\n<ol>\n<li>Select Project , Right click , Properties</li>\n<li>Select Java Compiler and check the check box \"Enable project specific settings\"</li>\n<li>Now make Compiler compliance level to 1.6</li>\n<li>Apply changes</li>\n</ol>\n"
+            },
+            {
+               "comments":[
+                  {
+                     "score":2,
+                     "comment_id":71945373,
+                     "body":"I selected an &quot;Execution Environment&quot; then pressed OK and the error was gone. Then I came back to this same dialog, and selected &quot;Workspace default JRE (...)&quot;, which was my previous selection when I was getting the error from Eclipse, then pressed OK, and the error did not happened ?!? This must be an Eclipse UI bug or something like that (I am on Eclipse Neon 4.6.2)"
+                  }
+               ],
+               "comment_count":1,
+               "is_accepted":false,
+               "score":14,
+               "answer_id":32406999,
+               "body_markdown":"If nothing of the above helps, make sure you have a proper &quot;**Execution environment**&quot; selected, and *not* an &quot;Alternate JRE&quot;.\r\n\r\nTo be found under:\r\n\r\n&gt; Project -&gt; Build Path -&gt; Libraries\r\n\r\nSelect the `JRE System Library` and click `Edit...`.\r\n\r\nIf &quot;Alternate JRE ...&quot; is selected, change it to a fitting &quot;Execution Environment&quot; like `JavaSE-1.8 (jre1.8.0_60)`. No idea why, but this will solve it.",
+               "body":"<p>If nothing of the above helps, make sure you have a proper \"<strong>Execution environment</strong>\" selected, and <em>not</em> an \"Alternate JRE\".</p>\n\n<p>To be found under:</p>\n\n<blockquote>\n  <p>Project -> Build Path -> Libraries</p>\n</blockquote>\n\n<p>Select the <code>JRE System Library</code> and click <code>Edit...</code>.</p>\n\n<p>If \"Alternate JRE ...\" is selected, change it to a fitting \"Execution Environment\" like <code>JavaSE-1.8 (jre1.8.0_60)</code>. No idea why, but this will solve it.</p>\n"
+            },
+            {
+               "comments":[
+                  {
+                     "score":0,
+                     "comment_id":74407994,
+                     "body":"Thanks, I guess this overrides parent pom configuration or something. (I ad the problem the other way around, no problem from eclipse, but maven&#39;s compiler threw me &quot;must override etc.&quot;)"
+                  }
+               ],
+               "comment_count":1,
+               "is_accepted":false,
+               "score":10,
+               "answer_id":42399517,
+               "body_markdown":"In my case this problem happened when I imported a Maven project into Eclipse. To solve this, I added the following in `pom.xml`:\r\n\r\n    &lt;properties&gt;\r\n       ...\r\n       &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;\r\n       &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;\r\n    &lt;/properties&gt;\r\n\r\nThen in the context menu of the project, go to &quot;Maven -&gt; Update Project ...&quot;, and press OK.\r\n\r\nThat&#39;s it. Hope this helps.\r\n",
+               "body":"<p>In my case this problem happened when I imported a Maven project into Eclipse. To solve this, I added the following in <code>pom.xml</code>:</p>\n\n<pre><code>&lt;properties&gt;\n   ...\n   &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;\n   &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;\n&lt;/properties&gt;\n</code></pre>\n\n<p>Then in the context menu of the project, go to \"Maven -> Update Project ...\", and press OK.</p>\n\n<p>That's it. Hope this helps.</p>\n"
+            },
+            {
+               "comment_count":0,
+               "is_accepted":false,
+               "score":2,
+               "answer_id":53889090,
+               "body_markdown":"This happens when your maven project uses different Compiler Compliance level and Eclipse IDE uses different Compiler Compliance level. In order to fix this we need to change the Compiler Compliance level of Maven project to the level IDE uses.\r\n\r\n\r\n1) To See Java Compiler Compliance level uses in Eclipse IDE \r\n\r\n*) Window -&gt; Preferences -&gt; Compiler -&gt; Compiler Compliance level : 1.8 (or 1.7, 1.6 ,, ect) \r\n\r\n\r\n\r\n\r\n2) To Change Java Compiler Compliance level of Maven project\r\n\r\n*) Go to  &quot;Project&quot; -&gt;  &quot;Properties&quot; -&gt; Select &quot;Java Compiler&quot; -&gt; Change the Compiler Compliance level : 1.8 (or 1.7, 1.6 ,, ect)  \r\n\r\n\r\n\r\n",
+               "body":"<p>This happens when your maven project uses different Compiler Compliance level and Eclipse IDE uses different Compiler Compliance level. In order to fix this we need to change the Compiler Compliance level of Maven project to the level IDE uses.</p>\n\n<p>1) To See Java Compiler Compliance level uses in Eclipse IDE </p>\n\n<p>*) Window -> Preferences -> Compiler -> Compiler Compliance level : 1.8 (or 1.7, 1.6 ,, ect) </p>\n\n<p>2) To Change Java Compiler Compliance level of Maven project</p>\n\n<p>*) Go to  \"Project\" ->  \"Properties\" -> Select \"Java Compiler\" -> Change the Compiler Compliance level : 1.8 (or 1.7, 1.6 ,, ect)  </p>\n"
+            }
+         ],
+         "comment_count":1,
+         "accepted_answer_id":1678170,
+         "answer_count":12,
+         "body_markdown":"Anytime I have to re-import my projects into Eclipse (if I reinstalled Eclipse, or changed the location of the projects), **almost all** of my overridden methods are not formatted correctly, causing the error:\r\n&gt;The method must override a superclass method\r\n\r\nIt may be noteworthy to mention this is with Android projects for whatever reason, the method argument values are not always populated, so I have to manually populate them myself. For instance:\r\n\r\n    list.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {\r\n    \r\n        //These arguments have their correct names\r\n    \tpublic void onCreateContextMenu(ContextMenu menu, View v, \r\n                                        ContextMenuInfo menuInfo) {    \t\t\t\t\r\n    \t}\r\n    \t\r\n    });\r\n\r\nwill be initially populated like this:\r\n\r\n    list.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {\r\n\r\n        //This methods arguments were not automatically provided    \r\n    \tpublic void onCreateContextMenu(ContextMenu arg1, View arg2,\r\n                                        ContextMenuInfo arg3) {\r\n    \t}\r\n    \r\n    });\r\n\r\nThe odd thing is, if I remove my code, and have Eclipse automatically recreate the method, it uses the same argument names I already had, so I don&#39;t really know where the problem is, other then it auto-formatting the method for me.\r\n\r\nThis becomes quite a pain having to manually recreate ALL my overridden methods by hand. If anyone can explain why this happens or how to fix it. I would be very happy.\r\n\r\nMaybe it is due to the way I am formatting the methods, which are inside an argument of another method?\r\n",
+         "title":"&#39;Must Override a Superclass Method&#39; Errors after importing a project into Eclipse",
+         "body":"<p>Anytime I have to re-import my projects into Eclipse (if I reinstalled Eclipse, or changed the location of the projects), <strong>almost all</strong> of my overridden methods are not formatted correctly, causing the error:</p>\n\n<blockquote>\n  <p>The method must override a superclass method</p>\n</blockquote>\n\n<p>It may be noteworthy to mention this is with Android projects for whatever reason, the method argument values are not always populated, so I have to manually populate them myself. For instance:</p>\n\n<pre><code>list.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {\n\n    //These arguments have their correct names\n    public void onCreateContextMenu(ContextMenu menu, View v, \n                                    ContextMenuInfo menuInfo) {                 \n    }\n\n});\n</code></pre>\n\n<p>will be initially populated like this:</p>\n\n<pre><code>list.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {\n\n    //This methods arguments were not automatically provided    \n    public void onCreateContextMenu(ContextMenu arg1, View arg2,\n                                    ContextMenuInfo arg3) {\n    }\n\n});\n</code></pre>\n\n<p>The odd thing is, if I remove my code, and have Eclipse automatically recreate the method, it uses the same argument names I already had, so I don't really know where the problem is, other then it auto-formatting the method for me.</p>\n\n<p>This becomes quite a pain having to manually recreate ALL my overridden methods by hand. If anyone can explain why this happens or how to fix it. I would be very happy.</p>\n\n<p>Maybe it is due to the way I am formatting the methods, which are inside an argument of another method?</p>\n"
+      }
+   ],
+   "has_more":false
+}
