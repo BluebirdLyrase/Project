@@ -4,7 +4,8 @@ Bundle-Name: StackOverFlow
 Bundle-SymbolicName: StackOverFlow;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.eclipse.swt
 Automatic-Module-Name: StackOverFlow
 Bundle-RequiredExecutionEnvironment: JavaSE-13
 Bundle-ClassPath: libs/java-json.jar,

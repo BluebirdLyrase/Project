@@ -1,24 +1,16 @@
 package stackoverflow.ViewAndDialog;
-
+import org.eclipse.swt.dnd.*;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.part.*;
 import org.json.JSONException;
-
 import stackoverflow.APIConnecter.AllContent;
 import stackoverflow.APIConnecter.AllContentStub;
 import stackoverflow.DataClass.Answer;
 import stackoverflow.DataClass.Question;
-
+import org.eclipse.swt.events.DragDetectEvent;
+import org.eclipse.swt.events.DragDetectListener;
 import java.io.IOException;
-
 import javax.inject.Inject;
-
-//import org.eclipse.jface.viewers.*;
-//import org.eclipse.swt.graphics.Image;
-//import org.eclipse.jface.action.*;
-//import org.eclipse.jface.dialogs.MessageDialog;
-//import org.eclipse.ui.*;
-//import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.*;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.SWT;
@@ -26,9 +18,14 @@ import org.eclipse.swt.layout.*;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.dnd.DragSource;
+import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.dnd.DragSourceListener;
+import org.eclipse.swt.dnd.TextTransfer;
 
 /**
  * This sample class demonstrates how to plug-in a new workbench view. The view
@@ -57,8 +54,9 @@ public class ContentView extends ViewPart {
 		
 		ScrolledComposite sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
 		Composite composite = new Composite(sc, SWT.BORDER | SWT.WRAP  | SWT.MULTI);
+		
 		sc.setContent(composite);
-
+		
 		composite.setLayout(new GridLayout(2, false));
 //		AllContentStub content;
 		AllContent content;
@@ -82,9 +80,39 @@ public class ContentView extends ViewPart {
 			Text qBody = new Text(composite, SWT.MULTI | SWT.READ_ONLY);
 
 			qTitle.setText(q.getTitle());
-
+			
 			qTitle.setFont(new Font(null, "Times New Roman", 15, SWT.BOLD | SWT.ITALIC));
 			Label separator = new Label(composite, SWT.SEPARATOR | SWT.SHADOW_OUT | SWT.HORIZONTAL);
+			
+			int operations = DND.DROP_MOVE | DND.DROP_COPY;
+			DragSource source = new DragSource(qTitle, operations);
+
+			Transfer[] types = new Transfer[] {TextTransfer.getInstance()};
+			source.setTransfer(types);
+			source.addDragListener(new DragSourceListener() {
+					   public void dragStart(DragSourceEvent event) {
+					      // Only start the drag if there is actually text in the
+					      // label - this text will be what is dropped on the target.
+					      if (qTitle.getText().length() == 0) {
+					          event.doit = false;
+					      }
+					   }
+					   public void dragSetData(DragSourceEvent event) {
+					     // Provide the data of the requested type.
+					     if (TextTransfer.getInstance().isSupportedType(event.dataType)) {
+					          event.data = qTitle.getText();
+					     }
+					   }
+					   public void dragFinished(DragSourceEvent event) {
+					     // If a move operation has been performed, remove the data
+					     // from the source
+
+					     }
+					   }
+					);
+			
+			
+			
 			separator.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 			qBody.setText(q.getBody());
 			qBody.setFont(new Font(null, "Times New Roman", 12, SWT.WRAP| SWT.READ_ONLY));
@@ -163,5 +191,6 @@ public class ContentView extends ViewPart {
 	@Override
 	public void setFocus() {
 	}
+	
 
 }
