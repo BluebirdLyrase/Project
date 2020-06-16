@@ -23,15 +23,23 @@ public class AllContent extends StackOverFlowConnecter {
 	private boolean haveAComment;
 	private boolean haveComment;
 	private boolean haveAnswer;
+	
 
 	public Question getAllConetent() {
 		return allConetent;
 	}
-
-	public AllContent(String question_id) throws IOException, JSONException {
-
+	
+	public AllContent(String question_id,boolean acceptedOnly) throws IOException, JSONException {
+		
+		if(acceptedOnly) {
+		
+		}else {
+			
 		this.url = "https://api.stackexchange.com/2.2/questions/" + question_id
 				+ "?order=asc&sort=activity&site=stackoverflow&filter=!17vhYVGJF_V1pgWDBcdcFef.pkvM6EAc7IQdcgIj1EtLIL";
+		
+		}
+		
 		this.json = readJsonFromUrl(this.url);
 		
 		JSONObject itemObject = json.getJSONArray("items").getJSONObject(0);
@@ -42,6 +50,13 @@ public class AllContent extends StackOverFlowConnecter {
 		this.body = itemObject.get("body").toString();
 		LOGGER.info("[" + LOGGER.getName() + "] " + "body : " + body);
 
+		/////////////////////////////Comment///////////////////////////////////
+//		if(acceptedOnly) {
+//			
+//			haveComment = false;
+//			
+//		}else {
+			
 		String strComment_count = itemObject.get("comment_count").toString();
 		int comment_count = Integer.parseInt(strComment_count);
 		if (comment_count > 0) {
@@ -61,7 +76,10 @@ public class AllContent extends StackOverFlowConnecter {
 				LOGGER.info("[" + LOGGER.getName() + "] " + "comment " + i + " : " + comment[i]);
 			}
 
+//		}
+		
 		}
+		//////////////////////////////////////////////////////////////////////
 		
 		String strAnswer_count = itemObject.get("answer_count").toString();
 		int answer_count = Integer.parseInt(strAnswer_count);
@@ -93,6 +111,8 @@ public class AllContent extends StackOverFlowConnecter {
 			this.is_accepted = Boolean.parseBoolean(strIs_accepted);
 			LOGGER.info("[" + LOGGER.getName() + "] " + "is_accepted : " + is_accepted);
 			
+			/////////////////////////////Comment///////////////////////////////////
+			
 			String strAComment_count = currentAnswerObject.get("comment_count").toString();
 			int AComment_count = Integer.parseInt(strAComment_count);
 			
@@ -112,6 +132,8 @@ public class AllContent extends StackOverFlowConnecter {
 					LOGGER.info("[" + LOGGER.getName() + "] " + "Acomment[" + j + "] : " + Acomment[j]);
 				}
 			}
+			
+			//////////////////////////////////////////////////////////////////////
 
 			answer[i] = new Answer(aBody, score, is_accepted, Acomment, haveAComment);
 		}
@@ -119,6 +141,11 @@ public class AllContent extends StackOverFlowConnecter {
 		}
 
 		this.allConetent = new Question(title, body, comment, answer,haveComment,haveAnswer);
+	
+	}
+
+	public AllContent(String question_id) throws IOException, JSONException {
+		this(question_id,false);
 
 	}
 
