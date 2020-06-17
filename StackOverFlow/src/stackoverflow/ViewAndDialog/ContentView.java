@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import org.eclipse.swt.*;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.StyleRange;
@@ -76,75 +77,28 @@ public class ContentView extends ViewPart {
 			System.out.println(q.getBody());
 			System.out.println(q.getTitle());
 
-			Text qTitle = new Text(composite, SWT.MULTI | SWT.READ_ONLY);
-
-			Text qBody = new Text(composite, SWT.MULTI | SWT.READ_ONLY);
-			
-			Text selectedText = new Text(composite, SWT.MULTI | SWT.READ_ONLY);
-
-			qTitle.setText(q.getTitle());
-			 
-			qTitle.setFont(new Font(null, "Times New Roman", 15, SWT.BOLD | SWT.ITALIC));
 			Label separator = new Label(composite, SWT.SEPARATOR | SWT.SHADOW_OUT | SWT.HORIZONTAL);
 			
+			Browser browserQuestion;
+			try {
+				browserQuestion = new Browser(composite, SWT.NONE);
+				browserQuestion.setSize(750,750);
+			} catch (SWTError e) {
+				System.out.println("Could not instantiate Browser: " + e.getMessage());
+				
+				return;
+			}
 			
-			//Text selectedText =new Text(composite, SWT.MULTI | SWT.READ_ONLY);
 			
-			
-//			 + content1.substring(selection.y, content1.length());
-			//selectedText.setText(qTitle.getSelectionText());
-			
-			
-			
-			int operations = DND.DROP_MOVE | DND.DROP_COPY;
-			DragSource source = new DragSource(qTitle, operations);
-
-			Transfer[] types = new Transfer[] {TextTransfer.getInstance()};
-			source.setTransfer(types);
-			source.addDragListener(new DragSourceListener() {
-					   public void dragStart(DragSourceEvent event) {
-					      // Only start the drag if there is actually text in the
-					      // label - this text will be what is dropped on the target.
-						   
-						   
-							String content1 = qTitle.getText();
-							Point selection = qTitle.getSelection();
-							
-							content1 = content1.substring(selection.x, selection.y);
-							
 					
-							selectedText.setText(content1);
-						
-					      if (selectedText.getText().length() == 0) {
-					          event.doit = false;
-					      }
-					   }
-					   public void dragSetData(DragSourceEvent event) {
-					     // Provide the data of the requested type.
-					     if (TextTransfer.getInstance().isSupportedType(event.dataType)) {
-					    	 
-					          event.data = selectedText.getText();
-					     }
-					   }
-					   public void dragFinished(DragSourceEvent event) {
-					     // If a move operation has been performed, remove the data
-					     // from the source
-
-					     }
-					   }
-					);
-			
-			
-			
 			separator.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-			qBody.setText(q.getBody());
-			qBody.setFont(new Font(null, "Times New Roman", 12, SWT.WRAP| SWT.READ_ONLY));
-			qBody.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ));
-			Text commentHeader = new Text(composite, SWT.BOLD|SWT.READ_ONLY);
-			commentHeader.setText("Comment is here");
-
+			
 			Color commentColor = new Color(null, 197, 197, 197);
-
+			
+			browserQuestion.setText(q.getTitle()+q.getBody());
+			
+			
+			
 			if (q.isHaveComment()) {
 
 				String[] comment = q.getComment();
@@ -202,7 +156,7 @@ public class ContentView extends ViewPart {
 		sc.setExpandHorizontal(true);
 		sc.setExpandVertical(true);
 		sc.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-
+		
 		
 	}
 
