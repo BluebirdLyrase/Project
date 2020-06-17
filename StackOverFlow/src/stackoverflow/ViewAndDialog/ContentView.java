@@ -69,7 +69,7 @@ public class ContentView extends ViewPart {
 			gridLayout.horizontalSpacing = 0;
 
 			composite.setLayout(gridLayout);
-			content = new AllContent(id);
+			content = new AllContent(id,true);
 //			content = new AllContentStub("no");
 
 			Question q = content.getAllConetent();
@@ -112,10 +112,9 @@ public class ContentView extends ViewPart {
 							
 							content1 = content1.substring(selection.x, selection.y);
 							
-						//	System.out.println("content1= "+content1);	
+					
 							selectedText.setText(content1);
-						//	System.out.println("selectedText = "+selectedText.getText());
-						  
+						
 					      if (selectedText.getText().length() == 0) {
 					          event.doit = false;
 					      }
