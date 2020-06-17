@@ -53,13 +53,13 @@ public class ContentView extends ViewPart {
 	public static final String ID = "stackoverflow.ViewAndDialog.ContentView";
 	
 	public void setContent(String id) {
+//		
+//		ScrolledComposite sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
+//		Composite composite = new Composite(sc, SWT.BORDER | SWT.WRAP  | SWT.MULTI);
+//		
+//		sc.setContent(composite);
 		
-		ScrolledComposite sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
-		Composite composite = new Composite(sc, SWT.BORDER | SWT.WRAP  | SWT.MULTI);
-		
-		sc.setContent(composite);
-		
-		composite.setLayout(new GridLayout(2, false));
+//		composite.setLayout(new GridLayout(2, false));
 //		AllContentStub content;
 		AllContent content;
 		try {
@@ -69,7 +69,7 @@ public class ContentView extends ViewPart {
 			gridLayout.verticalSpacing = 0;
 			gridLayout.horizontalSpacing = 0;
 
-			composite.setLayout(gridLayout);
+//			composite.setLayout(gridLayout);
 			content = new AllContent(id,true);
 //			content = new AllContentStub("no");
 
@@ -77,12 +77,12 @@ public class ContentView extends ViewPart {
 			System.out.println(q.getBody());
 			System.out.println(q.getTitle());
 
-			Label separator = new Label(composite, SWT.SEPARATOR | SWT.SHADOW_OUT | SWT.HORIZONTAL);
+//			Label separator = new Label(composite, SWT.SEPARATOR | SWT.SHADOW_OUT | SWT.HORIZONTAL);
 			
 			Browser browserQuestion;
 			try {
-				browserQuestion = new Browser(composite, SWT.NONE);
-				browserQuestion.setSize(750,750);
+				browserQuestion = new Browser(parent, SWT.NONE);
+//				browserQuestion.setSize(750,750);
 			} catch (SWTError e) {
 				System.out.println("Could not instantiate Browser: " + e.getMessage());
 				
@@ -91,11 +91,11 @@ public class ContentView extends ViewPart {
 			
 			
 					
-			separator.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+//			separator.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 			
 			Color commentColor = new Color(null, 197, 197, 197);
 			
-			browserQuestion.setText(q.getTitle()+q.getBody());
+			browserQuestion.setText("<B>"+q.getTitle()+"</B>"+q.getBody());
 			
 			
 			
@@ -106,8 +106,8 @@ public class ContentView extends ViewPart {
 				Text[] lComment = new Text[comment.length];
 				for (int i = 0; i < comment.length; i++) {
 					System.out.println(comment[i]);
-					lComment[i] = new Text(composite, SWT.MULTI | SWT.READ_ONLY);
-					lComment[i].setText(comment[i]);
+//					lComment[i] = new Text(composite, SWT.MULTI | SWT.READ_ONLY);
+//					lComment[i].setText(comment[i]);
 					lComment[i].setBackground(commentColor);
 				}
 
@@ -123,10 +123,10 @@ public class ContentView extends ViewPart {
 					System.out.println("Loop i : " + i);
 					System.out.println(answers[i].getBody());
 					System.out.println(answers[i].getScore());
-					lAnswersHeader[i] = new Text(composite,SWT.MULTI | SWT.READ_ONLY);
-					lAnswersHeader[i].setText("Answer index " + i);
-					lAnswers[i] = new Text(composite,SWT.MULTI | SWT.READ_ONLY);
-					lAnswers[i].setText(answers[i].getBody());
+//					lAnswersHeader[i] = new Text(composite,SWT.MULTI | SWT.READ_ONLY);
+//					lAnswersHeader[i].setText("Answer index " + i);
+//					lAnswers[i] = new Text(composite,SWT.MULTI | SWT.READ_ONLY);
+//					lAnswers[i].setText(answers[i].getBody());
 
 					if (answers[i].isHaveComment()) {
 
@@ -136,8 +136,8 @@ public class ContentView extends ViewPart {
 						for (int j = 0; j < answers[i].getComment().length; j++) {
 							System.out.println("Loop j : " + j);
 							System.out.println(aComment[j]);
-							lAComment[j] = new Text(composite, SWT.NONE| SWT.MULTI | SWT.READ_ONLY);
-							lAComment[j].setText(aComment[j]);
+//							lAComment[j] = new Text(composite, SWT.NONE| SWT.MULTI | SWT.READ_ONLY);
+//							lAComment[j].setText(aComment[j]);
 							lAComment[j].setBackground(commentColor);
 						}
 					}
@@ -153,10 +153,10 @@ public class ContentView extends ViewPart {
 			e.printStackTrace();
 		}
 
-		sc.setExpandHorizontal(true);
-		sc.setExpandVertical(true);
-		sc.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-		
+//		sc.setExpandHorizontal(true);
+//		sc.setExpandVertical(true);
+//		sc.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+//		
 		
 	}
 
