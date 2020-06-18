@@ -4,11 +4,8 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.part.*;
 import org.json.JSONException;
 import stackoverflow.APIConnecter.AllContent;
-import stackoverflow.APIConnecter.AllContentStub;
 import stackoverflow.DataClass.Answer;
 import stackoverflow.DataClass.Question;
-import org.eclipse.swt.events.DragDetectEvent;
-import org.eclipse.swt.events.DragDetectListener;
 import java.io.IOException;
 import javax.inject.Inject;
 import org.eclipse.swt.*;
@@ -16,18 +13,7 @@ import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.layout.*;
-import org.eclipse.swt.custom.ScrolledComposite;
-import org.eclipse.swt.custom.StyleRange;
-import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.dnd.DND;
-import org.eclipse.swt.dnd.DragSource;
-import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Device;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.dnd.DragSourceListener;
-import org.eclipse.swt.dnd.TextTransfer;
 
 /**
  * This sample class demonstrates how to plug-in a new workbench view. The view
@@ -79,9 +65,9 @@ public class ContentView extends ViewPart {
 
 //			Label separator = new Label(composite, SWT.SEPARATOR | SWT.SHADOW_OUT | SWT.HORIZONTAL);
 			
-			Browser browserQuestion;
+			Browser browser;
 			try {
-				browserQuestion = new Browser(parent, SWT.NONE);
+				browser = new Browser(parent, SWT.NONE);
 //				browserQuestion.setSize(750,750);
 			} catch (SWTError e) {
 				System.out.println("Could not instantiate Browser: " + e.getMessage());
@@ -95,7 +81,7 @@ public class ContentView extends ViewPart {
 			
 			Color commentColor = new Color(null, 197, 197, 197);
 			
-			browserQuestion.setText("<B>"+q.getTitle()+"</B>"+q.getBody());
+		String 	 qText="<B>"+q.getTitle()+"</B>"+q.getBody();
 			
 			
 			
@@ -111,9 +97,18 @@ public class ContentView extends ViewPart {
 					lComment[i].setBackground(commentColor);
 				}
 
+				
+				
+				
+				
+			
+				
 			}
-
+				
+				
 			if (q.isHaveAnswer()) {
+				String answerBody="";
+
 
 				Answer[] answers = q.getAnswer();
 				Text[] lAnswers = new Text[answers.length];
@@ -123,10 +118,17 @@ public class ContentView extends ViewPart {
 					System.out.println("Loop i : " + i);
 					System.out.println(answers[i].getBody());
 					System.out.println(answers[i].getScore());
+					
+					
+
+					//answerBody=answerBody+lAnswers[i].getText();
+					answerBody=answerBody+(answers[i].getBody());
+					
+					
+					
 //					lAnswersHeader[i] = new Text(composite,SWT.MULTI | SWT.READ_ONLY);
 //					lAnswersHeader[i].setText("Answer index " + i);
-//					lAnswers[i] = new Text(composite,SWT.MULTI | SWT.READ_ONLY);
-//					lAnswers[i].setText(answers[i].getBody());
+
 
 					if (answers[i].isHaveComment()) {
 
@@ -136,14 +138,16 @@ public class ContentView extends ViewPart {
 						for (int j = 0; j < answers[i].getComment().length; j++) {
 							System.out.println("Loop j : " + j);
 							System.out.println(aComment[j]);
-//							lAComment[j] = new Text(composite, SWT.NONE| SWT.MULTI | SWT.READ_ONLY);
-//							lAComment[j].setText(aComment[j]);
+
 							lAComment[j].setBackground(commentColor);
 						}
 					}
 				}
-
+				
+				browser.setText("<h1>Question</h1>"+qText+"<h1>Answer</h1>"+answerBody);
 			}
+			
+			
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
