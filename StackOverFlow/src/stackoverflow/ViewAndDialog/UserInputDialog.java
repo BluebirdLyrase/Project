@@ -5,6 +5,7 @@ import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
@@ -14,8 +15,15 @@ import org.eclipse.swt.widgets.Text;
 public class UserInputDialog extends TitleAreaDialog {
 
 	private Text txtSearchText;
-
+	private Combo siteCombo;
+	private Combo sortCombo;
+	private Combo orderCombo;
+	
 	private String SearchText;
+	private String order;
+	private String sort;
+	private String site;
+	private boolean acceptedOnly;
 
 	public UserInputDialog(Shell parentShell) {
 		super(parentShell);
@@ -37,6 +45,9 @@ public class UserInputDialog extends TitleAreaDialog {
 		container.setLayout(layout);
 
 		createSearchText(container);
+		createOrderCombo(container);
+		createSortCombo(container);
+		createSiteCombo(container);
 
 		return area;
 	}
@@ -52,6 +63,43 @@ public class UserInputDialog extends TitleAreaDialog {
 		txtSearchText = new Text(container, SWT.BORDER);
 		txtSearchText.setLayoutData(dataSearchText);
 	}
+	
+	private void createOrderCombo(Composite container) {
+		GridData gridData1 = new GridData();
+		gridData1.grabExcessHorizontalSpace = false;
+		gridData1.verticalAlignment = GridData.CENTER;
+		gridData1.horizontalAlignment = GridData.BEGINNING;
+		orderCombo = new Combo(container , SWT.DROP_DOWN | SWT.READ_ONLY);
+		orderCombo.setLayoutData(gridData1);
+		orderCombo.add("asc");
+		orderCombo.add("desc");
+		orderCombo.select(0);
+	}
+	
+	private void createSortCombo(Composite container) {
+		GridData gridData1 = new GridData();
+		gridData1.grabExcessHorizontalSpace = false;
+		gridData1.verticalAlignment = GridData.CENTER;
+		gridData1.horizontalAlignment = GridData.BEGINNING;
+		sortCombo = new Combo(container , SWT.DROP_DOWN | SWT.READ_ONLY);
+		sortCombo.setLayoutData(gridData1);
+		sortCombo.add("relevance");
+		sortCombo.add("creation");
+		sortCombo.add("votes");
+		sortCombo.add("activity");
+		sortCombo.select(0);
+	}
+	
+	private void createSiteCombo(Composite container) {
+		GridData gridData1 = new GridData();
+		gridData1.grabExcessHorizontalSpace = false;
+		gridData1.verticalAlignment = GridData.CENTER;
+		gridData1.horizontalAlignment = GridData.BEGINNING;
+		siteCombo = new Combo(container , SWT.DROP_DOWN | SWT.READ_ONLY);
+		siteCombo.setLayoutData(gridData1);
+		siteCombo.add("stackoverflow");
+		siteCombo.select(0);
+	}
 
 	@Override
 	protected boolean isResizable() {
@@ -62,6 +110,10 @@ public class UserInputDialog extends TitleAreaDialog {
 	// as soon as the Dialog closes
 	private void saveInput() {
 		SearchText = txtSearchText.getText();
+		order = orderCombo.getText();
+		sort = sortCombo.getText();
+		site = siteCombo.getText();
+//		acceptedOnly;
 
 	}
 
@@ -74,4 +126,20 @@ public class UserInputDialog extends TitleAreaDialog {
 	public String getSearchText() {
 		return SearchText;
 	}
+	public String getOrder() {
+		return order;
+	}
+
+	public String getSort() {
+		return sort;
+	}
+
+	public String getSite() {
+		return site;
+	}
+
+	public boolean isAcceptedOnly() {
+		return acceptedOnly;
+	}
+
 }

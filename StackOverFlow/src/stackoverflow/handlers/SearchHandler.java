@@ -24,6 +24,9 @@ public class SearchHandler extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		String intitle;
+		String order;
+		String sort;
+		String site;
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 		UserInputDialog dialog = new UserInputDialog(window.getShell());
 		dialog.create();
@@ -31,13 +34,16 @@ public class SearchHandler extends AbstractHandler {
 		if (dialog.open() == Window.OK) {
 
 			intitle = dialog.getSearchText();
+			order = dialog.getOrder();
+			sort = dialog.getSort();
+			site = dialog.getSite();
 			System.out.println("intitle = " + intitle);
 			SearchResult searchResult;
 			String viewerID = "stackoverflow.ViewAndDialog.SearchResultView";
 
 			try {
 
-				searchResult = new SearchResult(intitle);
+				searchResult = new SearchResult(intitle,1,40,order,sort,site);
 				if (searchResult.haveResult()) {
 
 					String[] titleList = searchResult.getTitleList();

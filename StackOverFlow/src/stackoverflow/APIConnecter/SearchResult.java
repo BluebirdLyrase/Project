@@ -1,17 +1,36 @@
 package stackoverflow.APIConnecter;
+
 import java.io.IOException;
 import org.json.JSONException;
 
-public class SearchResult extends StackOverFlowConnecter{
+public class SearchResult extends StackOverFlowConnecter {
 
 	String[] titleList;
 	String[] questionIdList;
 	String item;
 	Boolean result;
-	
+
 	public SearchResult(String intitle) throws IOException, JSONException {
-//		this.url = "https://api.stackexchange.com/2.2/search/advanced?pagesize=20&order=asc&sort=relevance&q="+intitle+"&site=stackoverflow&filter=!)5IW-1CBLPytOiimbWji6k(KM(r5";
-		this.url = "https://api.stackexchange.com/2.2/search/advanced?pagesize=40&order=asc&sort=relevance&q="+intitle+"&site=stackoverflow&filter=!)5IW-1CBLPytOiimbWji6k(KM(r5";
+		this(intitle, 1, 40, "asc", "relevance","stackoverflow");
+//		this.url = "https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=40&order=asc&sort=relevance&q="+intitle+"&accepted=True&site=stackoverflow&filter=!4(L6lo9D9J9Y3508i";
+//		String newUrl = this.url.replaceAll(" ", "%20");
+//		this.json = readJsonFromUrl(newUrl);
+	}
+
+	public SearchResult(String intitle, int page, int pageSize, String order, String sort, String site, String tagged)
+			throws IOException, JSONException {
+		this.url = "https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=" + Integer.toString(pageSize)
+				+ "&order=" + order + "&sort=" + sort + "&q=" + intitle + "&accepted=True&tagged=" + tagged
+				+ "&site=stackoverflow&filter=!b93xi8evqst7Bm";
+		String newUrl = this.url.replaceAll(" ", "%20");
+		this.json = readJsonFromUrl(newUrl);
+	}
+
+	public SearchResult(String intitle, int page, int pageSize, String order, String sort, String site)
+			throws IOException, JSONException {
+		this.url = "https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=" + Integer.toString(pageSize)
+				+ "&order=" + order + "&sort=" + sort + "&q=" + intitle + "&accepted=True&site=" + site
+				+ "&filter=!b93xi8evqst7Bm";
 		String newUrl = this.url.replaceAll(" ", "%20");
 		this.json = readJsonFromUrl(newUrl);
 	}
@@ -25,7 +44,7 @@ public class SearchResult extends StackOverFlowConnecter{
 		return titleList;
 	}
 
-	public String[] getQuestionIdList() throws JSONException{
+	public String[] getQuestionIdList() throws JSONException {
 		int lenght = json.getJSONArray("items").length();
 		String[] questionIdList = new String[lenght];
 		for (int i = 0; i < lenght; i++) {
@@ -33,18 +52,15 @@ public class SearchResult extends StackOverFlowConnecter{
 		}
 		return questionIdList;
 	}
-	
+
 	public Boolean haveResult() throws JSONException {
-	item = json.getJSONArray("items").toString();
-	if(item.equals("[]")) {
-		LOGGER.warning("There is no result");
-		result = false;
+		item = json.getJSONArray("items").toString();
+		if (item.equals("[]")) {
+			LOGGER.warning("There is no result");
+			result = false;
+		} else
+			result = true;
+		return result;
 	}
-	else result = true;	
-	return result;
-	}
-	
-	
 
 }
-
