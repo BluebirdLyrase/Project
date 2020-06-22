@@ -40,12 +40,6 @@ public class ContentView extends ViewPart {
 	public static final String ID = "stackoverflow.ViewAndDialog.ContentView";
 
 	public void setContent(String id) {
-//		
-//		ScrolledComposite sc = new ScrolledComposite(parent, SWT.H_SCROLL | SWT.V_SCROLL);
-//		Composite composite = new Composite(sc, SWT.BORDER | SWT.WRAP  | SWT.MULTI);
-//		
-//		sc.setContent(composite);
-
 //		composite.setLayout(new GridLayout(2, false));
 //		AllContentStub content;
 		AllContent content;
@@ -56,18 +50,14 @@ public class ContentView extends ViewPart {
 			gridLayout.verticalSpacing = 0;
 			gridLayout.horizontalSpacing = 0;
 
-//			composite.setLayout(gridLayout);
 //			content = new AllContent(id, true);
 			content = new AllContent(id, false);
 
 			Question q = content.getAllConetent();
-
-//			Label separator = new Label(composite, SWT.SEPARATOR | SWT.SHADOW_OUT | SWT.HORIZONTAL);
-
+			
 			Browser browser;
 			try {
 				browser = new Browser(parent, SWT.NONE);
-//				browserQuestion.setSize(750,750);
 			} catch (SWTError e) {
 				System.out.println("Could not instantiate Browser: " + e.getMessage());
 
@@ -78,19 +68,18 @@ public class ContentView extends ViewPart {
 
 			String qText = "<B>" + q.getTitle() + "</B>" + q.getBody()+"<hr>";
 
-//			if (q.isHaveComment()) {
-//
-//				String[] comment = q.getComment();
-//				System.out.println(comment.length);
-//				Text[] lComment = new Text[comment.length];
-//				for (int i = 0; i < comment.length; i++) {
-//					System.out.println(comment[i]);
-//					lComment[i] = new Text(composite, SWT.MULTI | SWT.READ_ONLY);
-//					lComment[i].setText(comment[i]);
-//					lComment[i].setBackground(commentColor);
-//				}
-//
-//			}
+			if (q.isHaveComment()) {
+
+				String[] comment = q.getComment();
+				System.out.println(comment.length);
+				for (int i = 0; i < comment.length; i++) {
+					System.out.println(comment[i]);
+					
+					////new Code to create HTML TEXT HERE
+					
+				}
+
+			}
 
 			if (q.isHaveAnswer()) {
 				String answerBody = "";
@@ -104,23 +93,18 @@ public class ContentView extends ViewPart {
 					System.out.println(answers[i].getBody());
 					System.out.println(answers[i].getScore());
 
-					// answerBody=answerBody+lAnswers[i].getText();
 					answerBody = answerBody + ("<h1>Answer #"+i+"</h1>"+answers[i].getBody()+"<hr>");
-
-//					lAnswersHeader[i] = new Text(composite,SWT.MULTI | SWT.READ_ONLY);
-//					lAnswersHeader[i].setText("Answer index " + i);
 
 					if (answers[i].isHaveComment()) {
 
-//						String[] aComment = answers[i].getComment();
-//						Text[] lAComment = new Text[answers[i].getComment().length];
-//
-//						for (int j = 0; j < answers[i].getComment().length; j++) {
-//							System.out.println("Loop j : " + j);
-//							System.out.println(aComment[j]);
-//
-//							lAComment[j].setBackground(commentColor);
-//						}
+						String[] aComment = answers[i].getComment();
+						for (int j = 0; j < answers[i].getComment().length; j++) {
+							System.out.println("Loop j : " + j);
+							System.out.println(aComment[j]);
+							
+						////new Code to create HTML TEXT HERE
+							
+						}
 					}
 				}
 
@@ -134,11 +118,6 @@ public class ContentView extends ViewPart {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-//		sc.setExpandHorizontal(true);
-//		sc.setExpandVertical(true);
-//		sc.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-//		
 
 	}
 
