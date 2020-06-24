@@ -42,6 +42,9 @@ public class AllContent extends StackOverFlowConnecter {
 
 		}
 
+		// withstyle
+//		this.url = "https://api.stackexchange.com/2.2/questions/" + question_id
+//				+ "?order=asc&sort=activity&site=stackoverflow&filter=!)Ef-0bsQLJu7x)tRl5LzfD1y3weHcCAVkF3JrR0ihPA7wotIa";
 		this.json = readJsonFromUrl(this.url);
 
 		JSONObject itemObject = json.getJSONArray("items").getJSONObject(0);

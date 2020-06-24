@@ -39,11 +39,10 @@ public class ContentView extends ViewPart {
 	Composite parent;
 	public static final String ID = "stackoverflow.ViewAndDialog.ContentView";
 
-	public void setContent(String id) {
+	public void setContent(String id){
 //		composite.setLayout(new GridLayout(2, false));
 //		AllContentStub content;
-		AllContent content;
-		try {
+
 			GridLayout gridLayout = new GridLayout(1, false);
 			gridLayout.marginWidth = 5;
 			gridLayout.marginHeight = 5;
@@ -51,66 +50,65 @@ public class ContentView extends ViewPart {
 			gridLayout.horizontalSpacing = 0;
 
 //			content = new AllContent(id, true);
-			content = new AllContent(id, false);
-
-			Question q = content.getAllConetent();
-			
 			Browser browser;
+			
 			try {
 				browser = new Browser(parent, SWT.NONE);
 			} catch (SWTError e) {
 				System.out.println("Could not instantiate Browser: " + e.getMessage());
-
 				return;
 			}
 
-			Color commentColor = new Color(null, 197, 197, 197);
+			
+			browser.setText(getHtml(id));
 
-			String qText = "<B>" + q.getTitle() + "</B>" + q.getBody()+"<hr>";
 
-			if (q.isHaveComment()) {
+	}
+	
+	private String getHtml(String id) {
+		AllContent content;
+		String answer = "";
+		String question = "" ;
+		String questionComment = "";
+		String answerComment = "";
+		String HTMLbody;
+		
+		///HTML related
+		String codeBgColor = "\"background-color:powderblue;\"";
+		
+		try {
+		content = new AllContent(id, false);
+		Question q = content.getAllConetent();
+		question = "<h1>Question</h1>" + "<B>" + q.getTitle() + "</B>" + q.getBody()+"<hr>";
+		if (q.isHaveComment()) {
 
-				String[] comment = q.getComment();
-				System.out.println(comment.length);
-				for (int i = 0; i < comment.length; i++) {
-					System.out.println(comment[i]);
-					
-					////new Code to create HTML TEXT HERE
-					
-				}
-
+			String[] comment = q.getComment();
+			System.out.println(comment.length);
+			for (int i = 0; i < comment.length; i++) {
+//				System.out.println(comment[i]);
+				questionComment = questionComment + "<B>comment #</B>"+ i + comment[i] + "<br>";
+				
 			}
+		}
 
-			if (q.isHaveAnswer()) {
-				String answerBody = "";
+		if (q.isHaveAnswer()) {
+			Answer[] answers = q.getAnswer();
 
-				Answer[] answers = q.getAnswer();
-				Text[] lAnswers = new Text[answers.length];
-				Text[] lAnswersHeader = new Text[answers.length];
+			for (int i = 0; i < answers.length; i++) {
 
-				for (int i = 0; i < answers.length; i++) {
-					System.out.println("Loop i : " + i);
-					System.out.println(answers[i].getBody());
-					System.out.println(answers[i].getScore());
+				answer = answer + ("<h1>Answer #"+i+"</h1>"+answers[i].getBody()+"<hr>");
 
-					answerBody = answerBody + ("<h1>Answer #"+i+"</h1>"+answers[i].getBody()+"<hr>");
-
-					if (answers[i].isHaveComment()) {
-
-						String[] aComment = answers[i].getComment();
-						for (int j = 0; j < answers[i].getComment().length; j++) {
-							System.out.println("Loop j : " + j);
-							System.out.println(aComment[j]);
-							
-						////new Code to create HTML TEXT HERE
-							
-						}
+				if (answers[i].isHaveComment()) {
+					String[] aComment = answers[i].getComment();
+					for (int j = 0; j < answers[i].getComment().length; j++) {
+						answerComment = answerComment +"<B>comment #</B>"+ j + aComment[j] + "<br>";
 					}
+					answer = answer + "<h4>Comment Section</h4>"+answerComment;
 				}
-
-				browser.setText("<h1>Question</h1>" + qText + answerBody);
-			}
-
+			}		
+		}else {
+			answer = "<h2>No Answer</h2>";
+		}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -118,7 +116,12 @@ public class ContentView extends ViewPart {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		HTMLbody = question + questionComment + answer;
+		
+//		HTMLbody = HTMLbody.replaceAll("<code>", "<code style="+codeBgColor+">");
+		
+		return HTMLbody ;
+		
 	}
 
 	@Override
@@ -129,5 +132,11 @@ public class ContentView extends ViewPart {
 	@Override
 	public void setFocus() {
 	}
+	
+	/////highlight <code>
+//	this.body = this.body.replaceAll("<code>", "<div style="+codeBgColor+">><code>");
+//	this.body = this.body.replaceAll("</code>","</code></div>");
+	
+//	comment[i] = comment[i].replaceAll("<code>", "<code style="+codeBgColor+">");
 
 }
