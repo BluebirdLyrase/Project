@@ -26,6 +26,12 @@ public class UserInputDialog extends TitleAreaDialog {
 	private String site;
 	private boolean acceptedOnly;
 
+	////List of option
+	String[] sortList = {"relevance","creation","votes","activity"};
+	String[] siteList = {"stackoverflow","devops","gamedev","stackapps","superuser","sqa","softwareengineering","reverseengineering","webapps","webmasters"};
+	
+	
+	
 	public UserInputDialog(Shell parentShell) {
 		super(parentShell);
 	}
@@ -85,10 +91,9 @@ public class UserInputDialog extends TitleAreaDialog {
 		gridData1.horizontalAlignment = GridData.BEGINNING;
 		sortCombo = new Combo(container , SWT.DROP_DOWN | SWT.READ_ONLY);
 		sortCombo.setLayoutData(gridData1);
-		sortCombo.add("relevance");
-		sortCombo.add("creation");
-		sortCombo.add("votes");
-		sortCombo.add("activity");
+		for(String sortBy : sortList) {
+			sortCombo.add(sortBy);
+		}
 		sortCombo.select(0);
 	}
 	
@@ -99,7 +104,9 @@ public class UserInputDialog extends TitleAreaDialog {
 		gridData1.horizontalAlignment = GridData.BEGINNING;
 		siteCombo = new Combo(container , SWT.DROP_DOWN | SWT.READ_ONLY);
 		siteCombo.setLayoutData(gridData1);
-		siteCombo.add("stackoverflow");
+		for(String siteName : siteList) {
+			siteCombo.add(siteName);
+		}
 		siteCombo.select(0);
 	}
 	

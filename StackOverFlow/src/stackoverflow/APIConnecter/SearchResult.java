@@ -12,9 +12,6 @@ public class SearchResult extends StackOverFlowConnecter {
 
 	public SearchResult(String intitle) throws IOException, JSONException {
 		this(intitle, 1, 40, "asc", "relevance","stackoverflow");
-//		this.url = "https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=40&order=asc&sort=relevance&q="+intitle+"&accepted=True&site=stackoverflow&filter=!4(L6lo9D9J9Y3508i";
-//		String newUrl = this.url.replaceAll(" ", "%20");
-//		this.json = readJsonFromUrl(newUrl);
 	}
 
 	public SearchResult(String intitle, int page, int pageSize, String order, String sort, String site, String tagged)
