@@ -18,6 +18,7 @@ public class UserInputDialog extends TitleAreaDialog {
 	private Combo siteCombo;
 	private Combo sortCombo;
 	private Combo orderCombo;
+	private Combo acceptedCombo;
 	
 	private String SearchText;
 	private String order;
@@ -48,6 +49,7 @@ public class UserInputDialog extends TitleAreaDialog {
 		createOrderCombo(container);
 		createSortCombo(container);
 		createSiteCombo(container);
+		createAcceptedCombo(container);
 
 		return area;
 	}
@@ -100,6 +102,18 @@ public class UserInputDialog extends TitleAreaDialog {
 		siteCombo.add("stackoverflow");
 		siteCombo.select(0);
 	}
+	
+	private void createAcceptedCombo(Composite container) {
+		GridData gridData1 = new GridData();
+		gridData1.grabExcessHorizontalSpace = false;
+		gridData1.verticalAlignment = GridData.CENTER;
+		gridData1.horizontalAlignment = GridData.BEGINNING;
+		acceptedCombo = new Combo(container , SWT.DROP_DOWN | SWT.READ_ONLY);
+		acceptedCombo.setLayoutData(gridData1);
+		acceptedCombo.add("All Answer");
+		acceptedCombo.add("Accepted Answer Only");
+		acceptedCombo.select(0);
+	}
 
 	@Override
 	protected boolean isResizable() {
@@ -113,7 +127,7 @@ public class UserInputDialog extends TitleAreaDialog {
 		order = orderCombo.getText();
 		sort = sortCombo.getText();
 		site = siteCombo.getText();
-//		acceptedOnly;
+		setAccepted(acceptedCombo.getText());
 
 	}
 
@@ -136,6 +150,14 @@ public class UserInputDialog extends TitleAreaDialog {
 
 	public String getSite() {
 		return site;
+	}
+	
+	private void setAccepted(String isAccepted) {
+		if(isAccepted.equals("Accepted Answer Only")) {
+		this.acceptedOnly = true;
+		}else {
+			this.acceptedOnly = false;
+		}
 	}
 
 	public boolean isAcceptedOnly() {

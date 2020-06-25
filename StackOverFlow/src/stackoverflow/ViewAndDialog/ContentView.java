@@ -39,7 +39,7 @@ public class ContentView extends ViewPart {
 	Composite parent;
 	public static final String ID = "stackoverflow.ViewAndDialog.ContentView";
 
-	public void setContent(String id){
+	public void setContent(String id,boolean acceptedOnly){
 //		composite.setLayout(new GridLayout(2, false));
 //		AllContentStub content;
 
@@ -60,12 +60,12 @@ public class ContentView extends ViewPart {
 			}
 
 			
-			browser.setText(getHtml(id));
+			browser.setText(getHtml(id,acceptedOnly));
 
 
 	}
 	
-	private String getHtml(String id) {
+	private String getHtml(String id,boolean acceptedOnly) {
 		AllContent content;
 		String answer = "";
 		String question = "" ;
@@ -77,7 +77,7 @@ public class ContentView extends ViewPart {
 		String codeBgColor = "\"background-color:powderblue;\"";
 		
 		try {
-		content = new AllContent(id, false);
+		content = new AllContent(id, acceptedOnly);
 		Question q = content.getAllConetent();
 		question = "<h1>Question</h1>" + "<B>" + q.getTitle() + "</B>" + q.getBody()+"<hr>";
 		if (q.isHaveComment()) {
