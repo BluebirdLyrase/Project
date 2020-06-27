@@ -14,7 +14,8 @@ public class Question {
 	private String body;
 	private String[] comment;
 	private Answer[] answer;
-	boolean haveComment;
+	private boolean haveComment;
+	private boolean haveAnswer;
 	
 	public boolean isHaveComment() {
 		return haveComment;
@@ -22,7 +23,6 @@ public class Question {
 	public boolean isHaveAnswer() {
 		return haveAnswer;
 	}
-	boolean haveAnswer;
 	public String getTitle() {
 		return title;
 	}

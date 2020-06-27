@@ -8,7 +8,7 @@ public class SearchResult extends StackOverFlowConnecter {
 	String[] titleList;
 	String[] questionIdList;
 	String item;
-	Boolean result;
+	boolean result;
 
 	public SearchResult(String intitle) throws IOException, JSONException {
 		this(intitle, 1, 40, "asc", "relevance","stackoverflow");

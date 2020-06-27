@@ -41,20 +41,17 @@ public class ContentView extends ViewPart {
 			return;
 		}
 
-		browser.setText(getHtml(id, acceptedOnly));
+		browser.setText(createHtml(id, acceptedOnly));
 
 	}
 
-	private String getHtml(String id, boolean acceptedOnly) {
+	private String createHtml(String id, boolean acceptedOnly) {
 		AllContent content;
 		String answer = "";
 		String question = "";
 		String questionComment = "";
 		String answerComment = "";
 		String HTMLbody;
-
-		/// HTML related
-		String codeBgColor = "\"background-color:powderblue;\"";
 
 		try {
 			content = new AllContent(id, acceptedOnly);
@@ -122,11 +119,5 @@ public class ContentView extends ViewPart {
 	@Override
 	public void setFocus() {
 	}
-
-	///// highlight <code>
-//	this.body = this.body.replaceAll("<code>", "<div style="+codeBgColor+">><code>");
-//	this.body = this.body.replaceAll("</code>","</code></div>");
-
-//	comment[i] = comment[i].replaceAll("<code>", "<code style="+codeBgColor+">");
 
 }

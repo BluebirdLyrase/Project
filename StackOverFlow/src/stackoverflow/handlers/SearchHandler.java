@@ -19,6 +19,8 @@ import stackoverflow.ViewAndDialog.UserInputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 
+//////Project Eclipse-SOF v1.0.0
+
 public class SearchHandler extends AbstractHandler {
 
 	@Override
@@ -39,7 +41,7 @@ public class SearchHandler extends AbstractHandler {
 			sort = dialog.getSort();
 			site = dialog.getSite();
 			acceptedOnly = dialog.isAcceptedOnly();
-			System.out.println("intitle = " + intitle);
+//			System.out.println("intitle = " + intitle);
 			SearchResult searchResult;
 			String viewerID = "stackoverflow.ViewAndDialog.SearchResultView";
 
@@ -72,7 +74,7 @@ public class SearchHandler extends AbstractHandler {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-//			MessageDialog.openError(window.getShell(), "Error", "not found the result you are searching");
+
 		}
 
 		return null;

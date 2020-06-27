@@ -30,6 +30,8 @@ public class AllContent extends StackOverFlowConnecter {
 
 	public AllContent(String question_id, boolean acceptedOnly) throws IOException, JSONException {
 
+		//Check if user want only one Anwser 
+		// All Question that can be found by the URL will have an Accepted Answer or comment
 		if (acceptedOnly) {
 
 			this.url = "https://api.stackexchange.com/2.2/questions/" + question_id
@@ -42,7 +44,7 @@ public class AllContent extends StackOverFlowConnecter {
 
 		}
 
-		// withstyle
+		// url with style
 //		this.url = "https://api.stackexchange.com/2.2/questions/" + question_id
 //				+ "?order=asc&sort=activity&site=stackoverflow&filter=!)Ef-0bsQLJu7x)tRl5LzfD1y3weHcCAVkF3JrR0ihPA7wotIa";
 		this.json = readJsonFromUrl(this.url);
@@ -55,7 +57,7 @@ public class AllContent extends StackOverFlowConnecter {
 		this.body = itemObject.get("body").toString();
 		LOGGER.info("[" + LOGGER.getName() + "] " + "body : " + body);
 
-		///////////////////////////// Comment///////////////////////////////////
+		///////////////////////////// Comment ///////////////////////////////////
 		if (acceptedOnly) {
 			haveComment = false;
 
@@ -87,6 +89,8 @@ public class AllContent extends StackOverFlowConnecter {
 
 		String strAnswer_count = itemObject.get("answer_count").toString();
 		int answer_count = Integer.parseInt(strAnswer_count);
+		
+		////determine if this Question have any Answer
 		if (answer_count > 0) {
 			haveAnswer = true;
 		} else {
