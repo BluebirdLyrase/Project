@@ -5,6 +5,7 @@ import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -39,8 +40,8 @@ public class UserInputDialog extends TitleAreaDialog {
 	@Override
 	public void create() {
 		super.create();
-		setTitle("This is my first custom dialog");
-		setMessage("This is a TitleAreaDialog", IMessageProvider.INFORMATION);
+		setTitle("Stackoverflow Search");
+		setMessage("Search answer from Stackoverflow", IMessageProvider.INFORMATION);
 	}
 
 	@Override
@@ -50,19 +51,27 @@ public class UserInputDialog extends TitleAreaDialog {
 		container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		GridLayout layout = new GridLayout(2, false);
 		container.setLayout(layout);
-
+		
+		Composite filterContainer = new Composite(area, SWT.NONE);
+		filterContainer.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		GridLayout filterLayout = new GridLayout(4, false);
+		filterContainer.setLayout(filterLayout);
+		
+		
 		createSearchText(container);
-		createOrderCombo(container);
-		createSortCombo(container);
-		createSiteCombo(container);
-		createAcceptedCombo(container);
+		createSortFilterText(container);
+		createSortCombo(filterContainer);	
+		createOrderCombo(filterContainer);
+		createSiteCombo(filterContainer);
+		createAcceptedCombo(filterContainer);
+		
 
 		return area;
 	}
 
 	private void createSearchText(Composite container) {
 		Label lbtSearchText = new Label(container, SWT.NONE);
-		lbtSearchText.setText("Search");
+		lbtSearchText.setText("Search :");
 
 		GridData dataSearchText = new GridData();
 		dataSearchText.grabExcessHorizontalSpace = true;
@@ -70,26 +79,47 @@ public class UserInputDialog extends TitleAreaDialog {
 
 		txtSearchText = new Text(container, SWT.BORDER);
 		txtSearchText.setLayoutData(dataSearchText);
+
 	}
 	
-	private void createOrderCombo(Composite container) {
+	
+	private void createSortFilterText(Composite container) {
+
 		GridData gridData1 = new GridData();
-		gridData1.grabExcessHorizontalSpace = false;
+		gridData1.grabExcessHorizontalSpace = true;
+		gridData1.horizontalAlignment = GridData.FILL;
+		Label filterText = new Label(container, SWT.NONE);
+		filterText.setText("Filter: ");
+		filterText.setLayoutData(gridData1);
+		Label lbtSearchText = new Label(container, SWT.NONE);
+		lbtSearchText.setText(" ");
+	}
+	
+	private void createOrderCombo(Composite filterContainer) {
+		Label lbtSearchText = new Label(filterContainer, SWT.NONE);
+		lbtSearchText.setText("Sort by :");
+
+		GridData gridData1 = new GridData();
+		gridData1.grabExcessHorizontalSpace = true;
 		gridData1.verticalAlignment = GridData.CENTER;
 		gridData1.horizontalAlignment = GridData.BEGINNING;
-		orderCombo = new Combo(container , SWT.DROP_DOWN | SWT.READ_ONLY);
+		orderCombo = new Combo(filterContainer , SWT.DROP_DOWN | SWT.READ_ONLY);
 		orderCombo.setLayoutData(gridData1);
-		orderCombo.add("asc");
-		orderCombo.add("desc");
+		orderCombo.add("ASC");
+		orderCombo.add("DESC");
 		orderCombo.select(0);
 	}
+
 	
-	private void createSortCombo(Composite container) {
+	private void createSortCombo(Composite filterContainer) {
+		Label lbtSearchText = new Label(filterContainer, SWT.NONE);
+		lbtSearchText.setText("Oder by :");
+		
 		GridData gridData1 = new GridData();
 		gridData1.grabExcessHorizontalSpace = false;
 		gridData1.verticalAlignment = GridData.CENTER;
 		gridData1.horizontalAlignment = GridData.BEGINNING;
-		sortCombo = new Combo(container , SWT.DROP_DOWN | SWT.READ_ONLY);
+		sortCombo = new Combo(filterContainer , SWT.DROP_DOWN | SWT.READ_ONLY);
 		sortCombo.setLayoutData(gridData1);
 		for(String sortBy : sortList) {
 			sortCombo.add(sortBy);
@@ -97,12 +127,16 @@ public class UserInputDialog extends TitleAreaDialog {
 		sortCombo.select(0);
 	}
 	
-	private void createSiteCombo(Composite container) {
+	private void createSiteCombo(Composite filterContainer) {
+		
+		Label lbtSearchText = new Label(filterContainer, SWT.NONE);
+		lbtSearchText.setText("Site :");
+		
 		GridData gridData1 = new GridData();
 		gridData1.grabExcessHorizontalSpace = false;
 		gridData1.verticalAlignment = GridData.CENTER;
 		gridData1.horizontalAlignment = GridData.BEGINNING;
-		siteCombo = new Combo(container , SWT.DROP_DOWN | SWT.READ_ONLY);
+		siteCombo = new Combo(filterContainer , SWT.DROP_DOWN | SWT.READ_ONLY);
 		siteCombo.setLayoutData(gridData1);
 		for(String siteName : siteList) {
 			siteCombo.add(siteName);
@@ -110,12 +144,15 @@ public class UserInputDialog extends TitleAreaDialog {
 		siteCombo.select(0);
 	}
 	
-	private void createAcceptedCombo(Composite container) {
+	private void createAcceptedCombo(Composite filterContainer) {
+		Label lbtSearchText = new Label(filterContainer, SWT.NONE);
+		lbtSearchText.setText("Number of Answer :");
+		
 		GridData gridData1 = new GridData();
 		gridData1.grabExcessHorizontalSpace = false;
 		gridData1.verticalAlignment = GridData.CENTER;
 		gridData1.horizontalAlignment = GridData.BEGINNING;
-		acceptedCombo = new Combo(container , SWT.DROP_DOWN | SWT.READ_ONLY);
+		acceptedCombo = new Combo(filterContainer , SWT.DROP_DOWN | SWT.READ_ONLY);
 		acceptedCombo.setLayoutData(gridData1);
 		acceptedCombo.add("All Answer");
 		acceptedCombo.add("Accepted Answer Only");
