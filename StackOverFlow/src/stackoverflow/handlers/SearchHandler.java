@@ -19,7 +19,7 @@ import stackoverflow.ViewAndDialog.UserInputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 
-//////Project Eclipse-SOF v1.0.0
+//////Project Eclipse-SOF v1.0.1
 
 public class SearchHandler extends AbstractHandler {
 
@@ -41,7 +41,6 @@ public class SearchHandler extends AbstractHandler {
 			sort = dialog.getSort();
 			site = dialog.getSite();
 			acceptedOnly = dialog.isAcceptedOnly();
-//			System.out.println("intitle = " + intitle);
 			SearchResult searchResult;
 			String viewerID = "stackoverflow.ViewAndDialog.SearchResultView";
 
@@ -57,6 +56,7 @@ public class SearchHandler extends AbstractHandler {
 					window.getActivePage().showView(viewerID);
 
 					IViewPart viewPart = page.findView(viewerID);
+					
 					SearchResultView myView = (SearchResultView) viewPart;
 
 					myView.setSearchResult(acceptedOnly,titleList, questionIdList, event);

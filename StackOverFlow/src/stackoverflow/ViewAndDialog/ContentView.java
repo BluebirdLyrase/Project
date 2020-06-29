@@ -24,8 +24,12 @@ public class ContentView extends ViewPart {
 	Composite parent;
 	public static final String ID = "stackoverflow.ViewAndDialog.ContentView";
 
+	private String id = null;
+	private boolean acceptedOnly = false;
+	
 	public void setContent(String id, boolean acceptedOnly) {
-
+		this.id = id;
+		this.acceptedOnly = acceptedOnly;
 		GridLayout gridLayout = new GridLayout(1, false);
 		gridLayout.marginWidth = 5;
 		gridLayout.marginHeight = 5;
@@ -41,11 +45,11 @@ public class ContentView extends ViewPart {
 			return;
 		}
 
-		browser.setText(createHtml(id, acceptedOnly));
+		browser.setText(createHtml());
 
 	}
 
-	private String createHtml(String id, boolean acceptedOnly) {
+	private String createHtml() {
 		AllContent content;
 		String answer = "";
 		String question = "";

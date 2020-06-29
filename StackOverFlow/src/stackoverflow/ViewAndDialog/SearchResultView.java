@@ -11,6 +11,9 @@ import org.eclipse.ui.*;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.SWT;
+
+import java.time.LocalDateTime;
+
 import javax.inject.Inject;
 
 /**
@@ -37,8 +40,6 @@ public class SearchResultView extends ViewPart {
 
 	@Inject
 	IWorkbench workbench;
-	
-	private int secondaryId = 1;
 	private TableViewer viewer;
 	private Action action1;
 	private Action action2;
@@ -66,7 +67,8 @@ public class SearchResultView extends ViewPart {
 	boolean acceptedOnly;
 	ExecutionEvent event;
 
-	public void setSearchResult(boolean acceptedOnly,String[] titleList, String[] questionIdList, ExecutionEvent event) {
+	public void setSearchResult(boolean acceptedOnly, String[] titleList, String[] questionIdList,
+			ExecutionEvent event) {
 		this.acceptedOnly = acceptedOnly;
 		this.event = event;
 		this.titleList = titleList;
@@ -153,16 +155,23 @@ public class SearchResultView extends ViewPart {
 			public void run() {
 				int index = viewer.getTable().getSelectionIndex();
 				String viewerID = "stackoverflow.ViewAndDialog.ContentView";
+
+				/////use local date-time as a secondaryId for viewpart to prevent duplicate viewpart
+				LocalDateTime now = LocalDateTime.now();
+				String secondaryId = now.toString().replace(":", "").replace(".", "").replace("-", "");
+				System.out.println("secondaryId : " + secondaryId);
+
 				try {
 
-					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();			
-					HandlerUtil.getActiveWorkbenchWindow(event).getActivePage().showView(viewerID, Integer.toString(secondaryId), IWorkbenchPage.VIEW_ACTIVATE);
-					IViewReference currentView = page.findViewReference(viewerID, Integer.toString(secondaryId));
+					IWorkbenchPage activeEvent = HandlerUtil.getActiveWorkbenchWindow(event).getActivePage();
+					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();		
+					
+					activeEvent.showView(viewerID, secondaryId, IWorkbenchPage.VIEW_ACTIVATE);
+					IViewReference currentView = page.findViewReference(viewerID, secondaryId);
 					IViewPart viewPart = currentView.getView(true);
 					ContentView myView = (ContentView) viewPart;
-					secondaryId++;
- 
-					myView.setContent(viewer.getData("questionId" + index).toString(),acceptedOnly);
+
+					myView.setContent(viewer.getData("questionId" + index).toString(), acceptedOnly);
 
 				} catch (PartInitException e) {
 					// TODO Auto-generated catch block
