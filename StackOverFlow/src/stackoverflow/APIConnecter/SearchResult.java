@@ -49,6 +49,8 @@ public class SearchResult extends StackOverFlowConnecter {
 		}
 		return questionIdList;
 	}
+	
+	
 
 	public Boolean haveResult() throws JSONException {
 		item = json.getJSONArray("items").toString();
