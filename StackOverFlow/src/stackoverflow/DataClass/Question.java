@@ -1,7 +1,7 @@
 package stackoverflow.DataClass;
 
 public class Question {
-	public Question(String title, String body, String[] comment, Answer[] answer,boolean haveComment,boolean haveAnswer,String owner) {
+	public Question(String title, String body, Comment[] comment, Answer[] answer,boolean haveComment,boolean haveAnswer,String owner) {
 		this.title = title;
 		this.body = body;
 		this.comment = comment;
@@ -13,7 +13,7 @@ public class Question {
 	
 	private String title;
 	private String body;
-	private String[] comment;
+	private Comment[] comment;
 	private Answer[] answer;
 	private boolean haveComment;
 	private boolean haveAnswer;
@@ -35,7 +35,7 @@ public class Question {
 	public String getBody() {
 		return body;
 	}
-	public String[] getComment() {
+	public Comment[] getComment() {
 		return comment;
 	}
 	public Answer[] getAnswer() {

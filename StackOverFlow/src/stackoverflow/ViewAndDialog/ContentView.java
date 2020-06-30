@@ -6,6 +6,7 @@ import org.eclipse.ui.part.*;
 import org.json.JSONException;
 import stackoverflow.APIConnecter.AllContent;
 import stackoverflow.DataClass.Answer;
+import stackoverflow.DataClass.Comment;
 import stackoverflow.DataClass.Question;
 import java.io.IOException;
 import javax.inject.Inject;
@@ -64,12 +65,12 @@ public class ContentView extends ViewPart {
 					+ "</div><hr>";
 			if (q.isHaveComment()) {
 
-				String[] comment = q.getComment();
+				Comment[] comment = q.getComment();
 				System.out.println(comment.length);
 				for (int i = 0; i < comment.length; i++) {
 					questionComment = questionComment
 							+ "<div style=\" margin-right: 5%; margin-left: 5%; font-size: 14px; \"><B>comment #</B>"
-							+ (i + 1) + comment[i]
+							+ (i + 1) + comment[i].getBody()
 							+ "<br><hr style=\"color: #DCDCDC; background-color: #DCDCDC;\"></div>";
 
 				}
@@ -85,11 +86,11 @@ public class ContentView extends ViewPart {
 							+ answers[i].getBody() + "</div><hr>");
 
 					if (answers[i].isHaveComment()) {
-						String[] aComment = answers[i].getComment();
+						Comment[] aComment = answers[i].getComment();
 						for (int j = 0; j < answers[i].getComment().length; j++) {
 							answerComment = answerComment
 									+ "<div style=\" margin-right: 5%; margin-left: 5%; font-size: 14px; \"><B>comment #</B>"
-									+ (j + 1) + aComment[j]
+									+ (j + 1) + aComment[j].getBody()
 									+ "<br><hr style=\"color: #DCDCDC; background-color: #DCDCDC;\"></div>";
 						}
 						answer = answer + answerComment;
