@@ -23,30 +23,24 @@ public class AllContent extends StackOverFlowConnecter {
 	private boolean haveAComment;
 	private boolean haveComment;
 	private boolean haveAnswer;
+	private String  qOwner;
+	private String aOwner;
+	private String cOwner;
+	
 
 	public Question getAllConetent() {
 		return allConetent;
 	}
 
-	public AllContent(String question_id, boolean acceptedOnly) throws IOException, JSONException {
+	public AllContent(String question_id) throws IOException, JSONException {
 
 		//Check if user want only one Anwser 
 		// All Question that can be found by the URL will have an Accepted Answer or comment
-		if (acceptedOnly) {
-
 			this.url = "https://api.stackexchange.com/2.2/questions/" + question_id
-					+ "?order=asc&sort=activity&site=stackoverflow&filter=!*1SgS32*6uyaPh4wexXdmKkeav.M4SdvZbxtIIk2q";
+					+ "?order=asc&sort=activity&site=stackoverflow&filter=!m)AosxZq3nkqRTUeSkCPm50VBdwFONt9MRUPh_IQS3L_1A_BB2KGg*Si";
 
-		} else {
 
-			this.url = "https://api.stackexchange.com/2.2/questions/" + question_id
-					+ "?order=asc&sort=activity&site=stackoverflow&filter=!17vhYVGJF_V1pgWDBcdcFef.pkvM6EAc7IQdcgIj1EtLIL";
 
-		}
-
-		// url with style
-//		this.url = "https://api.stackexchange.com/2.2/questions/" + question_id
-//				+ "?order=asc&sort=activity&site=stackoverflow&filter=!)Ef-0bsQLJu7x)tRl5LzfD1y3weHcCAVkF3JrR0ihPA7wotIa";
 		this.json = readJsonFromUrl(this.url);
 
 		JSONObject itemObject = json.getJSONArray("items").getJSONObject(0);
@@ -56,12 +50,11 @@ public class AllContent extends StackOverFlowConnecter {
 
 		this.body = itemObject.get("body").toString();
 		LOGGER.info("[" + LOGGER.getName() + "] " + "body : " + body);
+		
+		this.qOwner = itemObject.getJSONObject("owner").get("display_name").toString();
+		LOGGER.info("[" + LOGGER.getName() + "] " + "Q owner : " + qOwner);
 
 		///////////////////////////// Comment ///////////////////////////////////
-		if (acceptedOnly) {
-			haveComment = false;
-
-		} else {
 
 			String strComment_count = itemObject.get("comment_count").toString();
 			int comment_count = Integer.parseInt(strComment_count);
@@ -84,7 +77,7 @@ public class AllContent extends StackOverFlowConnecter {
 
 			}
 
-		}
+		
 		//////////////////////////////////////////////////////////////////////
 
 		String strAnswer_count = itemObject.get("answer_count").toString();
@@ -99,25 +92,6 @@ public class AllContent extends StackOverFlowConnecter {
 
 		if (haveAnswer) {
 
-			if (acceptedOnly) {
-
-				String anwserURL = "https://api.stackexchange.com/2.2/questions/" + question_id
-						+ "/answers?page=1&pagesize=1&order=desc&sort=votes&site=stackoverflow&filter=!bM7*SVS7k_vuFX";
-				JSONObject answerJson = readJsonFromUrl(anwserURL);
-				answer = new Answer[1];
-				LOGGER.info("[" + LOGGER.getName() + "] " + " Get only one Answer ");
-
-				JSONObject answerObject = answerJson.getJSONArray("items").getJSONObject(0);
-
-				this.aBody = answerObject.get("body").toString();
-				this.score = answerObject.get("score").toString();
-				String strIs_accepted = answerObject.get("is_accepted").toString();
-				this.is_accepted = Boolean.parseBoolean(strIs_accepted);
-
-				haveAComment = false;
-				answer[0] = new Answer(aBody, score, is_accepted, Acomment, haveAComment);
-
-			} else {
 
 				JSONArray answerObject = itemObject.getJSONArray("answers");
 
@@ -138,6 +112,9 @@ public class AllContent extends StackOverFlowConnecter {
 					String strIs_accepted = currentAnswerObject.get("is_accepted").toString();
 					this.is_accepted = Boolean.parseBoolean(strIs_accepted);
 					LOGGER.info("[" + LOGGER.getName() + "] " + "is_accepted : " + is_accepted);
+					
+					this.aOwner = currentAnswerObject.getJSONObject("owner").get("display_name").toString();
+					LOGGER.info("[" + LOGGER.getName() + "] " + "A owner : " + aOwner);
 
 					///////////////////////////// Comment///////////////////////////////////
 
@@ -164,19 +141,14 @@ public class AllContent extends StackOverFlowConnecter {
 
 					//////////////////////////////////////////////////////////////////////
 
-					answer[i] = new Answer(aBody, score, is_accepted, Acomment, haveAComment);
+					answer[i] = new Answer(aBody, score, is_accepted, Acomment, haveAComment,aOwner);
 				}
 
-			}
 		}
 
-		this.allConetent = new Question(title, body, comment, answer, haveComment, haveAnswer);
+		this.allConetent = new Question(title, body, comment, answer, haveComment, haveAnswer,qOwner);
 
 	}
 
-	public AllContent(String question_id) throws IOException, JSONException {
-		this(question_id, false);
-
-	}
 
 }

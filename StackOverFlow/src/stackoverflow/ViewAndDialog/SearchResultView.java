@@ -89,12 +89,10 @@ public class SearchResultView extends ViewPart {
 
 	String[] titleList;
 	String[] questionIdList;
-	boolean acceptedOnly;
 	ExecutionEvent event;
 
-	public void setSearchResult(boolean acceptedOnly, String[] titleList, String[] questionIdList,
+	public void setSearchResult(String[] titleList, String[] questionIdList,
 			ExecutionEvent event) {
-		this.acceptedOnly = acceptedOnly;
 		this.event = event;
 		this.titleList = titleList;
 		this.questionIdList = questionIdList;
@@ -198,7 +196,7 @@ public class SearchResultView extends ViewPart {
 					IViewPart viewPart = currentView.getView(true);
 					ContentView myView = (ContentView) viewPart;
 
-					myView.setContent(viewer.getData("questionId" + index).toString(), acceptedOnly);
+					myView.setContent(viewer.getData("questionId" + index).toString());
 
 				} catch (PartInitException e) {
 					// TODO Auto-generated catch block

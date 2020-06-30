@@ -30,7 +30,6 @@ public class SearchHandler extends AbstractHandler {
 		String sort;
 		String site;
 		String tagged;
-		boolean acceptedOnly;
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 		UserInputDialog dialog = new UserInputDialog(window.getShell());
 		dialog.create();
@@ -41,7 +40,6 @@ public class SearchHandler extends AbstractHandler {
 			order = dialog.getOrder();
 			sort = dialog.getSort();
 			site = dialog.getSite();
-			acceptedOnly = dialog.isAcceptedOnly();
 			SearchResult searchResult;
 			String viewerID = "stackoverflow.ViewAndDialog.SearchResultView";
 
@@ -60,7 +58,7 @@ public class SearchHandler extends AbstractHandler {
 					
 					SearchResultView myView = (SearchResultView) viewPart;
 
-					myView.setSearchResult(acceptedOnly,titleList, questionIdList, event);
+					myView.setSearchResult(titleList, questionIdList, event);
 
 				} else {
 					MessageDialog.openError(window.getShell(), "Error", "not found the result you are searching");

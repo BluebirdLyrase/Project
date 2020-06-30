@@ -19,13 +19,11 @@ public class UserInputDialog extends TitleAreaDialog {
 	private Combo siteCombo;
 	private Combo sortCombo;
 	private Combo orderCombo;
-	private Combo acceptedCombo;
 	
 	private String SearchText;
 	private String order;
 	private String sort;
 	private String site;
-	private boolean acceptedOnly;
 
 	////List of option
 	String[] sortList = {"relevance","creation","votes","activity"};
@@ -63,7 +61,6 @@ public class UserInputDialog extends TitleAreaDialog {
 		createSortCombo(filterContainer);	
 		createOrderCombo(filterContainer);
 		createSiteCombo(filterContainer);
-		createAcceptedCombo(filterContainer);
 		
 
 		return area;
@@ -143,21 +140,6 @@ public class UserInputDialog extends TitleAreaDialog {
 		}
 		siteCombo.select(0);
 	}
-	
-	private void createAcceptedCombo(Composite filterContainer) {
-		Label lbtSearchText = new Label(filterContainer, SWT.NONE);
-		lbtSearchText.setText("Number of Answer :");
-		
-		GridData gridData1 = new GridData();
-		gridData1.grabExcessHorizontalSpace = false;
-		gridData1.verticalAlignment = GridData.CENTER;
-		gridData1.horizontalAlignment = GridData.BEGINNING;
-		acceptedCombo = new Combo(filterContainer , SWT.DROP_DOWN | SWT.READ_ONLY);
-		acceptedCombo.setLayoutData(gridData1);
-		acceptedCombo.add("All Answer");
-		acceptedCombo.add("Accepted Answer Only");
-		acceptedCombo.select(0);
-	}
 
 	@Override
 	protected boolean isResizable() {
@@ -171,7 +153,6 @@ public class UserInputDialog extends TitleAreaDialog {
 		order = orderCombo.getText();
 		sort = sortCombo.getText();
 		site = siteCombo.getText();
-		setAccepted(acceptedCombo.getText());
 
 	}
 
@@ -194,18 +175,6 @@ public class UserInputDialog extends TitleAreaDialog {
 
 	public String getSite() {
 		return site;
-	}
-	
-	private void setAccepted(String isAccepted) {
-		if(isAccepted.equals("Accepted Answer Only")) {
-		this.acceptedOnly = true;
-		}else {
-			this.acceptedOnly = false;
-		}
-	}
-
-	public boolean isAcceptedOnly() {
-		return acceptedOnly;
 	}
 
 }

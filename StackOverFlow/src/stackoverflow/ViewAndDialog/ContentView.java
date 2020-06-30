@@ -25,11 +25,9 @@ public class ContentView extends ViewPart {
 	public static final String ID = "stackoverflow.ViewAndDialog.ContentView";
 
 	private String id = null;
-	private boolean acceptedOnly = false;
 	
-	public void setContent(String id, boolean acceptedOnly) {
+	public void setContent(String id) {
 		this.id = id;
-		this.acceptedOnly = acceptedOnly;
 		GridLayout gridLayout = new GridLayout(1, false);
 		gridLayout.marginWidth = 5;
 		gridLayout.marginHeight = 5;
@@ -58,7 +56,7 @@ public class ContentView extends ViewPart {
 		String HTMLbody;
 
 		try {
-			content = new AllContent(id, acceptedOnly);
+			content = new AllContent(id);
 			Question q = content.getAllConetent();
 
 			////// Question

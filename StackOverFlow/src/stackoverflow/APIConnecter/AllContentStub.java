@@ -167,12 +167,12 @@ public class AllContentStub {
 				}
 			}
 
-			answer[i] = new Answer(aBody, score, is_accepted, Acomment, haveAComment);
+			answer[i] = new Answer(aBody, score, is_accepted, Acomment, haveAComment,"inwza");
 		}
 		
 		}
 
-		this.allConetent = new Question(title, body, comment, answer,haveComment,haveAnswer);
+		this.allConetent = new Question(title, body, comment, answer,haveComment,haveAnswer,"inwza");
 
 	}
 	

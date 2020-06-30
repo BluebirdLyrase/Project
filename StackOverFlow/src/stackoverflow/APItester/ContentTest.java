@@ -15,14 +15,15 @@ public class ContentTest {
 
 	public static void main(String[] args) throws IOException, JSONException {
 //		SearchResult s = new SearchResult("Eclipse");
-		AllContent c = new AllContent("62153976",true);
+		AllContent c = new AllContent("1678122");
 //		AllContent c = new AllContent("62153991");
 //		AllContent c = new AllContent("1678122");
 //		AllContentStub c = new AllContentStub("62153976");
 		Question q = c.getAllConetent();
-		System.out.println(q.getBody());
-		System.out.println(q.getTitle());
+//		System.out.println(q.getBody());
+//		System.out.println(q.getTitle());
 		
+		System.out.println(q.getOwner());
 
 
 		if (q.isHaveComment()) {
@@ -40,13 +41,14 @@ public class ContentTest {
 			Answer[] a = q.getAnswer();
 			for (int i = 0; i < a.length; i++) {
 				System.out.println("Loop i : "+i );
-				System.out.println(a[i].getBody());
-				System.out.println(a[i].getScore());
+//				System.out.println(a[i].getBody());
+//				System.out.println(a[i].getScore());
+				System.out.println("Aowner:"+a[i].getOwner());
 				if (a[i].isHaveComment()) {
 					String[] comment = a[i].getComment();
 					for (int j = 0; j < a[i].getComment().length; j++) {
-						System.out.println("Loop j : "+j );
-						System.out.println(comment[j]);
+//						System.out.println("Loop j : "+j );
+//						System.out.println(comment[j]);
 					}
 				}
 			}
