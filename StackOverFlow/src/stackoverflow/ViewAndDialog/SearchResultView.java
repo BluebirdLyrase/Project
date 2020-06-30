@@ -2,16 +2,23 @@ package stackoverflow.ViewAndDialog;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
+import org.osgi.framework.Bundle;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.*;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.*;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.SWT;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.LocalDateTime;
 
 import javax.inject.Inject;
@@ -58,7 +65,23 @@ public class SearchResultView extends ViewPart {
 
 		@Override
 		public Image getImage(Object obj) {
-			return workbench.getSharedImages().getImage(ISharedImages.IMG_OBJ_ELEMENT);
+
+	            String path = "\\images\\stackoverflow.png";
+	            Bundle bundle = Platform.getBundle("StackOverFlow");
+	            URL url = FileLocator.find(bundle, new org.eclipse.core.runtime.Path(path), null);
+	            URL fileURL = null ;
+	            try {
+					 fileURL = FileLocator.toFileURL(url);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	            ImageDescriptor imageDesc = ImageDescriptor.createFromURL(fileURL);
+	            Image image = imageDesc.createImage();
+				
+	
+	            return image;
+//			return workbench.getSharedImages().getImage(ISharedImages.IMG_OBJ_ELEMENT);
 		}
 	}
 
