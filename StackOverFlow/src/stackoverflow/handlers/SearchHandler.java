@@ -29,6 +29,7 @@ public class SearchHandler extends AbstractHandler {
 		String order;
 		String sort;
 		String site;
+		String tagged;
 		boolean acceptedOnly;
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 		UserInputDialog dialog = new UserInputDialog(window.getShell());

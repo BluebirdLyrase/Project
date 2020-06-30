@@ -11,23 +11,27 @@ public class SearchResult extends StackOverFlowConnecter {
 	boolean result;
 
 	public SearchResult(String intitle) throws IOException, JSONException {
-		this(intitle, 1, 40, "asc", "relevance","stackoverflow");
+		this(intitle, 1, 40, "asc", "relevance", "stackoverflow");
+	}
+	
+	public SearchResult(String intitle, int page, int pageSize, String order, String sort, String site)
+			throws IOException, JSONException {
+		this(intitle, 1, 40, "asc", "relevance", "stackoverflow", null);
 	}
 
 	public SearchResult(String intitle, int page, int pageSize, String order, String sort, String site, String tagged)
 			throws IOException, JSONException {
+		/////Check if there are any tagged
+		String tagContent;
+		if(tagged == null) {
+		tagContent = "";
+		}else {
+		tagContent = "&tagged=" + tagged;
+		}
+		
 		this.url = "https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=" + Integer.toString(pageSize)
-				+ "&order=" + order + "&sort=" + sort + "&q=" + intitle + "&accepted=True&tagged=" + tagged
-				+ "&site=stackoverflow&filter=!b93xi8evqst7Bm";
-		String newUrl = this.url.replaceAll(" ", "%20");
-		this.json = readJsonFromUrl(newUrl);
-	}
-
-	public SearchResult(String intitle, int page, int pageSize, String order, String sort, String site)
-			throws IOException, JSONException {
-		this.url = "https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=" + Integer.toString(pageSize)
-				+ "&order=" + order + "&sort=" + sort + "&q=" + intitle + "&accepted=True&site=" + site
-				+ "&filter=!b93xi8evqst7Bm";
+				+ "&order=" + order + "&sort=" + sort + "&q=" + intitle + "&accepted=True" + tagContent
+				+ "&site=stackoverflow&filter=!4(L6lo0bkjbSB1w_D";
 		String newUrl = this.url.replaceAll(" ", "%20");
 		this.json = readJsonFromUrl(newUrl);
 	}
@@ -49,8 +53,6 @@ public class SearchResult extends StackOverFlowConnecter {
 		}
 		return questionIdList;
 	}
-	
-	
 
 	public Boolean haveResult() throws JSONException {
 		item = json.getJSONArray("items").toString();
