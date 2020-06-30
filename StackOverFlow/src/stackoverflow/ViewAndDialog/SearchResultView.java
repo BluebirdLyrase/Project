@@ -48,11 +48,13 @@ public class SearchResultView extends ViewPart {
 	@Inject
 	IWorkbench workbench;
 	private TableViewer viewer;
-	private Action action1;
-	private Action action2;
+//	private Action action1;
+//	private Action action2;
 	private Action doubleClickAction;
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
+
+		
 		@Override
 		public String getColumnText(Object obj, int index) {
 			return getText(obj);
@@ -100,7 +102,9 @@ public class SearchResultView extends ViewPart {
 		for (int i = 0; i < questionIdList.length; i++) {
 			viewer.setData("questionId" + i, questionIdList[i]);
 		}
+		ColumnViewerToolTipSupport.enableFor(viewer);
 		viewer.setInput(titleList);
+
 	}
 
 	@Override
@@ -113,67 +117,67 @@ public class SearchResultView extends ViewPart {
 		workbench.getHelpSystem().setHelp(viewer.getControl(), "StackOverFlow.viewer");
 		getSite().setSelectionProvider(viewer);
 		makeActions();
-		hookContextMenu();
+//		hookContextMenu();
 		hookDoubleClickAction();
-		contributeToActionBars();
+//		contributeToActionBars();
 	}
 
-	private void hookContextMenu() {
-		MenuManager menuMgr = new MenuManager("#PopupMenu");
-		menuMgr.setRemoveAllWhenShown(true);
-		menuMgr.addMenuListener(new IMenuListener() {
-			public void menuAboutToShow(IMenuManager manager) {
-				SearchResultView.this.fillContextMenu(manager);
-			}
-		});
-		Menu menu = menuMgr.createContextMenu(viewer.getControl());
-		viewer.getControl().setMenu(menu);
-		getSite().registerContextMenu(menuMgr, viewer);
-	}
+//	private void hookContextMenu() {
+//		MenuManager menuMgr = new MenuManager("#PopupMenu");
+//		menuMgr.setRemoveAllWhenShown(true);
+//		menuMgr.addMenuListener(new IMenuListener() {
+//			public void menuAboutToShow(IMenuManager manager) {
+//				SearchResultView.this.fillContextMenu(manager);
+//			}
+//		});
+//		Menu menu = menuMgr.createContextMenu(viewer.getControl());
+//		viewer.getControl().setMenu(menu);
+//		getSite().registerContextMenu(menuMgr, viewer);
+//	}
+//
+//	private void contributeToActionBars() {
+//		IActionBars bars = getViewSite().getActionBars();
+//		fillLocalPullDown(bars.getMenuManager());
+//		fillLocalToolBar(bars.getToolBarManager());
+//	}
 
-	private void contributeToActionBars() {
-		IActionBars bars = getViewSite().getActionBars();
-		fillLocalPullDown(bars.getMenuManager());
-		fillLocalToolBar(bars.getToolBarManager());
-	}
-
-	private void fillLocalPullDown(IMenuManager manager) {
-		manager.add(action1);
-		manager.add(new Separator());
-		manager.add(action2);
-	}
-
-	private void fillContextMenu(IMenuManager manager) {
-		manager.add(action1);
-		manager.add(action2);
-		// Other plug-ins can contribute there actions here
-		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
-	}
-
-	private void fillLocalToolBar(IToolBarManager manager) {
-		manager.add(action1);
-		manager.add(action2);
-	}
-
+//	private void fillLocalPullDown(IMenuManager manager) {
+//		manager.add(action1);
+//		manager.add(new Separator());
+//		manager.add(action2);
+//	}
+//
+//	private void fillContextMenu(IMenuManager manager) {
+//		manager.add(action1);
+//		manager.add(action2);
+//		// Other plug-ins can contribute there actions here
+//		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
+//	}
+//
+//	private void fillLocalToolBar(IToolBarManager manager) {
+//		manager.add(action1);
+//		manager.add(action2);
+//	}
+//
 	private void makeActions() {
-		action1 = new Action() {
-			public void run() {
-				showMessage("Action 1 executed");
-			}
-		};
-		action1.setText("Action 1");
-		action1.setToolTipText("Action 1 tooltip");
-		action1.setImageDescriptor(
-				PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
-
-		action2 = new Action() {
-			public void run() {
-				showMessage("Action 2 executed");
-			}
-		};
-		action2.setText("Action 2");
-		action2.setToolTipText("Action 2 tooltip");
-		action2.setImageDescriptor(workbench.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+//		action1 = new Action() {
+//			public void run() {
+//				showMessage("Action 1 executed");
+//			}
+//		};
+//		action1.setText("Action 1");
+//		action1.setToolTipText("Action 1 tooltip");
+//		action1.setImageDescriptor(
+//				PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+//
+//		action2 = new Action() {
+//			public void run() {
+//				showMessage("Action 2 executed");
+//			}
+//		};
+//		action2.setText("Action 2");
+//		action2.setToolTipText("Action 2 tooltip");
+//		action2.setImageDescriptor(workbench.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
 		doubleClickAction = new Action() {
 			public void run() {
 				int index = viewer.getTable().getSelectionIndex();
