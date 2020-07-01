@@ -38,6 +38,8 @@ public class AllContent extends StackOverFlowConnecter {
 
 	public AllContent(String question_id) throws IOException, JSONException {
 
+		System.out.println(question_id);
+
 		// Check if user want only one Anwser
 		// All Question that can be found by the URL will have an Accepted Answer or
 		// comment
@@ -55,11 +57,19 @@ public class AllContent extends StackOverFlowConnecter {
 		this.body = itemObject.get("body").toString();
 		LOGGER.info("[" + LOGGER.getName() + "] " + "body : " + body);
 
+		String qOwnerJson = itemObject.getJSONObject("owner").toString();
+		boolean qHaveImage = qOwnerJson.contains("profile_image");
+
 		this.qOwner = itemObject.getJSONObject("owner").get("display_name").toString();
 		LOGGER.info("[" + LOGGER.getName() + "] " + "Q owner : " + qOwner);
 
-		this.qOwnerImage = itemObject.getJSONObject("owner").get("profile_image").toString();
-		LOGGER.info("[" + LOGGER.getName() + "] " + "qOwnerImage : " + qOwnerImage);
+		if (qHaveImage) {
+			this.qOwnerImage = itemObject.getJSONObject("owner").get("profile_image").toString();
+			LOGGER.info("[" + LOGGER.getName() + "] " + "qOwnerImage : " + qOwnerImage);
+		} else {
+			this.qOwnerImage = "https://www.img.in.th/images/f11865103ab590aff5efd38cbb5f4dbd.png";
+			LOGGER.info("[" + LOGGER.getName() + "] " + "qOwnerImage : " + "this man habe no Image");
+		}
 
 		///////////////////////////// Comment ///////////////////////////////////
 
@@ -123,11 +133,19 @@ public class AllContent extends StackOverFlowConnecter {
 				this.is_accepted = Boolean.parseBoolean(strIs_accepted);
 				LOGGER.info("[" + LOGGER.getName() + "] " + "is_accepted : " + is_accepted);
 
+				String aOwnerJson = currentAnswerObject.getJSONObject("owner").toString();
+				boolean aHaveImage = aOwnerJson.contains("profile_image");
+
 				this.aOwner = currentAnswerObject.getJSONObject("owner").get("display_name").toString();
 				LOGGER.info("[" + LOGGER.getName() + "] " + "A owner : " + aOwner);
 
-				this.aOwnerImage = currentAnswerObject.getJSONObject("owner").get("profile_image").toString();
-				LOGGER.info("[" + LOGGER.getName() + "] " + "aOwnerImage : " + aOwnerImage);
+				if (aHaveImage) {
+					this.aOwnerImage = currentAnswerObject.getJSONObject("owner").get("profile_image").toString();
+					LOGGER.info("[" + LOGGER.getName() + "] " + "aOwnerImage : " + aOwnerImage);
+				} else {
+					this.aOwnerImage = "https://www.img.in.th/images/f11865103ab590aff5efd38cbb5f4dbd.png";
+					LOGGER.info("[" + LOGGER.getName() + "] " + "aOwnerImage : " + "this man habe no Image");
+				}
 
 				///////////////////////////// Comment///////////////////////////////////
 
