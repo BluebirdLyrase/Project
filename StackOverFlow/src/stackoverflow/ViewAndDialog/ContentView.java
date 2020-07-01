@@ -61,7 +61,7 @@ public class ContentView extends ViewPart {
 			Question q = content.getAllConetent();
 
 			////// Question
-			question = "<h2>Question : " + q.getTitle() + "</h2>" + "<div style=\" font-size: 18px \"> " + q.getBody()
+			question = "<h2>Question : " + q.getTitle() + "</h2>" + "<div style=\" font-size: 18px  color:FF5733 \"> " + q.getBody()
 					+ "</div><hr>";
 			if (q.isHaveComment()) {
 
@@ -82,7 +82,7 @@ public class ContentView extends ViewPart {
 
 				for (int i = 0; i < answers.length; i++) {
 
-					answer = answer + ("<h2>Answer #" + (i + 1) + "</h2>" + "<div style=\" font-size: 18px \"> "
+					answer = answer + ("<h2>Answer #" + (i + 1) + "</h2>" + "<div style=\" font-size: 16px \"> "
 							+ answers[i].getBody() + "</div><hr>");
 
 					if (answers[i].isHaveComment()) {

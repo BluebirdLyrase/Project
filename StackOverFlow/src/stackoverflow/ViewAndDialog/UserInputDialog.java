@@ -47,7 +47,7 @@ public class UserInputDialog extends TitleAreaDialog {
 		Composite area = (Composite) super.createDialogArea(parent);
 		Composite container = new Composite(area, SWT.NONE);
 		container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		GridLayout layout = new GridLayout(2, false);
+		GridLayout layout = new GridLayout(1, false);
 		container.setLayout(layout);
 		
 		Composite filterContainer = new Composite(area, SWT.NONE);
@@ -69,6 +69,7 @@ public class UserInputDialog extends TitleAreaDialog {
 	private void createSearchText(Composite container) {
 		Label lbtSearchText = new Label(container, SWT.NONE);
 		lbtSearchText.setText("Search :");
+		lbtSearchText.setFont(new org.eclipse.swt.graphics.Font(null, "", 10, SWT.BOLD));
 
 		GridData dataSearchText = new GridData();
 		dataSearchText.grabExcessHorizontalSpace = true;
@@ -85,11 +86,12 @@ public class UserInputDialog extends TitleAreaDialog {
 		GridData gridData1 = new GridData();
 		gridData1.grabExcessHorizontalSpace = true;
 		gridData1.horizontalAlignment = GridData.FILL;
-		Label filterText = new Label(container, SWT.NONE);
+		
+		Label filterText = new Label(container, SWT.NONE | SWT.BOLD);
+		
+		filterText.setFont(new org.eclipse.swt.graphics.Font(null, "", 10, SWT.BOLD));
 		filterText.setText("Filter: ");
 		filterText.setLayoutData(gridData1);
-		Label lbtSearchText = new Label(container, SWT.NONE);
-		lbtSearchText.setText(" ");
 	}
 	
 	private void createOrderCombo(Composite filterContainer) {
