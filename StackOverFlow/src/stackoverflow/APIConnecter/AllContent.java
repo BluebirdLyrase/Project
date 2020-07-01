@@ -29,6 +29,8 @@ public class AllContent extends StackOverFlowConnecter {
 	private String cScore;
 	private String cBody;
 	private String cOwner;
+	private String qOwnerImage;
+	private String aOwnerImage;
 
 	public Question getAllConetent() {
 		return allConetent;
@@ -40,7 +42,8 @@ public class AllContent extends StackOverFlowConnecter {
 		// All Question that can be found by the URL will have an Accepted Answer or
 		// comment
 		this.url = "https://api.stackexchange.com/2.2/questions/" + question_id
-				+ "?order=asc&sort=activity&site=stackoverflow&filter=!m)AosxZq3nkqRTUeSkCPm50VBdwFONt9MRUPh_IQS3L_1A_BB2KGg*Si";
+				+ "?order=asc&sort=activity&site=stackoverflow&filter="
+				+ "!6CZol-kjk43Ccc9SzWzVFVJSuqAKAA9CFW(ir8I_WCfSU8)2C3Jc_Y939Te";
 
 		this.json = readJsonFromUrl(this.url);
 
@@ -54,6 +57,9 @@ public class AllContent extends StackOverFlowConnecter {
 
 		this.qOwner = itemObject.getJSONObject("owner").get("display_name").toString();
 		LOGGER.info("[" + LOGGER.getName() + "] " + "Q owner : " + qOwner);
+
+		this.qOwnerImage = itemObject.getJSONObject("owner").get("profile_image").toString();
+		LOGGER.info("[" + LOGGER.getName() + "] " + "qOwnerImage : " + qOwnerImage);
 
 		///////////////////////////// Comment ///////////////////////////////////
 
@@ -120,6 +126,9 @@ public class AllContent extends StackOverFlowConnecter {
 				this.aOwner = currentAnswerObject.getJSONObject("owner").get("display_name").toString();
 				LOGGER.info("[" + LOGGER.getName() + "] " + "A owner : " + aOwner);
 
+				this.aOwnerImage = currentAnswerObject.getJSONObject("owner").get("profile_image").toString();
+				LOGGER.info("[" + LOGGER.getName() + "] " + "aOwnerImage : " + aOwnerImage);
+
 				///////////////////////////// Comment///////////////////////////////////
 
 				String strAComment_count = currentAnswerObject.get("comment_count").toString();
@@ -141,7 +150,8 @@ public class AllContent extends StackOverFlowConnecter {
 					for (int j = 0; j < AcommentLenght; j++) {
 						cBody = currentaCommentObject.getJSONObject(j).get("body").toString();
 						cScore = currentaCommentObject.getJSONObject(j).get("score").toString();
-						cOwner = currentaCommentObject.getJSONObject(j).getJSONObject("owner").get("display_name").toString();
+						cOwner = currentaCommentObject.getJSONObject(j).getJSONObject("owner").get("display_name")
+								.toString();
 						aComment[j] = new Comment(cBody, cScore, cOwner);
 						LOGGER.info("[" + LOGGER.getName() + "] " + "aBody " + i + " : " + aComment[j].getBody());
 						LOGGER.info("[" + LOGGER.getName() + "] " + "aScore " + i + " : " + aComment[j].getScore());
@@ -151,12 +161,12 @@ public class AllContent extends StackOverFlowConnecter {
 
 				//////////////////////////////////////////////////////////////////////
 
-				answer[i] = new Answer(aBody, aScore, is_accepted, aComment, haveAComment, aOwner);
+				answer[i] = new Answer(aBody, aScore, is_accepted, aComment, haveAComment, aOwner, aOwnerImage);
 			}
 
 		}
 
-		this.allConetent = new Question(title, body, qComment, answer, haveComment, haveAnswer, qOwner);
+		this.allConetent = new Question(title, body, qComment, answer, haveComment, haveAnswer, qOwner, qOwnerImage);
 
 	}
 
