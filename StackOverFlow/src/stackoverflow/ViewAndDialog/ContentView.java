@@ -15,7 +15,6 @@ import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.layout.*;
-import org.eclipse.swt.graphics.Color;
 
 public class ContentView extends ViewPart {
 
@@ -59,7 +58,7 @@ public class ContentView extends ViewPart {
 		String HTMLHeader="<header>\r\n" + 
 				"    <style>\r\n" + 
 				"        code {\r\n" + 
-				"            background-color: #C1C4C6;\r\n" + 
+				"            background-color: #eff0f1;\r\n" + 
 				"        }\r\n" + 
 				"    </style>\r\n" + 
 				"</header>";
@@ -124,8 +123,8 @@ public class ContentView extends ViewPart {
 			e.printStackTrace();
 		}
 		HTMLbody =HTMLHeader+ question+ questionComment+questionOwner+ answer;
-
-//		HTMLbody = HTMLbody.replaceAll("<code>", "<code style="+codeBgColor+">");
+		String codeBgColor = "background-color: #eff0f1;";
+		HTMLbody = HTMLbody.replaceAll("<pre", "<pre style=\""+codeBgColor+"\"");
 
 		return HTMLbody;
 
