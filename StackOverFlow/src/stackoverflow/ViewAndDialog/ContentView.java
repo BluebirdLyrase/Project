@@ -54,14 +54,22 @@ public class ContentView extends ViewPart {
 		String question = "";
 		String questionComment = "";
 		String answerComment = "";
+		String questionOwner="";
 		String HTMLbody;
+		String HTMLHeader="<header>\r\n" + 
+				"    <style>\r\n" + 
+				"        code {\r\n" + 
+				"            background-color: #C1C4C6;\r\n" + 
+				"        }\r\n" + 
+				"    </style>\r\n" + 
+				"</header>";
 
 		try {
 			content = new AllContent(id);
 			Question q = content.getAllConetent();
 
 			////// Question
-			question = "<h2>Question : " + q.getTitle() + "</h2>" + "<div style=\" font-size: 18px  color:FF5733 \"> " + q.getBody()
+			question = "<h2>Question : " + q.getTitle() + "</h2>" + "<div style=\" font-size: 18px \"> " + q.getBody()
 					+ "</div><hr>";
 			if (q.isHaveComment()) {
 
@@ -71,9 +79,16 @@ public class ContentView extends ViewPart {
 					questionComment = questionComment
 							+ "<div style=\" margin-right: 5%; margin-left: 5%; font-size: 14px; \"><B>comment #</B>"
 							+ (i + 1) + comment[i].getBody()
-							+ "<br><hr style=\"color: #DCDCDC; background-color: #DCDCDC;\"></div>";
+							+ "<hr style=\"color: #DCDCDC; background-color: #DCDCDC;\"></div>";
 
 				}
+				questionOwner=
+						 "<div style=\"background-color: #C2E4F2;\">"
+						+"<h3 style=\"color: #005C84;\" >"
+						+ q.getOwner()
+						+"<br><img src=\"https://www.img.in.th/images/f11865103ab590aff5efd38cbb5f4dbd.png\" title=\"User Image\" width=\"100\" height=\"100\" ></h3>"
+						+"<hr style=\"color: white; background-color: white; box-shadow: 0px 5px 5px black;\"></div>";
+				
 			}
 
 			////// Answer
@@ -92,6 +107,8 @@ public class ContentView extends ViewPart {
 									+ "<div style=\" margin-right: 5%; margin-left: 5%; font-size: 14px; \"><B>comment #</B>"
 									+ (j + 1) + aComment[j].getBody()
 									+ "<br><hr style=\"color: #DCDCDC; background-color: #DCDCDC;\"></div>";
+							
+							
 						}
 						answer = answer + answerComment;
 					}
@@ -106,7 +123,7 @@ public class ContentView extends ViewPart {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		HTMLbody = question + questionComment + answer;
+		HTMLbody =HTMLHeader+ question+ questionComment+questionOwner+ answer;
 
 //		HTMLbody = HTMLbody.replaceAll("<code>", "<code style="+codeBgColor+">");
 
