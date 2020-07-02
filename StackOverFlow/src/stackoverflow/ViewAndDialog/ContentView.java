@@ -54,6 +54,7 @@ public class ContentView extends ViewPart {
 		String questionComment = "";
 		String answerComment = "";
 		String questionOwner="";
+		String answerOwner="";
 		String HTMLbody;
 		String HTMLHeader="<header>\r\n" + 
 				"    <style>\r\n" + 
@@ -98,7 +99,13 @@ public class ContentView extends ViewPart {
 
 					answer = answer + ("<h2>Answer #" + (i + 1) + "</h2>" + "<div style=\" font-size: 16px \"> "
 							+ answers[i].getBody() + "</div><hr>");
-
+					answerOwner=
+							 "<div style=\"background-color: #C2E4F2;\">"
+							+"<h3 style=\"color: #005C84;\" >"
+							+ answers[i].getOwner()
+							+"<br><img src=\"https://www.img.in.th/images/f11865103ab590aff5efd38cbb5f4dbd.png\" title=\"User Image\" width=\"100\" height=\"100\" ></h3>"
+							+"<hr style=\"color: white; background-color: white; box-shadow: 0px 5px 5px black;\"></div>";
+					
 					if (answers[i].isHaveComment()) {
 						Comment[] aComment = answers[i].getComment();
 						for (int j = 0; j < answers[i].getComment().length; j++) {
@@ -109,7 +116,8 @@ public class ContentView extends ViewPart {
 							
 							
 						}
-						answer = answer + answerComment;
+						
+						answer = answer + answerComment+answerOwner;
 					}
 				}
 			} else {
