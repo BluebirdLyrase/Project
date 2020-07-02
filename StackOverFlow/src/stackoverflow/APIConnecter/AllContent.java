@@ -38,9 +38,6 @@ public class AllContent extends StackOverFlowConnecter {
 
 	public AllContent(String question_id) throws IOException, JSONException {
 
-		System.out.println(question_id);
-
-		// Check if user want only one Anwser
 		// All Question that can be found by the URL will have an Accepted Answer or
 		// comment
 		this.url = "https://api.stackexchange.com/2.2/questions/" + question_id

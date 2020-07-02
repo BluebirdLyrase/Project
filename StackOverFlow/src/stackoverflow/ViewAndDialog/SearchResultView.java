@@ -89,20 +89,23 @@ public class SearchResultView extends ViewPart {
 
 	String[] titleList;
 	String[] questionIdList;
-	ExecutionEvent event;
+	IWorkbenchPage activeEvent;
+	IWorkbenchPage page;
 
 	public void setSearchResult(String[] titleList, String[] questionIdList,
 			ExecutionEvent event) {
-		this.event = event;
 		this.titleList = titleList;
 		this.questionIdList = questionIdList;
+		
+		activeEvent = HandlerUtil.getActiveWorkbenchWindow(event).getActivePage();
+		page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();	
+		
 		/// setData to next result page
 		for (int i = 0; i < questionIdList.length; i++) {
 			viewer.setData("questionId" + i, questionIdList[i]);
 		}
 		ColumnViewerToolTipSupport.enableFor(viewer);
 		viewer.setInput(titleList);
-
 	}
 
 	@Override
@@ -186,11 +189,7 @@ public class SearchResultView extends ViewPart {
 				String secondaryId = now.toString().replace(":", "").replace(".", "").replace("-", "");
 				System.out.println("secondaryId : " + secondaryId);
 
-				try {
-
-					IWorkbenchPage activeEvent = HandlerUtil.getActiveWorkbenchWindow(event).getActivePage();
-					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();		
-					
+				try {		
 					activeEvent.showView(viewerID, secondaryId, IWorkbenchPage.VIEW_ACTIVATE);
 					IViewReference currentView = page.findViewReference(viewerID, secondaryId);
 					IViewPart viewPart = currentView.getView(true);

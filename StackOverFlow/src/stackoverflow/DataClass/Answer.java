@@ -40,7 +40,7 @@ public class Answer {
 		return score;
 	}
 
-	public boolean isIs_accepted() {
+	public boolean isAccepted() {
 		return is_accepted;
 	}
 
