@@ -59,13 +59,16 @@ public class AllContent extends StackOverFlowConnecter {
 
 		this.qOwner = itemObject.getJSONObject("owner").get("display_name").toString();
 		LOGGER.info("[" + LOGGER.getName() + "] " + "Q owner : " + qOwner);
+		
+		
 
 		if (qHaveImage) {
 			this.qOwnerImage = itemObject.getJSONObject("owner").get("profile_image").toString();
 			LOGGER.info("[" + LOGGER.getName() + "] " + "qOwnerImage : " + qOwnerImage);
+			System.out.println("Have Image");
 		} else {
 			this.qOwnerImage = "https://www.img.in.th/images/f11865103ab590aff5efd38cbb5f4dbd.png";
-			LOGGER.info("[" + LOGGER.getName() + "] " + "qOwnerImage : " + "this man habe no Image");
+			LOGGER.info("[" + LOGGER.getName() + "] " + "qOwnerImage : " + "this man have no Image");
 		}
 
 		///////////////////////////// Comment ///////////////////////////////////
