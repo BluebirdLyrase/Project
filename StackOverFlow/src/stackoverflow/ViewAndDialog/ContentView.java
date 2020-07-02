@@ -84,9 +84,9 @@ public class ContentView extends ViewPart {
 				}
 				questionOwner=
 						 "<div style=\"background-color: #C2E4F2;\">"
-						+"<h3 style=\"color: #005C84;\" >"
+						+"<h3 style=\"color: #04446E;\" >"
 						+ q.getOwner()
-						+"<br><img src=\"https://www.img.in.th/images/f11865103ab590aff5efd38cbb5f4dbd.png\" title=\"User Image\" width=\"100\" height=\"100\" ></h3>"
+						+"<br><img src=\""+q.getOwnerImage()+"\" title=\"User Image\" width=\"100\" height=\"100\" ></h3>"
 						+"<hr style=\"color: white; background-color: white; box-shadow: 0px 5px 5px black;\"></div>";
 				
 			}
@@ -101,9 +101,9 @@ public class ContentView extends ViewPart {
 							+ answers[i].getBody() + "</div><hr>");
 					answerOwner=
 							 "<div style=\"background-color: #C2E4F2;\">"
-							+"<h3 style=\"color: #005C84;\" >"
+							+"<h3 style=\"color: #04446E;\" >"
 							+ answers[i].getOwner()
-							+"<br><img src=\"https://www.img.in.th/images/f11865103ab590aff5efd38cbb5f4dbd.png\" title=\"User Image\" width=\"100\" height=\"100\" ></h3>"
+							+"<br><img src=\""+answers[i].getOwnerImage()+"\" title=\"User Image\" width=\"100\" height=\"100\" ></h3>"
 							+"<hr style=\"color: white; background-color: white; box-shadow: 0px 5px 5px black;\"></div>";
 					
 					if (answers[i].isHaveComment()) {
