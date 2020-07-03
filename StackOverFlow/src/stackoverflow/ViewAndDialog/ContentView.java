@@ -25,7 +25,7 @@ public class ContentView extends ViewPart {
 	public static final String ID = "stackoverflow.ViewAndDialog.ContentView";
 
 	private String id = null;
-	
+
 	public void setContent(String id) {
 		this.id = id;
 		GridLayout gridLayout = new GridLayout(1, false);
@@ -53,16 +53,11 @@ public class ContentView extends ViewPart {
 		String question = "";
 		String questionComment = "";
 		String answerComment = "";
-		String questionOwner="";
-		String answerOwner="";
+		String questionOwner = "";
+		String answerOwner = "";
 		String HTMLbody;
-		String HTMLHeader="<header>\r\n" + 
-				"    <style>\r\n" + 
-				"        code {\r\n" + 
-				"            background-color: #eff0f1;\r\n" + 
-				"        }\r\n" + 
-				"    </style>\r\n" + 
-				"</header>";
+		String HTMLHeader = "<header>\r\n" + "    <style>\r\n" + "        code {\r\n"
+				+ "            background-color: #eff0f1;\r\n" + "        }\r\n" + "    </style>\r\n" + "</header>";
 
 		try {
 			content = new AllContent(id);
@@ -82,14 +77,12 @@ public class ContentView extends ViewPart {
 							+ "<hr style=\"color: #DCDCDC; background-color: #DCDCDC;\"></div>";
 
 				}
-				questionOwner=
-						 "<div style=\"background-color: #C2E4F2;\">"
-						+"<h3 style=\"color: #04446E;\" >"
-						+ q.getOwner()
-						+"<br><img src=\""+q.getOwnerImage()+"\" title=\"User Image\" width=\"100\" height=\"100\" ></h3>"
-						+"<hr style=\"color: white; background-color: white; box-shadow: 0px 5px 5px black;\"></div>";
-				
 			}
+
+			questionOwner = "<div style=\"background-color: #C2E4F2;\">" + "<h3 style=\"color: #04446E;\" >"
+					+ q.getOwner() + "<br><img src=\"" + q.getOwnerImage()
+					+ "\" title=\"User Image\" width=\"100\" height=\"100\" ></h3>"
+					+ "<hr style=\"color: white; background-color: white; box-shadow: 0px 5px 5px black;\"></div>";
 
 			////// Answer
 			if (q.isHaveAnswer()) {
@@ -99,13 +92,7 @@ public class ContentView extends ViewPart {
 
 					answer = answer + ("<h2>Answer #" + (i + 1) + "</h2>" + "<div style=\" font-size: 16px \"> "
 							+ answers[i].getBody() + "</div><hr>");
-					answerOwner=
-							 "<div style=\"background-color: #C2E4F2;\">"
-							+"<h3 style=\"color: #04446E;\" >"
-							+ answers[i].getOwner()
-							+"<br><img src=\""+answers[i].getOwnerImage()+"\" title=\"User Image\" width=\"100\" height=\"100\" ></h3>"
-							+"<hr style=\"color: white; background-color: white; box-shadow: 0px 5px 5px black;\"></div>";
-					
+
 					if (answers[i].isHaveComment()) {
 						Comment[] aComment = answers[i].getComment();
 						for (int j = 0; j < answers[i].getComment().length; j++) {
@@ -113,12 +100,17 @@ public class ContentView extends ViewPart {
 									+ "<div style=\" margin-right: 5%; margin-left: 5%; font-size: 14px; \"><B>comment #</B>"
 									+ (j + 1) + aComment[j].getBody()
 									+ "<br><hr style=\"color: #DCDCDC; background-color: #DCDCDC;\"></div>";
-							
-							
+
 						}
-						
-						answer = answer + answerComment+answerOwner;
+
 					}
+
+					answerOwner = "<div style=\"background-color: #C2E4F2;\">" + "<h3 style=\"color: #04446E;\" >"
+							+ answers[i].getOwner() + "<br><img src=\"" + answers[i].getOwnerImage()
+							+ "\" title=\"User Image\" width=\"100\" height=\"100\" ></h3>"
+							+ "<hr style=\"color: white; background-color: white; box-shadow: 0px 5px 5px black;\"></div>";
+
+					answer = answer + answerComment + answerOwner;
 				}
 			} else {
 				answer = "<h2>No Answer</h2>";
@@ -130,9 +122,9 @@ public class ContentView extends ViewPart {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		HTMLbody =HTMLHeader+ question+ questionComment+questionOwner+ answer;
+		HTMLbody = HTMLHeader + question + questionComment + questionOwner + answer;
 		String codeBgColor = "background-color: #eff0f1;";
-		HTMLbody = HTMLbody.replaceAll("<pre", "<pre style=\""+codeBgColor+"\"");
+		HTMLbody = HTMLbody.replaceAll("<pre", "<pre style=\"" + codeBgColor + "\"");
 
 		return HTMLbody;
 
