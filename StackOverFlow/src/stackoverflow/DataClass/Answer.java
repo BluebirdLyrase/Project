@@ -2,7 +2,7 @@ package stackoverflow.DataClass;
 
 public class Answer {
 	
-	public Answer(String body, String score, boolean is_accepted, Comment[] comment, boolean haveComment,String owner,String ownerImage) {
+	public Answer(String body, int score, boolean is_accepted, Comment[] comment, boolean haveComment,String owner,String ownerImage) {
 		this.body = body;
 		this.score = score;
 		this.is_accepted = is_accepted;
@@ -13,7 +13,7 @@ public class Answer {
 	}
 
 	private String body;
-	private String score;
+	private int score;
 	private String owner;
 	private String ownerImage;
 	private boolean is_accepted;
@@ -36,7 +36,7 @@ public class Answer {
 		return body;
 	}
 
-	public String getScore() {
+	public int getScore() {
 		return score;
 	}
 

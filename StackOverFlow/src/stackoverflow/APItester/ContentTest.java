@@ -22,28 +22,29 @@ public class ContentTest {
 		Question q = c.getAllConetent();
 //		System.out.println(q.getBody());
 //		System.out.println(q.getTitle());
-		System.out.println(q.getOwner());
-		System.out.println(q.getOwnerImage());
-		System.out.println(q.getScore());
-		System.out.println(q.IsHaveTags());
+//		System.out.println(q.getOwner());
+//		System.out.println(q.getOwnerImage());
+//		System.out.println(q.getScore());
+//		System.out.println(q.IsHaveTags());
 //		if(q.IsHaveTags()){
-			String[] tags = q.getTags();
-			for(int i=0;i<tags.length;i++)
-				System.out.println(tags[i]);
+//			String[] tags = q.getTags();
+//			for(int i=0;i<tags.length;i++)
+//				System.out.println(tags[i]);
 //		}
 //
 //
-//		if (q.isHaveComment()) {
-//
-//			Comment[] comment = q.getComment();
-//			System.out.println(comment.length);
-//
-//			for (int i = 0; i < comment.length; i++) {
-//			System.out.println("Comment : "+comment[i].getBody());
-//			System.out.println(comment[i].getScore());
-//			System.out.println(comment[i].getOwner());
-//			}
-//		}
+		if (q.isHaveComment()) {
+
+			Comment[] comment = q.getComment();
+			System.out.println(comment.length);
+
+			for (int i = 0; i < comment.length; i++) {
+			System.out.print(comment[i].getOwner());
+			System.out.println("Comment : "+comment[i].getBody());
+			System.out.println(comment[i].getScore());
+			System.out.println(comment[i].getOwner());
+			}
+		}
 //
 //		if (q.isHaveAnswer()) {
 //

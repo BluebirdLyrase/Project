@@ -2,14 +2,14 @@ package stackoverflow.DataClass;
 
 public class Comment {
 	private String body;
-	private String score;
+	private int score;
 	private String owner;
 
 	public String getBody() {
 		return body;
 	}
 
-	public String getScore() {
+	public int getScore() {
 		return score;
 	}
 
@@ -17,7 +17,7 @@ public class Comment {
 		return owner;
 	}
 
-	public Comment(String body, String score, String owner) {
+	public Comment(String body, int score, String owner) {
 		super();
 		this.body = body;
 		this.score = score;
