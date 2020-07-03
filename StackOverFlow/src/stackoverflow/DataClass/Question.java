@@ -1,7 +1,9 @@
 package stackoverflow.DataClass;
 
 public class Question {
-	public Question(String title, String body, Comment[] comment, Answer[] answer,boolean haveComment,boolean haveAnswer,String owner,String ownerImage) {
+	public Question(String title, String body, Comment[] comment, Answer[] answer,
+			boolean haveComment,boolean haveAnswer,String owner,String ownerImage,
+			String score,boolean haveTags,String[] tags) {
 		this.title = title;
 		this.body = body;
 		this.comment = comment;
@@ -10,6 +12,9 @@ public class Question {
 		this.haveAnswer = haveAnswer;
 		this.owner = owner;
 		this.ownerImage = ownerImage;
+		this.score = score;
+		this.tags = tags;
+		this.haveTags = haveTags;
 	}
 	
 	private String title;
@@ -20,6 +25,19 @@ public class Question {
 	private boolean haveAnswer;
 	private String owner;
 	private String ownerImage;
+	private String score;
+	private String[] tags;
+	private boolean haveTags;
+	
+	public boolean IsHaveTags() {
+		return haveTags;
+	}
+	public String getScore() {
+		return score;
+	}
+	public String[] getTags() {
+		return tags;
+	}
 	
 	public String getOwner() {
 		return owner;

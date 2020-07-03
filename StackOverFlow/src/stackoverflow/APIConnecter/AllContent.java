@@ -15,22 +15,29 @@ public class AllContent extends StackOverFlowConnecter {
 	private Question allConetent;
 	private String title;
 	private String body;
+	private String qOwner;
+	private String qOwnerImage;
+	private String qScore;
+	private boolean haveTags;
+	private String[] tags;
+	private Comment[] qComment;
+	private boolean haveComment;
+	private boolean haveAnswer;
+	
+	
 	private Answer[] answer = {};
 	private String aBody;
 	private String aScore;
+	private String aOwner;
+	private String aOwnerImage;
+	private Comment[] aComment;
 	private boolean is_accepted;
 	private boolean haveAComment;
-	private boolean haveComment;
-	private boolean haveAnswer;
-	private String qOwner;
-	private String aOwner;
-	private Comment[] aComment;
-	private Comment[] qComment;
+	
 	private String cScore;
 	private String cBody;
 	private String cOwner;
-	private String qOwnerImage;
-	private String aOwnerImage;
+
 
 	public Question getAllConetent() {
 		return allConetent;
@@ -42,7 +49,8 @@ public class AllContent extends StackOverFlowConnecter {
 		// comment
 		this.url = "https://api.stackexchange.com/2.2/questions/" + question_id
 				+ "?order=asc&sort=activity&site=stackoverflow&filter="
-				+ "!6CZol-kjk43Ccc9SzWzVFVJSuqAKAA9CFW(ir8I_WCfSU8)2C3Jc_Y939Te";
+				+ "!6CZol-kjk43Caeu4wbmgfWPFBKTl-6MgX9_mx25H6._QEcG9r2lN3QrdeDe";
+//				+ "!6CZol-kjk43Ccc9SzWzVFVJSuqAKAA9CFW(ir8I_WCfSU8)2C3Jc_Y939Te";
 
 		this.json = readJsonFromUrl(this.url);
 
@@ -53,19 +61,35 @@ public class AllContent extends StackOverFlowConnecter {
 
 		this.body = itemObject.get("body").toString();
 		LOGGER.info("[" + LOGGER.getName() + "] " + "body : " + body);
+		
+		this.qScore = itemObject.get("score").toString();
+		LOGGER.info("[" + LOGGER.getName() + "] " + "qscore : " + qScore);
 
-		String qOwnerJson = itemObject.getJSONObject("owner").toString();
-		boolean qHaveImage = qOwnerJson.contains("profile_image");
+		JSONObject qOwnerJson = itemObject.getJSONObject("owner");
+		boolean qHaveImage = qOwnerJson.has("profile_image");
+		
+		haveTags = itemObject.has("tags");
+		if(haveTags) {
+		JSONArray tagsObjet = itemObject.getJSONArray("tags");
+		int tagsLenght = tagsObjet.length();
+		this.tags = new String[tagsLenght];
+		for(int i = 0;i<tagsLenght;i++) {
+			tags[i] = tagsObjet.getString(i);
+		} 
+		}else {
+			this.tags = new String[1];
+			tags[0] = "notag";
+		}
+		
+		
+		
 
-		this.qOwner = itemObject.getJSONObject("owner").get("display_name").toString();
+		this.qOwner = qOwnerJson.get("display_name").toString();
 		LOGGER.info("[" + LOGGER.getName() + "] " + "Q owner : " + qOwner);
-		
-		
 
 		if (qHaveImage) {
-			this.qOwnerImage = itemObject.getJSONObject("owner").get("profile_image").toString();
+			this.qOwnerImage = qOwnerJson.get("profile_image").toString();
 			LOGGER.info("[" + LOGGER.getName() + "] " + "qOwnerImage : " + qOwnerImage);
-			System.out.println("Have Image");
 		} else {
 			this.qOwnerImage = "https://www.img.in.th/images/f11865103ab590aff5efd38cbb5f4dbd.png";
 			LOGGER.info("[" + LOGGER.getName() + "] " + "qOwnerImage : " + "this man have no Image");
@@ -133,14 +157,14 @@ public class AllContent extends StackOverFlowConnecter {
 				this.is_accepted = Boolean.parseBoolean(strIs_accepted);
 				LOGGER.info("[" + LOGGER.getName() + "] " + "is_accepted : " + is_accepted);
 
-				String aOwnerJson = currentAnswerObject.getJSONObject("owner").toString();
-				boolean aHaveImage = aOwnerJson.contains("profile_image");
+				JSONObject aOwnerJson = currentAnswerObject.getJSONObject("owner");
+				boolean aHaveImage = aOwnerJson.has("profile_image");
 
-				this.aOwner = currentAnswerObject.getJSONObject("owner").get("display_name").toString();
+				this.aOwner = aOwnerJson.get("display_name").toString();
 				LOGGER.info("[" + LOGGER.getName() + "] " + "A owner : " + aOwner);
 
 				if (aHaveImage) {
-					this.aOwnerImage = currentAnswerObject.getJSONObject("owner").get("profile_image").toString();
+					this.aOwnerImage = aOwnerJson.get("profile_image").toString();
 					LOGGER.info("[" + LOGGER.getName() + "] " + "aOwnerImage : " + aOwnerImage);
 				} else {
 					this.aOwnerImage = "https://www.img.in.th/images/f11865103ab590aff5efd38cbb5f4dbd.png";
@@ -184,7 +208,7 @@ public class AllContent extends StackOverFlowConnecter {
 
 		}
 
-		this.allConetent = new Question(title, body, qComment, answer, haveComment, haveAnswer, qOwner, qOwnerImage);
+		this.allConetent = new Question(title, body, qComment, answer, haveComment, haveAnswer, qOwner, qOwnerImage,qScore,haveTags,tags);
 
 	}
 
