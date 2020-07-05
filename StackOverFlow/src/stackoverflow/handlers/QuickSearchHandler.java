@@ -11,7 +11,6 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import org.json.JSONException;
 
 import stackoverflow.APIConnecter.QuickSearchResult;
-import stackoverflow.APIConnecter.Teststub;
 import stackoverflow.ViewAndDialog.QuickSearchResultDialog;
 import stackoverflow.ViewAndDialog.UserInputDialog;
 

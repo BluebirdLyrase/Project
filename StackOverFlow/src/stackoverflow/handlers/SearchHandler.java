@@ -19,7 +19,7 @@ import stackoverflow.ViewAndDialog.UserInputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 
-//////Project Eclipse-SOF v1.0.1
+//////Project Eclipse-SOF v1.1.0
 
 public class SearchHandler extends AbstractHandler {
 

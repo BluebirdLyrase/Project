@@ -1,4 +1,4 @@
-package stackoverflow.APItester;
+package stackoverflow.Tester;
 
 
 import java.io.BufferedReader;
