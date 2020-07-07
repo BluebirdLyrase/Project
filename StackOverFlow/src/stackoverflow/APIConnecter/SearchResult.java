@@ -7,7 +7,6 @@ public class SearchResult extends StackOverFlowConnecter {
 
 	String[] titleList;
 	String[] questionIdList;
-//	String[] taggedList;
 	String item;
 	boolean result;
 
