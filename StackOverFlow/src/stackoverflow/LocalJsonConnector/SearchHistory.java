@@ -52,9 +52,8 @@ public class SearchHistory extends JSONFile {
         saveJSONFile(filePath, jsonObject);
 	}
 	
-	public void saveViewHistory(String SearchText,String[] tags,String title) throws JSONException, IOException {
+	public void saveViewHistory(String[] tags,String title) throws JSONException, IOException {
 		JSONObject newData = new JSONObject();
-		newData.put("Search Text", SearchText);
 		JSONArray arrayTags = new JSONArray();
 		for(int i = 0;i<tags.length;i++) {
 			arrayTags.put(tags[i]);

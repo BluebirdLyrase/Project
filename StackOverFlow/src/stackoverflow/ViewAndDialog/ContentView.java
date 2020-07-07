@@ -8,6 +8,8 @@ import stackoverflow.APIConnecter.AllContent;
 import stackoverflow.DataClass.Answer;
 import stackoverflow.DataClass.Comment;
 import stackoverflow.DataClass.Question;
+import stackoverflow.LocalJsonConnector.SearchHistory;
+
 import java.io.IOException;
 import javax.inject.Inject;
 import org.eclipse.swt.*;
@@ -116,6 +118,9 @@ public class ContentView extends ViewPart {
 			////// Question
 			question = "<h2>Question : " + q.getTitle() + "</h2>" + "<div style=\" font-size: 18px \"> " + q.getBody()
 					+ "</div><hr>";
+			
+			new SearchHistory().saveViewHistory(q.getTags(), q.getTitle());
+			
 			if (q.isHaveComment()) {
 
 				Comment[] comment = q.getComment();
