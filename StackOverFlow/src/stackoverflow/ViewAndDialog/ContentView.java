@@ -120,12 +120,14 @@ public class ContentView extends ViewPart {
 
 				Comment[] comment = q.getComment();
 				System.out.println(comment.length);
+				questionComment = "<button class=\"link\" onclick=\"showComment('comment')\">show comments</button><div id=\"qCommentID\" style=\" display:none;\">";
 				for (int i = 0; i < comment.length; i++) {
-					questionComment ="<button class=\"link\" onclick=\"showComment('comment')\">show comments</button><div id=\"qCommentID\" style=\" display:none;\">"+ questionComment
+					questionComment = questionComment
 							+ "<div style=\" margin-right: 5%;  margin-left: 5%; font-size: 14px; \"><B>"+comment[i].getOwner()+"  </B>"
 							+ (i + 1) + comment[i].getBody()
-							+"</div><hr style=\"color: #DCDCDC; background-color: #DCDCDC;\"></div>";
+							+"</div><hr style=\"color: #DCDCDC; background-color: #DCDCDC;\">";
 				}
+				questionComment = questionComment + "</div>";
 			}
 
 			questionOwner = "<div style=\"background-color: #C2E4F2;\">"
@@ -151,13 +153,15 @@ public class ContentView extends ViewPart {
 
 					if (answers[i].isHaveComment()) {
 						Comment[] aComment = answers[i].getComment();
+						answerComment = "<button class=\"link\" onclick=\"showComment("+i+")\">show comments </button><div id=\"aCommentID"+i+"\" style=\" display:none;\">";
 						for (int j = 0; j < answers[i].getComment().length; j++) {
-							answerComment ="<button class=\"link\" onclick=\"showComment("+i+")\">show comments </button><div id=\"aCommentID"+i+"\" style=\" display:none;\">"+ answerComment
+							answerComment = answerComment
 									+ "<div style=\" margin-right: 5%; margin-left: 5%; font-size: 14px; \"><B>"+aComment[j].getOwner()+"  </B>"
 									+ aComment[j].getBody()
-									+ "</div><br><hr style=\"color: #DCDCDC; background-color: #DCDCDC;\"></div>";
+									+ "</div><br><hr style=\"color: #DCDCDC; background-color: #DCDCDC;\">";
 
 						}
+						answerComment = answerComment + "</div>";
 
 					}
 
