@@ -184,11 +184,8 @@ public class SearchResultView extends ViewPart {
 				int index = viewer.getTable().getSelectionIndex();
 				String viewerID = "stackoverflow.ViewAndDialog.ContentView";
 
-				/////use local date-time as a secondaryId for viewpart to prevent duplicate viewpart
-				LocalDateTime now = LocalDateTime.now();
-				String secondaryId = now.toString().replace(":", "").replace(".", "").replace("-", "");
-				System.out.println("secondaryId : " + secondaryId);
-
+				//Random number to be an ID
+				String secondaryId =Double.toString(Math.random());
 				try {		
 					activeEvent.showView(viewerID, secondaryId, IWorkbenchPage.VIEW_ACTIVATE);
 					IViewReference currentView = page.findViewReference(viewerID, secondaryId);

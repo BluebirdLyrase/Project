@@ -124,7 +124,6 @@ public class ContentView extends ViewPart {
 			if (q.isHaveComment()) {
 
 				Comment[] comment = q.getComment();
-				System.out.println(comment.length);
 				questionComment = "<button class=\"link\" onclick=\"showComment('comment')\">show comments</button><div id=\"qCommentID\" style=\" display:none;\">";
 				for (int i = 0; i < comment.length; i++) {
 					questionComment = questionComment
@@ -160,7 +159,6 @@ public class ContentView extends ViewPart {
 
 					if (answers[i].isHaveComment()) {
 						Comment[] aComment = answers[i].getComment();
-						System.out.println("i = "+i);
 						answerComment = "<button class=\"link\" onclick=\"showComment("+i+")\">show comments </button><div id=\"aCommentID"+i+"\" style=\" display:none;\">";
 						for (int j = 0; j < answers[i].getComment().length; j++) {
 							answerComment = answerComment
