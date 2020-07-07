@@ -1,4 +1,4 @@
-package stackoverflow.Other;
+package stackoverflow.LocalJsonConnector;
 
 import java.io.File;
 import java.io.IOException;
