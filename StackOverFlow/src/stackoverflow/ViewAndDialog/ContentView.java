@@ -56,8 +56,58 @@ public class ContentView extends ViewPart {
 		String questionOwner = "";
 		String answerOwner = "";
 		String HTMLbody;
-		String HTMLHeader = "<header>\r\n" + "    <style>\r\n" + "        code {\r\n"
-				+ "            background-color: #eff0f1;\r\n" + "        }\r\n" + "    </style>\r\n" + "</header>";
+		String HTMLHeader = "    <style>\r\n" + 
+				"        code {\r\n" + 
+				"            background-color: #eff0f1;\r\n" + 
+				"        }\r\n" + 
+				"\r\n" + 
+				"        .userImg {\r\n" + 
+				"            box-shadow: 0px 1px 1px black;\r\n" + 
+				"            width: 50px;\r\n" + 
+				"            height: 50px;\r\n" + 
+				"        }\r\n" + 
+				"\r\n" + 
+				"        * {\r\n" + 
+				"            box-sizing: border-box;\r\n" + 
+				"        }\r\n" + 
+				"\r\n" + 
+				"        .column {\r\n" + 
+				"            float: left;\r\n" + 
+				"            width: 50%;\r\n" + 
+				"        }\r\n" + 
+				"\r\n" + 
+				"        .row:after {\r\n" + 
+				"            content: \"\";\r\n" + 
+				"            display: table;\r\n" + 
+				"            clear: both;\r\n" + 
+				"        }\r\n" + 
+				"        button.link { background:none;border:none; }\r\n" + 
+				"    </style>";
+		
+		
+		String script=
+				"<script>\r\n" + 
+				"    function showComment(id) {\r\n" + 
+				"        console.log(\"btn clicked\");\r\n" + 
+				"        if(id!='comment'){\r\n" + 
+				"        var x = document.getElementById(\"aCommentID\"+id);\r\n" + 
+				"        console.log(\"id=\"+id);\r\n" + 
+				"        }\r\n" + 
+				"        else{\r\n" + 
+				"        var x = document.getElementById(\"qCommentID\");\r\n" + 
+				"        console.log(\"id=\"+id);\r\n" + 
+				"        }\r\n" + 
+				"            \r\n" + 
+				"\r\n" + 
+				"        if (x.style.display === \"block\") {\r\n" + 
+				"            x.style.display = \"none\";\r\n" + 
+				"        } else {\r\n" + 
+				"            x.style.display = \"block\";\r\n" + 
+				"        }\r\n" + 
+				"    }\r\n" 
+				+"</script>";
+		
+		
 
 		try {
 			content = new AllContent(id);
@@ -71,20 +121,26 @@ public class ContentView extends ViewPart {
 				Comment[] comment = q.getComment();
 				System.out.println(comment.length);
 				for (int i = 0; i < comment.length; i++) {
-					questionComment = questionComment
-							+ "<div style=\" margin-right: 5%; margin-left: 5%; font-size: 14px; \"><B>comment #</B>"
+					questionComment ="<button class=\"link\" onclick=\"showComment('comment')\">show comments</button><div id=\"qCommentID\" style=\" display:none;\">"+ questionComment
+							+ "<div style=\" margin-right: 5%;  margin-left: 5%; font-size: 14px; \"><B>"+comment[i].getOwner()+"  </B>"
 							+ (i + 1) + comment[i].getBody()
 							+ "<hr style=\"color: #DCDCDC; background-color: #DCDCDC;\"></div>";
-
 				}
 			}
 
-			questionOwner = "<div style=\"background-color: #C2E4F2;\">" + "<h3 style=\"color: #04446E;\" >"
-					+ q.getOwner() + "<br><img src=\"" + q.getOwnerImage()
-					+ "\" title=\"User Image\" width=\"100\" height=\"100\" ></h3>"
+			questionOwner = "<div style=\"background-color: #C2E4F2;\">"
+					+"<div class=\"row\">"
+					+"<div class=\"column\">"
+					+ "<h4 style=\"color: #04446E; margin-left:1%\" >"
+					+  "<img src=\"" + q.getOwnerImage()
+					+ "\" class=\"userImg\" title=\"User Image\"><br>"+q.getOwner() 
+					+"</h4>"
+					+ "</div>"
+					+ " <div class=\"column\"><br> \r\n" 
+					+" Score: "+q.getScore()+" </div>"
+					+"</div>"
 					+ "<hr style=\"color: white; background-color: white; box-shadow: 0px 5px 5px black;\"></div>";
 
-			////// Answer
 			if (q.isHaveAnswer()) {
 				Answer[] answers = q.getAnswer();
 
@@ -96,21 +152,29 @@ public class ContentView extends ViewPart {
 					if (answers[i].isHaveComment()) {
 						Comment[] aComment = answers[i].getComment();
 						for (int j = 0; j < answers[i].getComment().length; j++) {
-							answerComment = answerComment
-									+ "<div style=\" margin-right: 5%; margin-left: 5%; font-size: 14px; \"><B>comment #</B>"
-									+ (j + 1) + aComment[j].getBody()
-									+ "<br><hr style=\"color: #DCDCDC; background-color: #DCDCDC;\"></div>";
+							answerComment ="<button class=\"link\" onclick=\"showComment("+i+")\">show comments </button><div id=\"aCommentID"+i+"\" style=\" display:none;\">"+ answerComment
+									+ "<div style=\" margin-right: 5%; margin-left: 5%; font-size: 14px; \"><B>"+aComment[j].getOwner()+"  </B>"
+									+ aComment[j].getBody()
+									+ "</div><br><hr style=\"color: #DCDCDC; background-color: #DCDCDC;\"></div>";
 
 						}
 
 					}
 
-					answerOwner = "<div style=\"background-color: #C2E4F2;\">" + "<h3 style=\"color: #04446E;\" >"
-							+ answers[i].getOwner() + "<br><img src=\"" + answers[i].getOwnerImage()
-							+ "\" title=\"User Image\" width=\"100\" height=\"100\" ></h3>"
+					answerOwner  =  "<div style=\"background-color: #C2E4F2;\">"
+							+"<div class=\"row\">"
+							+"<div class=\"column\">"
+							+ "<h4 style=\"color: #04446E; margin-left:1%\" >"
+							+  "<img src=\"" + answers[i].getOwnerImage()
+							+ "\" class=\"userImg\" title=\"User Image\"><br>"+answers[i].getOwner() 
+							+"</h4>"
+							+ "</div>"
+							+ " <div class=\"column\"><br> \r\n" 
+							+" Score: "+answers[i].getScore()+" </div>"
+							+"</div>"
 							+ "<hr style=\"color: white; background-color: white; box-shadow: 0px 5px 5px black;\"></div>";
 
-					answer = answer + answerComment + answerOwner;
+					answer = answer +answerComment + answerOwner;
 				}
 			} else {
 				answer = "<h2>No Answer</h2>";
@@ -122,7 +186,7 @@ public class ContentView extends ViewPart {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		HTMLbody = HTMLHeader + question + questionComment + questionOwner + answer;
+		HTMLbody = HTMLHeader + question+ questionComment +"</div>" + questionOwner + answer+script;
 		String codeBgColor = "background-color: #eff0f1;";
 		HTMLbody = HTMLbody.replaceAll("<pre", "<pre style=\"" + codeBgColor + "\"");
 
