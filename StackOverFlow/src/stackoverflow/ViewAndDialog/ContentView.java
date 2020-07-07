@@ -124,7 +124,7 @@ public class ContentView extends ViewPart {
 					questionComment ="<button class=\"link\" onclick=\"showComment('comment')\">show comments</button><div id=\"qCommentID\" style=\" display:none;\">"+ questionComment
 							+ "<div style=\" margin-right: 5%;  margin-left: 5%; font-size: 14px; \"><B>"+comment[i].getOwner()+"  </B>"
 							+ (i + 1) + comment[i].getBody()
-							+ "<hr style=\"color: #DCDCDC; background-color: #DCDCDC;\"></div>";
+							+"</div><hr style=\"color: #DCDCDC; background-color: #DCDCDC;\"></div>";
 				}
 			}
 
@@ -186,7 +186,7 @@ public class ContentView extends ViewPart {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		HTMLbody = HTMLHeader + question+ questionComment +"</div>" + questionOwner + answer+script;
+		HTMLbody = HTMLHeader + question+ questionComment  + questionOwner + answer+script;
 		String codeBgColor = "background-color: #eff0f1;";
 		HTMLbody = HTMLbody.replaceAll("<pre", "<pre style=\"" + codeBgColor + "\"");
 
