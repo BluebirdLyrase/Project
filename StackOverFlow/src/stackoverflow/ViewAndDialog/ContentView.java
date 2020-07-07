@@ -119,7 +119,7 @@ public class ContentView extends ViewPart {
 			question = "<h2>Question : " + q.getTitle() + "</h2>" + "<div style=\" font-size: 18px \"> " + q.getBody()
 					+ "</div><hr>";
 			
-			new SearchHistory().saveViewHistory(q.getTags(), q.getTitle());
+			new SearchHistory().saveViewHistory(id,q.getTags(), q.getTitle());
 			
 			if (q.isHaveComment()) {
 
@@ -133,6 +133,8 @@ public class ContentView extends ViewPart {
 							+"</div><hr style=\"color: #DCDCDC; background-color: #DCDCDC;\">";
 				}
 				questionComment = questionComment + "</div>";
+			}else {
+				questionComment = "";
 			}
 
 			questionOwner = "<div style=\"background-color: #C2E4F2;\">"
@@ -158,6 +160,7 @@ public class ContentView extends ViewPart {
 
 					if (answers[i].isHaveComment()) {
 						Comment[] aComment = answers[i].getComment();
+						System.out.println("i = "+i);
 						answerComment = "<button class=\"link\" onclick=\"showComment("+i+")\">show comments </button><div id=\"aCommentID"+i+"\" style=\" display:none;\">";
 						for (int j = 0; j < answers[i].getComment().length; j++) {
 							answerComment = answerComment
@@ -168,6 +171,8 @@ public class ContentView extends ViewPart {
 						}
 						answerComment = answerComment + "</div>";
 
+					}else {
+						answerComment = "";
 					}
 
 					answerOwner  =  "<div style=\"background-color: #C2E4F2;\">"
