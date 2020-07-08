@@ -4,30 +4,26 @@
 
    <extension
          point="org.eclipse.ui.commands">
-      <category
-            id="StackOverFlow.commands.QuickSearchCategory"
-            name="QuickSearch Category">
-      </category>
       <command
-            categoryId="StackOverFlow.commands.QuickSearchCategory"
-            name="QuickSearch Command"
-            id="StackOverFlow.commands.QuickSearchCommand">
+            categoryId="StackOverFlow.commands.StackOverFlowCategory"
+            id="StackOverFlow.commands.HistoryCommand"
+            name="History Command">
       </command>
       <command
-            categoryId="StackOverFlow.commands.SearchCategory"
+            categoryId="StackOverFlow.commands.StackOverFlowCategory"
             id="StackOverFlow.commands.SearchCommand"
             name="Search Command">
       </command>
       <category
-            id="StackOverFlow.commands.SearchCategory"
-            name="Search Category">
+            id="StackOverFlow.commands.StackOverFlowCategory"
+            name="StackOverFlowCategory">
       </category>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="stackoverflow.handlers.QuickSearchHandler"
-            commandId="StackOverFlow.commands.QuickSearchCommand">
+            class="stackoverflow.handlers.HistoryHandler"
+            commandId="StackOverFlow.commands.HistoryCommand">
       </handler>
       <handler
             class="stackoverflow.handlers.SearchHandler"
@@ -37,9 +33,9 @@
    <extension
          point="org.eclipse.ui.bindings">
       <key
-            commandId="StackOverFlow.commands.QuickSearchCommand"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            commandId="StackOverFlow.commands.HistoryCommand"
             contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+6">
       </key>
       <key
@@ -58,8 +54,8 @@
                label="StackOverFlow"
                mnemonic="M">
             <command
-                  commandId="StackOverFlow.commands.QuickSearchCommand"
-                  id="StackOverFlow.menus.QuickSearchCommand"
+                  commandId="StackOverFlow.commands.HistoryCommand"
+                  id="StackOverFlow.menus.HistoryCommand"
                   mnemonic="S">
             </command>
          </menu>
@@ -67,10 +63,10 @@
       <menuContribution
             locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
          <toolbar
-               id="StackOverFlow.toolbars.QuickSearchToolbar">
+               id="StackOverFlow.toolbars.HistoryCommand">
             <command
-                  id="StackOverFlow.toolbars.QuickSearchCommand"
-                  commandId="StackOverFlow.commands.QuickSearchCommand"
+                  id="StackOverFlow.toolbars.HistoryCommand"
+                  commandId="StackOverFlow.commands.HistoryCommand"
                   icon="icons/sample.png"
                   tooltip="Say hello world">
             </command>
@@ -124,14 +120,6 @@
             inject="true"
             name="Content View">
       </view>
-      <view
-            category="StackOverFlow"
-            class="stackoverflow.ViewAndDialog.TestView"
-            icon="icons/sample.png"
-            id="stackoverflow.ViewAndDialog.TestView"
-            inject="true"
-            name="Test View">
-      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -146,24 +134,15 @@
       </perspectiveExtension>
       <perspectiveExtension
             targetID="org.eclipse.jdt.ui.JavaPerspective">
-      </perspectiveExtension>
-      <perspectiveExtension
-            targetID="org.eclipse.jdt.ui.JavaPerspective">
          <view
                id="stackoverflow.ViewAndDialog.ContentView"
                ratio="0.5"
                relationship="right"
                relative="org.eclipse.ui.views.ProblemView">
          </view>
-      </perspectiveExtension>
-      <perspectiveExtension
-            targetID="org.eclipse.jdt.ui.JavaPerspective">
-         <view
-               id="stackoverflow.ViewAndDialog.TestView"
-               ratio="0.5"
-               relationship="right"
-               relative="org.eclipse.ui.views.ProblemView">
-         </view>
+         <perspectiveExtension
+               targetID="org.eclipse.jdt.ui.JavaPerspective">
+         </perspectiveExtension>
       </perspectiveExtension>
    </extension>
    <extension

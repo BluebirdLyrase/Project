@@ -16,11 +16,14 @@ import org.eclipse.swt.widgets.Text;
 public class UserInputDialog extends TitleAreaDialog {
 
 	private Text txtSearchText;
+	private Text txtTagsText;
+	
 	private Combo siteCombo;
 	private Combo sortCombo;
 	private Combo orderCombo;
 	
 	private String SearchText;
+	private String TagsText;
 	private String order;
 	private String sort;
 	private String site;
@@ -61,6 +64,7 @@ public class UserInputDialog extends TitleAreaDialog {
 		createSortCombo(filterContainer);	
 		createOrderCombo(filterContainer);
 		createSiteCombo(filterContainer);
+		createTagsText(filterContainer);
 		
 
 		return area;
@@ -80,6 +84,19 @@ public class UserInputDialog extends TitleAreaDialog {
 
 	}
 	
+	private void createTagsText(Composite container) {
+		Label lbtSearchText = new Label(container, SWT.NONE);
+		lbtSearchText.setText("Tagged :");
+		
+		GridData gridData1 = new GridData();
+		gridData1.grabExcessHorizontalSpace = true;
+		gridData1.horizontalAlignment = GridData.FILL;
+
+		txtTagsText = new Text(container, SWT.BORDER);
+		txtTagsText.setLayoutData(gridData1);
+
+	}
+	
 	
 	private void createSortFilterText(Composite container) {
 
@@ -90,7 +107,7 @@ public class UserInputDialog extends TitleAreaDialog {
 		Label filterText = new Label(container, SWT.NONE | SWT.BOLD);
 		
 		filterText.setFont(new org.eclipse.swt.graphics.Font(null, "", 10, SWT.BOLD));
-		filterText.setText("Filter: ");
+		filterText.setText("Filter");
 		filterText.setLayoutData(gridData1);
 	}
 	
@@ -155,6 +172,7 @@ public class UserInputDialog extends TitleAreaDialog {
 		order = orderCombo.getText();
 		sort = sortCombo.getText();
 		site = siteCombo.getText();
+		TagsText = txtTagsText.getText();
 
 	}
 
@@ -162,6 +180,10 @@ public class UserInputDialog extends TitleAreaDialog {
 	protected void okPressed() {
 		saveInput();
 		super.okPressed();
+	}
+	
+	public String getTagsText() {
+		return TagsText;
 	}
 
 	public String getSearchText() {

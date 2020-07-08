@@ -41,12 +41,13 @@ public class SearchHandler extends AbstractHandler {
 			order = dialog.getOrder();
 			sort = dialog.getSort();
 			site = dialog.getSite();
+			tagged = dialog.getTagsText();
 			SearchResult searchResult;
 			String viewerID = "stackoverflow.ViewAndDialog.SearchResultView";
 
 			try {
 				
-				searchResult = new SearchResult(intitle,1,40,order,sort,site);
+				searchResult = new SearchResult(intitle,1,40,order,sort,site,tagged);
 				new SearchHistory().saveSearchTextHistory(intitle);
 				
 				if (searchResult.haveResult()) {
