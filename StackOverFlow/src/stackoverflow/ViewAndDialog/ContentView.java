@@ -64,7 +64,7 @@ public class ContentView extends ViewPart {
 				"        }\r\n" + 
 				"\r\n" + 
 				"        .userImg {\r\n" + 
-				"            box-shadow: 0px 1px 1px black;\r\n" + 
+				"            box-shadow: 0px 2px 2px black;\r\n" + 
 				"            width: 50px;\r\n" + 
 				"            height: 50px;\r\n" + 
 				"        }\r\n" + 
@@ -83,7 +83,7 @@ public class ContentView extends ViewPart {
 				"            display: table;\r\n" + 
 				"            clear: both;\r\n" + 
 				"        }\r\n" + 
-				"        button.link { background:none;border:none; }\r\n" + 
+				"        button.link { background:none;border:none;color:blue; }\r\n" + 
 				"    </style>";
 		
 		
