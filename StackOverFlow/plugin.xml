@@ -67,7 +67,7 @@
             <command
                   id="StackOverFlow.toolbars.HistoryCommand"
                   commandId="StackOverFlow.commands.HistoryCommand"
-                  icon="icons/sample.png"
+                  icon="images/stackoverflow16px.png"
                   tooltip="Say hello world">
             </command>
          </toolbar>
@@ -91,7 +91,7 @@
                id="StackOverFlow.toolbars.SearchToolbar">
             <command
                   commandId="StackOverFlow.commands.SearchCommand"
-                  icon="icons/sample.png"
+                  icon="images/stackoverflow16px.png"
                   id="StackOverFlow.toolbars.SearchCommand"
                   tooltip="Say hello world">
             </command>
@@ -103,7 +103,7 @@
       <view
             category="StackOverFlow"
             class="stackoverflow.ViewAndDialog.SearchResultView"
-            icon="icons/sample.png"
+            icon="images/stackoverflow16px.png"
             id="stackoverflow.ViewAndDialog.SearchResultView"
             inject="true"
             name="SearchResult View">
@@ -115,7 +115,7 @@
       <view
             category="StackOverFlow"
             class="stackoverflow.ViewAndDialog.ContentView"
-            icon="icons/sample.png"
+            icon="images/stackoverflow16px.png"
             id="stackoverflow.ViewAndDialog.ContentView"
             inject="true"
             name="Content View">
