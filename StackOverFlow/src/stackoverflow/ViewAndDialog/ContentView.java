@@ -124,16 +124,16 @@ public class ContentView extends ViewPart {
 			new SearchHistory().saveContentViewHistory(id,q.getTags(), q.getTitle());
 			
 			for(int t=0;t<q.getTags().length;t++) {
-				tags=tags+q.getTags()[t]+" ";
+				tags=tags+"<code>"+q.getTags()[t]+"</code> ";
 			}
 			
 			if (q.isHaveComment()) {
 
 				Comment[] comment = q.getComment();
-				questionComment = "<button class=\"link\" onclick=\"showComment('comment')\">show comments</button><div id=\"qCommentID\" style=\" display:none;\">";
+				questionComment = "<button class=\"link\" onclick=\"showComment('comment')\">show comments</button><div  id=\"qCommentID\" style=\" background-color:#e4f1f7; display:none;\">";
 				for (int i = 0; i < comment.length; i++) {
 					questionComment = questionComment
-							+ "<div style=\" margin-right: 5%;  margin-left: 5%; font-size: 14px; \"><B>"+comment[i].getOwner()+"  </B>"
+							+ "<div style=\" margin-right: 5%; margin-left: 5%;  font-size: 14px; \"><B><a style=\"color:#f2af6f;\" title=\"Comment Score\">"+comment[i].getScore()+" </a>"+q.getOwner()+"</B>"
 							+ comment[i].getBody()
 							+"</div><hr style=\"color: #DCDCDC; background-color: #DCDCDC; margin-left:20px;\">"; 
 				}
@@ -150,8 +150,8 @@ public class ContentView extends ViewPart {
 					+ "\" class=\"userImg\" title=\"User Image\"><br>"+q.getOwner() 
 					+"</h4>"
 					+ "</div>"
-					+ " <div class=\"column\"><br> \r\n" 
-					+" Score: "+q.getScore()+" <br> Tag : "+tags
+					+ " <div class=\"column\" ><br> \r\n" 
+					+" Score: <a style=\"color:#F98B21;\">"+q.getScore()+"</a> <br> Tag : "+tags
 					+ "</div>"
 					+"</div>"
 					+ "<hr style=\"color: white; background-color: white; box-shadow: 0px 5px 5px black;\"></div>";
@@ -166,10 +166,10 @@ public class ContentView extends ViewPart {
 
 					if (answers[i].isHaveComment()) {
 						Comment[] aComment = answers[i].getComment();
-						answerComment = "<button class=\"link\" onclick=\"showComment("+i+")\">show comments </button><div id=\"aCommentID"+i+"\" style=\" display:none;\">";
+						answerComment = "<button class=\"link\" onclick=\"showComment("+i+")\">show comments </button><div id=\"aCommentID"+i+"\" style=\"background-color:#e4f1f7; display:none;\">";
 						for (int j = 0; j < answers[i].getComment().length; j++) {
 							answerComment = answerComment
-									+ "<div style=\" margin-right: 5%; margin-left: 5%; font-size: 14px; \"><B>"+aComment[j].getOwner()+"  </B>"
+									+ "<div style=\" margin-right: 5%; margin-left: 5%; font-size: 14px; \"><a style=\"color:#f2af6f;\" title=\"Comment Score\"><B>"+aComment[j].getScore()+" </a>"+aComment[j].getOwner()+"  </B>"
 									+ aComment[j].getBody()
 									+ "</div><br><hr style=\"color: #DCDCDC; background-color: #DCDCDC;margin-left:20px;\">";
 
@@ -188,8 +188,8 @@ public class ContentView extends ViewPart {
 							+ "\" class=\"userImg\" title=\"User Image\"><br>"+answers[i].getOwner() 
 							+"</h4>"
 							+ "</div>"
-							+ " <div class=\"column\"><br> \r\n" 
-							+" Score: "+answers[i].getScore()+" </div>"
+							+ " <div class=\"column\" ><br> \r\n" 
+							+" Score: <a style=\"color:#F98B21;\">"+answers[i].getScore()+" </a></div>"
 							+"</div>"
 							+ "<hr style=\"color: white; background-color: white; box-shadow: 0px 5px 5px black;\"></div>";
 
