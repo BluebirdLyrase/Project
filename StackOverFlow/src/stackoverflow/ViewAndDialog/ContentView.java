@@ -108,6 +108,8 @@ public class ContentView extends ViewPart {
 				"        }\r\n" + 
 				"    }\r\n" 
 				+"</script>";
+		String tags="";
+		
 		
 		
 
@@ -121,6 +123,10 @@ public class ContentView extends ViewPart {
 			
 			new SearchHistory().saveViewHistory(id,q.getTags(), q.getTitle());
 			
+			for(int t=0;t<q.getTags().length;t++) {
+				tags=tags+q.getTags()[t]+" ";
+			}
+			
 			if (q.isHaveComment()) {
 
 				Comment[] comment = q.getComment();
@@ -129,7 +135,7 @@ public class ContentView extends ViewPart {
 					questionComment = questionComment
 							+ "<div style=\" margin-right: 5%;  margin-left: 5%; font-size: 14px; \"><B>"+comment[i].getOwner()+"  </B>"
 							+ (i + 1) + comment[i].getBody()
-							+"</div><hr style=\"color: #DCDCDC; background-color: #DCDCDC;\">";
+							+"</div><hr style=\"color: #DCDCDC; background-color: #DCDCDC; margin-left:20px;\">"; 
 				}
 				questionComment = questionComment + "</div>";
 			}else {
@@ -145,7 +151,8 @@ public class ContentView extends ViewPart {
 					+"</h4>"
 					+ "</div>"
 					+ " <div class=\"column\"><br> \r\n" 
-					+" Score: "+q.getScore()+" </div>"
+					+" Score: "+q.getScore()+" <br> Tag : "+tags
+					+ "</div>"
 					+"</div>"
 					+ "<hr style=\"color: white; background-color: white; box-shadow: 0px 5px 5px black;\"></div>";
 
@@ -164,7 +171,7 @@ public class ContentView extends ViewPart {
 							answerComment = answerComment
 									+ "<div style=\" margin-right: 5%; margin-left: 5%; font-size: 14px; \"><B>"+aComment[j].getOwner()+"  </B>"
 									+ aComment[j].getBody()
-									+ "</div><br><hr style=\"color: #DCDCDC; background-color: #DCDCDC;\">";
+									+ "</div><br><hr style=\"color: #DCDCDC; background-color: #DCDCDC;margin-left:20px;\">";
 
 						}
 						answerComment = answerComment + "</div>";
