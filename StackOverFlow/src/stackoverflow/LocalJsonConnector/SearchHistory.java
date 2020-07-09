@@ -52,7 +52,7 @@ public class SearchHistory extends JSONFile {
         saveJSONFile(filePath, jsonObject);
 	}
 	
-	public void saveViewHistory(String id,String[] tags,String title) throws JSONException, IOException {
+	public void saveContentViewHistory(String id,String[] tags,String title) throws JSONException, IOException {
 		JSONObject newData = new JSONObject();
 		JSONArray arrayTags = new JSONArray();
 		for(int i = 0;i<tags.length;i++) {

@@ -121,7 +121,7 @@ public class ContentView extends ViewPart {
 			question = "<h2>Question : " + q.getTitle() + "</h2>" + "<div style=\" font-size: 18px \"> " + q.getBody()
 					+ "</div><hr>";
 			
-			new SearchHistory().saveViewHistory(id,q.getTags(), q.getTitle());
+			new SearchHistory().saveContentViewHistory(id,q.getTags(), q.getTitle());
 			
 			for(int t=0;t<q.getTags().length;t++) {
 				tags=tags+q.getTags()[t]+" ";
@@ -134,7 +134,7 @@ public class ContentView extends ViewPart {
 				for (int i = 0; i < comment.length; i++) {
 					questionComment = questionComment
 							+ "<div style=\" margin-right: 5%;  margin-left: 5%; font-size: 14px; \"><B>"+comment[i].getOwner()+"  </B>"
-							+ (i + 1) + comment[i].getBody()
+							+ comment[i].getBody()
 							+"</div><hr style=\"color: #DCDCDC; background-color: #DCDCDC; margin-left:20px;\">"; 
 				}
 				questionComment = questionComment + "</div>";

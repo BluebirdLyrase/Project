@@ -17,10 +17,10 @@ public class JsonReadFormFile {
 		
 		SearchHistory x = new SearchHistory();
 		x.saveSearchTextHistory("How to use viewpart");
-		x.saveViewHistory("245",new String[]{"java","eclipse"},"How to use Viewpart in Eclipse");
-		x.saveViewHistory("23",new String[]{"java","c++"},"How to bake a cake");
-		x.saveViewHistory("22",new String[]{"java","southpark"},"OH MY GOD! They Kill Kenny!");
-		x.saveViewHistory("as",new String[]{"southpark"},"YOU Basterds!");
+		x.saveContentViewHistory("245",new String[]{"java","eclipse"},"How to use Viewpart in Eclipse");
+		x.saveContentViewHistory("23",new String[]{"java","c++"},"How to bake a cake");
+		x.saveContentViewHistory("22",new String[]{"java","southpark"},"OH MY GOD! They Kill Kenny!");
+		x.saveContentViewHistory("as",new String[]{"southpark"},"YOU Basterds!");
 		
 		
 //        String filename = "libs\\content.json";
