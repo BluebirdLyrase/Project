@@ -22,12 +22,13 @@ public class HistoryHandler extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 
-//		try {
-//			HandlerUtil.getActiveWorkbenchWindow(event).getActivePage().showView("stackoverflow.ViewAndDialog.ContentView");
-//		} catch (PartInitException e) {
-			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			String viewerID = "stackoverflow.ViewAndDialog.SearchingHistoryView";
+			HandlerUtil.getActiveWorkbenchWindow(event).getActivePage().showView(viewerID);
+		} catch (PartInitException e) {
+//			 TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 			return null;
 		
 	}

@@ -122,11 +122,11 @@
       </view>
       <view
             category="StackOverFlow"
-            class="stackoverflow.ViewAndDialogHistorySearchTextView"
+            class="stackoverflow.ViewAndDialog.SearchingHistoryView"
             icon="icons/sample.png"
-            id="stackoverflow.ViewAndDialog.HistorySearchTextView"
+            id="stackoverflow.ViewAndDialog.SearchingHistoryView"
             inject="true"
-            name="HistorySearchTextView">
+            name="SearchingHistoryView">
       </view>
    </extension>
    <extension
@@ -155,7 +155,7 @@
       <perspectiveExtension
             targetID="org.eclipse.jdt.ui.JavaPerspective">
          <view
-               id="stackoverflow.ViewAndDialog.HistorySearchTextView"
+               id="stackoverflow.ViewAndDialog.SearchingHistoryView"
                ratio="0.5"
                relationship="right"
                relative="org.eclipse.ui.views.ProblemView">
@@ -164,6 +164,9 @@
    </extension>
    <extension
          point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
       <contexts
             file="contexts.xml">
       </contexts>

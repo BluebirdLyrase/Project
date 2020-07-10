@@ -1,38 +1,47 @@
 package stackoverflow.ViewAndDialog;
 
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
+
+import stackoverflow.ViewAndDialog.HistorySearchTextView.ViewLabelProvider;
+
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.jface.action.*;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.*;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.SWT;
 import javax.inject.Inject;
 
+
 /**
- * This sample class demonstrates how to plug-in a new workbench view. The view
- * shows data obtained from the model. The sample creates a dummy model on the
- * fly, but a real implementation would connect to the model available either in
- * this or another plug-in (e.g. the workspace). The view is connected to the
- * model using a content provider.
+ * This sample class demonstrates how to plug-in a new
+ * workbench view. The view shows data obtained from the
+ * model. The sample creates a dummy model on the fly,
+ * but a real implementation would connect to the model
+ * available either in this or another plug-in (e.g. the workspace).
+ * The view is connected to the model using a content provider.
  * <p>
- * The view uses a label provider to define how model objects should be
- * presented in the view. Each view can present the same model objects using
- * different labels and icons, if needed. Alternatively, a single label provider
- * can be shared between views in order to ensure that objects of the same type
- * are presented in the same way everywhere.
+ * The view uses a label provider to define how model
+ * objects should be presented in the view. Each
+ * view can present the same model objects using
+ * different labels and icons, if needed. Alternatively,
+ * a single label provider can be shared between views
+ * in order to ensure that objects of the same type are
+ * presented in the same way everywhere.
  * <p>
  */
 
-public class HistorySearchTextView extends ViewPart {
+public class SearchingHistoryView extends ViewPart {
 
 	/**
 	 * The ID of the view as specified by the extension.
 	 */
-	public static final String ID = "stackoverflow.ViewAndDialog.HistorySearchTextView";
+	public static final String ID = "stackoverflow.ViewAndDialog.SearchingHistoryView";
 
 	@Inject
 	IWorkbench workbench;
@@ -61,15 +70,27 @@ public class HistorySearchTextView extends ViewPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-
-		viewer.setContentProvider(ArrayContentProvider.getInstance());
-		viewer.setInput(new String[] { "One", "Two", "Three" });
-		viewer.setLabelProvider(new ViewLabelProvider());
-
-		TableViewerColumn column = new TableViewerColumn(viewer, SWT.NONE);
-		column.getColumn().setData(new String[] { "cOne", "cTwo", "cThree" });
 		
+		// Create table viewer
+		this.viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
+		
+		Table table = this.viewer.getTable();
+		table.setHeaderVisible(true);
+		table.setLinesVisible(true);
+		table.setVisible(true);
+		
+		TableViewerColumn searchTextColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
+		searchTextColumn.getColumn().setWidth(500);
+		searchTextColumn.getColumn().setText("Search Text");
+		
+		TableViewerColumn dateTimeColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
+		dateTimeColumn.getColumn().setWidth(300);
+		dateTimeColumn.getColumn().setText("Date : Time");
+		
+		for(int i = 0;i<4;i++) {
+		  new TableItem(table,SWT.NONE).setText(new String[]{"aaa","bbb"});
+		}
+
 		// Create the help context id for the viewer's control
 		workbench.getHelpSystem().setHelp(viewer.getControl(), "StackOverFlow.viewer");
 		getSite().setSelectionProvider(viewer);
@@ -84,7 +105,7 @@ public class HistorySearchTextView extends ViewPart {
 		menuMgr.setRemoveAllWhenShown(true);
 		menuMgr.addMenuListener(new IMenuListener() {
 			public void menuAboutToShow(IMenuManager manager) {
-				HistorySearchTextView.this.fillContextMenu(manager);
+				SearchingHistoryView.this.fillContextMenu(manager);
 			}
 		});
 		Menu menu = menuMgr.createContextMenu(viewer.getControl());
