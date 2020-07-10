@@ -11,16 +11,9 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.json.JSONException;
 
-import stackoverflow.APIConnecter.QuickSearchResult;
-import stackoverflow.ViewAndDialog.QuickSearchResultDialog;
-import stackoverflow.ViewAndDialog.SearchingHistoryView;
-import stackoverflow.ViewAndDialog.UserInputDialog;
 import stackoverflow.ViewAndDialog.ViewHistoryView;
 
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.window.Window;
 
 public class HistoryHandler extends AbstractHandler {
 
@@ -34,14 +27,11 @@ public class HistoryHandler extends AbstractHandler {
 			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 			
 			window.getActivePage().showView(viewerID1);
-//			IViewPart viewPart1 = page.findView(viewerID1);
-//			SearchingHistoryView myView1 = (SearchingHistoryView) viewPart1;
-//			myView1.setEvent(event);
 			
 			window.getActivePage().showView(viewerID2);
-//			IViewPart viewPart2 = page.findView(viewerID2);
-//			ViewHistoryView myView2 = (ViewHistoryView) viewPart2;
-//			myView2.setEvent(event);
+			IViewPart viewPart2 = page.findView(viewerID2);
+			ViewHistoryView myView2 = (ViewHistoryView) viewPart2;
+			myView2.setEvent(event);
 			
 			
 		} catch (PartInitException e) {

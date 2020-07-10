@@ -57,8 +57,8 @@ public class ViewHistoryView extends ViewPart {
 	private Action open;
 	private Action delete;
 	private Action doubleClickAction;
-	ExecutionEvent activeEvent;
-	IWorkbenchWindow window;
+
+
 	
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 		@Override
@@ -114,6 +114,7 @@ public class ViewHistoryView extends ViewPart {
 
 			
 			for(int i = 0;i<lenght;i++) {
+				viewer.setData("questionId" + i, id[i]);
 				  new TableItem(table,SWT.NONE).setText(new String[]{title[i],tags[i],date[i],id[i]});
 				}
 		} catch (IOException | JSONException e) {
@@ -130,9 +131,14 @@ public class ViewHistoryView extends ViewPart {
 		hookDoubleClickAction();
 		contributeToActionBars();
 	}
-	
+	ExecutionEvent Event;
+	IWorkbenchPage activeEvent;
+	IWorkbenchWindow window;
+	IWorkbenchPage page;
 	public void setEvent(ExecutionEvent event) {
-		activeEvent = event;
+		Event = event;
+		activeEvent = HandlerUtil.getActiveWorkbenchWindow(event).getActivePage();
+		page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 		try {
 			window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 		} catch (ExecutionException e) {
@@ -199,9 +205,23 @@ public class ViewHistoryView extends ViewPart {
 		delete.setImageDescriptor(workbench.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
 		doubleClickAction = new Action() {
 			public void run() {
-				IStructuredSelection selection = viewer.getStructuredSelection();
-				Object obj = selection.getFirstElement();
-				showMessage("Double-click detected on " + obj.toString());
+				int index = viewer.getTable().getSelectionIndex();
+				String viewerID = "stackoverflow.ViewAndDialog.ContentView";
+
+				//Random number to be an ID
+				String secondaryId =Double.toString(Math.random());
+				try {		
+					activeEvent.showView(viewerID, secondaryId, IWorkbenchPage.VIEW_ACTIVATE);
+					IViewReference currentView = page.findViewReference(viewerID, secondaryId);
+					IViewPart viewPart = currentView.getView(true);
+					ContentView myView = (ContentView) viewPart;
+
+					myView.setContent(viewer.getData("questionId" + index).toString());
+
+				} catch (PartInitException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		};
 	}

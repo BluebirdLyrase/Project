@@ -59,8 +59,6 @@ public class SearchingHistoryView extends ViewPart {
 	private Action open;
 	private Action delete;
 	private Action doubleClickAction;
-	ExecutionEvent activeEvent;
-	IWorkbenchWindow window;
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 		@Override
@@ -120,16 +118,6 @@ public class SearchingHistoryView extends ViewPart {
 		hookContextMenu();
 		hookDoubleClickAction();
 		contributeToActionBars();
-	}
-	
-	public void setEvent(ExecutionEvent event) {
-		activeEvent = event;
-		try {
-			window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	private void hookContextMenu() {
