@@ -124,7 +124,7 @@ public class ContentView extends ViewPart {
 							+ "<div style=\" font-size: 16px \"> " + answers[i].getBody() + "</div><hr>");
 					if (answers[i].isAccepted()) {
 						System.out.println(i + "isaccepted");
-						answer = answer.replaceAll("<div class=\"none" + i + "\">", "<div class=\"accepted\" title=\"Accepted Answer\">");
+						answer = answer.replaceAll("<div class=\"none" + i + "\"><h2>Answer #", "<div class=\"none"+ i +" \"><h2 tilte=\"Accepted answer\" style=\"color:#00C851\">✅Answer #");
 					}
 
 					if (answers[i].isHaveComment()) {
