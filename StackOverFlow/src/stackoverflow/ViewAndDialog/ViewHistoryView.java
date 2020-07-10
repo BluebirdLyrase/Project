@@ -5,18 +5,13 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
 import org.json.JSONException;
 
-import stackoverflow.APIConnecter.SearchResult;
-import stackoverflow.LocalJsonConnector.SearchingHistory;
-import stackoverflow.ViewAndDialog.HistorySearchTextView.ViewLabelProvider;
+import stackoverflow.LocalJsonConnector.ViewHistory;
 
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.core.commands.ExecutionEvent;
-import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.action.*;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.*;
-import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
@@ -45,12 +40,12 @@ import javax.inject.Inject;
  * <p>
  */
 
-public class SearchingHistoryView extends ViewPart {
+public class ViewHistoryView extends ViewPart {
 
 	/**
 	 * The ID of the view as specified by the extension.
 	 */
-	public static final String ID = "stackoverflow.ViewAndDialog.SearchingHistoryView";
+	public static final String ID = "stackoverflow.ViewAndDialog.ViewHistoryView";
 
 	@Inject
 	IWorkbench workbench;
@@ -59,8 +54,6 @@ public class SearchingHistoryView extends ViewPart {
 	private Action open;
 	private Action delete;
 	private Action doubleClickAction;
-	IWorkbenchPage activeEvent;
-	IWorkbenchWindow window;
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 		@Override
@@ -90,22 +83,33 @@ public class SearchingHistoryView extends ViewPart {
 		table.setLinesVisible(true);
 		table.setVisible(true);
 		
-		TableViewerColumn searchTextColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
-		searchTextColumn.getColumn().setWidth(500);
-		searchTextColumn.getColumn().setText("Search Text");
+		TableViewerColumn titleColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
+		titleColumn.getColumn().setWidth(500);
+		titleColumn.getColumn().setText("Title");
+		
+		TableViewerColumn tagsColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
+		tagsColumn.getColumn().setWidth(200);
+		tagsColumn.getColumn().setText("Tags");
 		
 		TableViewerColumn dateTimeColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
 		dateTimeColumn.getColumn().setWidth(300);
 		dateTimeColumn.getColumn().setText("Date : Time");
+		
+		TableViewerColumn idColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
+		idColumn.getColumn().setWidth(100);
+		idColumn.getColumn().setText("ID");
+		
 		try {
-			SearchingHistory searchingHistory = new SearchingHistory();
-			int lenght = searchingHistory.getSearchingDate().length;
-			String[] text = searchingHistory.getSearchText();
-			String[] Date = searchingHistory.getSearchingDate();
+			ViewHistory viewHistory = new ViewHistory();
+			int lenght = viewHistory.getViewDate().length;
+			String[] title = viewHistory.getTitle();
+			String[] tags = viewHistory.getTags();
+			String[] date = viewHistory.getViewDate();
+			String[] id = viewHistory.getId();
+
 			
 			for(int i = 0;i<lenght;i++) {
-				  viewer.setData("text" + i, text[i]);
-				  new TableItem(table,SWT.NONE).setText(new String[]{text[i],Date[i]});
+				  new TableItem(table,SWT.NONE).setText(new String[]{title[i],tags[i],date[i],id[i]});
 				}
 		} catch (IOException | JSONException e) {
 			// TODO Auto-generated catch block
@@ -121,23 +125,13 @@ public class SearchingHistoryView extends ViewPart {
 		hookDoubleClickAction();
 		contributeToActionBars();
 	}
-	
-	public void setEvent(ExecutionEvent event) {
-		activeEvent = HandlerUtil.getActiveWorkbenchWindow(event).getActivePage();
-		try {
-			window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 	private void hookContextMenu() {
 		MenuManager menuMgr = new MenuManager("#PopupMenu");
 		menuMgr.setRemoveAllWhenShown(true);
 		menuMgr.addMenuListener(new IMenuListener() {
 			public void menuAboutToShow(IMenuManager manager) {
-				SearchingHistoryView.this.fillContextMenu(manager);
+				ViewHistoryView.this.fillContextMenu(manager);
 			}
 		});
 		Menu menu = menuMgr.createContextMenu(viewer.getControl());
@@ -190,28 +184,9 @@ public class SearchingHistoryView extends ViewPart {
 		delete.setImageDescriptor(workbench.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
 		doubleClickAction = new Action() {
 			public void run() {
-				int index = viewer.getTable().getSelectionIndex();
-//				String SearchText = viewer.getData("text" + index).toString();
-//				String viewerID = "stackoverflow.ViewAndDialog.SearchResultView";
-//				SearchResult searchResult = new SearchResult(SearchText);
-//				if (searchResult.haveResult()) {
-//
-//					String[] titleList = searchResult.getTitleList();
-//					String[] questionIdList = searchResult.getQuestionIdList();
-//
-//					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-//					window.getActivePage().showView(viewerID);
-//
-//					IViewPart viewPart = page.findView(viewerID);
-//					
-//					SearchResultView myView = (SearchResultView) viewPart;
-//
-//					myView.setSearchResult(titleList, questionIdList, activeEvent);
-//
-//				} else {
-//					MessageDialog.openError(window.getShell(), "Error", "not found the result you are searching");
-//				}
-				showMessage("Double-click detected on " + index);
+				IStructuredSelection selection = viewer.getStructuredSelection();
+				Object obj = selection.getFirstElement();
+				showMessage("Double-click detected on " + obj.toString());
 			}
 		};
 	}
