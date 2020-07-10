@@ -66,7 +66,7 @@ public class ContentView extends ViewPart {
 				+ "        }\r\n" + "\r\n" + "        .row:after {\r\n" + "            content: \"\";\r\n"
 				+ "            display: table;\r\n" + "            clear: both;\r\n" + "        }\r\n"
 				+ "        button.link { background:none;border:none;color:blue; }\r\n"
-				+ ".accepted{border-style:solid;border-color:#21F92B;}" + "    </style>";
+				+ ".accepted{border-style:solid;border-color:#00C851;}" + "    </style>";
 
 		String script = "<script>\r\n" + "    function showComment(id) {\r\n"
 				+ "        console.log(\"btn clicked\");\r\n" + "        if(id!='comment'){\r\n"
@@ -124,7 +124,7 @@ public class ContentView extends ViewPart {
 							+ "<div style=\" font-size: 16px \"> " + answers[i].getBody() + "</div><hr>");
 					if (answers[i].isAccepted()) {
 						System.out.println(i + "isaccepted");
-						answer = answer.replaceAll("<div class=\"none" + i + "\">", "<div class=\"accepted\">");
+						answer = answer.replaceAll("<div class=\"none" + i + "\">", "<div class=\"accepted\" title=\"Accepted Answer\">");
 					}
 
 					if (answers[i].isHaveComment()) {
