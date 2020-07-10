@@ -48,8 +48,6 @@ public class SearchResultView extends ViewPart {
 	@Inject
 	IWorkbench workbench;
 	private TableViewer viewer;
-//	private Action action1;
-//	private Action action2;
 	private Action doubleClickAction;
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {

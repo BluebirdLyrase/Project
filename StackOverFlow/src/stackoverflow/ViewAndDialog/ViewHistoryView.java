@@ -9,9 +9,12 @@ import stackoverflow.LocalJsonConnector.ViewHistory;
 
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.action.*;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.*;
+import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
@@ -54,7 +57,9 @@ public class ViewHistoryView extends ViewPart {
 	private Action open;
 	private Action delete;
 	private Action doubleClickAction;
-
+	ExecutionEvent activeEvent;
+	IWorkbenchWindow window;
+	
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 		@Override
 		public String getColumnText(Object obj, int index) {
@@ -124,6 +129,16 @@ public class ViewHistoryView extends ViewPart {
 		hookContextMenu();
 		hookDoubleClickAction();
 		contributeToActionBars();
+	}
+	
+	public void setEvent(ExecutionEvent event) {
+		activeEvent = event;
+		try {
+			window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void hookContextMenu() {

@@ -59,7 +59,7 @@ public class SearchingHistoryView extends ViewPart {
 	private Action open;
 	private Action delete;
 	private Action doubleClickAction;
-	IWorkbenchPage activeEvent;
+	ExecutionEvent activeEvent;
 	IWorkbenchWindow window;
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
@@ -123,7 +123,7 @@ public class SearchingHistoryView extends ViewPart {
 	}
 	
 	public void setEvent(ExecutionEvent event) {
-		activeEvent = HandlerUtil.getActiveWorkbenchWindow(event).getActivePage();
+		activeEvent = event;
 		try {
 			window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 		} catch (ExecutionException e) {
@@ -193,7 +193,9 @@ public class SearchingHistoryView extends ViewPart {
 				int index = viewer.getTable().getSelectionIndex();
 //				String SearchText = viewer.getData("text" + index).toString();
 //				String viewerID = "stackoverflow.ViewAndDialog.SearchResultView";
-//				SearchResult searchResult = new SearchResult(SearchText);
+//				SearchResult searchResult;
+//				try {
+//					searchResult = new SearchResult(SearchText);
 //				if (searchResult.haveResult()) {
 //
 //					String[] titleList = searchResult.getTitleList();
@@ -210,6 +212,10 @@ public class SearchingHistoryView extends ViewPart {
 //
 //				} else {
 //					MessageDialog.openError(window.getShell(), "Error", "not found the result you are searching");
+//				}
+//				} catch (IOException | JSONException | PartInitException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
 //				}
 				showMessage("Double-click detected on " + index);
 			}
