@@ -1,6 +1,5 @@
 package stackoverflow.ViewAndDialog;
 
-import org.eclipse.swt.dnd.*;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.part.*;
 import org.json.JSONException;
@@ -8,7 +7,7 @@ import stackoverflow.APIConnecter.AllContent;
 import stackoverflow.DataClass.Answer;
 import stackoverflow.DataClass.Comment;
 import stackoverflow.DataClass.Question;
-import stackoverflow.LocalJsonConnector.SearchHistory;
+import stackoverflow.LocalJsonConnector.ViewAutoSaver;
 
 import java.io.IOException;
 import javax.inject.Inject;
@@ -87,7 +86,7 @@ public class ContentView extends ViewPart {
 			question = "<h2>Question : " + q.getTitle() + "</h2>" + "<div style=\" font-size: 18px \"> " + q.getBody()
 					+ "</div><hr>";
 
-			new SearchHistory().saveContentViewHistory(id, q.getTags(), q.getTitle());
+			new ViewAutoSaver().saveContentViewHistory(id, q.getTags(), q.getTitle());
 
 			for (int t = 0; t < q.getTags().length; t++) {
 				tags = tags + "<code>" + q.getTags()[t] + "</code> ";

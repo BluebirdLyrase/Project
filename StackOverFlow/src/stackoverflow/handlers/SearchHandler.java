@@ -13,7 +13,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.json.JSONException;
 import stackoverflow.APIConnecter.SearchResult;
-import stackoverflow.LocalJsonConnector.SearchHistory;
+import stackoverflow.LocalJsonConnector.SearchingAutoSaver;
 import stackoverflow.ViewAndDialog.SearchResultView;
 import stackoverflow.ViewAndDialog.UserInputDialog;
 
@@ -48,7 +48,7 @@ public class SearchHandler extends AbstractHandler {
 			try {
 				
 				searchResult = new SearchResult(intitle,1,40,order,sort,site,tagged);
-				new SearchHistory().saveSearchTextHistory(intitle);
+				new SearchingAutoSaver().saveSearchTextHistory(intitle);
 				
 				if (searchResult.haveResult()) {
 
