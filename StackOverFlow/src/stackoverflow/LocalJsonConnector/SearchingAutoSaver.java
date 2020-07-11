@@ -13,9 +13,13 @@ public class SearchingAutoSaver extends Searching{
 		super();
 	}
 	
-	public void saveSearchTextHistory(String SearchText) throws IOException, JSONException {
+	public void saveSearchTextHistory(String SearchText,String order,String sort,String site,String tagged) throws IOException, JSONException {
 		JSONObject newData = new JSONObject();
 		newData.put("Search Text", SearchText);
+		newData.put("Order", order);
+		newData.put("Sort By", sort);
+		newData.put("Site", site);
+		newData.put("Tagged", tagged);
 		newData.put("Date",LocalDateTime.now().toString());
 		
         JSONArray newArray = jsonObject.getJSONArray(arrayName);

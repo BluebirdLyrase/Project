@@ -92,6 +92,22 @@ public class SearchingHistoryView extends ViewPart {
 		searchTextColumn.getColumn().setWidth(500);
 		searchTextColumn.getColumn().setText("Search Text");
 		
+		TableViewerColumn orderColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
+		orderColumn.getColumn().setWidth(80);
+		orderColumn.getColumn().setText("Order");
+		
+		TableViewerColumn sortColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
+		sortColumn.getColumn().setWidth(100);
+		sortColumn.getColumn().setText("Sort By");
+		
+		TableViewerColumn siteColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
+		siteColumn.getColumn().setWidth(130);
+		siteColumn.getColumn().setText("Site");
+		
+		TableViewerColumn tagsColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
+		tagsColumn.getColumn().setWidth(200);
+		tagsColumn.getColumn().setText("Tagged");
+		
 		TableViewerColumn dateTimeColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
 		dateTimeColumn.getColumn().setWidth(300);
 		dateTimeColumn.getColumn().setText("Date : Time");
@@ -99,11 +115,17 @@ public class SearchingHistoryView extends ViewPart {
 			SearchingHistory searchingHistory = new SearchingHistory();
 			int lenght = searchingHistory.getSearchingDate().length;
 			String[] text = searchingHistory.getSearchText();
-			String[] Date = searchingHistory.getSearchingDate();
+			String[] order = searchingHistory.getOrder();
+			String[] sort = searchingHistory.getSort();
+			String[] site = searchingHistory.getSite();
+			String[] tagged = searchingHistory.getTagged();
+			String[] date = searchingHistory.getSearchingDate();
+			
 			
 			for(int i = 0;i<lenght;i++) {
 				  viewer.setData("text" + i, text[i]);
-				  new TableItem(table,SWT.NONE).setText(new String[]{text[i],Date[i]});
+				  new TableItem(table,SWT.NONE).setText(
+						  new String[]{text[i],order[i],sort[i],site[i],tagged[i],date[i]});
 				}
 		} catch (IOException | JSONException e) {
 			// TODO Auto-generated catch block

@@ -94,7 +94,7 @@ public class ViewHistoryView extends ViewPart {
 		
 		TableViewerColumn tagsColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
 		tagsColumn.getColumn().setWidth(200);
-		tagsColumn.getColumn().setText("Tags");
+		tagsColumn.getColumn().setText("Tagged");
 		
 		TableViewerColumn dateTimeColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
 		dateTimeColumn.getColumn().setWidth(300);

@@ -113,7 +113,7 @@ public class UserInputDialog extends TitleAreaDialog {
 	
 	private void createOrderCombo(Composite filterContainer) {
 		Label lbtSearchText = new Label(filterContainer, SWT.NONE);
-		lbtSearchText.setText("Sort by :");
+		lbtSearchText.setText("Sort :");
 
 		GridData gridData1 = new GridData();
 		gridData1.grabExcessHorizontalSpace = true;
@@ -129,7 +129,7 @@ public class UserInputDialog extends TitleAreaDialog {
 	
 	private void createSortCombo(Composite filterContainer) {
 		Label lbtSearchText = new Label(filterContainer, SWT.NONE);
-		lbtSearchText.setText("Oder by :");
+		lbtSearchText.setText("Order by :");
 		
 		GridData gridData1 = new GridData();
 		gridData1.grabExcessHorizontalSpace = false;

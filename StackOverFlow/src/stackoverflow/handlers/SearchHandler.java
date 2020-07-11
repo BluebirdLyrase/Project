@@ -48,7 +48,7 @@ public class SearchHandler extends AbstractHandler {
 			try {
 				
 				searchResult = new SearchResult(intitle,1,40,order,sort,site,tagged);
-				new SearchingAutoSaver().saveSearchTextHistory(intitle);
+				new SearchingAutoSaver().saveSearchTextHistory(intitle,order,sort,site,tagged);
 				
 				if (searchResult.haveResult()) {
 
