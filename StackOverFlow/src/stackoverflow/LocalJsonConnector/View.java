@@ -13,11 +13,11 @@ import org.json.JSONObject;
 
 public class View extends JSONFile{
 	
-	String arrayName = "ViewHistory" ;
-	JSONObject jsonObject;
-	String defaultDir = new JFileChooser().getFileSystemView().getDefaultDirectory().toString();
-	File fileDir = new File(filePath = defaultDir + "\\StackOverFlowHelper");
-	String filePath = defaultDir + "\\StackOverFlowHelper\\ViewHistory.json";
+	private String defaultDir = new JFileChooser().getFileSystemView().getDefaultDirectory().toString();
+	private File fileDir = new File(filePath = defaultDir + "\\StackOverFlowHelper");
+	protected String filePath = defaultDir + "\\StackOverFlowHelper\\ViewHistory.json";
+	protected String arrayName = "ViewHistory" ;
+	protected JSONObject jsonObject;
 	
 	public View() throws IOException, JSONException {
 		

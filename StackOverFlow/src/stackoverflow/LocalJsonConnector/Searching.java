@@ -13,11 +13,11 @@ import org.json.JSONObject;
 
 public class Searching extends JSONFile {
 	
-	String arrayName = "SearchTextHistory";
-	JSONObject jsonObject;
-	String defaultDir = new JFileChooser().getFileSystemView().getDefaultDirectory().toString();
-	File fileDir = new File(filePath = defaultDir + "\\StackOverFlowHelper");
-	String filePath = defaultDir + "\\StackOverFlowHelper\\SearchingHistory.json";
+	private String defaultDir = new JFileChooser().getFileSystemView().getDefaultDirectory().toString();
+	private File fileDir = new File(filePath = defaultDir + "\\StackOverFlowHelper");
+	protected String filePath = defaultDir + "\\StackOverFlowHelper\\SearchingHistory.json";
+	protected String arrayName = "SearchTextHistory";
+	protected JSONObject jsonObject;
 	
 	public Searching() throws IOException, JSONException {
 		
