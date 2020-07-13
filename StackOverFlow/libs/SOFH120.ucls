@@ -214,8 +214,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="24" language="java" name="stackoverflow.LocalJsonConnector.ViewAutoWriter" project="StackOverFlow" 
-    file="/StackOverFlow/src/stackoverflow/LocalJsonConnector/ViewAutoWriter.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="24" language="java" name="stackoverflow.LocalJsonConnector.ViewWriter" project="StackOverFlow" 
+    file="/StackOverFlow/src/stackoverflow/LocalJsonConnector/ViewWriter.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="116" width="378" x="3095" y="1028"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      

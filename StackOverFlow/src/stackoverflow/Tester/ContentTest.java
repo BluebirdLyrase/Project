@@ -11,14 +11,15 @@ import stackoverflow.APIConnecter.AllContent;
 import stackoverflow.DataClass.Answer;
 import stackoverflow.DataClass.Comment;
 import stackoverflow.DataClass.Question;
+import stackoverflow.LocalJsonConnector.ContentWriter;
 
 public class ContentTest {
 
 	public static void main(String[] args) throws IOException, JSONException {
 //		SearchResult s = new SearchResult("Eclipse");
-		AllContent c = new AllContent("11227809");
+//		AllContent c = new AllContent("11227809");
 //		AllContent c = new AllContent("62153991");
-//		AllContent c = new AllContent("1678122");
+		AllContent c = new AllContent("1678122");
 		Question q = c.getAllConetent();
 		System.out.println(q.getBody());
 		System.out.println(q.getTitle());
@@ -66,6 +67,9 @@ public class ContentTest {
 			}
 
 		}
+		
+		JSONObject x = c.getItemObject() ;
+		new ContentWriter().saveContent(x);
 		
 		
 

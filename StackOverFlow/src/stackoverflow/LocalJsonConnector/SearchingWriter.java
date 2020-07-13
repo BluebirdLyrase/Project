@@ -13,8 +13,9 @@ public class SearchingWriter extends Searching{
 		super();
 	}
 	
-	public void saveSearchTextHistory(String SearchText,String order,String sort,String site,String tagged) throws IOException, JSONException {
+	public void saveSearchTextHistory(String SearchText,String order,String sort,String site,String tagged) {
 		JSONObject newData = new JSONObject();
+		try {
 		newData.put("Search Text", SearchText);
 		newData.put("Order", order);
 		newData.put("Sort By", sort);
@@ -26,6 +27,11 @@ public class SearchingWriter extends Searching{
         newArray.put(newData);
         jsonObject.put(arrayName,newArray);
         saveJSONFile(filePath, jsonObject);
+		}catch (JSONException | IOException e) {
+			// TODO Auto-generated catch block
+			LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while saving SearchText Histoy : "+e);
+			e.printStackTrace();
+		}
 	}
 
 }
