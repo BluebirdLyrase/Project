@@ -21,6 +21,7 @@ public class ContentTest {
 //		AllContent c = new AllContent("62153991");
 		AllContent c = new AllContent("1678122");
 		Question q = c.getAllConetent();
+		
 		System.out.println(q.getBody());
 		System.out.println(q.getTitle());
 		System.out.println(q.getOwner());
@@ -67,12 +68,6 @@ public class ContentTest {
 			}
 
 		}
-		
-		JSONObject x = c.getItemObject() ;
-		new ContentWriter().saveContent(x);
-		
-		
-
 
 	}
 

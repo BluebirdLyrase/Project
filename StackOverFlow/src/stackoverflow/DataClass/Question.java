@@ -3,7 +3,7 @@ package stackoverflow.DataClass;
 public class Question {
 	public Question(String title, String body, Comment[] comment, Answer[] answer,
 			boolean haveComment,boolean haveAnswer,String owner,String ownerImage,
-			int score,boolean haveTags,String[] tags) {
+			int score,boolean haveTags,String[] tags,String id) {
 		this.title = title;
 		this.body = body;
 		this.comment = comment;
@@ -15,8 +15,10 @@ public class Question {
 		this.score = score;
 		this.tags = tags;
 		this.haveTags = haveTags;
+		this.id = id;
 	}
 	
+	private String id;
 	private String title;
 	private String body;
 	private Comment[] comment;
@@ -63,6 +65,9 @@ public class Question {
 	}
 	public Answer[] getAnswer() {
 		return answer;
+	}
+	public String getId() {
+		return id;
 	}
 	
 	

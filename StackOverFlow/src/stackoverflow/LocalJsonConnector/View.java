@@ -14,7 +14,7 @@ import org.json.JSONObject;
 public class View extends JSONFile{
 	
 	private String defaultDir = new JFileChooser().getFileSystemView().getDefaultDirectory().toString();
-	private File fileDir = new File(filePath = defaultDir + "\\StackOverFlowHelper");
+	private File fileDir = new File(defaultDir + "\\StackOverFlowHelper");
 	protected String filePath = defaultDir + "\\StackOverFlowHelper\\ViewHistory.json";
 	protected String arrayName = "ViewHistory" ;
 	protected JSONObject jsonObject;

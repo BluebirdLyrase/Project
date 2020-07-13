@@ -14,7 +14,7 @@ import org.json.JSONObject;
 public class Searching extends JSONFile {
 	
 	private String defaultDir = new JFileChooser().getFileSystemView().getDefaultDirectory().toString();
-	private File fileDir = new File(filePath = defaultDir + "\\StackOverFlowHelper");
+	private File fileDir = new File(defaultDir + "\\StackOverFlowHelper");
 	protected String filePath = defaultDir + "\\StackOverFlowHelper\\SearchingHistory.json";
 	protected String arrayName = "SearchTextHistory";
 	protected JSONObject jsonObject;

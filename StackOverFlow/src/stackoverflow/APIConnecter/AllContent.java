@@ -14,6 +14,7 @@ public class AllContent extends StackOverFlowConnecter {
 
 	private Question allConetent;
 	private String title;
+	private String id;
 	private String body;
 	private String qOwner;
 	private String qOwnerImage;
@@ -40,8 +41,8 @@ public class AllContent extends StackOverFlowConnecter {
 
 	private JSONObject itemObject;
 
-	public JSONObject getItemObject() {
-		return itemObject;
+	public JSONObject getJsonObject() {
+		return this.json;
 	}
 
 	public Question getAllConetent() {
@@ -64,6 +65,10 @@ public class AllContent extends StackOverFlowConnecter {
 
 		this.title = itemObject.getString("title");
 		LOGGER.info("[" + LOGGER.getName() + "] " + "title : " + title);
+		
+		int ID =  itemObject.getInt("question_id");
+		this.id = Integer.toString(ID);
+		LOGGER.info("[" + LOGGER.getName() + "] " + "question_id : " + id);
 
 		this.body = itemObject.getString("body");
 		LOGGER.info("[" + LOGGER.getName() + "] " + "body : " + body);
@@ -211,7 +216,7 @@ public class AllContent extends StackOverFlowConnecter {
 
 		}
 
-		this.allConetent = new Question(title, body, qComment, answer, haveComment, haveAnswer, qOwner, qOwnerImage,qScore,haveTags,tags);
+		this.allConetent = new Question(title, body, qComment, answer, haveComment, haveAnswer, qOwner, qOwnerImage,qScore,haveTags,tags,id);
 
 	}
 

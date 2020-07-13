@@ -14,13 +14,12 @@ import org.json.JSONObject;
 public class Content extends JSONFile {
 
 	private String defaultDir = new JFileChooser().getFileSystemView().getDefaultDirectory().toString();
-	private File fileDir = new File(filePath = defaultDir + "\\StackOverFlowHelper");
-	protected String filePath = defaultDir + "\\StackOverFlowHelper\\OfflineContent.json";
+	protected String fileDirURL = (defaultDir + "\\StackOverFlowHelper\\OfflineContent");
+	private File fileDir = new File(fileDirURL);
 	protected String arrayName = "items";
-	protected JSONObject jsonObject;
+
 
 	public Content() throws IOException, JSONException {
-		
 		//Check if there is already Stackoverflow dir if not create one
 		if (fileDir.mkdir()) {
 			LOGGER.info("[" + LOGGER.getName() + "] " + "Directory create"+fileDir.getName());
@@ -28,16 +27,6 @@ public class Content extends JSONFile {
 		else {
 			LOGGER.info("[" + LOGGER.getName() + "] " + "Directory already exists.");
 		}
-
-		File newFile = new File(filePath);
-		//Check if there is already .json file if not create one
-		if (newFile.createNewFile()) {
-			LOGGER.info("[" + LOGGER.getName() + "] " + "File created : " + newFile.getName());
-			Files.writeString(Paths.get(filePath), "{"+arrayName+":[]}", StandardOpenOption.WRITE);
-		} else {
-			LOGGER.info("[" + LOGGER.getName() + "] " + "File already exists.");
-		}
-		jsonObject = parseJSONFile(filePath);
 	}
 
 }

@@ -1,29 +1,60 @@
 package stackoverflow.LocalJsonConnector;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.logging.Level;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ContentWriter extends Content{
+	
+	private boolean isSave;
+	private String saveMessage;
+	private String filePath;
+	private JSONObject jsonObject;
 
 	public ContentWriter()throws IOException,JSONException{
 		super();
 	}
 	
-	public void saveContent(JSONObject itemObject) {
-		
+	public boolean saveContent(JSONObject jsonObject,String id) {
+		LOGGER.setLevel(Level.ALL);
+		this.jsonObject = jsonObject;
+		filePath = fileDirURL + "//" + id + ".json";
+		File newFile = new File(filePath);
+		//Check if there is already .json file
 		try {
-		JSONArray newArray = jsonObject.getJSONArray(arrayName);
-        newArray.put(itemObject);
-        jsonObject.put(arrayName,newArray);
+			if (newFile.createNewFile()) {
+				LOGGER.info("[" + LOGGER.getName() + "] " + "File created : " + newFile.getName());
+				Files.writeString(Paths.get(filePath), "", StandardOpenOption.WRITE);
+				writeContent();
+			} else {
+				LOGGER.info("[" + LOGGER.getName() + "] " + "File already exists.");
+				saveMessage = "Already saved.";
+			}
+		} catch (IOException e) {
+			LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while creating new json in Content : "+e);
+			saveMessage = "Error while creating new json file.";
+			isSave = false;
+		}
+		return isSave;
+	}
+	
+	private boolean writeContent() {
+		boolean isWrite = true;
+		try {
         saveJSONFile(filePath, jsonObject);
 		} catch (JSONException | IOException e) {
-			// TODO Auto-generated catch block
 			LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while saving Content : "+e);
-			e.printStackTrace();
+			saveMessage = "Error while saving Content";
+			isWrite = false;
 		}
+		return isWrite;
 	}
 	
 }
