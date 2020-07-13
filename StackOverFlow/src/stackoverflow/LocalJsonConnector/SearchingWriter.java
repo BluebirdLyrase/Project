@@ -7,9 +7,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class SearchingAutoSaver extends Searching{
+public class SearchingWriter extends Searching{
 
-	public SearchingAutoSaver() throws IOException, JSONException {
+	public SearchingWriter() throws IOException, JSONException {
 		super();
 	}
 	

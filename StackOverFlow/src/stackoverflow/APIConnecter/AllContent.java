@@ -38,10 +38,17 @@ public class AllContent extends StackOverFlowConnecter {
 	private String cBody;
 	private String cOwner;
 
+	private JSONObject itemObject;
+
+	public JSONObject getItemObject() {
+		return itemObject;
+	}
 
 	public Question getAllConetent() {
 		return allConetent;
 	}
+	
+	
 
 	public AllContent(String question_id) throws IOException, JSONException {
 
@@ -53,7 +60,7 @@ public class AllContent extends StackOverFlowConnecter {
 
 		this.json = readJsonFromUrl(this.url);
 
-		JSONObject itemObject = json.getJSONArray("items").getJSONObject(0);
+		this.itemObject = json.getJSONArray("items").getJSONObject(0);
 
 		this.title = itemObject.getString("title");
 		LOGGER.info("[" + LOGGER.getName() + "] " + "title : " + title);

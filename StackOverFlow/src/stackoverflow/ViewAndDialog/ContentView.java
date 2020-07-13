@@ -7,7 +7,7 @@ import stackoverflow.APIConnecter.AllContent;
 import stackoverflow.DataClass.Answer;
 import stackoverflow.DataClass.Comment;
 import stackoverflow.DataClass.Question;
-import stackoverflow.LocalJsonConnector.ViewAutoSaver;
+import stackoverflow.LocalJsonConnector.ViewAutoWriter;
 
 import java.io.IOException;
 import javax.inject.Inject;
@@ -86,7 +86,7 @@ public class ContentView extends ViewPart {
 			question = "<h2>Question : " + q.getTitle() + "</h2>" + "<div style=\" font-size: 18px \"> " + q.getBody()
 					+ "</div><hr>";
 
-			new ViewAutoSaver().saveContentViewHistory(id, q.getTags(), q.getTitle());
+			new ViewAutoWriter().saveContentViewHistory(id, q.getTags(), q.getTitle());
 
 			for (int t = 0; t < q.getTags().length; t++) {
 				tags = tags + "<code>" + q.getTags()[t] + "</code> ";

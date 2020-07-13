@@ -7,9 +7,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ViewAutoSaver extends View {
+public class ViewAutoWriter extends View {
 	
-	public ViewAutoSaver() throws IOException, JSONException {
+	public ViewAutoWriter() throws IOException, JSONException {
 		super();
 		// TODO Auto-generated constructor stub
 	}
