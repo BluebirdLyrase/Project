@@ -42,5 +42,9 @@ public class LocalJsonList extends JSONFile {
 		}
 		jsonObject = parseJSONFile(filePath);
 	}
+	
+	public void delete(int index) {
+		
+	}
 
 }
