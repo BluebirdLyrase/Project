@@ -106,7 +106,7 @@ public class ViewHistoryView extends ViewPart {
 		
 		try {
 			ViewHistory viewHistory = new ViewHistory();
-			int lenght = viewHistory.getViewDate().length;
+			int lenght = viewHistory.getLenght();
 			String[] title = viewHistory.getTitle();
 			String[] tags = viewHistory.getTags();
 			String[] date = viewHistory.getViewDate();

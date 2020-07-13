@@ -31,6 +31,11 @@ public class SearchingHistory extends Searching {
 		return tagged;
 	}
 	
+	public int getLenght() {
+		return lenght;
+	}
+	
+	private int lenght;
 	public String[] searchText;
 	public String[] order;
 	public String[] sort;
@@ -40,7 +45,7 @@ public class SearchingHistory extends Searching {
 
 	public SearchingHistory() throws IOException, JSONException {
 		super();
-		int lenght = jsonObject.getJSONArray(arrayName).length();
+		lenght = jsonObject.getJSONArray(arrayName).length();
 		searchText = new String[lenght];
 		searchingDate = new String[lenght];
 		order = new String[lenght];

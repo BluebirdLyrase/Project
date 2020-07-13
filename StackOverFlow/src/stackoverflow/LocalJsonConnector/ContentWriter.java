@@ -6,8 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.logging.Level;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -55,6 +53,10 @@ public class ContentWriter extends Content{
 			isWrite = false;
 		}
 		return isWrite;
+	}
+
+	public String getSaveMessage() {
+		return saveMessage;
 	}
 	
 }

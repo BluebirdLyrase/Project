@@ -6,10 +6,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ViewHistory extends View {
+	
+	public String[] id;
+	public String[] tags;
+	public String[] title;
+	public String[] viewDate;
+	private int lenght;
 
 	public ViewHistory() throws IOException, JSONException {
 		super();
-		int lenght = jsonObject.getJSONArray(arrayName).length();
+		lenght = jsonObject.getJSONArray(arrayName).length();
 		id = new String[lenght];
 		tags = new String[lenght];
 		title = new String[lenght];
@@ -32,6 +38,10 @@ public class ViewHistory extends View {
 		}
 
 	}
+	
+	public int getLenght() {
+		return lenght;
+	}
 
 	public String[] getId() {
 		return id;
@@ -48,10 +58,5 @@ public class ViewHistory extends View {
 	public String[] getViewDate() {
 		return viewDate;
 	}
-
-	public String[] id;
-	public String[] tags;
-	public String[] title;
-	public String[] viewDate;
 
 }

@@ -113,7 +113,7 @@ public class SearchingHistoryView extends ViewPart {
 		dateTimeColumn.getColumn().setText("Date : Time");
 		try {
 			SearchingHistory searchingHistory = new SearchingHistory();
-			int lenght = searchingHistory.getSearchingDate().length;
+			int lenght = searchingHistory.getLenght();
 			String[] text = searchingHistory.getSearchText();
 			String[] order = searchingHistory.getOrder();
 			String[] sort = searchingHistory.getSort();
