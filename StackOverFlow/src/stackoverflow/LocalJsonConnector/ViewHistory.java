@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ViewHistory extends View {
+public class ViewHistory extends LocalJsonList {
 	
 	public String[] id;
 	public String[] tags;
@@ -14,7 +14,7 @@ public class ViewHistory extends View {
 	private int lenght;
 
 	public ViewHistory() throws IOException, JSONException {
-		super();
+		super("ViewHistory");
 		lenght = jsonObject.getJSONArray(arrayName).length();
 		id = new String[lenght];
 		tags = new String[lenght];

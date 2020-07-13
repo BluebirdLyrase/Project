@@ -19,10 +19,10 @@ public class LocalJsonList extends JSONFile {
 	protected String arrayName;
 	protected JSONObject jsonObject;
 	
-	public LocalJsonList(String filename,String arrayName) throws IOException, JSONException {
+	public LocalJsonList(String filename) throws IOException, JSONException {
 		
 		this.filePath = defaultDir + "\\StackOverFlowHelper\\"+filename+".json";
-		this.arrayName = arrayName;
+		this.arrayName = filename;
 		
 		//Check if there is already Stackoverflow dir if not create one
 		if (fileDir.mkdir()) {

@@ -7,10 +7,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ContentTitleWriter extends ContentTitle{
+public class ContentTitleWriter extends LocalJsonList{
 	
 	public ContentTitleWriter() throws IOException, JSONException {
-		super();
+		super("OfflineContentList");
 	}
 	
 	public void saveContentTitle(String title,String id) {

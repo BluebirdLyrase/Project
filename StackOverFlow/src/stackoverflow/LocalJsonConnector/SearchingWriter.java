@@ -7,10 +7,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class SearchingWriter extends Searching{
+public class SearchingWriter extends LocalJsonList{
 
 	public SearchingWriter() throws IOException, JSONException {
-		super();
+		super("SearchingHistory");
 	}
 	
 	public void saveSearchTextHistory(String SearchText,String order,String sort,String site,String tagged) {

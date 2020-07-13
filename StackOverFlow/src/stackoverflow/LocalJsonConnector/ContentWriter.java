@@ -20,7 +20,7 @@ public class ContentWriter extends Content{
 		super();
 	}
 	
-	public boolean saveContent(JSONObject jsonObject,String id) {
+	public boolean saveContent(JSONObject jsonObject,String id,String title) {
 		LOGGER.setLevel(Level.ALL);
 		this.jsonObject = jsonObject;
 		filePath = fileDirURL + "//" + id + ".json";
@@ -31,11 +31,12 @@ public class ContentWriter extends Content{
 				LOGGER.info("[" + LOGGER.getName() + "] " + "File created : " + newFile.getName());
 				Files.writeString(Paths.get(filePath), "", StandardOpenOption.WRITE);
 				writeContent();
+				new ContentTitleWriter().saveContentTitle(title,id);
 			} else {
 				LOGGER.info("[" + LOGGER.getName() + "] " + "File already exists.");
 				saveMessage = "Already saved.";
 			}
-		} catch (IOException e) {
+		} catch (IOException | JSONException e) {
 			LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while creating new json in Content : "+e);
 			saveMessage = "Error while creating new json file.";
 			isSave = false;

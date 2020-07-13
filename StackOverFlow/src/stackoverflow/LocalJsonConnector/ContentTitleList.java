@@ -5,10 +5,10 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ContentTitleList extends ContentTitle {
+public class ContentTitleList extends LocalJsonList {
 
 	public ContentTitleList() throws IOException, JSONException {
-		super();
+		super("OfflineContentList");
 		this.lenght = jsonObject.getJSONArray(arrayName).length();
 		title = new String[this.lenght];
 		filename = new String[this.lenght];

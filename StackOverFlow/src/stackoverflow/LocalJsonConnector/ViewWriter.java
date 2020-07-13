@@ -7,10 +7,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ViewWriter extends View {
+public class ViewWriter extends LocalJsonList {
 
 	public ViewWriter() throws IOException, JSONException {
-		super();
+		super("ViewHistory");
 		// TODO Auto-generated constructor stub
 	}
 
