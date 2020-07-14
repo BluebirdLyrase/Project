@@ -11,6 +11,7 @@ public class FavoriteTest {
 		new FavoriteWriter().saveFavorite("aaa", "123");
 		new FavoriteWriter().saveFavorite("bbb", "456");
 		new FavoriteWriter().saveFavorite("ccc", "789");
+		new FavoriteWriter().saveFavorite("ccc", "789");
 		
 		FavoriteList f = new FavoriteList();
 		int x= f.getLenght();
