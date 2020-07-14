@@ -49,10 +49,6 @@ public class AllContent extends StackOverFlowConnecter {
 		return allConetent;
 	}
 	
-	public AllContent(String question_id) throws IOException, JSONException {
-		 this(question_id,false);
-	}
-
 	public AllContent(String question_id,boolean isOffline) throws IOException, JSONException {
 
 		// All Question that can be found by the URL will have an Accepted Answer or

@@ -13,9 +13,9 @@ import stackoverflow.LocalJsonConnector.ContentWriter;
 public class ConetentSaveTest {
 	
 	public static void main(String[] args) throws IOException, JSONException {
-		AllContent c = new AllContent("11227809");
-//		AllContent c = new AllContent("62153991");
-//		AllContent c = new AllContent("1678122");
+		AllContent c = new AllContent("11227809",false);
+//		AllContent c = new AllContent("62153991",false);
+//		AllContent c = new AllContent("1678122",false);
 		Question q = c.getAllConetent();
 		
 		JSONObject x = c.getJsonObject() ;

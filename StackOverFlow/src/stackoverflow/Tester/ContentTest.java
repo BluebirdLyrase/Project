@@ -16,10 +16,10 @@ import stackoverflow.LocalJsonConnector.ContentWriter;
 public class ContentTest {
 
 	public static void main(String[] args) throws IOException, JSONException {
-//		SearchResult s = new SearchResult("Eclipse");
-//		AllContent c = new AllContent("11227809");
-//		AllContent c = new AllContent("62153991");
-		AllContent c = new AllContent("1678122");
+//		SearchResult s = new SearchResult("Eclipse",false);
+//		AllContent c = new AllContent("11227809",false);
+//		AllContent c = new AllContent("62153991",false);
+		AllContent c = new AllContent("1678122",false);
 		Question q = c.getAllConetent();
 		
 		System.out.println(q.getBody());

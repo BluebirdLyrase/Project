@@ -32,9 +32,15 @@ public class ContentView extends ViewPart {
 
 	private String id = null;
 	private String qtitle="";
+	boolean isOffline;
 	
 	public void setContent(String id) {
+		setContent(id,false);
+	}
+	
+	public void setContent(String id,boolean isOffline) {
 		this.id = id;
+		this.isOffline = isOffline;
 		parent.layout(true,true);
 		final Point newSize = parent.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
 		parent.setSize(newSize);
@@ -89,7 +95,7 @@ public class ContentView extends ViewPart {
 		        
 		     try {
 				ContentWriter offlineWriter = new ContentWriter();
-				AllContent c = new AllContent(id);
+				AllContent c = new AllContent(id,isOffline);
 				JSONObject contentObject = c.getJsonObject();
 				offlineWriter.saveContent(contentObject, id, qtitle);
 			} catch (IOException e) {
@@ -119,7 +125,7 @@ public class ContentView extends ViewPart {
 
 		
 	}
-	
+
 	private String createHtml() {
 		AllContent content;
 		String answer = "";
@@ -151,7 +157,9 @@ public class ContentView extends ViewPart {
 		String tags = "";
 
 		try {
-			content = new AllContent(id);
+			//check if Allcontent is used for offline mode
+			content = new AllContent(id,isOffline);
+			
 			Question q = content.getAllConetent();
 			
 			qtitle=q.getTitle();
