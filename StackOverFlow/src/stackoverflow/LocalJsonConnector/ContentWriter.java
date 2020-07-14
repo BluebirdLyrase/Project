@@ -21,7 +21,6 @@ public class ContentWriter extends Content{
 	}
 	
 	public boolean saveContent(JSONObject jsonObject,String id,String title) {
-		LOGGER.setLevel(Level.ALL);
 		this.jsonObject = jsonObject;
 		filePath = fileDirURL + "//" + id + ".json";
 		File newFile = new File(filePath);

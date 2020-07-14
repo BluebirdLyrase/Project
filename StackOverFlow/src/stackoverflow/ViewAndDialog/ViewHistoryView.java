@@ -131,17 +131,27 @@ public class ViewHistoryView extends ViewPart {
 		hookDoubleClickAction();
 		contributeToActionBars();
 	}
-	ExecutionEvent Event;
-	IWorkbenchPage activeEvent;
-	IWorkbenchWindow window;
-	IWorkbenchPage page;
-	public void setEvent(ExecutionEvent event) {
-		Event = event;
-		activeEvent = HandlerUtil.getActiveWorkbenchWindow(event).getActivePage();
-		page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		try {
-			window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-		} catch (ExecutionException e) {
+	
+	IWorkbench wb = PlatformUI.getWorkbench();
+	IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+	IWorkbenchPage activeEvent = win.getActivePage();
+	IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+	
+	private void open() {
+		int index = viewer.getTable().getSelectionIndex();
+		String viewerID = "stackoverflow.ViewAndDialog.ContentView";
+
+		//Random number to be an ID
+		String secondaryId =Double.toString(Math.random());
+		try {		
+			activeEvent.showView(viewerID, secondaryId, IWorkbenchPage.VIEW_ACTIVATE);
+			IViewReference currentView = page.findViewReference(viewerID, secondaryId);
+			IViewPart viewPart = currentView.getView(true);
+			ContentView myView = (ContentView) viewPart;
+
+			myView.setContent(viewer.getData("questionId" + index).toString());
+
+		} catch (PartInitException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -187,7 +197,7 @@ public class ViewHistoryView extends ViewPart {
 	private void makeActions() {
 		open = new Action() {
 			public void run() {
-				showMessage("Action 1 executed");
+				open();
 			}
 		};
 		open.setText("Open");
@@ -205,23 +215,7 @@ public class ViewHistoryView extends ViewPart {
 		delete.setImageDescriptor(workbench.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
 		doubleClickAction = new Action() {
 			public void run() {
-				int index = viewer.getTable().getSelectionIndex();
-				String viewerID = "stackoverflow.ViewAndDialog.ContentView";
-
-				//Random number to be an ID
-				String secondaryId =Double.toString(Math.random());
-				try {		
-					activeEvent.showView(viewerID, secondaryId, IWorkbenchPage.VIEW_ACTIVATE);
-					IViewReference currentView = page.findViewReference(viewerID, secondaryId);
-					IViewPart viewPart = currentView.getView(true);
-					ContentView myView = (ContentView) viewPart;
-
-					myView.setContent(viewer.getData("questionId" + index).toString());
-
-				} catch (PartInitException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				open();
 			}
 		};
 	}

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.logging.Level;
 
 import javax.swing.JFileChooser;
 
@@ -20,6 +21,7 @@ public class Content extends JSONFile {
 
 
 	public Content() throws IOException, JSONException {
+		LOGGER.setLevel(Level.ALL);
 		//Check if there is already Stackoverflow dir if not create one
 		if (fileDir.mkdir()) {
 			LOGGER.info("[" + LOGGER.getName() + "] " + "Directory create"+fileDir.getName());

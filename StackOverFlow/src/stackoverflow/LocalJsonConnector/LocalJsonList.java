@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.logging.Level;
 
 import javax.swing.JFileChooser;
 
@@ -20,7 +21,7 @@ public class LocalJsonList extends JSONFile {
 	protected JSONObject jsonObject;
 	
 	public LocalJsonList(String filename) throws IOException, JSONException {
-		
+		LOGGER.setLevel(Level.ALL);
 		this.filePath = defaultDir + "\\StackOverFlowHelper\\"+filename+".json";
 		this.arrayName = filename;
 		
