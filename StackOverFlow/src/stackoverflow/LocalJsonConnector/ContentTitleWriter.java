@@ -1,7 +1,6 @@
 package stackoverflow.LocalJsonConnector;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -2,15 +2,11 @@ package stackoverflow.LocalJsonConnector;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.logging.Level;
 
 import javax.swing.JFileChooser;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 public class Content extends JSONFile {
 
