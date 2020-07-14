@@ -47,6 +47,7 @@ public class SearchResultView extends ViewPart {
 
 	@Inject
 	IWorkbench workbench;
+	private String[] id;
 	private TableViewer viewer;
 	private Action doubleClickAction;
 
@@ -97,8 +98,9 @@ public class SearchResultView extends ViewPart {
 		this.questionIdList = questionIdList;	
 		
 		/// setData to next result page
+		id = new String[questionIdList.length];
 		for (int i = 0; i < questionIdList.length; i++) {
-			viewer.setData("questionId" + i, questionIdList[i]);
+			id[i] = questionIdList[i];
 		}
 		ColumnViewerToolTipSupport.enableFor(viewer);
 		viewer.setInput(titleList);
@@ -133,7 +135,7 @@ public class SearchResultView extends ViewPart {
 					IViewPart viewPart = currentView.getView(true);
 					ContentView myView = (ContentView) viewPart;
 
-					myView.setContent(viewer.getData("questionId" + index).toString());
+					myView.setContent(id[index]);
 
 				} catch (PartInitException e) {
 					// TODO Auto-generated catch block

@@ -52,6 +52,7 @@ public class ViewHistoryView extends ViewPart {
 	private Action open;
 	private Action delete;
 	private Action doubleClickAction;
+	private String[] id;
 	ViewHistory viewHistory;
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
@@ -122,10 +123,9 @@ public class ViewHistoryView extends ViewPart {
 			String[] title = viewHistory.getTitle();
 			String[] tags = viewHistory.getTags();
 			String[] date = viewHistory.getViewDate();
-			String[] id = viewHistory.getId();
+			id = viewHistory.getId();
 
 			for (int i = 0; i < lenght; i++) {
-				viewer.setData("questionId" + i, id[i]);
 				new TableItem(table, SWT.NONE).setText(new String[] { title[i], tags[i], date[i], id[i] });
 			}
 		} catch (IOException | JSONException e) {
@@ -144,10 +144,8 @@ public class ViewHistoryView extends ViewPart {
 			activeEvent.showView(viewerID, secondaryId, IWorkbenchPage.VIEW_ACTIVATE);
 			IViewReference currentView = page.findViewReference(viewerID, secondaryId);
 			IViewPart viewPart = currentView.getView(true);
-			ContentView myView = (ContentView) viewPart;
-
-			myView.setContent(viewer.getData("questionId" + index).toString());
-
+			ContentView myView = (ContentView) viewPart; 
+			myView.setContent(id[index]);
 		} catch (PartInitException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
