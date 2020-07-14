@@ -1,6 +1,5 @@
 package stackoverflow.ViewAndDialog;
 
-
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
 import org.json.JSONException;
@@ -24,22 +23,18 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-
 /**
- * This sample class demonstrates how to plug-in a new
- * workbench view. The view shows data obtained from the
- * model. The sample creates a dummy model on the fly,
- * but a real implementation would connect to the model
- * available either in this or another plug-in (e.g. the workspace).
- * The view is connected to the model using a content provider.
+ * This sample class demonstrates how to plug-in a new workbench view. The view
+ * shows data obtained from the model. The sample creates a dummy model on the
+ * fly, but a real implementation would connect to the model available either in
+ * this or another plug-in (e.g. the workspace). The view is connected to the
+ * model using a content provider.
  * <p>
- * The view uses a label provider to define how model
- * objects should be presented in the view. Each
- * view can present the same model objects using
- * different labels and icons, if needed. Alternatively,
- * a single label provider can be shared between views
- * in order to ensure that objects of the same type are
- * presented in the same way everywhere.
+ * The view uses a label provider to define how model objects should be
+ * presented in the view. Each view can present the same model objects using
+ * different labels and icons, if needed. Alternatively, a single label provider
+ * can be shared between views in order to ensure that objects of the same type
+ * are presented in the same way everywhere.
  * <p>
  */
 
@@ -53,13 +48,14 @@ public class ViewHistoryView extends ViewPart {
 	@Inject
 	IWorkbench workbench;
 
+	private Composite parent;
 	private TableViewer viewer;
+	private Table table;
 	private Action open;
 	private Action delete;
 	private Action doubleClickAction;
+	ViewHistory viewHistory;
 
-
-	
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 		@Override
 		public String getColumnText(Object obj, int index) {
@@ -79,50 +75,10 @@ public class ViewHistoryView extends ViewPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		
-		// Create table viewer
-		this.viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
-		
-		Table table = this.viewer.getTable();
-		table.setHeaderVisible(true);
-		table.setLinesVisible(true);
-		table.setVisible(true);
-		
-		TableViewerColumn titleColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
-		titleColumn.getColumn().setWidth(500);
-		titleColumn.getColumn().setText("Title");
-		
-		TableViewerColumn tagsColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
-		tagsColumn.getColumn().setWidth(200);
-		tagsColumn.getColumn().setText("Tagged");
-		
-		TableViewerColumn dateTimeColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
-		dateTimeColumn.getColumn().setWidth(300);
-		dateTimeColumn.getColumn().setText("Date : Time");
-		
-		TableViewerColumn idColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
-		idColumn.getColumn().setWidth(100);
-		idColumn.getColumn().setText("ID");
-		
-		try {
-			ViewHistory viewHistory = new ViewHistory();
-			int lenght = viewHistory.getLenght();
-			String[] title = viewHistory.getTitle();
-			String[] tags = viewHistory.getTags();
-			String[] date = viewHistory.getViewDate();
-			String[] id = viewHistory.getId();
-
-			
-			for(int i = 0;i<lenght;i++) {
-				viewer.setData("questionId" + i, id[i]);
-				  new TableItem(table,SWT.NONE).setText(new String[]{title[i],tags[i],date[i],id[i]});
-				}
-		} catch (IOException | JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-
+		this.parent = parent;
+		this.viewer = new TableViewer(parent,
+				SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION);
+		createTable();
 		// Create the help context id for the viewer's control
 		workbench.getHelpSystem().setHelp(viewer.getControl(), "StackOverFlow.viewer");
 		getSite().setSelectionProvider(viewer);
@@ -131,19 +87,62 @@ public class ViewHistoryView extends ViewPart {
 		hookDoubleClickAction();
 		contributeToActionBars();
 	}
-	
-	IWorkbench wb = PlatformUI.getWorkbench();
-	IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-	IWorkbenchPage activeEvent = win.getActivePage();
-	IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-	
+
+	private IWorkbench wb = PlatformUI.getWorkbench();
+	private IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+	private IWorkbenchPage activeEvent = win.getActivePage();
+	private IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+
+	private void createTable() {
+
+		table = this.viewer.getTable();
+		table.removeAll();
+		table.setHeaderVisible(true);
+		table.setLinesVisible(true);
+		table.setVisible(true);
+
+		TableViewerColumn titleColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
+		titleColumn.getColumn().setWidth(500);
+		titleColumn.getColumn().setText("Title");
+
+		TableViewerColumn tagsColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
+		tagsColumn.getColumn().setWidth(200);
+		tagsColumn.getColumn().setText("Tagged");
+
+		TableViewerColumn dateTimeColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
+		dateTimeColumn.getColumn().setWidth(300);
+		dateTimeColumn.getColumn().setText("Date : Time");
+
+		TableViewerColumn idColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
+		idColumn.getColumn().setWidth(100);
+		idColumn.getColumn().setText("ID");
+
+		// Create table viewer
+		try {
+			viewHistory = new ViewHistory();
+			int lenght = viewHistory.getLenght();
+			String[] title = viewHistory.getTitle();
+			String[] tags = viewHistory.getTags();
+			String[] date = viewHistory.getViewDate();
+			String[] id = viewHistory.getId();
+
+			for (int i = 0; i < lenght; i++) {
+				viewer.setData("questionId" + i, id[i]);
+				new TableItem(table, SWT.NONE).setText(new String[] { title[i], tags[i], date[i], id[i] });
+			}
+		} catch (IOException | JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	private void open() {
 		int index = viewer.getTable().getSelectionIndex();
 		String viewerID = "stackoverflow.ViewAndDialog.ContentView";
 
-		//Random number to be an ID
-		String secondaryId =Double.toString(Math.random());
-		try {		
+		// Random number to be an ID
+		String secondaryId = Double.toString(Math.random());
+		try {
 			activeEvent.showView(viewerID, secondaryId, IWorkbenchPage.VIEW_ACTIVATE);
 			IViewReference currentView = page.findViewReference(viewerID, secondaryId);
 			IViewPart viewPart = currentView.getView(true);
@@ -155,6 +154,13 @@ public class ViewHistoryView extends ViewPart {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private void delete() {
+		int index = viewer.getTable().getSelectionIndex();
+		viewHistory.delete(index);
+		MessageDialog.openInformation(win.getShell(), "Atention", "successful delete");
+		createTable();
 	}
 
 	private void hookContextMenu() {
@@ -207,7 +213,7 @@ public class ViewHistoryView extends ViewPart {
 
 		delete = new Action() {
 			public void run() {
-				showMessage("Action 2 executed");
+				delete();
 			}
 		};
 		delete.setText("Delete");

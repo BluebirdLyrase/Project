@@ -172,7 +172,6 @@ public class SearchingHistoryView extends ViewPart {
 				String[] titleList = searchResult.getTitleList();
 				String[] questionIdList = searchResult.getQuestionIdList();
 
-				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				win.getActivePage().showView(viewerID);
 
 				IViewPart viewPart = page.findView(viewerID);

@@ -24,8 +24,6 @@ public class HistoryHandler extends AbstractHandler {
 			String viewerID1 = "stackoverflow.ViewAndDialog.SearchingHistoryView";
 			String viewerID2 = "stackoverflow.ViewAndDialog.ViewHistoryView";
 			
-			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-			
 			window.getActivePage().showView(viewerID1);
 			
 			window.getActivePage().showView(viewerID2);
