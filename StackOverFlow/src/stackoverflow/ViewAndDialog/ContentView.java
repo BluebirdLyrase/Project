@@ -119,7 +119,7 @@ public class ContentView extends ViewPart {
 
 		
 	}
-
+	
 	private String createHtml() {
 		AllContent content;
 		String answer = "";
