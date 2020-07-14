@@ -62,18 +62,12 @@ public class SearchHandler extends AbstractHandler {
 					
 					SearchResultView myView = (SearchResultView) viewPart;
 
-					myView.setSearchResult(titleList, questionIdList, event);
+					myView.setSearchResult(titleList, questionIdList);
 
 				} else {
 					MessageDialog.openError(window.getShell(), "Error", "not found the result you are searching");
 				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (PartInitException e) {
+			} catch (IOException | JSONException | PartInitException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

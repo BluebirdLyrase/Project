@@ -196,7 +196,6 @@ public class ContentView extends ViewPart {
 					answer = answer + ("<div class=\"none" + i + "\"><h2>Answer #" + (i + 1) + "</h2>"
 							+ "<div style=\" font-size: 16px \"> " + answers[i].getBody() + "</div><hr>");
 					if (answers[i].isAccepted()) {
-						System.out.println(i + "isaccepted");
 						answer = answer.replaceAll("<div class=\"none" + i + "\"><h2>Answer #", "<div class=\"none"+ i +" \"><h2 tilte=\"Accepted answer\" style=\"color:#00C851\">✅Answer #");
 					}
 

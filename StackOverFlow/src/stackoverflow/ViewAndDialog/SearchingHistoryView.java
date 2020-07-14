@@ -7,12 +7,10 @@ import org.json.JSONException;
 
 import stackoverflow.APIConnecter.SearchResult;
 import stackoverflow.LocalJsonConnector.SearchingHistory;
-import stackoverflow.ViewAndDialog.HistorySearchTextView.ViewLabelProvider;
+import stackoverflow.LocalJsonConnector.SearchingWriter;
 
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.core.commands.ExecutionEvent;
-import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.action.*;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.*;
@@ -114,12 +112,12 @@ public class SearchingHistoryView extends ViewPart {
 		try {
 			SearchingHistory searchingHistory = new SearchingHistory();
 			int lenght = searchingHistory.getLenght();
-			String[] text = searchingHistory.getSearchText();
-			String[] order = searchingHistory.getOrder();
-			String[] sort = searchingHistory.getSort();
-			String[] site = searchingHistory.getSite();
-			String[] tagged = searchingHistory.getTagged();
-			String[] date = searchingHistory.getSearchingDate();
+			text = searchingHistory.getSearchText();
+			order = searchingHistory.getOrder();
+			sort = searchingHistory.getSort();
+			site = searchingHistory.getSite();
+			tagged = searchingHistory.getTagged();
+			date = searchingHistory.getSearchingDate();
 			
 			
 			for(int i = 0;i<lenght;i++) {
@@ -140,6 +138,57 @@ public class SearchingHistoryView extends ViewPart {
 		hookContextMenu();
 		hookDoubleClickAction();
 		contributeToActionBars();
+	}
+	
+	String[] text ;
+	String[] order ;
+	String[] sort ;
+	String[] site ;
+	String[] tagged ;
+	String[] date ;
+	
+	IWorkbench wb = PlatformUI.getWorkbench();
+	IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+	IWorkbenchPage activeEvent = win.getActivePage();
+	IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+	
+	private void open() {
+		String viewerID = "stackoverflow.ViewAndDialog.SearchResultView";
+		int index = viewer.getTable().getSelectionIndex();
+		String intitle = this.text[index];
+		String order = this.order[index];
+		String sort = this.sort[index];
+		String site = this.site[index];
+		String tagged = this.tagged[index];
+		SearchResult searchResult;
+		
+		try {
+			
+			searchResult = new SearchResult(intitle,1,40,order,sort,site,tagged);
+			new SearchingWriter().saveSearchTextHistory(intitle,order,sort,site,tagged);
+			
+			if (searchResult.haveResult()) {
+
+				String[] titleList = searchResult.getTitleList();
+				String[] questionIdList = searchResult.getQuestionIdList();
+
+				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				win.getActivePage().showView(viewerID);
+
+				IViewPart viewPart = page.findView(viewerID);
+				
+				SearchResultView myView = (SearchResultView) viewPart;
+
+				myView.setSearchResult(titleList, questionIdList);
+
+			} else {
+				MessageDialog.openError(win.getShell(), "Error", "not found the result you are searching");
+			}	} catch (IOException | JSONException | PartInitException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		
 	}
 
 	private void hookContextMenu() {
@@ -182,7 +231,7 @@ public class SearchingHistoryView extends ViewPart {
 	private void makeActions() {
 		open = new Action() {
 			public void run() {
-				showMessage("Action 1 executed");
+				open();
 			}
 		};
 		open.setText("Open");
@@ -200,34 +249,7 @@ public class SearchingHistoryView extends ViewPart {
 		delete.setImageDescriptor(workbench.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
 		doubleClickAction = new Action() {
 			public void run() {
-				int index = viewer.getTable().getSelectionIndex();
-//				String SearchText = viewer.getData("text" + index).toString();
-//				String viewerID = "stackoverflow.ViewAndDialog.SearchResultView";
-//				SearchResult searchResult;
-//				try {
-//					searchResult = new SearchResult(SearchText);
-//				if (searchResult.haveResult()) {
-//
-//					String[] titleList = searchResult.getTitleList();
-//					String[] questionIdList = searchResult.getQuestionIdList();
-//
-//					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-//					window.getActivePage().showView(viewerID);
-//
-//					IViewPart viewPart = page.findView(viewerID);
-//					
-//					SearchResultView myView = (SearchResultView) viewPart;
-//
-//					myView.setSearchResult(titleList, questionIdList, activeEvent);
-//
-//				} else {
-//					MessageDialog.openError(window.getShell(), "Error", "not found the result you are searching");
-//				}
-//				} catch (IOException | JSONException | PartInitException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-				showMessage("Double-click detected on " + index);
+				open();
 			}
 		};
 	}

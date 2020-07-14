@@ -29,9 +29,6 @@ public class HistoryHandler extends AbstractHandler {
 			window.getActivePage().showView(viewerID1);
 			
 			window.getActivePage().showView(viewerID2);
-			IViewPart viewPart2 = page.findView(viewerID2);
-			ViewHistoryView myView2 = (ViewHistoryView) viewPart2;
-			myView2.setEvent(event);
 			
 			
 		} catch (PartInitException e) {

@@ -87,16 +87,14 @@ public class SearchResultView extends ViewPart {
 
 	String[] titleList;
 	String[] questionIdList;
-	IWorkbenchPage activeEvent;
-	IWorkbenchPage page;
+	IWorkbench wb = PlatformUI.getWorkbench();
+	IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+	IWorkbenchPage activeEvent = win.getActivePage();
+	IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 
-	public void setSearchResult(String[] titleList, String[] questionIdList,
-			ExecutionEvent event) {
+	public void setSearchResult(String[] titleList, String[] questionIdList) {
 		this.titleList = titleList;
-		this.questionIdList = questionIdList;
-		
-		activeEvent = HandlerUtil.getActiveWorkbenchWindow(event).getActivePage();
-		page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();	
+		this.questionIdList = questionIdList;	
 		
 		/// setData to next result page
 		for (int i = 0; i < questionIdList.length; i++) {

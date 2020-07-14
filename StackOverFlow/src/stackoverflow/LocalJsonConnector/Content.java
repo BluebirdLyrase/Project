@@ -30,5 +30,9 @@ public class Content extends JSONFile {
 			LOGGER.info("[" + LOGGER.getName() + "] " + "Directory already exists.");
 		}
 	}
+	
+	public void delete(String filename) {
+		
+	}
 
 }
