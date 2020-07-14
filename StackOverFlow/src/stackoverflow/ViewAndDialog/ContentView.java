@@ -3,10 +3,14 @@ package stackoverflow.ViewAndDialog;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.part.*;
 import org.json.JSONException;
+import org.json.JSONObject;
+
 import stackoverflow.APIConnecter.AllContent;
 import stackoverflow.DataClass.Answer;
 import stackoverflow.DataClass.Comment;
 import stackoverflow.DataClass.Question;
+import stackoverflow.LocalJsonConnector.ContentWriter;
+import stackoverflow.LocalJsonConnector.FavoriteWriter;
 import stackoverflow.LocalJsonConnector.ViewWriter;
 
 import java.io.IOException;
@@ -15,6 +19,7 @@ import org.eclipse.swt.*;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.*;
 
 public class ContentView extends ViewPart {
@@ -26,26 +31,93 @@ public class ContentView extends ViewPart {
 	public static final String ID = "stackoverflow.ViewAndDialog.ContentView";
 
 	private String id = null;
-
+	private String qtitle="";
+	
 	public void setContent(String id) {
 		this.id = id;
-		GridLayout gridLayout = new GridLayout(1, false);
-		gridLayout.marginWidth = 5;
-		gridLayout.marginHeight = 5;
-		gridLayout.verticalSpacing = 0;
-		gridLayout.horizontalSpacing = 0;
+		parent.layout(true,true);
+		final Point newSize = parent.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
+		parent.setSize(newSize);
+		
+		Composite contentViwew;
+		Composite menu;
+		contentViwew = new Composite(parent,SWT.None);
+		contentViwew.setLayoutData(new GridData(SWT.FILL,SWT.CENTER,false,false));
+		contentViwew.setLayout(new GridLayout(2,true));
+		
+		menu = new Composite(contentViwew,SWT.None);
+		menu.setLayoutData(new GridData(SWT.FILL,SWT.CENTER,false,false,1,1));
+		menu.setLayout(new GridLayout(2,false));
+		
+		
+		final Button favButton=new Button(menu,SWT.PUSH);
+		favButton.setText("Save to favorite");
+		favButton.setLayoutData(new GridData(SWT.FILL,SWT.LEFT,false,false,1,1));
+		
+		favButton.addListener(SWT.Selection, new Listener()
+		{
+		    @Override
+		    public void handleEvent(Event event)
+		    {
+		        System.out.println("favButton Clicked");
+		        
+		     try {
+				FavoriteWriter favWriter = new FavoriteWriter();
+				favWriter.saveFavorite(qtitle, id);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		        
+		    }
+		});
 
+		
+		final Button saveOfflineButton=new Button(menu,SWT.PUSH);
+		saveOfflineButton.setText("Save offline");
+		saveOfflineButton.setLayoutData(new GridData(SWT.FILL,SWT.LEFT,false,false,1,1));
+		
+		saveOfflineButton.addListener(SWT.Selection, new Listener()
+		{
+		    @Override
+		    public void handleEvent(Event event)
+		    {
+		        System.out.println("Save offline Button Click Clicked");
+		        
+		     try {
+				ContentWriter offlineWriter = new ContentWriter();
+				AllContent c = new AllContent(id);
+				JSONObject contentObject = c.getJsonObject();
+				offlineWriter.saveContent(contentObject, id, qtitle);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		        
+		    }
+		});
+		
+		
 		Browser browser;
-
+		 
 		try {
-			browser = new Browser(parent, SWT.NONE);
+			browser = new Browser(contentViwew, SWT.NONE);
+			browser.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true,2,1));
 		} catch (SWTError e) {
 			System.out.println("Could not instantiate Browser: " + e.getMessage());
 			return;
 		}
+		
 
 		browser.setText(createHtml());
 
+		
 	}
 
 	private String createHtml() {
@@ -81,7 +153,9 @@ public class ContentView extends ViewPart {
 		try {
 			content = new AllContent(id);
 			Question q = content.getAllConetent();
-
+			
+			qtitle=q.getTitle();
+			
 			////// Question
 			question = "<h2>Question : " + q.getTitle() + "</h2>" + "<div style=\" font-size: 18px \"> " + q.getBody()
 					+ "</div><hr>";
