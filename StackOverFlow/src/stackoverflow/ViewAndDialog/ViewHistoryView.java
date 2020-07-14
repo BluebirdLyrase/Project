@@ -169,9 +169,11 @@ public class ViewHistoryView extends ViewPart {
 
 	private void delete() {
 		int index = viewer.getTable().getSelectionIndex();
+		boolean result = MessageDialog.openConfirm(win.getShell(), "Atention", "are you sure tou want to delete this?");
+		if(result) {
 		viewHistory.delete(index);
-		MessageDialog.openInformation(win.getShell(), "Atention", "successful delete");
 		createTable();
+		}
 	}
 
 	private void hookContextMenu() {

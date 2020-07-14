@@ -88,7 +88,6 @@ public class SearchResultView extends ViewPart {
 				
 	
 	            return image;
-//			return workbench.getSharedImages().getImage(ISharedImages.IMG_OBJ_ELEMENT);
 		}
 	}
 
