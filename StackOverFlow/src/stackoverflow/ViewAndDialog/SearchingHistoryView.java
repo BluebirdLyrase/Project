@@ -1,6 +1,5 @@
 package stackoverflow.ViewAndDialog;
 
-
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
 import org.json.JSONException;
@@ -24,22 +23,18 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-
 /**
- * This sample class demonstrates how to plug-in a new
- * workbench view. The view shows data obtained from the
- * model. The sample creates a dummy model on the fly,
- * but a real implementation would connect to the model
- * available either in this or another plug-in (e.g. the workspace).
- * The view is connected to the model using a content provider.
+ * This sample class demonstrates how to plug-in a new workbench view. The view
+ * shows data obtained from the model. The sample creates a dummy model on the
+ * fly, but a real implementation would connect to the model available either in
+ * this or another plug-in (e.g. the workspace). The view is connected to the
+ * model using a content provider.
  * <p>
- * The view uses a label provider to define how model
- * objects should be presented in the view. Each
- * view can present the same model objects using
- * different labels and icons, if needed. Alternatively,
- * a single label provider can be shared between views
- * in order to ensure that objects of the same type are
- * presented in the same way everywhere.
+ * The view uses a label provider to define how model objects should be
+ * presented in the view. Each view can present the same model objects using
+ * different labels and icons, if needed. Alternatively, a single label provider
+ * can be shared between views in order to ensure that objects of the same type
+ * are presented in the same way everywhere.
  * <p>
  */
 
@@ -52,7 +47,7 @@ public class SearchingHistoryView extends ViewPart {
 
 	@Inject
 	IWorkbench workbench;
-
+	SearchingHistory searchingHistory;
 	private TableViewer viewer;
 	private Action open;
 	private Action delete;
@@ -80,57 +75,8 @@ public class SearchingHistoryView extends ViewPart {
 		
 		// Create table viewer
 		this.viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
+		createTable();
 		
-		Table table = this.viewer.getTable();
-		table.setHeaderVisible(true);
-		table.setLinesVisible(true);
-		table.setVisible(true);
-		
-		TableViewerColumn searchTextColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
-		searchTextColumn.getColumn().setWidth(500);
-		searchTextColumn.getColumn().setText("Search Text");
-		
-		TableViewerColumn orderColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
-		orderColumn.getColumn().setWidth(80);
-		orderColumn.getColumn().setText("Order");
-		
-		TableViewerColumn sortColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
-		sortColumn.getColumn().setWidth(100);
-		sortColumn.getColumn().setText("Sort By");
-		
-		TableViewerColumn siteColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
-		siteColumn.getColumn().setWidth(130);
-		siteColumn.getColumn().setText("Site");
-		
-		TableViewerColumn tagsColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
-		tagsColumn.getColumn().setWidth(200);
-		tagsColumn.getColumn().setText("Tagged");
-		
-		TableViewerColumn dateTimeColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
-		dateTimeColumn.getColumn().setWidth(300);
-		dateTimeColumn.getColumn().setText("Date : Time");
-		try {
-			SearchingHistory searchingHistory = new SearchingHistory();
-			int lenght = searchingHistory.getLenght();
-			text = searchingHistory.getSearchText();
-			order = searchingHistory.getOrder();
-			sort = searchingHistory.getSort();
-			site = searchingHistory.getSite();
-			tagged = searchingHistory.getTagged();
-			date = searchingHistory.getSearchingDate();
-			
-			
-			for(int i = 0;i<lenght;i++) {
-				  viewer.setData("text" + i, text[i]);
-				  new TableItem(table,SWT.NONE).setText(
-						  new String[]{text[i],order[i],sort[i],site[i],tagged[i],date[i]});
-				}
-		} catch (IOException | JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-
 		// Create the help context id for the viewer's control
 		workbench.getHelpSystem().setHelp(viewer.getControl(), "StackOverFlow.viewer");
 		getSite().setSelectionProvider(viewer);
@@ -139,19 +85,71 @@ public class SearchingHistoryView extends ViewPart {
 		hookDoubleClickAction();
 		contributeToActionBars();
 	}
-	
-	String[] text ;
-	String[] order ;
-	String[] sort ;
-	String[] site ;
-	String[] tagged ;
-	String[] date ;
-	
+
+	String[] text;
+	String[] order;
+	String[] sort;
+	String[] site;
+	String[] tagged;
+	String[] date;
+
 	IWorkbench wb = PlatformUI.getWorkbench();
 	IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 	IWorkbenchPage activeEvent = win.getActivePage();
 	IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-	
+
+	private void createTable() {
+		Table table = this.viewer.getTable();
+		table.removeAll();
+		table.setHeaderVisible(true);
+		table.setLinesVisible(true);
+		table.setVisible(true);
+
+		TableViewerColumn searchTextColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
+		searchTextColumn.getColumn().setWidth(500);
+		searchTextColumn.getColumn().setText("Search Text");
+
+		TableViewerColumn orderColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
+		orderColumn.getColumn().setWidth(80);
+		orderColumn.getColumn().setText("Order");
+
+		TableViewerColumn sortColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
+		sortColumn.getColumn().setWidth(100);
+		sortColumn.getColumn().setText("Sort By");
+
+		TableViewerColumn siteColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
+		siteColumn.getColumn().setWidth(130);
+		siteColumn.getColumn().setText("Site");
+
+		TableViewerColumn tagsColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
+		tagsColumn.getColumn().setWidth(200);
+		tagsColumn.getColumn().setText("Tagged");
+
+		TableViewerColumn dateTimeColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
+		dateTimeColumn.getColumn().setWidth(300);
+		dateTimeColumn.getColumn().setText("Date : Time");
+		try {
+			searchingHistory = new SearchingHistory();
+			int lenght = searchingHistory.getLenght();
+			text = searchingHistory.getSearchText();
+			order = searchingHistory.getOrder();
+			sort = searchingHistory.getSort();
+			site = searchingHistory.getSite();
+			tagged = searchingHistory.getTagged();
+			date = searchingHistory.getSearchingDate();
+
+			for (int i = 0; i < lenght; i++) {
+				viewer.setData("text" + i, text[i]);
+				new TableItem(table, SWT.NONE)
+						.setText(new String[] { text[i], order[i], sort[i], site[i], tagged[i], date[i] });
+			}
+		} catch (IOException | JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 	private void open() {
 		String viewerID = "stackoverflow.ViewAndDialog.SearchResultView";
 		int index = viewer.getTable().getSelectionIndex();
@@ -161,12 +159,12 @@ public class SearchingHistoryView extends ViewPart {
 		String site = this.site[index];
 		String tagged = this.tagged[index];
 		SearchResult searchResult;
-		
+
 		try {
-			
-			searchResult = new SearchResult(intitle,1,40,order,sort,site,tagged);
-			new SearchingWriter().saveSearchTextHistory(intitle,order,sort,site,tagged);
-			
+
+			searchResult = new SearchResult(intitle, 1, 40, order, sort, site, tagged);
+			new SearchingWriter().saveSearchTextHistory(intitle, order, sort, site, tagged);
+
 			if (searchResult.haveResult()) {
 
 				String[] titleList = searchResult.getTitleList();
@@ -175,19 +173,26 @@ public class SearchingHistoryView extends ViewPart {
 				win.getActivePage().showView(viewerID);
 
 				IViewPart viewPart = page.findView(viewerID);
-				
+
 				SearchResultView myView = (SearchResultView) viewPart;
 
 				myView.setSearchResult(titleList, questionIdList);
 
 			} else {
 				MessageDialog.openError(win.getShell(), "Error", "not found the result you are searching");
-			}	} catch (IOException | JSONException | PartInitException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
+		} catch (IOException | JSONException | PartInitException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		
+	}
+	
+	private void delete() {
+		int index = viewer.getTable().getSelectionIndex();
+		searchingHistory.delete(index);
+		MessageDialog.openInformation(win.getShell(), "Atention", "successful delete");
+		createTable();
 	}
 
 	private void hookContextMenu() {
@@ -240,7 +245,7 @@ public class SearchingHistoryView extends ViewPart {
 
 		delete = new Action() {
 			public void run() {
-				showMessage("Action 2 executed");
+				delete();
 			}
 		};
 		delete.setText("Delete");

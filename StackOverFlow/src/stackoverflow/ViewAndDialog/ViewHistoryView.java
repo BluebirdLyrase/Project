@@ -48,9 +48,7 @@ public class ViewHistoryView extends ViewPart {
 	@Inject
 	IWorkbench workbench;
 
-	private Composite parent;
 	private TableViewer viewer;
-	private Table table;
 	private Action open;
 	private Action delete;
 	private Action doubleClickAction;
@@ -75,7 +73,7 @@ public class ViewHistoryView extends ViewPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		this.parent = parent;
+
 		this.viewer = new TableViewer(parent,
 				SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION);
 		createTable();
@@ -95,7 +93,7 @@ public class ViewHistoryView extends ViewPart {
 
 	private void createTable() {
 
-		table = this.viewer.getTable();
+		Table table = this.viewer.getTable();
 		table.removeAll();
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
