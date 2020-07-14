@@ -49,17 +49,24 @@ public class AllContent extends StackOverFlowConnecter {
 		return allConetent;
 	}
 	
-	
-
 	public AllContent(String question_id) throws IOException, JSONException {
+		 this(question_id,false);
+	}
+
+	public AllContent(String question_id,boolean isOffline) throws IOException, JSONException {
 
 		// All Question that can be found by the URL will have an Accepted Answer or
-		// comment
+
+		//Check if AllContent is used for offline content
+		if(isOffline) {
+			
+		}else {
 		this.url = "https://api.stackexchange.com/2.2/questions/" + question_id
 				+ "?order=asc&sort=activity&site=stackoverflow&filter="
 				+ "!6CZol-kjk43Caeu4wbmgfWPFBKTl-6MgX9_mx25H6._QEcG9r2lN3QrdeDe";
 
 		this.json = readJsonFromUrl(this.url);
+		}
 
 		this.itemObject = json.getJSONArray("items").getJSONObject(0);
 
