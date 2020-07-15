@@ -36,6 +36,9 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.json.JSONException;
 
+import stackoverflow.APIConnecter.AllContentObjectOnly;
+import stackoverflow.LocalJsonConnector.ContentWriter;
+import stackoverflow.LocalJsonConnector.FavoriteWriter;
 import stackoverflow.LocalJsonConnector.ViewHistory;
 
 /**
@@ -70,6 +73,7 @@ public class ViewHistoryView extends ViewPart {
 	private Action saveOffline;
 	private Action doubleClickAction;
 	private String[] id;
+	private String[] title;
 	ViewHistory viewHistory;
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
@@ -137,7 +141,7 @@ public class ViewHistoryView extends ViewPart {
 		try {
 			viewHistory = new ViewHistory();
 			int lenght = viewHistory.getLenght();
-			String[] title = viewHistory.getTitle();
+			title = viewHistory.getTitle();
 			String[] tags = viewHistory.getTags();
 			String[] date = viewHistory.getViewDate();
 			id = viewHistory.getId();
@@ -173,6 +177,29 @@ public class ViewHistoryView extends ViewPart {
 		int index = viewer.getTable().getSelectionIndex();
 		if(viewHistory.delete(index)) {
 		createTable();
+		}
+	}
+	
+	private void saveOffline(){
+		int index = viewer.getTable().getSelectionIndex();
+		try {
+			new ContentWriter().saveContent(
+					//call AllContentObjectOnly() to create JSON Object
+					new AllContentObjectOnly().getJsonObject(id[index]), 
+					id[index], title[index]);
+		} catch (IOException | JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void saveFavorite(){
+		int index = viewer.getTable().getSelectionIndex();
+		try {
+			new FavoriteWriter().saveFavorite(title[index], id[index]);
+		} catch (IOException | JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -241,7 +268,7 @@ public class ViewHistoryView extends ViewPart {
 		
 		saveFavorite = new Action() {
 			public void run() {
-				// TODO add the fucking function
+				saveFavorite();
 			}
 		};
 		saveFavorite.setText("save to favorite");
@@ -250,7 +277,7 @@ public class ViewHistoryView extends ViewPart {
 		
 		saveOffline = new Action() {
 			public void run() {
-				// TODO add the fucking function
+				saveOffline();
 			}
 		};
 		saveOffline.setText("save to Offline");
