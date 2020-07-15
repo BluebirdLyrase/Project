@@ -102,7 +102,26 @@ public class FavoriteView extends ViewPart {
 	}
 
 	private void open() {
-		// TODO Call ContentView and send the selection ID in index to Contentview setup
+		int index = viewer.getTable().getSelectionIndex();
+		String viewerID = "stackoverflow.ViewAndDialog.ContentView";
+		IWorkbench wb = PlatformUI.getWorkbench();
+		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+		IWorkbenchPage activeEvent = win.getActivePage();
+		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+
+		// Random number to be an ID
+		String secondaryId = Double.toString(Math.random());
+		try {
+			activeEvent.showView(viewerID, secondaryId, IWorkbenchPage.VIEW_ACTIVATE);
+			IViewReference currentView = page.findViewReference(viewerID, secondaryId);
+			IViewPart viewPart = currentView.getView(true);
+			ContentView myView = (ContentView) viewPart;
+			myView.setContent(id[index]);
+		} catch (PartInitException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	private void delete() {
@@ -111,7 +130,6 @@ public class FavoriteView extends ViewPart {
 		if (fav.delete(index)) {
 			createTable();
 		}
-		// TODO add delete function
 	}
 
 	private void saveOffline() {
