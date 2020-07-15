@@ -59,7 +59,10 @@ public class ContentView extends ViewPart {
 		final Button favButton = new Button(menu, SWT.PUSH);
 		favButton.setText("Save to favorite");
 		favButton.setLayoutData(new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1));
-
+		if(isOffline) {
+			favButton.setEnabled(false);
+		}
+		
 		favButton.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
@@ -96,7 +99,9 @@ public class ContentView extends ViewPart {
 		final Button saveOfflineButton = new Button(menu, SWT.PUSH);
 		saveOfflineButton.setText("Save offline");
 		saveOfflineButton.setLayoutData(new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1));
-
+		if(isOffline) {
+			saveOfflineButton.setEnabled(false);
+		}
 		saveOfflineButton.addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event event) {
