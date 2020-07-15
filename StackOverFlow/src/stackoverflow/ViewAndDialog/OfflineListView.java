@@ -97,8 +97,26 @@ public class OfflineListView extends ViewPart {
 	}
 
 	public void open() {
+		IWorkbench wb = PlatformUI.getWorkbench();
+		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+		IWorkbenchPage activeEvent = win.getActivePage();
+		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+
 		int index = viewer.getTable().getSelectionIndex();
-		System.out.println(index + "::" + filename[index]);
+		String viewerID = "stackoverflow.ViewAndDialog.ContentView";
+
+		// Random number to be an ID
+		String secondaryId = Double.toString(Math.random());
+		try {
+			activeEvent.showView(viewerID, secondaryId, IWorkbenchPage.VIEW_ACTIVATE);
+			IViewReference currentView = page.findViewReference(viewerID, secondaryId);
+			IViewPart viewPart = currentView.getView(true);
+			ContentView myView = (ContentView) viewPart;
+			myView.setContent(filename[index],true);
+		} catch (PartInitException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void delete() {
