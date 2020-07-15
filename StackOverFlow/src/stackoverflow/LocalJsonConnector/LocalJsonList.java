@@ -9,6 +9,9 @@ import java.util.logging.Level;
 
 import javax.swing.JFileChooser;
 
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,6 +48,8 @@ public class LocalJsonList extends JSONFile {
 	}
 	
 	public void delete(int index) {
+		IWorkbench wb = PlatformUI.getWorkbench();
+		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 		try {
 			jsonObject.getJSONArray(arrayName).remove(index);
 			saveJSONFile(filePath, jsonObject);
