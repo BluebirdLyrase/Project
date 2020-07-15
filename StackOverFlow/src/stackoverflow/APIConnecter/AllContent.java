@@ -2,12 +2,15 @@ package stackoverflow.APIConnecter;
 
 import java.io.IOException;
 
+import javax.swing.JFileChooser;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import stackoverflow.DataClass.Answer;
 import stackoverflow.DataClass.Question;
+import stackoverflow.LocalJsonConnector.JSONFile;
 import stackoverflow.DataClass.Comment;
 
 public class AllContent extends StackOverFlowConnecter {
@@ -24,7 +27,6 @@ public class AllContent extends StackOverFlowConnecter {
 	private Comment[] qComment;
 	private boolean haveComment;
 	private boolean haveAnswer;
-	
 	
 	private Answer[] answer = {};
 	private String aBody;
@@ -55,6 +57,10 @@ public class AllContent extends StackOverFlowConnecter {
 
 		//Check if AllContent is used for offline content
 		if(isOffline) {
+			JSONFile local = new JSONFile();
+			String defaultDir = new JFileChooser().getFileSystemView().getDefaultDirectory().toString();
+			String fileDirURL = (defaultDir + "\\StackOverFlowHelper\\OfflineContent\\"+question_id);
+			this.json = local.parseJSONFile(fileDirURL);
 			
 		}else {
 		this.url = "https://api.stackexchange.com/2.2/questions/" + question_id
