@@ -265,7 +265,7 @@ public class SearchingHistoryView extends ViewPart {
 			}
 		};
 		delete.setText("Delete");
-		delete.setToolTipText("deletethis record");
+		delete.setToolTipText("delete this record");
 		delete.setImageDescriptor(workbench.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
 		doubleClickAction = new Action() {
 			public void run() {

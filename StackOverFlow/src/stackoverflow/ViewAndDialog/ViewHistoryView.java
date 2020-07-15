@@ -242,6 +242,7 @@ public class ViewHistoryView extends ViewPart {
 	private void fillLocalToolBar(IToolBarManager manager) {
 		manager.add(open);
 		manager.add(delete);
+		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 		manager.add(saveFavorite);
 		manager.add(saveOffline);
 	}
@@ -263,7 +264,7 @@ public class ViewHistoryView extends ViewPart {
 			}
 		};
 		delete.setText("Delete");
-		delete.setToolTipText("deletethis record");
+		delete.setToolTipText("delete this record");
 //		delete.setImageDescriptor(workbench.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
 		
 		saveFavorite = new Action() {

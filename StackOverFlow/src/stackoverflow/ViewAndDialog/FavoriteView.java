@@ -10,7 +10,7 @@ import stackoverflow.LocalJsonConnector.FavoriteList;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.jface.action.*;
-import org.eclipse.jface.dialogs.MessageDialog;
+//import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.*;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.SWT;
@@ -50,6 +50,7 @@ public class FavoriteView extends ViewPart {
 	private TableViewer viewer;
 	private Action open;
 	private Action delete;
+	private Action refresh;
 	private Action saveOffline;
 	private Action doubleClickAction;
 	private String[] id;
@@ -133,6 +134,8 @@ public class FavoriteView extends ViewPart {
 		manager.add(delete);
 		manager.add(new Separator());
 		manager.add(saveOffline);
+		manager.add(new Separator());
+		manager.add(refresh);
 	}
 
 	private void fillContextMenu(IMenuManager manager) {
@@ -156,9 +159,9 @@ public class FavoriteView extends ViewPart {
 			}
 		};
 		open.setText("Open");
-		open.setToolTipText("Action 1 tooltip");
-		open.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-			getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+		open.setToolTipText("Open this question on new tab");
+//		open.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
+//			getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
 		
 		delete = new Action() {
 			public void run() {
@@ -166,9 +169,9 @@ public class FavoriteView extends ViewPart {
 			}
 		};
 		delete.setText("Delete");
-		delete.setToolTipText("Action 2 tooltip");
-		delete.setImageDescriptor(workbench.getSharedImages().
-				getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+		delete.setToolTipText("delete this record");
+//		delete.setImageDescriptor(workbench.getSharedImages().
+//				getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
 		
 		saveOffline = new Action() {
 			public void run() {
@@ -176,9 +179,20 @@ public class FavoriteView extends ViewPart {
 			}
 		};
 		saveOffline.setText("Save to offline Storage");
-		saveOffline.setToolTipText("saveOffline Action tooltip");
-		saveOffline.setImageDescriptor(workbench.getSharedImages().
-				getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+		saveOffline.setToolTipText("save this question to Offline list");
+//		saveOffline.setImageDescriptor(workbench.getSharedImages().
+//				getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+		
+		refresh = new Action() {
+			public void run() {
+				
+				createTable();
+				
+			refresh.setText("Save to offline Storage");
+			refresh.setToolTipText("Refresh this page");
+			}
+		};
+		
 		
 		doubleClickAction = new Action() {
 			public void run() {
@@ -194,12 +208,13 @@ public class FavoriteView extends ViewPart {
 			}
 		});
 	}
-	private void showMessage(String message) {
-		MessageDialog.openInformation(
-			viewer.getControl().getShell(),
-			"FavoriteView",
-			message);
-	}
+	
+//	private void showMessage(String message) {
+//		MessageDialog.openInformation(
+//			viewer.getControl().getShell(),
+//			"FavoriteView",
+//			message);
+//	}
 
 	@Override
 	public void setFocus() {

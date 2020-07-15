@@ -8,6 +8,11 @@ import javax.inject.Inject;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnViewerToolTipSupport;
@@ -19,15 +24,23 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
+import org.json.JSONException;
 import org.osgi.framework.Bundle;
+
+import stackoverflow.APIConnecter.AllContentObjectOnly;
+import stackoverflow.LocalJsonConnector.ContentWriter;
+import stackoverflow.LocalJsonConnector.FavoriteWriter;
 
 /**
  * This sample class demonstrates how to plug-in a new workbench view. The view
@@ -54,12 +67,15 @@ public class SearchResultView extends ViewPart {
 	@Inject
 	IWorkbench workbench;
 	private String[] id;
+	private String[] title;
 	private TableViewer viewer;
 	private Action doubleClickAction;
+	private Action saveFavorite;
+	private Action saveOffline;
+	private Action open;
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 
-		
 		@Override
 		public String getColumnText(Object obj, int index) {
 			return getText(obj);
@@ -73,21 +89,20 @@ public class SearchResultView extends ViewPart {
 		@Override
 		public Image getImage(Object obj) {
 
-	            String path = "\\images\\stackoverflow.png";
-	            Bundle bundle = Platform.getBundle("StackOverFlow");
-	            URL url = FileLocator.find(bundle, new org.eclipse.core.runtime.Path(path), null);
-	            URL fileURL = null ;
-	            try {
-					 fileURL = FileLocator.toFileURL(url);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	            ImageDescriptor imageDesc = ImageDescriptor.createFromURL(fileURL);
-	            Image image = imageDesc.createImage();
-				
-	
-	            return image;
+			String path = "\\images\\stackoverflow.png";
+			Bundle bundle = Platform.getBundle("StackOverFlow");
+			URL url = FileLocator.find(bundle, new org.eclipse.core.runtime.Path(path), null);
+			URL fileURL = null;
+			try {
+				fileURL = FileLocator.toFileURL(url);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			ImageDescriptor imageDesc = ImageDescriptor.createFromURL(fileURL);
+			Image image = imageDesc.createImage();
+
+			return image;
 		}
 	}
 
@@ -100,8 +115,8 @@ public class SearchResultView extends ViewPart {
 
 	public void setSearchResult(String[] titleList, String[] questionIdList) {
 		this.titleList = titleList;
-		this.questionIdList = questionIdList;	
-		
+		this.questionIdList = questionIdList;
+
 		/// setData to next result page
 		id = new String[questionIdList.length];
 		for (int i = 0; i < questionIdList.length; i++) {
@@ -121,20 +136,132 @@ public class SearchResultView extends ViewPart {
 		workbench.getHelpSystem().setHelp(viewer.getControl(), "StackOverFlow.viewer");
 		getSite().setSelectionProvider(viewer);
 		makeActions();
-//		hookContextMenu();
+		hookContextMenu();
 		hookDoubleClickAction();
-//		contributeToActionBars();
+		contributeToActionBars();
+	}
+
+	private void open() {
+		int index = viewer.getTable().getSelectionIndex();
+		String viewerID = "stackoverflow.ViewAndDialog.ContentView";
+
+		// Random number to be an ID
+		String secondaryId = Double.toString(Math.random());
+		try {
+			activeEvent.showView(viewerID, secondaryId, IWorkbenchPage.VIEW_ACTIVATE);
+			IViewReference currentView = page.findViewReference(viewerID, secondaryId);
+			IViewPart viewPart = currentView.getView(true);
+			ContentView myView = (ContentView) viewPart;
+			myView.setContent(id[index]);
+		} catch (PartInitException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void saveOffline() {
+		int index = viewer.getTable().getSelectionIndex();
+		try {
+			new ContentWriter().saveContent(
+					// call AllContentObjectOnly() to create JSON Object
+					new AllContentObjectOnly().getJsonObject(id[index]), id[index], title[index]);
+		} catch (IOException | JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void saveFavorite() {
+		int index = viewer.getTable().getSelectionIndex();
+		try {
+			new FavoriteWriter().saveFavorite(title[index], id[index]);
+		} catch (IOException | JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void hookContextMenu() {
+		MenuManager menuMgr = new MenuManager("#PopupMenu");
+		menuMgr.setRemoveAllWhenShown(true);
+		menuMgr.addMenuListener(new IMenuListener() {
+			public void menuAboutToShow(IMenuManager manager) {
+				SearchResultView.this.fillContextMenu(manager);
+			}
+		});
+		Menu menu = menuMgr.createContextMenu(viewer.getControl());
+		viewer.getControl().setMenu(menu);
+		getSite().registerContextMenu(menuMgr, viewer);
+	}
+
+	private void contributeToActionBars() {
+		IActionBars bars = getViewSite().getActionBars();
+		fillLocalPullDown(bars.getMenuManager());
+		fillLocalToolBar(bars.getToolBarManager());
+	}
+
+	private void fillLocalPullDown(IMenuManager manager) {
+		manager.add(open);
+		manager.add(new Separator());
+		manager.add(saveFavorite);
+		manager.add(saveOffline);
+	}
+
+	private void fillLocalToolBar(IToolBarManager manager) {
+		manager.add(open);
+		manager.add(new Separator());
+		manager.add(saveFavorite);
+		manager.add(saveOffline);
+	}
+
+	private void fillContextMenu(IMenuManager manager) {
+		// Other plug-ins can contribute there actions here
+		manager.add(open);
+		manager.add(new Separator());
+		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
+		manager.add(saveFavorite);
+		manager.add(saveOffline);
 	}
 
 	private void makeActions() {
+
+		saveFavorite = new Action() {
+			public void run() {
+				saveFavorite();
+			}
+		};
+
+		open = new Action() {
+			public void run() {
+				open();
+			}
+		};
+		open.setText("Open");
+		open.setToolTipText("Open this question on new tab");
+//		open.setImageDescriptor(
+//				PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+
+		saveFavorite.setText("save to favorite");
+		saveFavorite.setToolTipText("save this question to favorite list");
+//		saveFavorite.setImageDescriptor(workbench.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+
+		saveOffline = new Action() {
+			public void run() {
+				saveOffline();
+			}
+		};
+		saveOffline.setText("save to Offline");
+		saveOffline.setToolTipText("save this question to Offline list");
+//		saveOffline.setImageDescriptor(workbench.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+
 		doubleClickAction = new Action() {
 			public void run() {
 				int index = viewer.getTable().getSelectionIndex();
 				String viewerID = "stackoverflow.ViewAndDialog.ContentView";
 
-				//Random number to be an ID
-				String secondaryId =Double.toString(Math.random());
-				try {		
+				// Random number to be an ID
+				String secondaryId = Double.toString(Math.random());
+				try {
 					activeEvent.showView(viewerID, secondaryId, IWorkbenchPage.VIEW_ACTIVATE);
 					IViewReference currentView = page.findViewReference(viewerID, secondaryId);
 					IViewPart viewPart = currentView.getView(true);

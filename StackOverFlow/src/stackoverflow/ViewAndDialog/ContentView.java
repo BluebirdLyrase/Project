@@ -31,99 +31,105 @@ public class ContentView extends ViewPart {
 	public static final String ID = "stackoverflow.ViewAndDialog.ContentView";
 
 	private String id = null;
-	private String qtitle="";
+	private String qtitle = "";
 	boolean isOffline;
-	
+	Browser browser;
+
 	public void setContent(String id) {
-		setContent(id,false);
+		setContent(id, false);
 	}
-	
-	public void setContent(String id,boolean isOffline) {
+
+	public void setContent(String id, boolean isOffline) {
 		this.id = id;
 		this.isOffline = isOffline;
-		parent.layout(true,true);
+		parent.layout(true, true);
 		final Point newSize = parent.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
 		parent.setSize(newSize);
-		
+
 		Composite contentViwew;
 		Composite menu;
-		contentViwew = new Composite(parent,SWT.None);
-		contentViwew.setLayoutData(new GridData(SWT.FILL,SWT.CENTER,false,false));
-		contentViwew.setLayout(new GridLayout(2,true));
-		
-		menu = new Composite(contentViwew,SWT.None);
-		menu.setLayoutData(new GridData(SWT.FILL,SWT.CENTER,false,false,1,1));
-		menu.setLayout(new GridLayout(2,false));
-		
-		
-		final Button favButton=new Button(menu,SWT.PUSH);
+		contentViwew = new Composite(parent, SWT.None);
+		contentViwew.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
+		contentViwew.setLayout(new GridLayout(2, true));
+
+		menu = new Composite(contentViwew, SWT.None);
+		menu.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		menu.setLayout(new GridLayout(2, false));
+
+		final Button favButton = new Button(menu, SWT.PUSH);
 		favButton.setText("Save to favorite");
-		favButton.setLayoutData(new GridData(SWT.FILL,SWT.LEFT,false,false,1,1));
-		
-		favButton.addListener(SWT.Selection, new Listener()
-		{
-		    @Override
-		    public void handleEvent(Event event)
-		    {
-		        System.out.println("favButton Clicked");
-		        
-		     try {
-				FavoriteWriter favWriter = new FavoriteWriter();
-				favWriter.saveFavorite(qtitle, id);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		favButton.setLayoutData(new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1));
+
+		favButton.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				System.out.println("favButton Clicked");
+
+				try {
+					FavoriteWriter favWriter = new FavoriteWriter();
+					favWriter.saveFavorite(qtitle, id);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			}
-		        
-		    }
 		});
 
-		
-		final Button saveOfflineButton=new Button(menu,SWT.PUSH);
+//		final Button backButton = new Button(menu, SWT.PUSH);
+//		backButton.setText("Back");
+//		backButton.setLayoutData(new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1));
+//
+//		backButton.addListener(SWT.Selection, new Listener() {
+//			@Override
+//			public void handleEvent(Event event) {
+//				System.out.println("Back Clicked");
+//
+//				browser.back();
+//
+//			}
+//		});
+
+		final Button saveOfflineButton = new Button(menu, SWT.PUSH);
 		saveOfflineButton.setText("Save offline");
-		saveOfflineButton.setLayoutData(new GridData(SWT.FILL,SWT.LEFT,false,false,1,1));
-		
-		saveOfflineButton.addListener(SWT.Selection, new Listener()
-		{
-		    @Override
-		    public void handleEvent(Event event)
-		    {
-		        System.out.println("Save offline Button Click Clicked");
-		        
-		     try {
-				ContentWriter offlineWriter = new ContentWriter();
-				AllContent c = new AllContent(id,isOffline);
-				JSONObject contentObject = c.getJsonObject();
-				offlineWriter.saveContent(contentObject, id, qtitle);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		saveOfflineButton.setLayoutData(new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1));
+
+		saveOfflineButton.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				System.out.println("Save offline Button Click Clicked");
+
+				try {
+					ContentWriter offlineWriter = new ContentWriter();
+					AllContent c = new AllContent(id, isOffline);
+					JSONObject contentObject = c.getJsonObject();
+					offlineWriter.saveContent(contentObject, id, qtitle);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			}
-		        
-		    }
 		});
-		
-		
+
 		Browser browser;
-		 
+
 		try {
 			browser = new Browser(contentViwew, SWT.NONE);
-			browser.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true,2,1));
+			browser.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
 		} catch (SWTError e) {
 			System.out.println("Could not instantiate Browser: " + e.getMessage());
 			return;
 		}
-		
 
 		browser.setText(createHtml());
 
-		
 	}
 
 	private String createHtml() {
@@ -157,13 +163,13 @@ public class ContentView extends ViewPart {
 		String tags = "";
 
 		try {
-			//check if Allcontent is used for offline mode
-			content = new AllContent(id,isOffline);
-			
+			// check if Allcontent is used for offline mode
+			content = new AllContent(id, isOffline);
+
 			Question q = content.getAllConetent();
-			
-			qtitle=q.getTitle();
-			
+
+			qtitle = q.getTitle();
+
 			////// Question
 			question = "<h2>Question : " + q.getTitle() + "</h2>" + "<div style=\" font-size: 18px \"> " + q.getBody()
 					+ "</div><hr>";
@@ -204,7 +210,8 @@ public class ContentView extends ViewPart {
 					answer = answer + ("<div class=\"none" + i + "\"><h2>Answer #" + (i + 1) + "</h2>"
 							+ "<div style=\" font-size: 16px \"> " + answers[i].getBody() + "</div><hr>");
 					if (answers[i].isAccepted()) {
-						answer = answer.replaceAll("<div class=\"none" + i + "\"><h2>Answer #", "<div class=\"none"+ i +" \"><h2 tilte=\"Accepted answer\" style=\"color:#00C851\">✅Answer #");
+						answer = answer.replaceAll("<div class=\"none" + i + "\"><h2>Answer #", "<div class=\"none" + i
+								+ " \"><h2 tilte=\"Accepted answer\" style=\"color:#00C851\">✅Answer #");
 					}
 
 					if (answers[i].isHaveComment()) {
