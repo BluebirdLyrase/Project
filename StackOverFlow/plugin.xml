@@ -7,17 +7,27 @@
       <command
             categoryId="StackOverFlow.commands.StackOverFlowCategory"
             id="StackOverFlow.commands.HistoryCommand"
-            name="History Command">
+            name="View History">
       </command>
       <command
             categoryId="StackOverFlow.commands.StackOverFlowCategory"
             id="StackOverFlow.commands.SearchCommand"
-            name="Search Command">
+            name="Search from Stack">
       </command>
       <category
             id="StackOverFlow.commands.StackOverFlowCategory"
             name="StackOverFlowCategory">
       </category>
+      <command
+            categoryId="StackOverFlow.commands.StackOverFlowCategory"
+            id="StackOverFlow.commands.FavoriteCommand"
+            name="View Favorite">
+      </command>
+      <command
+            categoryId="StackOverFlow.commands.StackOverFlowCategory"
+            id="StackOverFlow.commands.OfflineCommand"
+            name="View Offline Storage">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -28,6 +38,14 @@
       <handler
             class="stackoverflow.handlers.SearchHandler"
             commandId="StackOverFlow.commands.SearchCommand">
+      </handler>
+      <handler
+            class="stackoverflow.handlers.OfflineHandler"
+            commandId="StackOverFlow.commands.OfflineCommand">
+      </handler>
+      <handler
+            class="stackoverflow.handlers.FavoriteHandler"
+            commandId="StackOverFlow.commands.FavoriteCommand">
       </handler>
    </extension>
    <extension
@@ -40,6 +58,18 @@
       </key>
       <key
             commandId="StackOverFlow.commands.SearchCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+6">
+      </key>
+      <key
+            commandId="StackOverFlow.commands.FavoriteCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+6">
+      </key>
+      <key
+            commandId="StackOverFlow.commands.OfflineCommand"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+6">
@@ -96,6 +126,56 @@
                   tooltip="Say hello world">
             </command>
          </toolbar>
+      </menuContribution>
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="StackOverFlow.menus.StackOverFlowMenu"
+               label="StackOverFlowMenu"
+               mnemonic="M">
+            <command
+                  commandId="StackOverFlow.commands.FavoriteCommand"
+                  id="StackOverFlow.menus.FavoriteCommand"
+                  mnemonic="S">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="StackOverFlow.toolbars.FavoriteToolbar">
+            <command
+                  commandId="StackOverFlow.commands.FavoriteCommand"
+                  icon="icons/sample.png"
+                  id="StackOverFlow.toolbars.FavoriteCommand"
+                  tooltip="Say hello world">
+            </command>
+         </toolbar>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="StackOverFlow.toolbars.OfflineToolbar">
+            <command
+                  commandId="StackOverFlow.commands.OfflineCommand"
+                  icon="icons/sample.png"
+                  id="StackOverFlow.toolbars.OfflineCommand"
+                  tooltip="Say hello world">
+            </command>
+         </toolbar>
+      </menuContribution>
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="StackOverFlow.menus.StackOverFlowMenu"
+               label="StackOverFlowMenu"
+               mnemonic="M">
+            <command
+                  commandId="StackOverFlow.commands.OfflineCommand"
+                  id="StackOverFlow.menus.OfflineCommand"
+                  mnemonic="S">
+            </command>
+         </menu>
       </menuContribution>
    </extension>
    <extension
