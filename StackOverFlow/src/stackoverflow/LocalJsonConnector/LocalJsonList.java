@@ -9,6 +9,7 @@ import java.util.logging.Level;
 
 import javax.swing.JFileChooser;
 
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -47,15 +48,23 @@ public class LocalJsonList extends JSONFile {
 		jsonObject = parseJSONFile(filePath);
 	}
 	
-	public void delete(int index) {
+	//delete the selection data locate by index parameter 
+	//and return boolean id user confirm deleting or not
+	public boolean delete(int index) {
 		IWorkbench wb = PlatformUI.getWorkbench();
 		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+		boolean result = MessageDialog.openConfirm(win.getShell(), "Atention", "are you sure tou want to delete this?");
+		if(result) {
 		try {
 			jsonObject.getJSONArray(arrayName).remove(index);
 			saveJSONFile(filePath, jsonObject);
 		} catch (JSONException | IOException e) {
 			LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while removing item." + e);
 		}
+		}else {
+			LOGGER.info("[" + LOGGER.getName() + "] " + "Delete has been cancel by user.");
+		}
+		return result;
 	}
 
 }

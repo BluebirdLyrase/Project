@@ -206,9 +206,9 @@ public class SearchingHistoryView extends ViewPart {
 	
 	private void delete() {
 		int index = viewer.getTable().getSelectionIndex();
-		searchingHistory.delete(index);
-		MessageDialog.openInformation(win.getShell(), "Atention", "successful delete");
+		if(searchingHistory.delete(index)) {
 		createTable();
+		}
 	}
 
 	private void hookContextMenu() {
