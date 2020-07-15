@@ -6,6 +6,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,13 +30,23 @@ public class ContentWriter extends Content{
 		File newFile = new File(filePath);
 		//Check if there is already .json file
 		try {
+			IWorkbench wb = PlatformUI.getWorkbench();
+			IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 			if (newFile.createNewFile()) {
+				MessageDialog.openInformation(
+						win.getShell(),
+						"StackOverFlow",
+						"Save to Offline Storage Sucessful");
 				LOGGER.info("[" + LOGGER.getName() + "] " + "File created : " + newFile.getName());
 				Files.writeString(Paths.get(filePath), "", StandardOpenOption.WRITE);
 				writeContent();
 				new ContentTitleWriter().saveContentTitle(title,id);
 			} else {
-				LOGGER.info("[" + LOGGER.getName() + "] " + "File already exists.");
+				MessageDialog.openInformation(
+						win.getShell(),
+						"StackOverFlow",
+						"Duplicate Qeustion in Offline Storage");
+				LOGGER.info("[" + LOGGER.getName() + "] " + "File already exists : "+filePath);
 				saveMessage = "Already saved.";
 			}
 		} catch (IOException | JSONException e) {
