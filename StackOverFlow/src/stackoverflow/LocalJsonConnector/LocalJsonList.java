@@ -24,7 +24,7 @@ public class LocalJsonList extends JSONFile {
 	protected String arrayName;
 	protected JSONObject jsonObject;
 	
-	public LocalJsonList(String filename) throws IOException, JSONException {
+	public LocalJsonList(String filename) {
 		LOGGER.setLevel(Level.ALL);
 		this.filePath = defaultDir + "\\StackOverFlowHelper\\"+filename+".json";
 		this.arrayName = filename;
@@ -39,13 +39,18 @@ public class LocalJsonList extends JSONFile {
 
 		File newFile = new File(filePath);
 		//Check if there is already .json file if not create one
-		if (newFile.createNewFile()) {
-			LOGGER.info("[" + LOGGER.getName() + "] " + "File created : " + newFile.getName());
-			Files.writeString(Paths.get(filePath), "{"+arrayName+":[]}", StandardOpenOption.WRITE);
-		} else {
-			LOGGER.info("[" + LOGGER.getName() + "] " + "File already exists.");
-		}
+		try {
+			if (newFile.createNewFile()) {
+				LOGGER.info("[" + LOGGER.getName() + "] " + "File created : " + newFile.getName());
+				Files.writeString(Paths.get(filePath), "{"+arrayName+":[]}", StandardOpenOption.WRITE);
+			} else {
+				LOGGER.info("[" + LOGGER.getName() + "] " + "File already exists.");
+			}
 		jsonObject = parseJSONFile(filePath);
+		} catch (IOException | JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	//delete the selection data locate by index parameter 
