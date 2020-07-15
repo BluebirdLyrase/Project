@@ -75,16 +75,7 @@ public class FavoriteView extends ViewPart {
 	public void createPartControl(Composite parent) {
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.setContentProvider(ArrayContentProvider.getInstance());
-		try {
-			fav = new FavoriteList();
-			String[] title = fav.getTitle();
-			id = fav.getID();
-			viewer.setInput(title);
-		} catch (IOException | JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		createTable();
 	viewer.setLabelProvider(new ViewLabelProvider());
 
 		// Create the help context id for the viewer's control
@@ -94,6 +85,28 @@ public class FavoriteView extends ViewPart {
 		hookContextMenu();
 		hookDoubleClickAction();
 		contributeToActionBars();
+	}
+	
+	private void createTable() {
+		try {
+			fav = new FavoriteList();
+			String[] title = fav.getTitle();
+			id = fav.getID();
+			viewer.setInput(null);
+			viewer.setInput(title);
+		} catch (IOException | JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	private void open() {
+		//TODO Call ContentView and send the selection ID in index to Contentview setup
+	}
+	private void delete() {
+		//TODO add delete function
+	}
+	private void saveOffline() {
+		//TODO add saveOffline function
 	}
 
 	private void hookContextMenu() {
@@ -139,7 +152,7 @@ public class FavoriteView extends ViewPart {
 	private void makeActions() {
 		open = new Action() {
 			public void run() {
-				showMessage("Action 1 executed");
+				open();
 			}
 		};
 		open.setText("Open");
@@ -149,7 +162,7 @@ public class FavoriteView extends ViewPart {
 		
 		delete = new Action() {
 			public void run() {
-				showMessage("Action 2 executed");
+				delete();
 			}
 		};
 		delete.setText("Delete");
@@ -159,7 +172,7 @@ public class FavoriteView extends ViewPart {
 		
 		saveOffline = new Action() {
 			public void run() {
-				showMessage("saveOffline executed");
+				saveOffline();
 			}
 		};
 		saveOffline.setText("Save to offline Storage");
@@ -169,9 +182,7 @@ public class FavoriteView extends ViewPart {
 		
 		doubleClickAction = new Action() {
 			public void run() {
-				IStructuredSelection selection = viewer.getStructuredSelection();
-				Object obj = selection.getFirstElement();
-				showMessage("Double-click detected on "+obj.toString());
+				open();
 			}
 		};
 	}
