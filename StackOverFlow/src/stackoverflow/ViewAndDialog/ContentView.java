@@ -64,7 +64,7 @@ public class ContentView extends ViewPart {
 		menu.setLayout(new GridLayout(2, false));
 		
 	    GridData gridData = new GridData();
-	    gridData.widthHint = 2000;
+//	    gridData.widthHint = 200;
 	    gridData.heightHint = SWT.DEFAULT;
 	    menu.setLayoutData(gridData);
 		
@@ -206,7 +206,7 @@ public class ContentView extends ViewPart {
 				questionComment = "<button class=\"link\" onclick=\"showComment('comment')\">show comments</button><div  id=\"qCommentID\" style=\" background-color:#e4f1f7; display:none;\">";
 				for (int i = 0; i < comment.length; i++) {
 					questionComment = questionComment
-							+ "<div style=\" margin-right: 5%; margin-left: 5%;  font-size: 14px; \"><B><a style=\"color:#f2af6f;\" title=\"Comment Score\">"
+							+ "<div style=\" margin-right: 5%; margin-left:20px;  font-size: 14px; \"><B><a style=\"color:#f2af6f;\" title=\"Comment Score\">"
 							+ comment[i].getScore() + " </a>" + q.getOwner() + "</B>" + comment[i].getBody()
 							+ "</div><hr style=\"color: #DCDCDC; background-color: #DCDCDC; margin-left:20px;\">";
 				}
@@ -241,7 +241,7 @@ public class ContentView extends ViewPart {
 								+ "\" style=\"background-color:#e4f1f7; display:none;\">";
 						for (int j = 0; j < answers[i].getComment().length; j++) {
 							answerComment = answerComment
-									+ "<div style=\" margin-right: 5%; margin-left: 5%; font-size: 14px; \"><a style=\"color:#f2af6f;\" title=\"Comment Score\"><B>"
+									+ "<div style=\" margin-right: 5%; margin-left: 20px; font-size: 14px; \"><a style=\"color:#f2af6f;\" title=\"Comment Score\"><B>"
 									+ aComment[j].getScore() + " </a>" + aComment[j].getOwner() + "  </B>"
 									+ aComment[j].getBody()
 									+ "</div><br><hr style=\"color: #DCDCDC; background-color: #DCDCDC;margin-left:20px;\">";
