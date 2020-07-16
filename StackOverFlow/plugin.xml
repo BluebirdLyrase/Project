@@ -168,7 +168,7 @@
             locationURI="menu:org.eclipse.ui.main.menu?after=additions">
          <menu
                id="StackOverFlow.menus.StackOverFlowMenu"
-               label="StackOverFlowMenu"
+               label="StackOverFlow"
                mnemonic="M">
             <command
                   commandId="StackOverFlow.commands.OfflineCommand"

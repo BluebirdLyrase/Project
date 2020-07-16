@@ -197,7 +197,7 @@ public class SearchResultView extends ViewPart {
 	private void contributeToActionBars() {
 		IActionBars bars = getViewSite().getActionBars();
 		fillLocalPullDown(bars.getMenuManager());
-		fillLocalToolBar(bars.getToolBarManager());
+//		fillLocalToolBar(bars.getToolBarManager());
 	}
 
 	private void fillLocalPullDown(IMenuManager manager) {
@@ -207,12 +207,12 @@ public class SearchResultView extends ViewPart {
 		manager.add(saveOffline);
 	}
 
-	private void fillLocalToolBar(IToolBarManager manager) {
-		manager.add(open);
-		manager.add(new Separator());
-		manager.add(saveFavorite);
-		manager.add(saveOffline);
-	}
+//	private void fillLocalToolBar(IToolBarManager manager) {
+//		manager.add(open);
+//		manager.add(new Separator());
+//		manager.add(saveFavorite);
+//		manager.add(saveOffline);
+//	}
 
 	private void fillContextMenu(IMenuManager manager) {
 		// Other plug-ins can contribute there actions here

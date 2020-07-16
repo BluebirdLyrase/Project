@@ -24,14 +24,16 @@ import org.eclipse.jface.window.Window;
 
 public class SearchHandler extends AbstractHandler {
 
+	private String intitle;
+	private String order;
+	private String sort;
+	private String site;
+	private String tagged;
+	private IWorkbenchWindow window;
+
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		String intitle;
-		String order;
-		String sort;
-		String site;
-		String tagged;
-		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
+		window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 		UserInputDialog dialog = new UserInputDialog(window.getShell());
 		dialog.create();
 
@@ -42,38 +44,49 @@ public class SearchHandler extends AbstractHandler {
 			sort = dialog.getSort();
 			site = dialog.getSite();
 			tagged = dialog.getTagsText();
-			SearchResult searchResult;
-			String viewerID = "stackoverflow.ViewAndDialog.SearchResultView";
-
-			try {
-				
-				searchResult = new SearchResult(intitle,1,40,order,sort,site,tagged);
-				new SearchingWriter().saveSearchTextHistory(intitle,order,sort,site,tagged);
-				
-				if (searchResult.haveResult()) {
-
-					String[] titleList = searchResult.getTitleList();
-					String[] questionIdList = searchResult.getQuestionIdList();
-
-					IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-					window.getActivePage().showView(viewerID);
-
-					IViewPart viewPart = page.findView(viewerID);
-					
-					SearchResultView myView = (SearchResultView) viewPart;
-
-					myView.setSearchResult(titleList, questionIdList);
-
-				} else {
-					MessageDialog.openError(window.getShell(), "Error", "not found the result you are searching");
-				}
-			} catch (IOException | JSONException | PartInitException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			
+			boolean intitleIsValid = intitle.matches("[\\p{Graph}\\p{Space}]+") || intitle.isEmpty();
+			boolean taggedIsValid = tagged.matches("[\\p{Graph}\\p{Space}]+") || tagged.isEmpty();
+			boolean isEnglish = intitleIsValid && taggedIsValid ;
+			if (isEnglish) {
+				createSearchResult();
+			} else {
+				MessageDialog.openError(window.getShell(), "Error",
+						"not found the result you are searching please dont type other language");
 			}
 
 		}
 
 		return null;
+	}
+
+	private void createSearchResult() {
+		try {
+			String viewerID = "stackoverflow.ViewAndDialog.SearchResultView";
+			SearchResult searchResult;
+			searchResult = new SearchResult(intitle, 1, 40, order, sort, site, tagged);
+			new SearchingWriter().saveSearchTextHistory(intitle, order, sort, site, tagged);
+
+			if (searchResult.haveResult()) {
+
+				String[] titleList = searchResult.getTitleList();
+				String[] questionIdList = searchResult.getQuestionIdList();
+
+				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				window.getActivePage().showView(viewerID);
+
+				IViewPart viewPart = page.findView(viewerID);
+
+				SearchResultView myView = (SearchResultView) viewPart;
+
+				myView.setSearchResult(titleList, questionIdList);
+
+			} else {
+				MessageDialog.openError(window.getShell(), "Error", "not found the result you are searching");
+			}
+		} catch (IOException | JSONException | PartInitException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

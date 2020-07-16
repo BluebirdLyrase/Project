@@ -16,6 +16,7 @@ public class SearchingWriter extends LocalJsonList{
 	public void saveSearchTextHistory(String SearchText,String order,String sort,String site,String tagged) {
 		JSONObject newData = new JSONObject();
 		try {
+			System.out.print(SearchText);
 		newData.put("Search Text", SearchText);
 		newData.put("Order", order);
 		newData.put("Sort By", sort);
