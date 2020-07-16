@@ -19,9 +19,11 @@ import org.eclipse.swt.*;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.*;
-
+import org.eclipse.swt.widgets.Display;
 public class ContentView extends ViewPart {
 
 	@Inject
@@ -45,17 +47,30 @@ public class ContentView extends ViewPart {
 		parent.layout(true, true);
 		final Point newSize = parent.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
 		parent.setSize(newSize);
-
+		
+		Device device = null;
+		
 		Composite contentViwew;
 		Composite menu;
 		contentViwew = new Composite(parent, SWT.None);
 		contentViwew.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
 		contentViwew.setLayout(new GridLayout(2, true));
 
-		menu = new Composite(contentViwew, SWT.None);
+	    
+		menu = new Composite(contentViwew,SWT.BORDER);
+
+		
 		menu.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		menu.setLayout(new GridLayout(2, false));
-
+		
+	    GridData gridData = new GridData();
+	    gridData.widthHint = 2000;
+	    gridData.heightHint = SWT.DEFAULT;
+	    menu.setLayoutData(gridData);
+		
+		menu.setBackground(new Color(device,192,192,192));
+		
+		
 		final Button favButton = new Button(menu, SWT.PUSH);
 		favButton.setText("Save to favorite");
 		favButton.setLayoutData(new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1));
