@@ -60,7 +60,7 @@
             commandId="StackOverFlow.commands.SearchCommand"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M1+6">
+            sequence="M3+Q">
       </key>
       <key
             commandId="StackOverFlow.commands.FavoriteCommand"
@@ -321,4 +321,20 @@
       </contexts>
    </extension>
 
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+         locationURI=
+         "popup:org.eclipse.ui.popup.any?after=additions">
+         <command
+               commandId="StackOverFlow.commands.SearchCommand"
+               id="StackOverFlow.menus.popupSearch"
+               label="Search from Stack"
+               mnemonic="M1+P"
+               tooltip="Do something with this project">
+         </command>
+      </menuContribution>
+   </extension>
+
+ 
 </plugin>
