@@ -66,7 +66,6 @@ public class SearchResultView extends ViewPart {
 	@Inject
 	IWorkbench workbench;
 	private String[] id;
-	private String[] title;
 	private TableViewer viewer;
 	private Action doubleClickAction;
 	private Action saveFavorite;
@@ -161,9 +160,7 @@ public class SearchResultView extends ViewPart {
 	private void saveOffline() {
 		int index = viewer.getTable().getSelectionIndex();
 		try {
-			new ContentWriter().saveContent(
-					// call AllContentObjectOnly() to create JSON Object
-					new AllContentObjectOnly().getJsonObject(id[index]), id[index], title[index]);
+			new ContentWriter().saveContent(new AllContentObjectOnly().getJsonObject(id[index]), id[index], titleList[index]);
 		} catch (IOException | JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -173,7 +170,7 @@ public class SearchResultView extends ViewPart {
 	private void saveFavorite() {
 		int index = viewer.getTable().getSelectionIndex();
 		try {
-			new FavoriteWriter().saveFavorite(title[index], id[index]);
+			new FavoriteWriter().saveFavorite(titleList[index], id[index]);
 		} catch (IOException | JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

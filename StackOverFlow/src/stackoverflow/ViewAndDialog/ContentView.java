@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import stackoverflow.APIConnecter.AllContent;
+import stackoverflow.APIConnecter.AllContentObjectOnly;
 import stackoverflow.DataClass.Answer;
 import stackoverflow.DataClass.Comment;
 import stackoverflow.DataClass.Question;
@@ -81,10 +82,7 @@ public class ContentView extends ViewPart {
 
 	public void saveOffline() {
 		try {
-			ContentWriter offlineWriter = new ContentWriter();
-			AllContent c = new AllContent(id, isOffline);
-			JSONObject contentObject = c.getJsonObject();
-			offlineWriter.saveContent(contentObject, id, qtitle);
+			new ContentWriter().saveContent(new AllContentObjectOnly().getJsonObject(id), id, qtitle);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -97,10 +95,7 @@ public class ContentView extends ViewPart {
 	
 	public void saveFavorite() {
 		try {
-			ContentWriter offlineWriter = new ContentWriter();
-			AllContent c = new AllContent(id, isOffline);
-			JSONObject contentObject = c.getJsonObject();
-			offlineWriter.saveContent(contentObject, id, qtitle);
+			new FavoriteWriter().saveFavorite(qtitle, id);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
