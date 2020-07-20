@@ -7,7 +7,7 @@
       <command
             categoryId="StackOverFlow.commands.StackOverFlowCategory"
             id="StackOverFlow.commands.HistoryCommand"
-            name="View History">
+            name="History">
       </command>
       <command
             categoryId="StackOverFlow.commands.StackOverFlowCategory"
@@ -21,12 +21,12 @@
       <command
             categoryId="StackOverFlow.commands.StackOverFlowCategory"
             id="StackOverFlow.commands.FavoriteCommand"
-            name="View Favorite">
+            name="Favorite Question">
       </command>
       <command
             categoryId="StackOverFlow.commands.StackOverFlowCategory"
             id="StackOverFlow.commands.OfflineCommand"
-            name="View Offline Storage">
+            name="Offline Storage">
       </command>
    </extension>
    <extension
@@ -98,8 +98,7 @@
             <command
                   commandId="StackOverFlow.commands.HistoryCommand"
                   icon="images/stackoverflow16px.png"
-                  id="StackOverFlow.toolbars.HistoryCommand"
-                  tooltip="Say hello world">
+                  id="StackOverFlow.toolbars.HistoryCommand">
             </command>
          </toolbar>
       </menuContribution>
