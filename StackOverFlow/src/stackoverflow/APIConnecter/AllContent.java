@@ -75,8 +75,8 @@ public class AllContent extends StackOverFlowConnecter {
 		this.title = itemObject.getString("title");
 		LOGGER.info("[" + LOGGER.getName() + "] " + "title : " + title);
 		
-		int ID =  itemObject.getInt("question_id");
-		this.id = Integer.toString(ID);
+		this.id=  itemObject.get("question_id").toString();
+
 		LOGGER.info("[" + LOGGER.getName() + "] " + "question_id : " + id);
 
 		this.body = itemObject.getString("body");
