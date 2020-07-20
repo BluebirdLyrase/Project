@@ -3,6 +3,7 @@ package stackoverflow.ViewAndDialog;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
 import org.json.JSONException;
+import org.osgi.framework.Bundle;
 
 import stackoverflow.APIConnecter.AllContentObjectOnly;
 import stackoverflow.LocalJsonConnector.ContentWriter;
@@ -10,13 +11,17 @@ import stackoverflow.LocalJsonConnector.FavoriteList;
 
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.*;
+import org.eclipse.jface.resource.ImageDescriptor;
 //import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.*;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.SWT;
 
 import java.io.IOException;
+import java.net.URL;
 
 import javax.inject.Inject;
 
@@ -68,7 +73,20 @@ public class FavoriteView extends ViewPart {
 
 		@Override
 		public Image getImage(Object obj) {
-			return workbench.getSharedImages().getImage(ISharedImages.IMG_OBJ_ELEMENT);
+			String path = "\\images\\star.png";
+			Bundle bundle = Platform.getBundle("StackOverFlow");
+			URL url = FileLocator.find(bundle, new org.eclipse.core.runtime.Path(path), null);
+			URL fileURL = null;
+			try {
+				fileURL = FileLocator.toFileURL(url);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			ImageDescriptor imageDesc = ImageDescriptor.createFromURL(fileURL);
+			Image image = imageDesc.createImage();
+
+			return image;
 		}
 	}
 
@@ -166,6 +184,7 @@ public class FavoriteView extends ViewPart {
 	private void fillContextMenu(IMenuManager manager) {
 		manager.add(open);
 		manager.add(delete);
+		manager.add(refresh);
 		// Other plug-ins can contribute there actions here
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 		manager.add(saveOffline);
@@ -200,14 +219,12 @@ public class FavoriteView extends ViewPart {
 
 		refresh = new Action() {
 			public void run() {
-
 				createTable();
-
-				refresh.setText("Save to offline Storage");
-				refresh.setToolTipText("Refresh this page");
 			}
 		};
-
+		refresh.setText("Refresh");
+		refresh.setToolTipText("Refresh this page");
+		
 		doubleClickAction = new Action() {
 			public void run() {
 				open();

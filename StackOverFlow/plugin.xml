@@ -85,6 +85,7 @@
                mnemonic="M">
             <command
                   commandId="StackOverFlow.commands.HistoryCommand"
+                  icon="images/time16px.png"
                   id="StackOverFlow.menus.HistoryCommand"
                   mnemonic="S">
             </command>
@@ -95,9 +96,9 @@
          <toolbar
                id="StackOverFlow.toolbars.HistoryCommand">
             <command
-                  id="StackOverFlow.toolbars.HistoryCommand"
                   commandId="StackOverFlow.commands.HistoryCommand"
                   icon="images/stackoverflow16px.png"
+                  id="StackOverFlow.toolbars.HistoryCommand"
                   tooltip="Say hello world">
             </command>
          </toolbar>
@@ -110,6 +111,7 @@
                mnemonic="M">
             <command
                   commandId="StackOverFlow.commands.SearchCommand"
+                  icon="images/stackoverflow16px.png"
                   id="StackOverFlow.menus.SearchCommand"
                   mnemonic="S">
             </command>
@@ -135,6 +137,7 @@
                mnemonic="M">
             <command
                   commandId="StackOverFlow.commands.FavoriteCommand"
+                  icon="images/star16px.png"
                   id="StackOverFlow.menus.FavoriteCommand"
                   mnemonic="S">
             </command>
@@ -146,7 +149,7 @@
                id="StackOverFlow.toolbars.FavoriteToolbar">
             <command
                   commandId="StackOverFlow.commands.FavoriteCommand"
-                  icon="icons/sample.png"
+                  icon="images/star16px.png"
                   id="StackOverFlow.toolbars.FavoriteCommand"
                   tooltip="Say hello world">
             </command>
@@ -158,7 +161,7 @@
                id="StackOverFlow.toolbars.OfflineToolbar">
             <command
                   commandId="StackOverFlow.commands.OfflineCommand"
-                  icon="icons/sample.png"
+                  icon="images/pc-screen16px.png"
                   id="StackOverFlow.toolbars.OfflineCommand"
                   tooltip="Say hello world">
             </command>
@@ -172,6 +175,7 @@
                mnemonic="M">
             <command
                   commandId="StackOverFlow.commands.OfflineCommand"
+                  icon="images/pc-screen16px.png"
                   id="StackOverFlow.menus.OfflineCommand"
                   mnemonic="S">
             </command>
@@ -203,7 +207,7 @@
       <view
             category="StackOverFlow"
             class="stackoverflow.ViewAndDialog.SearchingHistoryView"
-            icon="icons/sample.png"
+            icon="images/time16px.png"
             id="stackoverflow.ViewAndDialog.SearchingHistoryView"
             inject="true"
             name="SearchingHistoryView">
@@ -211,7 +215,7 @@
       <view
             category="StackOverFlow"
             class="stackoverflow.ViewAndDialog.ViewHistoryView"
-            icon="icons/sample.png"
+            icon="images/time16px.png"
             id="stackoverflow.ViewAndDialog.ViewHistoryView"
             inject="true"
             name="ViewHistoryView">
@@ -219,7 +223,7 @@
       <view
             category="StackOverFlow"
             class="stackoverflow.ViewAndDialog.FavoriteView"
-            icon="icons/sample.png"
+            icon="images/star16px.png"
             id="stackoverflow.ViewAndDialog.FavoriteView"
             inject="true"
             name="FavoriteView">
@@ -227,7 +231,7 @@
       <view
             category="StackOverFlow"
             class="stackoverflow.ViewAndDialog.OfflineListView"
-            icon="icons/sample.png"
+            icon="images/pc-screen16px.png"
             id="stackoverflow.ViewAndDialog.OfflineListView"
             inject="true"
             name="OfflineListView">
@@ -328,6 +332,7 @@
          "popup:org.eclipse.ui.popup.any?after=additions">
          <command
                commandId="StackOverFlow.commands.SearchCommand"
+               icon="images/stackoverflow16px.png"
                id="StackOverFlow.menus.popupSearch"
                label="Search from Stack"
                mnemonic="M1+P"

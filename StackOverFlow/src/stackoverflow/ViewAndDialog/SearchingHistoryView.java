@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -67,6 +66,7 @@ public class SearchingHistoryView extends ViewPart {
 	private TableViewer viewer;
 	private Action open;
 	private Action delete;
+	private Action refresh;
 	private Action doubleClickAction;
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
@@ -239,6 +239,7 @@ public class SearchingHistoryView extends ViewPart {
 	private void fillContextMenu(IMenuManager manager) {
 		manager.add(open);
 		manager.add(delete);
+		manager.add(refresh);
 		// Other plug-ins can contribute there actions here
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
@@ -267,6 +268,15 @@ public class SearchingHistoryView extends ViewPart {
 		delete.setText("Delete");
 		delete.setToolTipText("delete this record");
 		delete.setImageDescriptor(workbench.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+		
+		refresh = new Action() {
+			public void run() {
+				createTable();
+			}
+		};
+		refresh.setText("Refresh");
+		refresh.setToolTipText("Refresh this Table");
+		
 		doubleClickAction = new Action() {
 			public void run() {
 				open();

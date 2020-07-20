@@ -7,10 +7,8 @@ import javax.inject.Inject;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -71,6 +69,7 @@ public class ViewHistoryView extends ViewPart {
 	private Action delete;
 	private Action saveFavorite;
 	private Action saveOffline;
+	private Action refresh;
 	private Action doubleClickAction;
 	private String[] id;
 	private String[] title;
@@ -226,6 +225,7 @@ public class ViewHistoryView extends ViewPart {
 	private void fillContextMenu(IMenuManager manager) {
 		manager.add(open);
 		manager.add(delete);
+		manager.add(refresh);
 		// Other plug-ins can contribute there actions here
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 		manager.add(saveFavorite);
@@ -257,6 +257,14 @@ public class ViewHistoryView extends ViewPart {
 		saveFavorite.setText("save to favorite");
 		saveFavorite.setToolTipText("save this question to favorite list");
 	
+		refresh = new Action() {
+			public void run() {
+				createTable();
+			}
+		};
+		refresh.setText("Refresh");
+		refresh.setToolTipText("Refresh this table");
+		
 		saveOffline = new Action() {
 			public void run() {
 				saveOffline();
