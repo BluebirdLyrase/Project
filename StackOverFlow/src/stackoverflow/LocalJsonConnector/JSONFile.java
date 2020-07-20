@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import stackoverflow.APIConnecter.StackOverFlowConnecter;
 
 public class JSONFile {
-	protected static final Logger LOGGER = Logger.getLogger(StackOverFlowConnecter.class.getName());
+	protected static final Logger LOGGER = Logger.getLogger(JSONFile.class.getName());
 	
 	public JSONObject parseJSONFile(String filePath) throws JSONException, IOException {
 		String content = new String(Files.readAllBytes(Paths.get(filePath)));

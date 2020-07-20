@@ -40,6 +40,7 @@ import org.osgi.framework.Bundle;
 import stackoverflow.APIConnecter.AllContentObjectOnly;
 import stackoverflow.LocalJsonConnector.ContentWriter;
 import stackoverflow.LocalJsonConnector.FavoriteWriter;
+import stackoverflow.LocalJsonConnector.Log;
 
 /**
  * This sample class demonstrates how to plug-in a new workbench view. The view
@@ -94,7 +95,7 @@ public class SearchResultView extends ViewPart {
 			try {
 				fileURL = FileLocator.toFileURL(url);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				new Log().saveLog(e);
 				e.printStackTrace();
 			}
 			ImageDescriptor imageDesc = ImageDescriptor.createFromURL(fileURL);
@@ -152,7 +153,7 @@ public class SearchResultView extends ViewPart {
 			ContentView myView = (ContentView) viewPart;
 			myView.setContent(id[index]);
 		} catch (PartInitException e) {
-			// TODO Auto-generated catch block
+			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 	}
@@ -162,7 +163,7 @@ public class SearchResultView extends ViewPart {
 		try {
 			new ContentWriter().saveContent(new AllContentObjectOnly().getJsonObject(id[index]), id[index], titleList[index]);
 		} catch (IOException | JSONException e) {
-			// TODO Auto-generated catch block
+			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 	}
@@ -172,7 +173,7 @@ public class SearchResultView extends ViewPart {
 		try {
 			new FavoriteWriter().saveFavorite(titleList[index], id[index]);
 		} catch (IOException | JSONException e) {
-			// TODO Auto-generated catch block
+			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 	}
@@ -253,7 +254,7 @@ public class SearchResultView extends ViewPart {
 					myView.setContent(id[index]);
 
 				} catch (PartInitException e) {
-					// TODO Auto-generated catch block
+					new Log().saveLog(e);
 					e.printStackTrace();
 				}
 

@@ -1,28 +1,46 @@
 package stackoverflow.ViewAndDialog;
 
+import java.io.IOException;
+import java.net.URL;
+
+import javax.inject.Inject;
+
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
+import org.eclipse.jface.viewers.ITableLabelProvider;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.part.*;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IViewReference;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchActionConstants;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.ViewPart;
 import org.json.JSONException;
 import org.osgi.framework.Bundle;
 
 import stackoverflow.LocalJsonConnector.Content;
 import stackoverflow.LocalJsonConnector.ContentTitleList;
-
-import org.eclipse.jface.viewers.*;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.jface.action.*;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.*;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.SWT;
-
-import java.io.IOException;
-import java.net.URL;
-
-import javax.inject.Inject;
+import stackoverflow.LocalJsonConnector.Log;
 
 /**
  * This sample class demonstrates how to plug-in a new workbench view. The view
@@ -77,8 +95,7 @@ public class OfflineListView extends ViewPart {
 			try {
 				fileURL = FileLocator.toFileURL(url);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				new Log().saveLog(e);
 			}
 			ImageDescriptor imageDesc = ImageDescriptor.createFromURL(fileURL);
 			Image image = imageDesc.createImage();
@@ -107,7 +124,7 @@ public class OfflineListView extends ViewPart {
 		try {
 			contentTitle = new ContentTitleList();
 		} catch (IOException | JSONException e) {
-			e.printStackTrace();
+			new Log().saveLog(e);
 		}
 		viewer.setInput(null);
 		filename = contentTitle.getFilename();
@@ -133,8 +150,8 @@ public class OfflineListView extends ViewPart {
 			ContentView myView = (ContentView) viewPart;
 			myView.setContent(filename[index],true);
 		} catch (PartInitException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new Log().saveLog(e);
 		}
 	}
 
@@ -144,7 +161,7 @@ public class OfflineListView extends ViewPart {
 			boolean result = new Content().delete(filename[index], index);
 			if(result) {createTable();}
 		} catch (IOException | JSONException e) {
-			// TODO Auto-generated catch block
+			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 	}

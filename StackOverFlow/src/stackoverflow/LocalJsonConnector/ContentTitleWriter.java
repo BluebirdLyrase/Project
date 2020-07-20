@@ -2,10 +2,6 @@ package stackoverflow.LocalJsonConnector;
 
 import java.io.IOException;
 
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,9 +23,9 @@ public class ContentTitleWriter extends LocalJsonList{
         jsonObject.put(arrayName,newArray);
         saveJSONFile(filePath, jsonObject);
 		}catch (JSONException | IOException e) {
-			// TODO Auto-generated catch block
-			LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while saving ContentTitle : "+e);
 			e.printStackTrace();
+			LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while saving ContentTitle : "+e);
+			new Log().saveLog(e);
 		}
 	}
 	
@@ -40,7 +36,9 @@ public class ContentTitleWriter extends LocalJsonList{
 			jsonObject.getJSONArray(arrayName).remove(index);
 			saveJSONFile(filePath, jsonObject);
 		} catch (JSONException | IOException e) {
+			e.printStackTrace();
 			LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while removing item." + e);
+			new Log().saveLog(e);
 		}
 		
 		return result;

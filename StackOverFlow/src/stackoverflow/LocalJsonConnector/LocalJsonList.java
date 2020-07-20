@@ -48,8 +48,8 @@ public class LocalJsonList extends JSONFile {
 			}
 		jsonObject = parseJSONFile(filePath);
 		} catch (IOException | JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new Log().saveLog(e);
 		}
 	}
 	
@@ -64,6 +64,7 @@ public class LocalJsonList extends JSONFile {
 			jsonObject.getJSONArray(arrayName).remove(index);
 			saveJSONFile(filePath, jsonObject);
 		} catch (JSONException | IOException e) {
+			new Log().saveLog(e);
 			LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while removing item." + e);
 		}
 		}else {

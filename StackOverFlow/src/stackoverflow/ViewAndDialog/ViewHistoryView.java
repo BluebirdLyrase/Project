@@ -37,6 +37,7 @@ import org.json.JSONException;
 import stackoverflow.APIConnecter.AllContentObjectOnly;
 import stackoverflow.LocalJsonConnector.ContentWriter;
 import stackoverflow.LocalJsonConnector.FavoriteWriter;
+import stackoverflow.LocalJsonConnector.Log;
 import stackoverflow.LocalJsonConnector.ViewHistory;
 
 /**
@@ -149,7 +150,7 @@ public class ViewHistoryView extends ViewPart {
 				new TableItem(table, SWT.NONE).setText(new String[] { title[i], tags[i], date[i], id[i] });
 			}
 		} catch (IOException | JSONException e) {
-			// TODO Auto-generated catch block
+			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 	}
@@ -167,7 +168,7 @@ public class ViewHistoryView extends ViewPart {
 			ContentView myView = (ContentView) viewPart; 
 			myView.setContent(id[index]);
 		} catch (PartInitException e) {
-			// TODO Auto-generated catch block
+			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 	}
@@ -187,7 +188,7 @@ public class ViewHistoryView extends ViewPart {
 					new AllContentObjectOnly().getJsonObject(id[index]), 
 					id[index], title[index]);
 		} catch (IOException | JSONException e) {
-			// TODO Auto-generated catch block
+			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 	}
@@ -197,7 +198,7 @@ public class ViewHistoryView extends ViewPart {
 		try {
 			new FavoriteWriter().saveFavorite(title[index], id[index]);
 		} catch (IOException | JSONException e) {
-			// TODO Auto-generated catch block
+			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 	}

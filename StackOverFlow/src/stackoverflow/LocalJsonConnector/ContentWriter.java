@@ -16,7 +16,6 @@ import org.json.JSONObject;
 public class ContentWriter extends Content{
 	
 	private boolean isSave;
-	private String saveMessage;
 	private String filePath;
 	private JSONObject jsonObject;
 
@@ -47,11 +46,9 @@ public class ContentWriter extends Content{
 						"StackOverFlow",
 						"Duplicate Qeustion in Offline Storage");
 				LOGGER.info("[" + LOGGER.getName() + "] " + "File already exists : "+filePath);
-				saveMessage = "Already saved.";
 			}
 		} catch (IOException | JSONException e) {
 			LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while creating new json in Content : "+e);
-			saveMessage = "Error while creating new json file.";
 			isSave = false;
 		}
 		return isSave;
@@ -63,15 +60,13 @@ public class ContentWriter extends Content{
         saveJSONFile(filePath, jsonObject);
 		} catch (JSONException | IOException e) {
 			LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while saving Content : "+e);
-			saveMessage = "Error while saving Content";
+			new Log().saveLog(e);
 			isWrite = false;
 		}
 		return isWrite;
 	}
 
-	public String getSaveMessage() {
-		return saveMessage;
-	}
+
 	
 
 	

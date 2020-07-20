@@ -4,7 +4,6 @@ import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.part.*;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import stackoverflow.APIConnecter.AllContent;
 import stackoverflow.APIConnecter.AllContentObjectOnly;

@@ -53,9 +53,8 @@ public class FavoriteWriter extends LocalJsonList {
 				LOGGER.info("[" + LOGGER.getName() + "] " + "duplicate id");
 			}
 		} catch (JSONException | IOException e) {
-			// TODO Auto-generated catch block
 			LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while saving Favorite : " + e);
-			e.printStackTrace();
+			new Log().saveLog(e);
 		}
 	}
 

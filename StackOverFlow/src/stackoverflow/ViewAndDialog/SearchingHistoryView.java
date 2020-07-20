@@ -35,6 +35,7 @@ import org.eclipse.ui.part.ViewPart;
 import org.json.JSONException;
 
 import stackoverflow.APIConnecter.SearchResult;
+import stackoverflow.LocalJsonConnector.Log;
 import stackoverflow.LocalJsonConnector.SearchingHistory;
 import stackoverflow.LocalJsonConnector.SearchingWriter;
 
@@ -160,7 +161,7 @@ public class SearchingHistoryView extends ViewPart {
 						.setText(new String[] { text[i], order[i], sort[i], site[i], tagged[i], date[i] });
 			}
 		} catch (IOException | JSONException e) {
-			// TODO Auto-generated catch block
+			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 
@@ -198,7 +199,7 @@ public class SearchingHistoryView extends ViewPart {
 				MessageDialog.openError(win.getShell(), "Error", "not found the result you are searching");
 			}
 		} catch (IOException | JSONException | PartInitException e) {
-			// TODO Auto-generated catch block
+			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 

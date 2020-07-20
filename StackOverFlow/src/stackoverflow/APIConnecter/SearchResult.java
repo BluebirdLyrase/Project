@@ -55,6 +55,7 @@ public class SearchResult extends StackOverFlowConnecter {
 		return questionIdList;
 	}
 
+	//check if there are any result from searching
 	public Boolean haveResult() throws JSONException {
 		item = json.getJSONArray("items").toString();
 		if (item.equals("[]")) {

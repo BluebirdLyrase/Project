@@ -3,10 +3,12 @@ package stackoverflow.handlers;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.eclipse.jface.dialogs.MessageDialog;
+
+import stackoverflow.LocalJsonConnector.Log;
 
 public class FavoriteHandler extends AbstractHandler {
 
@@ -17,8 +19,9 @@ public class FavoriteHandler extends AbstractHandler {
 		try {
 			window.getActivePage().showView(viewerID);
 		} catch (PartInitException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new Log().saveLog(e);
+			MessageDialog.openError(window.getShell(), "Error", "There is problem occur on StackOverFlow Helper plug-in. please email us your Log folder" );
 		}
 		return null;
 	}

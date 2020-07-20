@@ -20,7 +20,7 @@ public class Content extends JSONFile {
 	protected String arrayName = "items";
 
 	public Content() throws IOException, JSONException {
-		LOGGER.setLevel(Level.ALL);
+		LOGGER.setLevel(Level.SEVERE);
 		// Check if there is already Stackoverflow dir if not create one
 		if (fileDir.mkdir()) {
 			LOGGER.info("[" + LOGGER.getName() + "] " + "Directory create" + fileDir.getName());
@@ -39,8 +39,8 @@ public class Content extends JSONFile {
 				file.delete();
 				new ContentTitleWriter().delete(index);
 			} catch (IOException | JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				new Log().saveLog(e);
 			}
 		} else {
 			LOGGER.info("[" + LOGGER.getName() + "] " + "Delete has been cancel by user.");

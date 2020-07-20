@@ -1,18 +1,14 @@
 package stackoverflow.handlers;
 
-import java.io.IOException;
-
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import stackoverflow.ViewAndDialog.ViewHistoryView;
+import stackoverflow.LocalJsonConnector.Log;
 
 
 public class HistoryHandler extends AbstractHandler {
@@ -23,15 +19,12 @@ public class HistoryHandler extends AbstractHandler {
 		try {
 			String viewerID1 = "stackoverflow.ViewAndDialog.SearchingHistoryView";
 			String viewerID2 = "stackoverflow.ViewAndDialog.ViewHistoryView";
-			
 			window.getActivePage().showView(viewerID1);
-			
 			window.getActivePage().showView(viewerID2);
-			
-			
 		} catch (PartInitException e) {
-//			 TODO Auto-generated catch block
 			e.printStackTrace();
+			new Log().saveLog(e);
+			MessageDialog.openError(window.getShell(), "Error", "There is problem occur on StackOverFlow Helper plug-in. please email us your Log folder" );
 		}
 			return null;
 		

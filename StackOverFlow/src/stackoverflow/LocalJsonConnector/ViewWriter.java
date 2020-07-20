@@ -30,9 +30,8 @@ public class ViewWriter extends LocalJsonList {
 			jsonObject.put(arrayName, newArray);
 			saveJSONFile(filePath, jsonObject);
 		} catch (JSONException | IOException e) {
-			// TODO Auto-generated catch block
 			LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while saving contentview history : "+e);
-			e.printStackTrace();
+			new Log().saveLog(e);
 		}
 	}
 

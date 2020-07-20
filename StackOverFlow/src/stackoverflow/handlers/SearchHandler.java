@@ -13,6 +13,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.json.JSONException;
 import stackoverflow.APIConnecter.SearchResult;
+import stackoverflow.LocalJsonConnector.Log;
 import stackoverflow.LocalJsonConnector.SearchingWriter;
 import stackoverflow.ViewAndDialog.SearchResultView;
 import stackoverflow.ViewAndDialog.UserInputDialog;
@@ -84,9 +85,14 @@ public class SearchHandler extends AbstractHandler {
 			} else {
 				MessageDialog.openError(window.getShell(), "Error", "not found the result you are searching");
 			}
-		} catch (IOException | JSONException | PartInitException e) {
-			// TODO Auto-generated catch block
+		} catch (JSONException e) {
 			e.printStackTrace();
+			new Log().saveLog(e);
+			MessageDialog.openError(window.getShell(), "Error", "There is problem occur on API Connection. please check your internet Connection and try agian or email us your Log folder" );
+		} catch (IOException | PartInitException e) {
+			e.printStackTrace();
+			new Log().saveLog(e);
+			MessageDialog.openError(window.getShell(), "Error", "There is problem occur on StackOverFlow Helper plug-in. please email us your Log folder" );
 		}
 	}
 }
