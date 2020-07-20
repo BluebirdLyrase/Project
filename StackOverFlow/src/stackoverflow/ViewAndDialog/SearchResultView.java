@@ -10,7 +10,6 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -196,23 +195,10 @@ public class SearchResultView extends ViewPart {
 
 	private void contributeToActionBars() {
 		IActionBars bars = getViewSite().getActionBars();
-		fillLocalPullDown(bars.getMenuManager());
+	//	fillLocalPullDown(bars.getMenuManager());
 //		fillLocalToolBar(bars.getToolBarManager());
 	}
 
-	private void fillLocalPullDown(IMenuManager manager) {
-		manager.add(open);
-		manager.add(new Separator());
-		manager.add(saveFavorite);
-		manager.add(saveOffline);
-	}
-
-//	private void fillLocalToolBar(IToolBarManager manager) {
-//		manager.add(open);
-//		manager.add(new Separator());
-//		manager.add(saveFavorite);
-//		manager.add(saveOffline);
-//	}
 
 	private void fillContextMenu(IMenuManager manager) {
 		// Other plug-ins can contribute there actions here

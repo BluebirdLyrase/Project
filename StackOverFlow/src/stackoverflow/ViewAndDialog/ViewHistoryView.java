@@ -218,30 +218,15 @@ public class ViewHistoryView extends ViewPart {
 
 	private void contributeToActionBars() {
 		IActionBars bars = getViewSite().getActionBars();
-		fillLocalPullDown(bars.getMenuManager());
-		fillLocalToolBar(bars.getToolBarManager());
+//		fillLocalPullDown(bars.getMenuManager());
+	//	fillLocalToolBar(bars.getToolBarManager());
 	}
 
-	private void fillLocalPullDown(IMenuManager manager) {
-		manager.add(open);
-		manager.add(delete);
-		manager.add(new Separator());
-		manager.add(saveFavorite);
-		manager.add(saveOffline);
-	}
 
 	private void fillContextMenu(IMenuManager manager) {
 		manager.add(open);
 		manager.add(delete);
 		// Other plug-ins can contribute there actions here
-		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
-		manager.add(saveFavorite);
-		manager.add(saveOffline);
-	}
-
-	private void fillLocalToolBar(IToolBarManager manager) {
-		manager.add(open);
-		manager.add(delete);
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 		manager.add(saveFavorite);
 		manager.add(saveOffline);
@@ -255,8 +240,6 @@ public class ViewHistoryView extends ViewPart {
 		};
 		open.setText("Open");
 		open.setToolTipText("Open this question on new tab");
-//		open.setImageDescriptor(
-//				PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
 
 		delete = new Action() {
 			public void run() {
@@ -265,8 +248,7 @@ public class ViewHistoryView extends ViewPart {
 		};
 		delete.setText("Delete");
 		delete.setToolTipText("delete this record");
-//		delete.setImageDescriptor(workbench.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
-		
+	
 		saveFavorite = new Action() {
 			public void run() {
 				saveFavorite();
@@ -274,8 +256,7 @@ public class ViewHistoryView extends ViewPart {
 		};
 		saveFavorite.setText("save to favorite");
 		saveFavorite.setToolTipText("save this question to favorite list");
-//		saveFavorite.setImageDescriptor(workbench.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
-		
+	
 		saveOffline = new Action() {
 			public void run() {
 				saveOffline();
@@ -283,8 +264,7 @@ public class ViewHistoryView extends ViewPart {
 		};
 		saveOffline.setText("save to Offline");
 		saveOffline.setToolTipText("save this question to Offline list");
-//		saveOffline.setImageDescriptor(workbench.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
-		
+
 		doubleClickAction = new Action() {
 			public void run() {
 				open();

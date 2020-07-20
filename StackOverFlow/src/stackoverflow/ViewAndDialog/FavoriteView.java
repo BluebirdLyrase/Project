@@ -161,17 +161,6 @@ public class FavoriteView extends ViewPart {
 
 	private void contributeToActionBars() {
 		IActionBars bars = getViewSite().getActionBars();
-		fillLocalPullDown(bars.getMenuManager());
-		fillLocalToolBar(bars.getToolBarManager());
-	}
-
-	private void fillLocalPullDown(IMenuManager manager) {
-		manager.add(open);
-		manager.add(delete);
-		manager.add(new Separator());
-		manager.add(saveOffline);
-		manager.add(new Separator());
-		manager.add(refresh);
 	}
 
 	private void fillContextMenu(IMenuManager manager) {
@@ -182,12 +171,7 @@ public class FavoriteView extends ViewPart {
 		manager.add(saveOffline);
 	}
 
-	private void fillLocalToolBar(IToolBarManager manager) {
-		manager.add(open);
-		manager.add(delete);
-		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
-		manager.add(saveOffline);
-	}
+
 
 	private void makeActions() {
 		open = new Action() {
@@ -197,8 +181,6 @@ public class FavoriteView extends ViewPart {
 		};
 		open.setText("Open");
 		open.setToolTipText("Open this question on new tab");
-//		open.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-//			getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
 
 		delete = new Action() {
 			public void run() {
@@ -207,8 +189,6 @@ public class FavoriteView extends ViewPart {
 		};
 		delete.setText("Delete");
 		delete.setToolTipText("delete this record");
-//		delete.setImageDescriptor(workbench.getSharedImages().
-//				getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
 
 		saveOffline = new Action() {
 			public void run() {
@@ -217,8 +197,6 @@ public class FavoriteView extends ViewPart {
 		};
 		saveOffline.setText("Save to offline Storage");
 		saveOffline.setToolTipText("save this question to Offline list");
-//		saveOffline.setImageDescriptor(workbench.getSharedImages().
-//				getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
 
 		refresh = new Action() {
 			public void run() {
@@ -245,12 +223,6 @@ public class FavoriteView extends ViewPart {
 		});
 	}
 
-//	private void showMessage(String message) {
-//		MessageDialog.openInformation(
-//			viewer.getControl().getShell(),
-//			"FavoriteView",
-//			message);
-//	}
 
 	@Override
 	public void setFocus() {

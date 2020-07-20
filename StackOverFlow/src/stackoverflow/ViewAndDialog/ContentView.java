@@ -1,5 +1,6 @@
 package stackoverflow.ViewAndDialog;
 
+import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.part.*;
 import org.json.JSONException;
@@ -15,15 +16,18 @@ import stackoverflow.LocalJsonConnector.ViewWriter;
 
 import java.io.IOException;
 import javax.inject.Inject;
+
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.swt.*;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Device;
+
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.*;
-import org.eclipse.swt.widgets.Display;
+
+
 public class ContentView extends ViewPart {
 
 	@Inject
@@ -35,6 +39,8 @@ public class ContentView extends ViewPart {
 	private String id = null;
 	private String qtitle = "";
 	boolean isOffline;
+	private Action fav;
+	private Action off;
 	Browser browser;
 
 	public void setContent(String id) {
@@ -47,96 +53,11 @@ public class ContentView extends ViewPart {
 		parent.layout(true, true);
 		final Point newSize = parent.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
 		parent.setSize(newSize);
-		
-		Device device = null;
-		
+
 		Composite contentViwew;
-		Composite menu;
 		contentViwew = new Composite(parent, SWT.None);
 		contentViwew.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
-		contentViwew.setLayout(new GridLayout(2, true));
-
-	    
-		menu = new Composite(contentViwew,SWT.BORDER);
-
-		
-		menu.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
-		menu.setLayout(new GridLayout(2, false));
-		
-	    GridData gridData = new GridData();
-//	    gridData.widthHint = 200;
-	    gridData.heightHint = SWT.DEFAULT;
-	    menu.setLayoutData(gridData);
-		
-		menu.setBackground(new Color(device,192,192,192));
-		
-		
-		final Button favButton = new Button(menu, SWT.PUSH);
-		favButton.setText("Save to favorite");
-		favButton.setLayoutData(new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1));
-		if(isOffline) {
-			favButton.setEnabled(false);
-		}
-		
-		favButton.addListener(SWT.Selection, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				System.out.println("favButton Clicked");
-
-				try {
-					FavoriteWriter favWriter = new FavoriteWriter();
-					favWriter.saveFavorite(qtitle, id);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-		});
-
-//		final Button backButton = new Button(menu, SWT.PUSH);
-//		backButton.setText("Back");
-//		backButton.setLayoutData(new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1));
-//
-//		backButton.addListener(SWT.Selection, new Listener() {
-//			@Override
-//			public void handleEvent(Event event) {
-//				System.out.println("Back Clicked");
-//
-//				browser.back();
-//
-//			}
-//		});
-
-		final Button saveOfflineButton = new Button(menu, SWT.PUSH);
-		saveOfflineButton.setText("Save offline");
-		saveOfflineButton.setLayoutData(new GridData(SWT.FILL, SWT.LEFT, false, false, 1, 1));
-		if(isOffline) {
-			saveOfflineButton.setEnabled(false);
-		}
-		saveOfflineButton.addListener(SWT.Selection, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				System.out.println("Save offline Button Click Clicked");
-
-				try {
-					ContentWriter offlineWriter = new ContentWriter();
-					AllContent c = new AllContent(id, isOffline);
-					JSONObject contentObject = c.getJsonObject();
-					offlineWriter.saveContent(contentObject, id, qtitle);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-		});
+		contentViwew.setLayout(new GridLayout(1, true));
 
 		Browser browser;
 
@@ -150,6 +71,75 @@ public class ContentView extends ViewPart {
 
 		browser.setText(createHtml());
 
+	}
+
+	private void contributeToActionBars() {
+		IActionBars bars = getViewSite().getActionBars();
+//		fillLocalPullDown(bars.getMenuManager());
+		fillLocalToolBar(bars.getToolBarManager());
+	}
+
+	public void saveOffline() {
+		try {
+			ContentWriter offlineWriter = new ContentWriter();
+			AllContent c = new AllContent(id, isOffline);
+			JSONObject contentObject = c.getJsonObject();
+			offlineWriter.saveContent(contentObject, id, qtitle);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void saveFavorite() {
+		try {
+			ContentWriter offlineWriter = new ContentWriter();
+			AllContent c = new AllContent(id, isOffline);
+			JSONObject contentObject = c.getJsonObject();
+			offlineWriter.saveContent(contentObject, id, qtitle);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	private void fillLocalToolBar(IToolBarManager manager) {
+		manager.add(off);
+		manager.add(fav);
+	}
+
+	private void makeActions() {
+		off = new Action() {
+			public void run() {
+				saveOffline();
+			}
+		};
+		off.setText("Save to Offline");
+		off.setToolTipText("Save this question to your Offline");
+
+
+		fav = new Action() {
+			public void run() {
+				try {
+					FavoriteWriter favWriter = new FavoriteWriter();
+					favWriter.saveFavorite(qtitle, id);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		};
+		fav.setText("Save to Favorite");
+		fav.setToolTipText("Save this question to Favorite");
 	}
 
 	private String createHtml() {
@@ -286,6 +276,8 @@ public class ContentView extends ViewPart {
 	@Override
 	public void createPartControl(Composite parent) {
 		this.parent = parent;
+		makeActions();
+		contributeToActionBars();
 	}
 
 	@Override

@@ -226,15 +226,15 @@ public class SearchingHistoryView extends ViewPart {
 
 	private void contributeToActionBars() {
 		IActionBars bars = getViewSite().getActionBars();
-		fillLocalPullDown(bars.getMenuManager());
-		fillLocalToolBar(bars.getToolBarManager());
+//		fillLocalPullDown(bars.getMenuManager());
+//		fillLocalToolBar(bars.getToolBarManager());
 	}
 
-	private void fillLocalPullDown(IMenuManager manager) {
-		manager.add(open);
-		manager.add(new Separator());
-		manager.add(delete);
-	}
+//	private void fillLocalPullDown(IMenuManager manager) {
+//		manager.add(open);
+//		manager.add(new Separator());
+//		manager.add(delete);
+//	}
 
 	private void fillContextMenu(IMenuManager manager) {
 		manager.add(open);
@@ -243,10 +243,10 @@ public class SearchingHistoryView extends ViewPart {
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
 
-	private void fillLocalToolBar(IToolBarManager manager) {
-		manager.add(open);
-		manager.add(delete);
-	}
+//	private void fillLocalToolBar(IToolBarManager manager) {
+//		manager.add(open);
+//		manager.add(delete);
+//	}
 
 	private void makeActions() {
 		open = new Action() {
