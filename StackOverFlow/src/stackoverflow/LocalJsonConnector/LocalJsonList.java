@@ -89,6 +89,10 @@ public class LocalJsonList extends JSONFile {
 		}
 		return result;
 	}
+	
+	public double getSize() {
+		return super.getSize(filePath);
+	}
 
 
 }

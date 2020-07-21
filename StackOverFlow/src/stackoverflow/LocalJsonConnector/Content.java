@@ -101,5 +101,18 @@ public class Content extends JSONFile {
 		}
 		return result;
 	}
+	
+	public double getSize() {
+		double size = 0.0 ;
+		try {
+			double listSize = new ContentTitleList().getSize();
+			double ContentSize = super.getSize(fileDirURL);
+			size = listSize + ContentSize;
+		} catch (IOException | JSONException e) {
+			e.printStackTrace();
+			new Log().saveLog(e);
+		}
+		return size;
+	}
 
 }

@@ -2,9 +2,7 @@ package stackoverflow.Tester;
 
 import java.io.IOException;
 import java.util.Scanner;
-
 import org.json.JSONException;
-
 import stackoverflow.LocalJsonConnector.*;
 
 public class clearTest {

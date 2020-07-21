@@ -28,5 +28,12 @@ public class JSONFile {
 		File f = new File(filepath);
 		f.delete();
 	}
+	
+	protected double getSize(String filepath) {
+		File f = new File(filepath);
+		double bytes = f.length();
+		double kilobytes = (bytes / 1024);
+		return kilobytes;
+	}
 
 }
