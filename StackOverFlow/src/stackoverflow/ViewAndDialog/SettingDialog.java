@@ -1,6 +1,7 @@
 package stackoverflow.ViewAndDialog;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -17,9 +18,11 @@ import org.json.JSONException;
 
 import stackoverflow.LocalJsonConnector.ContentTitleList;
 import stackoverflow.LocalJsonConnector.FavoriteList;
+import stackoverflow.LocalJsonConnector.FavoriteWriter;
 import stackoverflow.LocalJsonConnector.SearchingHistoryList;
+import stackoverflow.LocalJsonConnector.SearchingWriter;
 import stackoverflow.LocalJsonConnector.ViewHistoryList;
-
+import stackoverflow.LocalJsonConnector.Content;
 public class SettingDialog extends TitleAreaDialog {
 
 	/**
@@ -42,7 +45,7 @@ public class SettingDialog extends TitleAreaDialog {
 		GridLayout layout = new GridLayout(1, false);
 		container.setLayout(layout);
 		
-		Composite buttonContainer = new Composite(area, SWT.NONE);
+		Composite buttonContainer = new Composite(area, SWT.NONE|SWT.BORDER);
 		buttonContainer.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		GridLayout filterLayout = new GridLayout(3, false);
 		buttonContainer.setLayout(filterLayout);
@@ -63,9 +66,18 @@ public class SettingDialog extends TitleAreaDialog {
 	
 	
 	protected void createButtonForButtonContainer(Composite buttonContainer ) {
+		String pattern = "#.###";
+		DecimalFormat decimalFormat = new DecimalFormat(pattern);
 		try {
+			
+			double OfflineSize = new Content().getSize();
+			double favSize= new FavoriteWriter().getSize();
+			double searchSize= new SearchingWriter().getSize();
+			double viewWriterSize = new SearchingWriter().getSize();
+			double dAllSize = OfflineSize+favSize+searchSize+viewWriterSize;
+			
 		final Text offlineSize = new Text(buttonContainer,SWT.None|SWT.READ_ONLY) ;
-		offlineSize.setText("Offline size");
+		offlineSize.setText("Offline contents size: "+decimalFormat.format(OfflineSize)+" KB");
 		final Text	strOfflineLenght = new Text(buttonContainer,SWT.None|SWT.READ_ONLY);
 		int intOffLenght =	new ContentTitleList().getLenght();
 		strOfflineLenght.setText(Integer.toString(intOffLenght));
@@ -75,31 +87,37 @@ public class SettingDialog extends TitleAreaDialog {
 		
 		
 		final Text favoriteSize = new Text(buttonContainer,SWT.None|SWT.READ_ONLY) ;
-		favoriteSize.setText("Favorite size");
+		favoriteSize.setText("Favorite contents size: "+decimalFormat.format(favSize)+" KB");
 		final Text	strfavLenght = new Text(buttonContainer,SWT.None|SWT.READ_ONLY);
 		int intFavLenght =	new FavoriteList().getLenght();
 		strfavLenght.setText(Integer.toString(intFavLenght));
 		final Button clearFavButton = new Button(buttonContainer,SWT.PUSH);
 		clearFavButton.setText("Clear Favorite");
 		
+		
+		
 		final Text viewHistorySize = new Text(buttonContainer,SWT.None|SWT.READ_ONLY) ;
-		viewHistorySize.setText("View History size");
+		viewHistorySize.setText("View history contents size: "+decimalFormat.format(viewWriterSize)+" KB");
 		final Text	StrVHistoryLenght = new Text(buttonContainer,SWT.None|SWT.READ_ONLY);
 		int intVHistoryLenght =	new ViewHistoryList().getLenght();
 		StrVHistoryLenght.setText(Integer.toString(intVHistoryLenght));
 		final Button clearVHisButton = new Button(buttonContainer,SWT.PUSH);
 		clearVHisButton.setText("Clear View History");
 		
+		
+		
 		final Text seacrhHistorySize = new Text(buttonContainer,SWT.None|SWT.READ_ONLY) ;
-		seacrhHistorySize.setText("Seacrh history size");
+		seacrhHistorySize.setText("Search history contents size: "+decimalFormat.format(searchSize)+" KB");
 		final Text	strSHistoryLenght = new Text(buttonContainer,SWT.None|SWT.READ_ONLY);
 		int intSHistoryLenght =	new SearchingHistoryList().getLenght();
 		strSHistoryLenght.setText(Integer.toString(intSHistoryLenght));
 		final Button clearSearchButton = new Button(buttonContainer,SWT.PUSH);
 		clearSearchButton.setText("Clear Seacrh history");
 		
+
+		
 		final Text allSize = new Text(buttonContainer,SWT.None|SWT.READ_ONLY) ;
-		allSize.setText("All size");
+		allSize.setText("All saved contents size: "+decimalFormat.format(dAllSize)+" KB");
 		final Text	strAllLenght = new Text(buttonContainer,SWT.None|SWT.READ_ONLY);
 		strAllLenght.setText("");
 		final Button clearAllButton = new Button(buttonContainer,SWT.PUSH);
