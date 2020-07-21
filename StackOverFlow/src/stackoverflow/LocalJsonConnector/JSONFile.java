@@ -30,9 +30,12 @@ public class JSONFile {
 	}
 	
 	protected double getSize(String filepath) {
+		double kilobytes = 0.000;
 		File f = new File(filepath);
+		if(f.exists()) {
 		double bytes = f.length();
-		double kilobytes = (bytes / 1024);
+		kilobytes = (bytes / 1024);
+		}
 		return kilobytes;
 	}
 
