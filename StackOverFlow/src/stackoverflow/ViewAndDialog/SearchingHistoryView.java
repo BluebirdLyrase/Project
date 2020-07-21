@@ -36,7 +36,7 @@ import org.json.JSONException;
 
 import stackoverflow.APIConnecter.SearchResult;
 import stackoverflow.LocalJsonConnector.Log;
-import stackoverflow.LocalJsonConnector.SearchingHistory;
+import stackoverflow.LocalJsonConnector.SearchingHistoryList;
 import stackoverflow.LocalJsonConnector.SearchingWriter;
 
 /**
@@ -63,7 +63,7 @@ public class SearchingHistoryView extends ViewPart {
 
 	@Inject
 	IWorkbench workbench;
-	SearchingHistory searchingHistory;
+	SearchingHistoryList searchingHistory;
 	private TableViewer viewer;
 	private Action open;
 	private Action delete;
@@ -146,7 +146,7 @@ public class SearchingHistoryView extends ViewPart {
 		dateTimeColumn.getColumn().setWidth(300);
 		dateTimeColumn.getColumn().setText("Date : Time");
 		try {
-			searchingHistory = new SearchingHistory();
+			searchingHistory = new SearchingHistoryList();
 			int lenght = searchingHistory.getLenght();
 			text = searchingHistory.getSearchText();
 			order = searchingHistory.getOrder();

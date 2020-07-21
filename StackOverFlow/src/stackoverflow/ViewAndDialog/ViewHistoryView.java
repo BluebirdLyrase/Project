@@ -38,7 +38,7 @@ import stackoverflow.APIConnecter.AllContentObjectOnly;
 import stackoverflow.LocalJsonConnector.ContentWriter;
 import stackoverflow.LocalJsonConnector.FavoriteWriter;
 import stackoverflow.LocalJsonConnector.Log;
-import stackoverflow.LocalJsonConnector.ViewHistory;
+import stackoverflow.LocalJsonConnector.ViewHistoryList;
 
 /**
  * This sample class demonstrates how to plug-in a new workbench view. The view
@@ -74,7 +74,7 @@ public class ViewHistoryView extends ViewPart {
 	private Action doubleClickAction;
 	private String[] id;
 	private String[] title;
-	ViewHistory viewHistory;
+	ViewHistoryList viewHistory;
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 		@Override
@@ -139,7 +139,7 @@ public class ViewHistoryView extends ViewPart {
 
 		// Create table viewer
 		try {
-			viewHistory = new ViewHistory();
+			viewHistory = new ViewHistoryList();
 			int lenght = viewHistory.getLenght();
 			title = viewHistory.getTitle();
 			String[] tags = viewHistory.getTags();

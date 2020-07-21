@@ -4,11 +4,11 @@ import java.io.IOException;
 
 import org.json.JSONException;
 
-import stackoverflow.LocalJsonConnector.ViewHistory;
+import stackoverflow.LocalJsonConnector.ViewHistoryList;
 
 public class ViewHistoryTest {
 	public static void main(String[] args) throws IOException, JSONException {
-		ViewHistory s = new ViewHistory();
+		ViewHistoryList s = new ViewHistoryList();
 		int x = s.getId().length;
 		
 		String[] id = s.getId();

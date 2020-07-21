@@ -28,6 +28,11 @@
             id="StackOverFlow.commands.OfflineCommand"
             name="Offline Storage">
       </command>
+      <command
+            categoryId="StackOverFlow.commands.StackOverFlowCategory"
+            id="StackOverFlow.commands.settingCommand"
+            name="Setting">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -46,6 +51,10 @@
       <handler
             class="stackoverflow.handlers.FavoriteHandler"
             commandId="StackOverFlow.commands.FavoriteCommand">
+      </handler>
+      <handler
+            class="stackoverflow.handlers.SettingHanlers"
+            commandId="StackOverFlow.commands.settingCommand">
       </handler>
    </extension>
    <extension
@@ -73,6 +82,12 @@
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+6">
+      </key>
+      <key
+            commandId="StackOverFlow.commands.settingCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+O">
       </key>
    </extension>
    <extension
@@ -179,6 +194,31 @@
                   mnemonic="S">
             </command>
          </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="StackOverFlow.menus.StackOverFlowMenu"
+               label="StackOverFlow"
+               mnemonic="M">
+            <command
+                  commandId="StackOverFlow.commands.settingCommand"
+                  id="StackOverFlow.menus.settingCommand"
+                  mnemonic="S">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="StackOverFlow.toolbars.settingToolbar">
+            <command
+                  commandId="StackOverFlow.commands.settingCommand"
+                  icon="icons/sample.png"
+                  id="StackOverFlow.toolbars.settingCommand"
+                  tooltip="Say hello world">
+            </command>
+         </toolbar>
       </menuContribution>
    </extension>
    <extension

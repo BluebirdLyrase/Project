@@ -5,12 +5,12 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import stackoverflow.LocalJsonConnector.SearchingHistory;
+import stackoverflow.LocalJsonConnector.SearchingHistoryList;
 
 public class SearchHistoryTest {
 	
 	public static void main(String[] args) throws IOException, JSONException {
-		SearchingHistory s = new SearchingHistory();
+		SearchingHistoryList s = new SearchingHistoryList();
 		int x = s.getSearchingDate().length;
 		
 		String[] text = s.getSearchText();

@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class SearchingHistory extends LocalJsonList {
+public class SearchingHistoryList extends LocalJsonList {
 
 	public String[] getSearchText() {
 		return searchText;
@@ -43,7 +43,7 @@ public class SearchingHistory extends LocalJsonList {
 	public String[] tagged;
 	public String[] searchingDate;
 
-	public SearchingHistory() throws IOException, JSONException {
+	public SearchingHistoryList() throws IOException, JSONException {
 		super("SearchingHistory");
 		lenght = jsonObject.getJSONArray(arrayName).length();
 		searchText = new String[lenght];
