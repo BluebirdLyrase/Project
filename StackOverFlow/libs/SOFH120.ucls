@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="stackoverflow.LocalJsonConnector.SearchingHistory" project="StackOverFlow" 
-    file="/StackOverFlow/src/stackoverflow/LocalJsonConnector/SearchingHistory.java" binary="false" 
+  <class id="1" language="java" name="stackoverflow.LocalJsonConnector.SearchingHistoryList" project="StackOverFlow" 
+    file="/StackOverFlow/src/stackoverflow/LocalJsonConnector/SearchingHistoryList.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="336" width="227" x="2073" y="1028"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -20,8 +20,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="stackoverflow.LocalJsonConnector.ViewHistory" project="StackOverFlow" 
-    file="/StackOverFlow/src/stackoverflow/LocalJsonConnector/ViewHistory.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="stackoverflow.LocalJsonConnector.ViewHistoryList" project="StackOverFlow" 
+    file="/StackOverFlow/src/stackoverflow/LocalJsonConnector/ViewHistoryList.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="256" width="227" x="2828" y="1028"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -122,17 +122,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="stackoverflow.ViewAndDialog.HistorySearchTextView.ViewLabelProvider" 
-    project="StackOverFlow" file="/StackOverFlow/src/stackoverflow/ViewAndDialog/HistorySearchTextView.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
-    <position height="156" width="266" x="2985" y="512"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="15" language="java" name="stackoverflow.handlers.HistoryHandler" project="StackOverFlow" 
+  <class id="14" language="java" name="stackoverflow.handlers.HistoryHandler" project="StackOverFlow" 
     file="/StackOverFlow/src/stackoverflow/handlers/HistoryHandler.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="116" width="246" x="808" y="-184"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -141,7 +131,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="stackoverflow.handlers.SearchHandler" project="StackOverFlow" 
+  <class id="15" language="java" name="stackoverflow.handlers.SearchHandler" project="StackOverFlow" 
     file="/StackOverFlow/src/stackoverflow/handlers/SearchHandler.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="116" width="246" x="1094" y="-184"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -150,7 +140,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="stackoverflow.LocalJsonConnector.JSONFile" project="StackOverFlow" 
+  <class id="16" language="java" name="stackoverflow.LocalJsonConnector.JSONFile" project="StackOverFlow" 
     file="/StackOverFlow/src/stackoverflow/LocalJsonConnector/JSONFile.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="156" width="302" x="2585" y="-184"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -159,17 +149,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="18" language="java" name="stackoverflow.ViewAndDialog.HistorySearchTextView" project="StackOverFlow" 
-    file="/StackOverFlow/src/stackoverflow/ViewAndDialog/HistorySearchTextView.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="416" width="292" x="2959" y="-184"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="19" language="java" name="stackoverflow.ViewAndDialog.SearchResultView" project="StackOverFlow" 
+  <class id="17" language="java" name="stackoverflow.ViewAndDialog.SearchResultView" project="StackOverFlow" 
     file="/StackOverFlow/src/stackoverflow/ViewAndDialog/SearchResultView.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="376" width="396" x="3291" y="-184"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -178,7 +158,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="stackoverflow.ViewAndDialog.ContentView" project="StackOverFlow" 
+  <class id="18" language="java" name="stackoverflow.ViewAndDialog.ContentView" project="StackOverFlow" 
     file="/StackOverFlow/src/stackoverflow/ViewAndDialog/ContentView.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="256" width="269" x="1712" y="-184"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -187,7 +167,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="21" language="java" name="stackoverflow.APIConnecter.SearchResult" project="StackOverFlow" 
+  <class id="19" language="java" name="stackoverflow.APIConnecter.SearchResult" project="StackOverFlow" 
     file="/StackOverFlow/src/stackoverflow/APIConnecter/SearchResult.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="276" width="390" x="2021" y="512"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -196,7 +176,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="22" language="java" name="stackoverflow.LocalJsonConnector.ViewWriter" project="StackOverFlow" 
+  <class id="20" language="java" name="stackoverflow.LocalJsonConnector.ViewWriter" project="StackOverFlow" 
     file="/StackOverFlow/src/stackoverflow/LocalJsonConnector/ViewWriter.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="116" width="378" x="3095" y="1028"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -205,7 +185,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="stackoverflow.ViewAndDialog.ViewHistoryView.ViewLabelProvider" 
+  <class id="21" language="java" name="stackoverflow.ViewAndDialog.ViewHistoryView.ViewLabelProvider" 
     project="StackOverFlow" file="/StackOverFlow/src/stackoverflow/ViewAndDialog/ViewHistoryView.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="156" width="266" x="1380" y="512"/>    
@@ -215,120 +195,116 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <nesting id="24">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="10"/>  
+  <nesting id="22">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="21"/>  
   </nesting>  
-  <association id="25">    
+  <association id="23">    
     <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="26" name="allConetent">        
+      <attribute id="24" name="allConetent">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="27" minimum="0" maximum="1">        
+      <multiplicity id="25" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="28">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="29" name="answer">        
+  <association id="26">    
+    <bendpoint x="1807" y="1028"/>    
+    <bendpoint x="1807" y="1564"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="27" name="aComment">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="30" minimum="0" maximum="2147483647">        
+      <multiplicity id="28" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="29">    
+    <bendpoint x="1786" y="1028"/>    
+    <bendpoint x="1786" y="1564"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="30" name="qComment">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="31" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="32">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <nesting id="33">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="5"/>  
+  </nesting>  
+  <association id="34">    
+    <bendpoint x="1765" y="1028"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="35" name="answer">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="36" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="31">    
+  <association id="37">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="32" name="comment">        
+      <attribute id="38" name="comment">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="33" minimum="0" maximum="2147483647">        
+      <multiplicity id="39" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <nesting id="34">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="14"/>  
-  </nesting>  
-  <nesting id="35">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="5"/>  
-  </nesting>  
-  <association id="36">    
-    <bendpoint x="1786" y="1028"/>    
-    <bendpoint x="1786" y="1564"/>    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="37" name="qComment">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="38" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="39">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="23"/>  
-  </nesting>  
   <association id="40">    
-    <bendpoint x="1286" y="1564"/>    
     <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="41" name="comment">        
+      <attribute id="41" name="answer">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="42" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <generalization id="43">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="13"/>  
   </generalization>  
-  <generalization id="44">    
-    <end type="SOURCE" refId="21"/>    
-    <end type="TARGET" refId="13"/>  
-  </generalization>  
-  <association id="45">    
-    <bendpoint x="1807" y="1028"/>    
-    <bendpoint x="1807" y="1564"/>    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="46" name="aComment">        
+  <association id="44">    
+    <bendpoint x="1286" y="1564"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="45" name="comment">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="47" minimum="0" maximum="2147483647">        
+      <multiplicity id="46" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="48">    
-    <bendpoint x="1765" y="1028"/>    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="49" name="answer">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="50" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
+  <nesting id="47">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="10"/>  
+  </nesting>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

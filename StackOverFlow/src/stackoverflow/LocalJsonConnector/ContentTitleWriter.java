@@ -36,11 +36,21 @@ public class ContentTitleWriter extends LocalJsonList{
 			jsonObject.getJSONArray(arrayName).remove(index);
 			saveJSONFile(filePath, jsonObject);
 		} catch (JSONException | IOException e) {
+			result = false;
 			e.printStackTrace();
 			LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while removing item." + e);
 			new Log().saveLog(e);
 		}
 		
+		return result;
+	}
+	
+	@Override
+	public boolean clear() {
+		boolean result = true;
+		if(result) {
+			deleteFile(filePath);
+		}
 		return result;
 	}
 

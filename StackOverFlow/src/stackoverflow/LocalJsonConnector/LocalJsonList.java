@@ -17,60 +17,78 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LocalJsonList extends JSONFile {
-	
+
 	private String defaultDir = new JFileChooser().getFileSystemView().getDefaultDirectory().toString();
 	private File fileDir = new File(defaultDir + "\\StackOverFlowHelper");
 	protected String filePath;
 	protected String arrayName;
 	protected JSONObject jsonObject;
-	
+
+	// message
+	protected String delConfrimMsg = "Are you sure you want to delete this?";
+	protected String clearConfrimMsg = "Are you sure you want to Clear all " + arrayName + " Data?";
+	protected String clearMsg = "Succesfully clear all " + arrayName + " data";
+
+
 	public LocalJsonList(String filename) {
 		LOGGER.setLevel(Level.ALL);
-		this.filePath = defaultDir + "\\StackOverFlowHelper\\"+filename+".json";
+		this.filePath = defaultDir + "\\StackOverFlowHelper\\" + filename + ".json";
 		this.arrayName = filename;
-		
-		//Check if there is already Stackoverflow dir if not create one
+
+		// Check if there is already Stackoverflow dir if not create one
 		if (fileDir.mkdir()) {
-			LOGGER.info("[" + LOGGER.getName() + "] " + "Directory create"+fileDir.getName());
-		}
-		else {
+			LOGGER.info("[" + LOGGER.getName() + "] " + "Directory create" + fileDir.getName());
+		} else {
 			LOGGER.info("[" + LOGGER.getName() + "] " + "Directory already exists.");
 		}
 
 		File newFile = new File(filePath);
-		//Check if there is already .json file if not create one
+		// Check if there is already .json file if not create one
 		try {
 			if (newFile.createNewFile()) {
 				LOGGER.info("[" + LOGGER.getName() + "] " + "File created : " + newFile.getName());
-				Files.writeString(Paths.get(filePath), "{"+arrayName+":[]}", StandardOpenOption.WRITE);
+				Files.writeString(Paths.get(filePath), "{" + arrayName + ":[]}", StandardOpenOption.WRITE);
 			} else {
 				LOGGER.info("[" + LOGGER.getName() + "] " + "File already exists.");
 			}
-		jsonObject = parseJSONFile(filePath);
+			jsonObject = parseJSONFile(filePath);
 		} catch (IOException | JSONException e) {
 			e.printStackTrace();
 			new Log().saveLog(e);
 		}
 	}
-	
-	//delete the selection data locate by index parameter 
-	//and return boolean id user confirm deleting or not
+
+	// delete the selection data locate by index parameter
+	// and return boolean id user confirm deleting or not
 	public boolean delete(int index) {
 		IWorkbench wb = PlatformUI.getWorkbench();
 		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-		boolean result = MessageDialog.openConfirm(win.getShell(), "Atention", "are you sure tou want to delete this?");
-		if(result) {
-		try {
-			jsonObject.getJSONArray(arrayName).remove(index);
-			saveJSONFile(filePath, jsonObject);
-		} catch (JSONException | IOException e) {
-			new Log().saveLog(e);
-			LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while removing item." + e);
-		}
-		}else {
+		boolean result = MessageDialog.openConfirm(win.getShell(), "Atention", delConfrimMsg);
+		if (result) {
+			try {
+				jsonObject.getJSONArray(arrayName).remove(index);
+				saveJSONFile(filePath, jsonObject);
+			} catch (JSONException | IOException e) {
+				new Log().saveLog(e);
+				LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while removing item." + e);
+			}
+		} else {
 			LOGGER.info("[" + LOGGER.getName() + "] " + "Delete has been cancel by user.");
 		}
 		return result;
 	}
+
+	public boolean clear() {
+		IWorkbench wb = PlatformUI.getWorkbench();
+		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+		boolean result = true;
+		result = MessageDialog.openConfirm(win.getShell(), "Atention", clearConfrimMsg);
+		if (result) {
+			deleteFile(filePath);
+			MessageDialog.openInformation(win.getShell(), "Atention", clearMsg);
+		}
+		return result;
+	}
+
 
 }
