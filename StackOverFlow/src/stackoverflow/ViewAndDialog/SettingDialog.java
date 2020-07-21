@@ -6,12 +6,16 @@ import java.text.DecimalFormat;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.json.JSONException;
@@ -22,6 +26,7 @@ import stackoverflow.LocalJsonConnector.FavoriteWriter;
 import stackoverflow.LocalJsonConnector.SearchingHistoryList;
 import stackoverflow.LocalJsonConnector.SearchingWriter;
 import stackoverflow.LocalJsonConnector.ViewHistoryList;
+import stackoverflow.LocalJsonConnector.ViewWriter;
 import stackoverflow.LocalJsonConnector.Content;
 public class SettingDialog extends TitleAreaDialog {
 
@@ -83,7 +88,17 @@ public class SettingDialog extends TitleAreaDialog {
 		strOfflineLenght.setText(Integer.toString(intOffLenght));
 		final Button clearOfflineButton = new Button(buttonContainer,SWT.PUSH);
 		clearOfflineButton.setText("Clear Offline");
+		clearOfflineButton.addListener(SWT.Selection, new Listener() {
+		      public void handleEvent(Event e) {
 
+		          try {
+					new Content().clear();
+				} catch (IOException | JSONException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		        }
+		      });
 		
 		
 		final Text favoriteSize = new Text(buttonContainer,SWT.None|SWT.READ_ONLY) ;
@@ -93,6 +108,17 @@ public class SettingDialog extends TitleAreaDialog {
 		strfavLenght.setText(Integer.toString(intFavLenght));
 		final Button clearFavButton = new Button(buttonContainer,SWT.PUSH);
 		clearFavButton.setText("Clear Favorite");
+		clearFavButton.addListener(SWT.Selection, new Listener() {
+		      public void handleEvent(Event e) {
+
+		          try {
+					new FavoriteWriter().clear();
+				} catch (IOException | JSONException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		        }
+		      });
 		
 		
 		
@@ -103,6 +129,17 @@ public class SettingDialog extends TitleAreaDialog {
 		StrVHistoryLenght.setText(Integer.toString(intVHistoryLenght));
 		final Button clearVHisButton = new Button(buttonContainer,SWT.PUSH);
 		clearVHisButton.setText("Clear View History");
+		clearVHisButton.addListener(SWT.Selection, new Listener() {
+		      public void handleEvent(Event e) {
+
+		          try {
+					new ViewWriter().clear();
+				} catch (IOException | JSONException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		        }
+		      });
 		
 		
 		
@@ -113,7 +150,17 @@ public class SettingDialog extends TitleAreaDialog {
 		strSHistoryLenght.setText(Integer.toString(intSHistoryLenght));
 		final Button clearSearchButton = new Button(buttonContainer,SWT.PUSH);
 		clearSearchButton.setText("Clear Seacrh history");
-		
+		clearSearchButton.addListener(SWT.Selection,new Listener() {
+		      public void handleEvent(Event e) {
+
+		          try {
+					new SearchingWriter().clear();
+				} catch (IOException | JSONException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		        }
+		      });
 
 		
 		final Text allSize = new Text(buttonContainer,SWT.None|SWT.READ_ONLY) ;
@@ -122,12 +169,25 @@ public class SettingDialog extends TitleAreaDialog {
 		strAllLenght.setText("");
 		final Button clearAllButton = new Button(buttonContainer,SWT.PUSH);
 		clearAllButton.setText("Clear All");
-		
+		clearAllButton.addListener(SWT.Selection,new Listener() {
+		      public void handleEvent(Event e) {
+
+		          try {
+					new Content().clearAll();
+				} catch (IOException | JSONException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		        }
+		      });
+
 		} catch (IOException | JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 	/**
 	 * Return the initial size of the dialog.
