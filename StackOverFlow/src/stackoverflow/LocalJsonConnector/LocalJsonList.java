@@ -33,7 +33,7 @@ public class LocalJsonList extends JSONFile {
 	public LocalJsonList(String filename) {
 		LOGGER.setLevel(Level.ALL);
 		this.filePath = defaultDir + "\\StackOverFlowHelper\\" + filename + ".json";
-		this.arrayName = filename;
+		arrayName = filename;
 
 		// Check if there is already Stackoverflow dir if not create one
 		if (fileDir.mkdir()) {
