@@ -78,7 +78,7 @@ public class SettingDialog extends TitleAreaDialog {
 			double OfflineSize = new Content().getSize();
 			double favSize= new FavoriteWriter().getSize();
 			double searchSize= new SearchingWriter().getSize();
-			double viewWriterSize = new SearchingWriter().getSize();
+			double viewWriterSize = new ViewWriter().getSize();
 			double dAllSize = OfflineSize+favSize+searchSize+viewWriterSize;
 			
 		final Text offlineSize = new Text(buttonContainer,SWT.None|SWT.READ_ONLY) ;
