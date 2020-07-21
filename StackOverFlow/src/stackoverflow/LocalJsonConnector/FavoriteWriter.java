@@ -11,7 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FavoriteWriter extends LocalJsonList {
-
+	
 	public FavoriteWriter() throws IOException, JSONException {
 		super("Favorite");
 	}
