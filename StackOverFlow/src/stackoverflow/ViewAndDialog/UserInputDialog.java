@@ -41,7 +41,7 @@ public class UserInputDialog extends TitleAreaDialog {
 	public void create() {
 		super.create();
 		setTitle("Stackoverflow Search");
-		setMessage("Search answer from Stackoverflow", IMessageProvider.INFORMATION);
+		setMessage("Search answer from Stackoverflow\n Seperate tags by using \";\" ", IMessageProvider.INFORMATION);
 	}
 
 	@Override
@@ -51,6 +51,7 @@ public class UserInputDialog extends TitleAreaDialog {
 		container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		GridLayout layout = new GridLayout(1, false);
 		container.setLayout(layout);
+		
 		
 		Composite filterContainer = new Composite(area, SWT.NONE);
 		filterContainer.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));

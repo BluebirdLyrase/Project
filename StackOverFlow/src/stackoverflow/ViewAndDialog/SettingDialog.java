@@ -17,6 +17,8 @@ import org.json.JSONException;
 
 import stackoverflow.LocalJsonConnector.ContentTitleList;
 import stackoverflow.LocalJsonConnector.FavoriteList;
+import stackoverflow.LocalJsonConnector.SearchingHistoryList;
+import stackoverflow.LocalJsonConnector.ViewHistoryList;
 
 public class SettingDialog extends TitleAreaDialog {
 
@@ -62,9 +64,9 @@ public class SettingDialog extends TitleAreaDialog {
 	
 	protected void createButtonForButtonContainer(Composite buttonContainer ) {
 		try {
-		final Text offlineSize = new Text(buttonContainer,SWT.None) ;
+		final Text offlineSize = new Text(buttonContainer,SWT.None|SWT.READ_ONLY) ;
 		offlineSize.setText("Offline size");
-		final Text	strOfflineLenght = new Text(buttonContainer,SWT.None);
+		final Text	strOfflineLenght = new Text(buttonContainer,SWT.None|SWT.READ_ONLY);
 		int intOffLenght =	new ContentTitleList().getLenght();
 		strOfflineLenght.setText(Integer.toString(intOffLenght));
 		final Button clearOfflineButton = new Button(buttonContainer,SWT.PUSH);
@@ -72,35 +74,34 @@ public class SettingDialog extends TitleAreaDialog {
 
 		
 		
-		final Text favoriteSize = new Text(buttonContainer,SWT.None) ;
+		final Text favoriteSize = new Text(buttonContainer,SWT.None|SWT.READ_ONLY) ;
 		favoriteSize.setText("Favorite size");
-		final Text	strfavLenght = new Text(buttonContainer,SWT.None);
+		final Text	strfavLenght = new Text(buttonContainer,SWT.None|SWT.READ_ONLY);
 		int intFavLenght =	new FavoriteList().getLenght();
 		strfavLenght.setText(Integer.toString(intFavLenght));
 		final Button clearFavButton = new Button(buttonContainer,SWT.PUSH);
 		clearFavButton.setText("Clear Favorite");
 		
-		final Text viewHistorySize = new Text(buttonContainer,SWT.None) ;
+		final Text viewHistorySize = new Text(buttonContainer,SWT.None|SWT.READ_ONLY) ;
 		viewHistorySize.setText("View History size");
-		final Text	StrVHistoryLenght = new Text(buttonContainer,SWT.None);
-		int intVHistoryLenght =	new ContentTitleList().getLenght();
+		final Text	StrVHistoryLenght = new Text(buttonContainer,SWT.None|SWT.READ_ONLY);
+		int intVHistoryLenght =	new ViewHistoryList().getLenght();
 		StrVHistoryLenght.setText(Integer.toString(intVHistoryLenght));
 		final Button clearVHisButton = new Button(buttonContainer,SWT.PUSH);
 		clearVHisButton.setText("Clear View History");
 		
-		final Text seacrhHistorySize = new Text(buttonContainer,SWT.None) ;
+		final Text seacrhHistorySize = new Text(buttonContainer,SWT.None|SWT.READ_ONLY) ;
 		seacrhHistorySize.setText("Seacrh history size");
-		final Text	strSHistoryLenght = new Text(buttonContainer,SWT.None);
-		int intSHistoryLenght =	new ContentTitleList().getLenght();
+		final Text	strSHistoryLenght = new Text(buttonContainer,SWT.None|SWT.READ_ONLY);
+		int intSHistoryLenght =	new SearchingHistoryList().getLenght();
 		strSHistoryLenght.setText(Integer.toString(intSHistoryLenght));
 		final Button clearSearchButton = new Button(buttonContainer,SWT.PUSH);
 		clearSearchButton.setText("Clear Seacrh history");
 		
-		final Text allSize = new Text(buttonContainer,SWT.None) ;
+		final Text allSize = new Text(buttonContainer,SWT.None|SWT.READ_ONLY) ;
 		allSize.setText("All size");
-		final Text	strAllLenght = new Text(buttonContainer,SWT.None);
-		int intAllLenght =	new ContentTitleList().getLenght();
-		strAllLenght.setText(Integer.toString(intAllLenght));
+		final Text	strAllLenght = new Text(buttonContainer,SWT.None|SWT.READ_ONLY);
+		strAllLenght.setText("");
 		final Button clearAllButton = new Button(buttonContainer,SWT.PUSH);
 		clearAllButton.setText("Clear All");
 		
