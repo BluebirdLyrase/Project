@@ -6,8 +6,6 @@ import java.text.DecimalFormat;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -93,6 +91,8 @@ public class SettingDialog extends TitleAreaDialog {
 
 		          try {
 					new Content().clear();
+					offlineSize.setText("Favorite contents size: 0 KB");
+					strOfflineLenght.setText("0");
 				} catch (IOException | JSONException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -113,6 +113,8 @@ public class SettingDialog extends TitleAreaDialog {
 
 		          try {
 					new FavoriteWriter().clear();
+					favoriteSize.setText("Favorite contents size: 0 KB");
+					strfavLenght.setText("0");
 				} catch (IOException | JSONException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -134,6 +136,8 @@ public class SettingDialog extends TitleAreaDialog {
 
 		          try {
 					new ViewWriter().clear();
+					viewHistorySize.setText("View history contents size: 0 KB");
+					StrVHistoryLenght.setText("0");
 				} catch (IOException | JSONException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -153,8 +157,10 @@ public class SettingDialog extends TitleAreaDialog {
 		clearSearchButton.addListener(SWT.Selection,new Listener() {
 		      public void handleEvent(Event e) {
 
-		          try {
+		          try { 
 					new SearchingWriter().clear();
+					seacrhHistorySize.setText("View history contents size: 0 KB");
+					strSHistoryLenght.setText("0");
 				} catch (IOException | JSONException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -173,7 +179,9 @@ public class SettingDialog extends TitleAreaDialog {
 		      public void handleEvent(Event e) {
 
 		          try {
+		        	  allSize.setText("All saved contents size: 0 KB");
 					new Content().clearAll();
+				
 				} catch (IOException | JSONException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -187,7 +195,6 @@ public class SettingDialog extends TitleAreaDialog {
 		}
 	}
 	
-	
 
 	/**
 	 * Return the initial size of the dialog.
@@ -196,5 +203,5 @@ public class SettingDialog extends TitleAreaDialog {
 	protected Point getInitialSize() {
 		return new Point(450, 320);
 	}
-
+ 
 }
