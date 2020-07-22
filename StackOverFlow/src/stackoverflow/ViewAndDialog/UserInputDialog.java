@@ -31,7 +31,7 @@ public class UserInputDialog extends TitleAreaDialog {
 	private String[] sortList = {"relevance","creation","votes","activity"};
 	private String[] siteList = {"stackoverflow","devops","gamedev","stackapps","superuser","sqa","softwareengineering","reverseengineering","webapps","webmasters"};
 	
-	private String selectedText;
+	private String selectedText = "";
 	
 	public UserInputDialog(Shell parentShell) {
 		super(parentShell);
@@ -39,7 +39,6 @@ public class UserInputDialog extends TitleAreaDialog {
 	
 	public void setText(String selectedText) {
 		this.selectedText = selectedText;
-		System.out.print(selectedText);
 	}
 
 	@Override
@@ -86,6 +85,7 @@ public class UserInputDialog extends TitleAreaDialog {
 
 		txtSearchText = new Text(container, SWT.BORDER);
 		txtSearchText.setLayoutData(dataSearchText);
+		txtSearchText.setText(selectedText);
 
 	}
 	
@@ -194,6 +194,7 @@ public class UserInputDialog extends TitleAreaDialog {
 	public String getSearchText() {
 		return SearchText;
 	}
+	
 	public String getOrder() {
 		return order;
 	}
