@@ -1,6 +1,8 @@
 package stackoverflow.handlers;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -19,6 +21,7 @@ import stackoverflow.ViewAndDialog.SearchResultView;
 import stackoverflow.ViewAndDialog.UserInputDialog;
 
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.window.Window;
 
 //////Project Eclipse-SOF v1.2.0
@@ -35,7 +38,18 @@ public class SearchHandler extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
+		
+		ISelection selection = window.getActivePage().getSelection();
+		String select = selection.toString();
+		Pattern pattern = Pattern.compile("text: (.*?), document", Pattern.DOTALL);
+		Matcher matcher = pattern.matcher(select);
+		String selectedText = "";
+		while (matcher.find()) {
+			selectedText = matcher.group(1);
+		}
+		
 		UserInputDialog dialog = new UserInputDialog(window.getShell());
+		dialog.setText(selectedText);
 		dialog.create();
 
 		if (dialog.open() == Window.OK) {

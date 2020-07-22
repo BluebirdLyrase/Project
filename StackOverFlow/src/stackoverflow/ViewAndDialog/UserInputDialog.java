@@ -28,13 +28,18 @@ public class UserInputDialog extends TitleAreaDialog {
 	private String site;
 
 	////List of option
-	String[] sortList = {"relevance","creation","votes","activity"};
-	String[] siteList = {"stackoverflow","devops","gamedev","stackapps","superuser","sqa","softwareengineering","reverseengineering","webapps","webmasters"};
+	private String[] sortList = {"relevance","creation","votes","activity"};
+	private String[] siteList = {"stackoverflow","devops","gamedev","stackapps","superuser","sqa","softwareengineering","reverseengineering","webapps","webmasters"};
 	
-	
+	private String selectedText;
 	
 	public UserInputDialog(Shell parentShell) {
 		super(parentShell);
+	}
+	
+	public void setText(String selectedText) {
+		this.selectedText = selectedText;
+		System.out.print(selectedText);
 	}
 
 	@Override
