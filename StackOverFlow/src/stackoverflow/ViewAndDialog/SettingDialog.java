@@ -200,8 +200,9 @@ public class SettingDialog extends TitleAreaDialog {
 	 * Return the initial size of the dialog.
 	 */
 	@Override
-	protected Point getInitialSize() {
-		return new Point(450, 320);
+	protected boolean isResizable() {
+		return true;
 	}
+
  
 }
