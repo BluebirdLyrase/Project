@@ -21,6 +21,7 @@ import org.json.JSONException;
 import stackoverflow.LocalJsonConnector.ContentTitleList;
 import stackoverflow.LocalJsonConnector.FavoriteList;
 import stackoverflow.LocalJsonConnector.FavoriteWriter;
+import stackoverflow.LocalJsonConnector.Log;
 import stackoverflow.LocalJsonConnector.SearchingHistoryList;
 import stackoverflow.LocalJsonConnector.SearchingWriter;
 import stackoverflow.LocalJsonConnector.ViewHistoryList;
@@ -89,11 +90,12 @@ public class SettingDialog extends TitleAreaDialog {
 		      public void handleEvent(Event e) {
 
 		          try {
-					new Content().clear();
+					if(new Content().clear()) {
 					offlineSize.setText("Favorite contents size: 0 KB");
 					strOfflineLenght.setText("0");
+					}
 				} catch (IOException | JSONException e1) {
-					// TODO Auto-generated catch block
+					new Log().saveLog(e1);
 					e1.printStackTrace();
 				}
 		        }
@@ -111,11 +113,12 @@ public class SettingDialog extends TitleAreaDialog {
 		      public void handleEvent(Event e) {
 
 		          try {
-					new FavoriteWriter().clear();
+					if(new FavoriteWriter().clear()){
 					favoriteSize.setText("Favorite contents size: 0 KB");
 					strfavLenght.setText("0");
+					}
 				} catch (IOException | JSONException e1) {
-					// TODO Auto-generated catch block
+					new Log().saveLog(e1);
 					e1.printStackTrace();
 				}
 		        }
@@ -134,11 +137,12 @@ public class SettingDialog extends TitleAreaDialog {
 		      public void handleEvent(Event e) {
 
 		          try {
-					new ViewWriter().clear();
+					if(new ViewWriter().clear()) {
 					viewHistorySize.setText("View history contents size: 0 KB");
 					StrVHistoryLenght.setText("0");
+					}
 				} catch (IOException | JSONException e1) {
-					// TODO Auto-generated catch block
+					new Log().saveLog(e1);
 					e1.printStackTrace();
 				}
 		        }
@@ -157,11 +161,12 @@ public class SettingDialog extends TitleAreaDialog {
 		      public void handleEvent(Event e) {
 
 		          try { 
-					new SearchingWriter().clear();
+					if(new SearchingWriter().clear()) {
 					seacrhHistorySize.setText("View history contents size: 0 KB");
 					strSHistoryLenght.setText("0");
+					}
 				} catch (IOException | JSONException e1) {
-					// TODO Auto-generated catch block
+					new Log().saveLog(e1);
 					e1.printStackTrace();
 				}
 		        }
@@ -178,18 +183,19 @@ public class SettingDialog extends TitleAreaDialog {
 		      public void handleEvent(Event e) {
 
 		          try {
+		        	if(new Content().clearAll()) {
 		        	allSize.setText("All saved contents size: 0 KB");
-					new Content().clearAll();
+		        	}
 				
 				} catch (IOException | JSONException e1) {
-					// TODO Auto-generated catch block
+					new Log().saveLog(e1);
 					e1.printStackTrace();
 				}
 		        }
 		      });
 
 		} catch (IOException | JSONException e) {
-			// TODO Auto-generated catch block
+			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 	}
