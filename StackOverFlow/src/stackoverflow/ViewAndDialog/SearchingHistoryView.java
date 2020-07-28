@@ -69,6 +69,7 @@ public class SearchingHistoryView extends ViewPart {
 	private Action delete;
 	private Action refresh;
 	private Action doubleClickAction;
+	private Table table;
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 		@Override
@@ -89,11 +90,12 @@ public class SearchingHistoryView extends ViewPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		
+
 		// Create table viewer
-		this.viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION );
+		this.viewer = new TableViewer(parent,
+				SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION);
 		createTable();
-		
+
 		// Create the help context id for the viewer's control
 		workbench.getHelpSystem().setHelp(viewer.getControl(), "StackOverFlow.viewer");
 		getSite().setSelectionProvider(viewer);
@@ -116,7 +118,7 @@ public class SearchingHistoryView extends ViewPart {
 	IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 
 	private void createTable() {
-		Table table = this.viewer.getTable();
+		table = this.viewer.getTable();
 		table.removeAll();
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
@@ -145,6 +147,13 @@ public class SearchingHistoryView extends ViewPart {
 		TableViewerColumn dateTimeColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
 		dateTimeColumn.getColumn().setWidth(300);
 		dateTimeColumn.getColumn().setText("Date : Time");
+
+		createTableViewer();
+
+	}
+
+	private void createTableViewer() {
+		table.removeAll();
 		try {
 			searchingHistory = new SearchingHistoryList();
 			int lenght = searchingHistory.getLenght();
@@ -164,7 +173,6 @@ public class SearchingHistoryView extends ViewPart {
 			new Log().saveLog(e);
 			e.printStackTrace();
 		}
-
 	}
 
 	private void open() {
@@ -204,11 +212,11 @@ public class SearchingHistoryView extends ViewPart {
 		}
 
 	}
-	
+
 	private void delete() {
 		int index = viewer.getTable().getSelectionIndex();
-		if(searchingHistory.delete(index)) {
-		createTable();
+		if (searchingHistory.delete(index)) {
+			createTable();
 		}
 	}
 
@@ -269,15 +277,15 @@ public class SearchingHistoryView extends ViewPart {
 		delete.setText("Delete");
 		delete.setToolTipText("delete this record");
 		delete.setImageDescriptor(workbench.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
-		
+
 		refresh = new Action() {
 			public void run() {
-				createTable();
+				createTableViewer();
 			}
 		};
 		refresh.setText("Refresh");
 		refresh.setToolTipText("Refresh this Table");
-		
+
 		doubleClickAction = new Action() {
 			public void run() {
 				open();

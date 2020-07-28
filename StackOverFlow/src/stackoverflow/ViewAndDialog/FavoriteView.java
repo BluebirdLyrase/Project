@@ -8,6 +8,7 @@ import org.osgi.framework.Bundle;
 import stackoverflow.APIConnecter.AllContentObjectOnly;
 import stackoverflow.LocalJsonConnector.ContentWriter;
 import stackoverflow.LocalJsonConnector.FavoriteList;
+import stackoverflow.LocalJsonConnector.Log;
 
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.graphics.Image;
@@ -60,6 +61,7 @@ public class FavoriteView extends ViewPart {
 	private String[] id;
 	private FavoriteList fav;
 
+
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 		@Override
 		public String getColumnText(Object obj, int index) {
@@ -80,7 +82,7 @@ public class FavoriteView extends ViewPart {
 			try {
 				fileURL = FileLocator.toFileURL(url);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				new Log().saveLog(e);
 				e.printStackTrace();
 			}
 			ImageDescriptor imageDesc = ImageDescriptor.createFromURL(fileURL);
@@ -114,9 +116,13 @@ public class FavoriteView extends ViewPart {
 			viewer.setInput(null);
 			viewer.setInput(title);
 		} catch (IOException | JSONException e) {
-			// TODO Auto-generated catch block
+			new Log().saveLog(e);
 			e.printStackTrace();
 		}
+	}
+	
+	private void createCustomTable() {
+		
 	}
 
 	private void open() {
@@ -136,7 +142,7 @@ public class FavoriteView extends ViewPart {
 			ContentView myView = (ContentView) viewPart;
 			myView.setContent(id[index]);
 		} catch (PartInitException e) {
-			// TODO Auto-generated catch block
+			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 		
@@ -157,11 +163,10 @@ public class FavoriteView extends ViewPart {
 					// call AllContentObjectOnly() to create JSON Object
 					new AllContentObjectOnly().getJsonObject(id[index]), id[index], title[index]);
 		} catch (IOException | JSONException e) {
-			// TODO Auto-generated catch block
+			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 
-		// TODO add saveOffline function
 	}
 
 	private void hookContextMenu() {

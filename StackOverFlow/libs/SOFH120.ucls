@@ -11,8 +11,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="stackoverflow.ViewAndDialog.SearchingHistoryView" project="StackOverFlow" 
-    file="/StackOverFlow/src/stackoverflow/ViewAndDialog/SearchingHistoryView.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="stackoverflow.ViewAndDialog.LocalView" project="StackOverFlow" 
+    file="/StackOverFlow/src/stackoverflow/ViewAndDialog/LocalView.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="416" width="292" x="145" y="-184"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -84,9 +84,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="stackoverflow.ViewAndDialog.SearchingHistoryView.ViewLabelProvider" 
-    project="StackOverFlow" file="/StackOverFlow/src/stackoverflow/ViewAndDialog/SearchingHistoryView.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
+  <class id="10" language="java" name="stackoverflow.ViewAndDialog.LocalView.ViewLabelProvider" project="StackOverFlow" 
+    file="/StackOverFlow/src/stackoverflow/ViewAndDialog/LocalView.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="156" width="266" x="145" y="512"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -195,115 +194,115 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <nesting id="22">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="21"/>  
-  </nesting>  
+  <generalization id="22">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
   <association id="23">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="24" name="allConetent">        
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="24" name="comment">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="25" minimum="0" maximum="1">        
+      <multiplicity id="25" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
+    <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="26">    
-    <bendpoint x="1807" y="1028"/>    
-    <bendpoint x="1807" y="1564"/>    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="27" name="aComment">        
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="27" name="answer">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="28" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="29">    
-    <bendpoint x="1786" y="1028"/>    
-    <bendpoint x="1786" y="1564"/>    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="30" name="qComment">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="31" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="32">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="13"/>  
-  </generalization>  
-  <nesting id="33">    
+  <nesting id="29">    
     <end type="SOURCE" refId="17"/>    
     <end type="TARGET" refId="5"/>  
   </nesting>  
-  <association id="34">    
-    <bendpoint x="1765" y="1028"/>    
+  <association id="30">    
     <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="35" name="answer">        
+      <attribute id="31" name="allConetent">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="36" minimum="0" maximum="2147483647">        
+      <multiplicity id="32" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
+    <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="37">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="38" name="comment">        
+  <association id="33">    
+    <bendpoint x="1286" y="1564"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="34" name="comment">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="39" minimum="0" maximum="2147483647">        
+      <multiplicity id="35" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="40">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="41" name="answer">        
+  <association id="36">    
+    <bendpoint x="1807" y="1028"/>    
+    <bendpoint x="1807" y="1564"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="37" name="aComment">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="42" minimum="0" maximum="2147483647">        
+      <multiplicity id="38" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
+    <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <association id="39">    
+    <bendpoint x="1786" y="1028"/>    
+    <bendpoint x="1786" y="1564"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="40" name="qComment">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="41" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="42">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="10"/>  
+  </nesting>  
   <generalization id="43">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="13"/>  
   </generalization>  
   <association id="44">    
-    <bendpoint x="1286" y="1564"/>    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="45" name="comment">        
+    <bendpoint x="1765" y="1028"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="45" name="answer">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="46" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <nesting id="47">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="10"/>  
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="21"/>  
   </nesting>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

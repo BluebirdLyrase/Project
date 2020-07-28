@@ -1,6 +1,7 @@
 package stackoverflow.ViewAndDialog;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -74,7 +75,15 @@ public class ViewHistoryView extends ViewPart {
 	private Action doubleClickAction;
 	private String[] id;
 	private String[] title;
-	ViewHistoryList viewHistory;
+	private String[] tags;
+	private String[] date;
+	private int lenght;
+	private Table table;
+	private ViewHistoryList viewHistory;
+	private boolean isCustom;
+	
+	//value form customTable
+	private ArrayList<String> cid = new ArrayList<String>();
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 		@Override
@@ -115,7 +124,7 @@ public class ViewHistoryView extends ViewPart {
 
 	private void createTable() {
 
-		Table table = this.viewer.getTable();
+		table = this.viewer.getTable();
 		table.removeAll();
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
@@ -136,25 +145,56 @@ public class ViewHistoryView extends ViewPart {
 		TableViewerColumn idColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
 		idColumn.getColumn().setWidth(100);
 		idColumn.getColumn().setText("ID");
+		createTableViewer();
 
-		// Create table viewer
+	}
+	
+	private void createTableViewer() {
+		table.removeAll();
 		try {
 			viewHistory = new ViewHistoryList();
-			int lenght = viewHistory.getLenght();
+			lenght = viewHistory.getLenght();
 			title = viewHistory.getTitle();
-			String[] tags = viewHistory.getTags();
-			String[] date = viewHistory.getViewDate();
+			tags = viewHistory.getTags();
+			date = viewHistory.getViewDate();
 			id = viewHistory.getId();
 
 			for (int i = 0; i < lenght; i++) {
 				new TableItem(table, SWT.NONE).setText(new String[] { title[i], tags[i], date[i], id[i] });
 			}
+			
+//			isCustom = false;
+			
 		} catch (IOException | JSONException e) {
 			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 	}
+	
+//	private void createCustomTableViewer() {
+//		
+//			for (int i = 0; i < lenght; i++) {
+//				if() { 
+//					//TODO 
+//				cid.add(id[i]); // add id as a key for right click function
+//				new TableItem(table, SWT.NONE).setText(new String[] { title[i], tags[i], date[i], id[i] });
+//				}
+//			}
+//			isCustom = true;
+//	}
+//	
+//	private int getRealIndex(String cid) {
+//		int realIndex = 0;
+//		for (int i = 0; i < lenght; i++) {
+//			if(cid.equals(id[i])) {
+//				realIndex = i;
+//				break;
+//			}
+//		}
+//		return realIndex;
+//	}
 
+	
 	private void open() {
 		int index = viewer.getTable().getSelectionIndex();
 		String viewerID = "stackoverflow.ViewAndDialog.ContentView";
@@ -260,7 +300,7 @@ public class ViewHistoryView extends ViewPart {
 	
 		refresh = new Action() {
 			public void run() {
-				createTable();
+				createTableViewer();
 			}
 		};
 		refresh.setText("Refresh");
