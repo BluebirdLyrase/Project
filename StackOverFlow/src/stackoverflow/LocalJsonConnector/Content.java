@@ -19,9 +19,9 @@ public class Content extends JSONFile {
 	private File fileDir = new File(fileDirURL);
 	protected String arrayName = "items";
 	
-	protected String delConfrimMsg = "Are you sure you want to delete this?";
-	protected String clearConfrimMsg = "Are you sure you want to Clear all Offline Content Data?";
-	protected String clearMsg = "Succesfully clear all OfflineContent data";
+	protected String delConfrimMsg = "do you want to delete this?";
+	protected String clearConfrimMsg = "do you want to remove all Offline Content data?";
+	protected String clearMsg = "Succesfully remove all OfflineContent data";
 
 	
 	public Content() throws IOException, JSONException {
@@ -75,7 +75,7 @@ public class Content extends JSONFile {
 		return result;
 	}
 	
-	private String claerAllConfrimMsg = "Do you want to clear all data?" ;
+	private String claerAllConfrimMsg = "Do you want to remove all data?" ;
 	public boolean clearAll() {
 		IWorkbench wb = PlatformUI.getWorkbench();
 		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();

@@ -67,7 +67,6 @@ public class SettingDialog extends TitleAreaDialog {
 		createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
 	}
 	
-	
 	protected void createButtonForButtonContainer(Composite buttonContainer ) {
 		String pattern = "#.###";
 		DecimalFormat decimalFormat = new DecimalFormat(pattern);
@@ -179,7 +178,7 @@ public class SettingDialog extends TitleAreaDialog {
 		      public void handleEvent(Event e) {
 
 		          try {
-		        	  allSize.setText("All saved contents size: 0 KB");
+		        	allSize.setText("All saved contents size: 0 KB");
 					new Content().clearAll();
 				
 				} catch (IOException | JSONException e1) {

@@ -178,7 +178,7 @@ public class ContentView extends ViewPart {
 			question = "<h2>Question : " + q.getTitle() + "</h2>" + "<div style=\" font-size: 18px \"> " + q.getBody()
 					+ "</div><hr>";
 
-			new ViewWriter().saveContentViewHistory(id, q.getTags(), q.getTitle());
+			new ViewWriter().saveContentViewHistory(q.getId(), q.getTags(), q.getTitle());
 
 			for (int t = 0; t < q.getTags().length; t++) {
 				tags = tags + "<code>" + q.getTags()[t] + "</code> ";

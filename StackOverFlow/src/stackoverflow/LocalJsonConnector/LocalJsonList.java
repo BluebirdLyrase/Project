@@ -26,14 +26,17 @@ public class LocalJsonList extends JSONFile {
 
 	// message
 	protected String delConfrimMsg = "Are you sure you want to delete this?";
-	protected String clearConfrimMsg = "Are you sure you want to Clear all " + arrayName + " Data?";
-	protected String clearMsg = "Succesfully clear all " + arrayName + " data";
+	protected String clearConfrimMsg ;
+	protected String clearMsg ;
 
 
 	public LocalJsonList(String filename) {
 		LOGGER.setLevel(Level.ALL);
 		this.filePath = defaultDir + "\\StackOverFlowHelper\\" + filename + ".json";
 		arrayName = filename;
+		
+		clearConfrimMsg = "Do you want to remove all "+arrayName+" data?";
+		clearMsg = "Succesfully remove all "+arrayName+" data";
 
 		// Check if there is already Stackoverflow dir if not create one
 		if (fileDir.mkdir()) {

@@ -47,11 +47,8 @@ public class ContentTitleWriter extends LocalJsonList{
 	
 	@Override
 	public boolean clear() {
-		boolean result = true;
-		if(result) {
-			deleteFile(filePath);
-		}
-		return result;
+		deleteFile(filePath);
+		return true;
 	}
 
 }
