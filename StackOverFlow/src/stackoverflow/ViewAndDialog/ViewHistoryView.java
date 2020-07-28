@@ -163,7 +163,7 @@ public class ViewHistoryView extends ViewPart {
 				new TableItem(table, SWT.NONE).setText(new String[] { title[i], tags[i], date[i], id[i] });
 			}
 			
-//			isCustom = false;
+			isCustom = false;
 			
 		} catch (IOException | JSONException e) {
 			new Log().saveLog(e);
@@ -171,28 +171,28 @@ public class ViewHistoryView extends ViewPart {
 		}
 	}
 	
-//	private void createCustomTableViewer() {
-//		
-//			for (int i = 0; i < lenght; i++) {
+	private void createCustomTableViewer() {
+		
+			for (int i = 0; i < lenght; i++) {
 //				if() { 
-//					//TODO 
-//				cid.add(id[i]); // add id as a key for right click function
-//				new TableItem(table, SWT.NONE).setText(new String[] { title[i], tags[i], date[i], id[i] });
+					//TODO the Search function
+				cid.add(id[i]); // add id as a key for right click function
+				new TableItem(table, SWT.NONE).setText(new String[] { title[i], tags[i], date[i], id[i] });
 //				}
-//			}
-//			isCustom = true;
-//	}
-//	
-//	private int getRealIndex(String cid) {
-//		int realIndex = 0;
-//		for (int i = 0; i < lenght; i++) {
-//			if(cid.equals(id[i])) {
-//				realIndex = i;
-//				break;
-//			}
-//		}
-//		return realIndex;
-//	}
+			}
+			isCustom = true;
+	}
+	
+	private int getRealIndex(String cid) {
+		int realIndex = 0;
+		for (int i = 0; i < lenght; i++) {
+			if(cid.equals(id[i])) {
+				realIndex = i;
+				break;
+			}
+		}
+		return realIndex;
+	}
 
 	
 	private void open() {
