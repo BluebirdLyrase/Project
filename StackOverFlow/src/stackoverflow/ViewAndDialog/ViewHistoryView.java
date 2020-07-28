@@ -16,6 +16,7 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
@@ -73,6 +74,7 @@ public class ViewHistoryView extends ViewPart {
 	private Action saveOffline;
 	private Action refresh;
 	private Action doubleClickAction;
+	private Action search;
 	private String[] id;
 	private String[] title;
 	private String[] tags;
@@ -81,9 +83,9 @@ public class ViewHistoryView extends ViewPart {
 	private Table table;
 	private ViewHistoryList viewHistory;
 	private boolean isCustom;
-	
-	//value form customTable
-	private ArrayList<String> cid = new ArrayList<String>();
+
+	// value form customTable use date ass a key
+	private ArrayList<String> cdate = new ArrayList<String>();
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 		@Override
@@ -148,7 +150,7 @@ public class ViewHistoryView extends ViewPart {
 		createTableViewer();
 
 	}
-	
+
 	private void createTableViewer() {
 		table.removeAll();
 		try {
@@ -162,41 +164,66 @@ public class ViewHistoryView extends ViewPart {
 			for (int i = 0; i < lenght; i++) {
 				new TableItem(table, SWT.NONE).setText(new String[] { title[i], tags[i], date[i], id[i] });
 			}
-			
+
 			isCustom = false;
-			
+
 		} catch (IOException | JSONException e) {
 			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void createCustomTableViewer() {
-		
+		TableSearchDialog dialog = new TableSearchDialog(win.getShell());
+		dialog.create();
+		if (dialog.open() == Window.OK) {
+			//clear all previous content
+			table.removeAll();
+			cdate.clear();
 			for (int i = 0; i < lenght; i++) {
-//				if() { 
-					//TODO the Search function
-				cid.add(id[i]); // add id as a key for right click function
-				new TableItem(table, SWT.NONE).setText(new String[] { title[i], tags[i], date[i], id[i] });
-//				}
+				if (isMatch(i, dialog.getSearchText(), dialog.getTagsText())) {
+					// TODO the Search function
+					cdate.add(date[i]); // add id as a key for right click function
+					new TableItem(table, SWT.NONE).setText(new String[] { title[i], tags[i], date[i], id[i] });
+				}
 			}
 			isCustom = true;
-	}
-	
-	private int getRealIndex(String cid) {
-		int realIndex = 0;
-		for (int i = 0; i < lenght; i++) {
-			if(cid.equals(id[i])) {
-				realIndex = i;
-				break;
-			}
 		}
-		return realIndex;
 	}
 
-	
+	private boolean isMatch(int index, String searchText, String tagsText) {
+		boolean result = false;
+		boolean simTitle = title[index].toLowerCase().contains(searchText.toLowerCase());
+		boolean simTags = (tags[index].toLowerCase().contains(tagsText.toLowerCase()) || tagsText == null);
+		if (simTitle && simTags) {
+			result = true;
+		}
+		return result;
+	}
+
+	private int getRealIndex() {
+		int currentIndex = viewer.getTable().getSelectionIndex();
+		int index = 0;
+		if (isCustom) {
+			for (int i = 0; i < lenght; i++) {
+				if (cdate.get(currentIndex).equals(date[i])) { //matching cid to actual id to find original index in array and table
+					index = i;
+//					System.out.println("real index is "+index+"|||"+title[index]);
+//					System.out.println(date[index]+"=="+cdate.get(currentIndex));
+					break;
+				}
+			}
+		}else {
+			index = currentIndex;
+//			System.out.println("real index is currentIndex "+index+"|||"+title[index]);
+		}
+		
+		return index;
+	}
+
 	private void open() {
-		int index = viewer.getTable().getSelectionIndex();
+//		int index = viewer.getTable().getSelectionIndex();
+		int index = getRealIndex();
 		String viewerID = "stackoverflow.ViewAndDialog.ContentView";
 
 		// Random number to be an ID
@@ -205,7 +232,7 @@ public class ViewHistoryView extends ViewPart {
 			activeEvent.showView(viewerID, secondaryId, IWorkbenchPage.VIEW_ACTIVATE);
 			IViewReference currentView = page.findViewReference(viewerID, secondaryId);
 			IViewPart viewPart = currentView.getView(true);
-			ContentView myView = (ContentView) viewPart; 
+			ContentView myView = (ContentView) viewPart;
 			myView.setContent(id[index]);
 		} catch (PartInitException e) {
 			new Log().saveLog(e);
@@ -214,27 +241,29 @@ public class ViewHistoryView extends ViewPart {
 	}
 
 	private void delete() {
-		int index = viewer.getTable().getSelectionIndex();
-		if(viewHistory.delete(index)) {
-		createTable();
+//		int index = viewer.getTable().getSelectionIndex();
+		int index = getRealIndex();
+		if (viewHistory.delete(index)) {
+			createTable();
 		}
 	}
-	
-	private void saveOffline(){
-		int index = viewer.getTable().getSelectionIndex();
+
+	private void saveOffline() {
+//		int index = viewer.getTable().getSelectionIndex();
+		int index = getRealIndex();
 		try {
 			new ContentWriter().saveContent(
-					//call AllContentObjectOnly() to create JSON Object
-					new AllContentObjectOnly().getJsonObject(id[index]), 
-					id[index], title[index]);
+					// call AllContentObjectOnly() to create JSON Object
+					new AllContentObjectOnly().getJsonObject(id[index]), id[index], title[index]);
 		} catch (IOException | JSONException e) {
 			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 	}
-	
-	private void saveFavorite(){
-		int index = viewer.getTable().getSelectionIndex();
+
+	private void saveFavorite() {
+//		int index = viewer.getTable().getSelectionIndex();
+		int index = getRealIndex();
 		try {
 			new FavoriteWriter().saveFavorite(title[index], id[index]);
 		} catch (IOException | JSONException e) {
@@ -259,14 +288,14 @@ public class ViewHistoryView extends ViewPart {
 	private void contributeToActionBars() {
 		IActionBars bars = getViewSite().getActionBars();
 //		fillLocalPullDown(bars.getMenuManager());
-	//	fillLocalToolBar(bars.getToolBarManager());
+		// fillLocalToolBar(bars.getToolBarManager());
 	}
-
 
 	private void fillContextMenu(IMenuManager manager) {
 		manager.add(open);
 		manager.add(delete);
 		manager.add(refresh);
+		manager.add(search);
 		// Other plug-ins can contribute there actions here
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 		manager.add(saveFavorite);
@@ -289,7 +318,7 @@ public class ViewHistoryView extends ViewPart {
 		};
 		delete.setText("Delete");
 		delete.setToolTipText("delete this record");
-	
+
 		saveFavorite = new Action() {
 			public void run() {
 				saveFavorite();
@@ -297,7 +326,15 @@ public class ViewHistoryView extends ViewPart {
 		};
 		saveFavorite.setText("save to favorite");
 		saveFavorite.setToolTipText("save this question to favorite list");
-	
+
+		search = new Action() {
+			public void run() {
+				createCustomTableViewer();
+			}
+		};
+		search.setText("Search");
+		search.setToolTipText("Search from this table");
+
 		refresh = new Action() {
 			public void run() {
 				createTableViewer();
@@ -305,7 +342,7 @@ public class ViewHistoryView extends ViewPart {
 		};
 		refresh.setText("Refresh");
 		refresh.setToolTipText("Refresh this table");
-		
+
 		saveOffline = new Action() {
 			public void run() {
 				saveOffline();

@@ -39,6 +39,7 @@ public class SearchHandler extends AbstractHandler {
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 		
+		///////selection is use for right click search function
 		ISelection selection = window.getActivePage().getSelection();
 		String select = selection.toString();
 		Pattern pattern = Pattern.compile("text: (.*?), document", Pattern.DOTALL);
