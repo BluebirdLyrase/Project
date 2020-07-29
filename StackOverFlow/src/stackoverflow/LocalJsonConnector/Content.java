@@ -28,9 +28,9 @@ public class Content extends JSONFile {
 		LOGGER.setLevel(Level.SEVERE);
 		// Check if there is already Stackoverflow dir if not create one
 		if (fileDir.mkdir()) {
-			LOGGER.info("[" + LOGGER.getName() + "] " + "Directory create" + fileDir.getName());
+			LOGGER.info("Directory create" + fileDir.getName());
 		} else {
-			LOGGER.info("[" + LOGGER.getName() + "] " + "Directory already exists.");
+			LOGGER.info("Directory already exists.");
 		}
 	}
 
@@ -47,7 +47,7 @@ public class Content extends JSONFile {
 				new Log().saveLog(e);
 			}
 		} else {
-			LOGGER.info("[" + LOGGER.getName() + "] " + "Delete has been cancel by user.");
+			LOGGER.info("Delete has been cancel by user.");
 		}
 		return result;
 	}

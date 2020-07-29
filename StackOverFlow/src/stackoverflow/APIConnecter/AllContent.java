@@ -73,17 +73,17 @@ public class AllContent extends StackOverFlowConnecter {
 		this.itemObject = json.getJSONArray("items").getJSONObject(0);
 
 		this.title = itemObject.getString("title");
-		LOGGER.info("[" + LOGGER.getName() + "] " + "title : " + title);
+		LOGGER.info("title : " + title);
 		
 		this.id=  itemObject.get("question_id").toString();
 
-		LOGGER.info("[" + LOGGER.getName() + "] " + "question_id : " + id);
+		LOGGER.info("question_id : " + id);
 
 		this.body = itemObject.getString("body");
-		LOGGER.info("[" + LOGGER.getName() + "] " + "body : " + body);
+		LOGGER.info("body : " + body);
 		
 		this.qScore = itemObject.getInt("score");
-		LOGGER.info("[" + LOGGER.getName() + "] " + "qscore : " + qScore);
+		LOGGER.info("qscore : " + qScore);
 
 		JSONObject qOwnerJson = itemObject.getJSONObject("owner");
 		boolean qHaveImage = qOwnerJson.has("profile_image");
@@ -105,14 +105,14 @@ public class AllContent extends StackOverFlowConnecter {
 		
 
 		this.qOwner = qOwnerJson.getString("display_name");
-		LOGGER.info("[" + LOGGER.getName() + "] " + "Q owner : " + qOwner);
+		LOGGER.info("Qowner : " + qOwner);
 
 		if (qHaveImage) {
 			this.qOwnerImage = qOwnerJson.getString("profile_image");
-			LOGGER.info("[" + LOGGER.getName() + "] " + "qOwnerImage : " + qOwnerImage);
+			LOGGER.info("qOwnerImage : " + qOwnerImage);
 		} else {
 			this.qOwnerImage = "https://www.img.in.th/images/f11865103ab590aff5efd38cbb5f4dbd.png";
-			LOGGER.info("[" + LOGGER.getName() + "] " + "qOwnerImage : " + "this man have no Image");
+			LOGGER.info("qOwnerImage : " + "this man have no Image");
 		}
 
 		///////////////////////////// Comment ///////////////////////////////////
@@ -129,16 +129,16 @@ public class AllContent extends StackOverFlowConnecter {
 			JSONArray commentObject = itemObject.getJSONArray("comments");
 
 			int commentLenght = commentObject.length();
-			LOGGER.info("[" + LOGGER.getName() + "] " + "commentLenght : " + commentLenght);
+			LOGGER.info("commentLenght : " + commentLenght);
 			qComment = new Comment[commentLenght];
 			for (int i = 0; i < commentLenght; i++) {
 				cBody = commentObject.getJSONObject(i).getString("body");
 				cScore = commentObject.getJSONObject(i).getInt("score");
 				cOwner = commentObject.getJSONObject(i).getJSONObject("owner").getString("display_name");
 				qComment[i] = new Comment(cBody, cScore, cOwner);
-				LOGGER.info("[" + LOGGER.getName() + "] " + "cBody " + i + " : " + qComment[i].getBody());
-				LOGGER.info("[" + LOGGER.getName() + "] " + "cScore " + i + " : " + qComment[i].getScore());
-				LOGGER.info("[" + LOGGER.getName() + "] " + "cOwner " + i + " : " + qComment[i].getOwner());
+				LOGGER.info("cBody " + i + " : " + qComment[i].getBody());
+				LOGGER.info("cScore " + i + " : " + qComment[i].getScore());
+				LOGGER.info("cOwner " + i + " : " + qComment[i].getOwner());
 			}
 
 		}
@@ -159,7 +159,7 @@ public class AllContent extends StackOverFlowConnecter {
 			JSONArray answerObject = itemObject.getJSONArray("answers");
 
 			int answerLenght = answerObject.length();
-			LOGGER.info("[" + LOGGER.getName() + "] " + "answerLenght : " + answerLenght);
+			LOGGER.info("answerLenght : " + answerLenght);
 			answer = new Answer[answerLenght];
 
 			for (int i = 0; i < answerLenght; i++) {
@@ -167,26 +167,26 @@ public class AllContent extends StackOverFlowConnecter {
 				JSONObject currentAnswerObject = answerObject.getJSONObject(i);
 
 				this.aBody = currentAnswerObject.getString("body");
-				LOGGER.info("[" + LOGGER.getName() + "] " + "aBody : " + aBody);
+				LOGGER.info("aBody : " + aBody);
 
 				this.aScore = currentAnswerObject.getInt("score");
-				LOGGER.info("[" + LOGGER.getName() + "] " + "aScore : " + aScore);
+				LOGGER.info("aScore : " + aScore);
 
 				this.is_accepted = currentAnswerObject.getBoolean("is_accepted");
-				LOGGER.info("[" + LOGGER.getName() + "] " + "is_accepted : " + is_accepted);
+				LOGGER.info("is_accepted : " + is_accepted);
 
 				JSONObject aOwnerJson = currentAnswerObject.getJSONObject("owner");
 				boolean aHaveImage = aOwnerJson.has("profile_image");
 
 				this.aOwner = aOwnerJson.getString("display_name");
-				LOGGER.info("[" + LOGGER.getName() + "] " + "A owner : " + aOwner);
+				LOGGER.info("A owner : " + aOwner);
 
 				if (aHaveImage) {
 					this.aOwnerImage = aOwnerJson.getString("profile_image");
-					LOGGER.info("[" + LOGGER.getName() + "] " + "aOwnerImage : " + aOwnerImage);
+					LOGGER.info("aOwnerImage : " + aOwnerImage);
 				} else {
 					this.aOwnerImage = "https://www.img.in.th/images/f11865103ab590aff5efd38cbb5f4dbd.png";
-					LOGGER.info("[" + LOGGER.getName() + "] " + "aOwnerImage : " + "this man habe no Image");
+					LOGGER.info("aOwnerImage : " + "this man habe no Image");
 				}
 
 				///////////////////////////// Comment///////////////////////////////////
@@ -198,13 +198,13 @@ public class AllContent extends StackOverFlowConnecter {
 				} else {
 					haveAComment = false;
 				}
-				LOGGER.info("[" + LOGGER.getName() + "] " + "haveAComment : " + haveAComment);
+				LOGGER.info("haveAComment : " + haveAComment);
 
 				if (haveAComment) {
 
 					JSONArray currentaCommentObject = currentAnswerObject.getJSONArray("comments");
 					int AcommentLenght = currentaCommentObject.length();
-					LOGGER.info("[" + LOGGER.getName() + "] " + "AcommentLenght : " + AcommentLenght);
+					LOGGER.info("AcommentLenght : " + AcommentLenght);
 					aComment = new Comment[AcommentLenght];
 					for (int j = 0; j < AcommentLenght; j++) {
 						cBody = currentaCommentObject.getJSONObject(j).getString("body");
@@ -212,9 +212,9 @@ public class AllContent extends StackOverFlowConnecter {
 						cOwner = currentaCommentObject.getJSONObject(j).getJSONObject("owner").getString("display_name")
 								;
 						aComment[j] = new Comment(cBody, cScore, cOwner);
-						LOGGER.info("[" + LOGGER.getName() + "] " + "aBody " + i + " : " + aComment[j].getBody());
-						LOGGER.info("[" + LOGGER.getName() + "] " + "aScore " + i + " : " + aComment[j].getScore());
-						LOGGER.info("[" + LOGGER.getName() + "] " + "aOwner " + i + " : " + aComment[j].getOwner());
+						LOGGER.info("aBody " + i + " : " + aComment[j].getBody());
+						LOGGER.info("aScore " + i + " : " + aComment[j].getScore());
+						LOGGER.info("aOwner " + i + " : " + aComment[j].getOwner());
 					}
 				}
 

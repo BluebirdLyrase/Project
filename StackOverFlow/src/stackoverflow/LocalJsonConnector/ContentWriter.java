@@ -36,7 +36,7 @@ public class ContentWriter extends Content{
 						win.getShell(),
 						"StackOverFlow",
 						"Save to Offline Storage Sucessful");
-				LOGGER.info("[" + LOGGER.getName() + "] " + "File created : " + newFile.getName());
+				LOGGER.info("File created : " + newFile.getName());
 				Files.writeString(Paths.get(filePath), "", StandardOpenOption.WRITE);
 				writeContent();
 				new ContentTitleWriter().saveContentTitle(title,id);
@@ -45,10 +45,10 @@ public class ContentWriter extends Content{
 						win.getShell(),
 						"StackOverFlow",
 						"Duplicate Qeustion in Offline Storage");
-				LOGGER.info("[" + LOGGER.getName() + "] " + "File already exists : "+filePath);
+				LOGGER.info("File already exists : "+filePath);
 			}
 		} catch (IOException | JSONException e) {
-			LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while creating new json in Content : "+e);
+			LOGGER.severe("Error while creating new json in Content : "+e);
 			isSave = false;
 		}
 		return isSave;
@@ -59,7 +59,7 @@ public class ContentWriter extends Content{
 		try {
         saveJSONFile(filePath, jsonObject);
 		} catch (JSONException | IOException e) {
-			LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while saving Content : "+e);
+			LOGGER.severe("Error while saving Content : "+e);
 			new Log().saveLog(e);
 			isWrite = false;
 		}

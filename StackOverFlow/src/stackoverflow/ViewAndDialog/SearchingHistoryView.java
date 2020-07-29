@@ -232,7 +232,7 @@ public class SearchingHistoryView extends ViewPart {
 			}
 		}else {
 			index = currentIndex;
-			LOGGER.info("["+LOGGER.getName()+"] "+"no custom table");
+			LOGGER.info("no custom table");
 		}
 		
 		return index;

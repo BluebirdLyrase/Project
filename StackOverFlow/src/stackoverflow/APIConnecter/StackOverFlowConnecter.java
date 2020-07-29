@@ -28,7 +28,7 @@ public class StackOverFlowConnecter {
 
 	protected JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
 		LOGGER.setLevel(Level.WARNING);
-		LOGGER.info("["+LOGGER.getName()+"] "+"url : "+url);
+		LOGGER.info("url : "+url);
 		InputStream is = new URL(url).openStream();
 		is = new GZIPInputStream(is);
 		try {

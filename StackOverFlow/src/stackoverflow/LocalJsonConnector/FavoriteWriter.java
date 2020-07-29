@@ -50,10 +50,10 @@ public class FavoriteWriter extends LocalJsonList {
 						win.getShell(),
 						"StackOverFlow",
 						"Already add this Question as Favortie");
-				LOGGER.info("[" + LOGGER.getName() + "] " + "duplicate id");
+				LOGGER.info("duplicate id");
 			}
 		} catch (JSONException | IOException e) {
-			LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while saving Favorite : " + e);
+			LOGGER.severe("Error while saving Favorite : " + e);
 			new Log().saveLog(e);
 		}
 	}

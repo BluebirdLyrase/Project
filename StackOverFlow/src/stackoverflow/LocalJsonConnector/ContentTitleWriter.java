@@ -24,7 +24,7 @@ public class ContentTitleWriter extends LocalJsonList{
         saveJSONFile(filePath, jsonObject);
 		}catch (JSONException | IOException e) {
 			e.printStackTrace();
-			LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while saving ContentTitle : "+e);
+			LOGGER.severe("Error while saving ContentTitle : "+e);
 			new Log().saveLog(e);
 		}
 	}
@@ -38,7 +38,7 @@ public class ContentTitleWriter extends LocalJsonList{
 		} catch (JSONException | IOException e) {
 			result = false;
 			e.printStackTrace();
-			LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while removing item." + e);
+			LOGGER.severe("Error while removing item." + e);
 			new Log().saveLog(e);
 		}
 		

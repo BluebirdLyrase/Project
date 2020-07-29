@@ -40,19 +40,19 @@ public class LocalJsonList extends JSONFile {
 
 		// Check if there is already Stackoverflow dir if not create one
 		if (fileDir.mkdir()) {
-			LOGGER.info("[" + LOGGER.getName() + "] " + "Directory create" + fileDir.getName());
+			LOGGER.info("Directory create" + fileDir.getName());
 		} else {
-			LOGGER.info("[" + LOGGER.getName() + "] " + "Directory already exists.");
+			LOGGER.info("Directory already exists.");
 		}
 
 		File newFile = new File(filePath);
 		// Check if there is already .json file if not create one
 		try {
 			if (newFile.createNewFile()) {
-				LOGGER.info("[" + LOGGER.getName() + "] " + "File created : " + newFile.getName());
+				LOGGER.info("File created : " + newFile.getName());
 				Files.writeString(Paths.get(filePath), "{" + arrayName + ":[]}", StandardOpenOption.WRITE);
 			} else {
-				LOGGER.info("[" + LOGGER.getName() + "] " + "File already exists.");
+				LOGGER.info("File already exists.");
 			}
 			jsonObject = parseJSONFile(filePath);
 		} catch (IOException | JSONException e) {
@@ -73,10 +73,10 @@ public class LocalJsonList extends JSONFile {
 				saveJSONFile(filePath, jsonObject);
 			} catch (JSONException | IOException e) {
 				new Log().saveLog(e);
-				LOGGER.severe("[" + LOGGER.getName() + "] " + "Error while removing item." + e);
+				LOGGER.severe("Error while removing item." + e);
 			}
 		} else {
-			LOGGER.info("[" + LOGGER.getName() + "] " + "Delete has been cancel by user.");
+			LOGGER.info("Delete has been cancel by user.");
 		}
 		return result;
 	}
