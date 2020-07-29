@@ -46,7 +46,7 @@ import stackoverflow.LocalJsonConnector.ViewHistoryList;
 
 public class ViewHistoryView extends ViewPart {
 
-	protected static final Logger LOGGER = Logger.getLogger(StackOverFlowConnecter.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(StackOverFlowConnecter.class.getName());
 	public static final String ID = "stackoverflow.ViewAndDialog.ViewHistoryView";
 
 	@Inject
@@ -159,7 +159,7 @@ public class ViewHistoryView extends ViewPart {
 	}
 
 	private void createCustomTableViewer() {
-		TableSearchDialog dialog = new TableSearchDialog(win.getShell());
+		ViewHistorySearchDialog dialog = new ViewHistorySearchDialog(win.getShell());
 		dialog.create();
 		if (dialog.open() == Window.OK) {
 			//clear all previous content
@@ -167,7 +167,6 @@ public class ViewHistoryView extends ViewPart {
 			cdate.clear();
 			for (int i = 0; i < lenght; i++) {
 				if (isMatch(i, dialog.getSearchText(), dialog.getTagsText())) {
-					// TODO the Search function
 					cdate.add(date[i]); // add id as a key for right click function
 					new TableItem(table, SWT.NONE).setText(new String[] { title[i], tags[i], date[i], id[i] });
 				}
@@ -178,11 +177,9 @@ public class ViewHistoryView extends ViewPart {
 
 	private boolean isMatch(int index, String searchText, String tagsText) {
 		boolean result = false;
-		boolean simTitle = title[index].toLowerCase().contains(searchText.toLowerCase());
+		boolean simTitle = (title[index].toLowerCase().contains(searchText.toLowerCase()) || searchText == null);
 		boolean simTags = (tags[index].toLowerCase().contains(tagsText.toLowerCase()) || tagsText == null);
-		if (simTitle && simTags) {
-			result = true;
-		}
+		result = simTitle && simTags;
 		return result;
 	}
 
@@ -193,14 +190,14 @@ public class ViewHistoryView extends ViewPart {
 			for (int i = 0; i < lenght; i++) {
 				if (cdate.get(currentIndex).equals(date[i])) { //matching cid to actual id to find original index in array and table
 					index = i;
-					LOGGER.info("["+LOGGER.getName()+"] "+"index = "+index+"||| title = "+title[index]);
-					LOGGER.info("["+LOGGER.getName()+"] "+"date : "+date[index]+"=="+"cdate"+cdate.get(currentIndex));
+					LOGGER.info("index = "+index+"||| title = "+title[index]);
+					LOGGER.info("date : "+date[index]+"=="+"cdate"+cdate.get(currentIndex));
 					break;
 				}
 			}
 		}else {
 			index = currentIndex;
-			LOGGER.info("["+LOGGER.getName()+"] "+"no custom table");
+			LOGGER.info("no custom table");
 		}
 		
 		return index;

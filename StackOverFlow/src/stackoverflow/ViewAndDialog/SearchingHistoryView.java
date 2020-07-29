@@ -1,6 +1,9 @@
 package stackoverflow.ViewAndDialog;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
@@ -16,6 +19,7 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
@@ -35,6 +39,7 @@ import org.eclipse.ui.part.ViewPart;
 import org.json.JSONException;
 
 import stackoverflow.APIConnecter.SearchResult;
+import stackoverflow.APIConnecter.StackOverFlowConnecter;
 import stackoverflow.LocalJsonConnector.Log;
 import stackoverflow.LocalJsonConnector.SearchingHistoryList;
 import stackoverflow.LocalJsonConnector.SearchingWriter;
@@ -59,17 +64,24 @@ public class SearchingHistoryView extends ViewPart {
 	/**
 	 * The ID of the view as specified by the extension.
 	 */
+	private static final Logger LOGGER = Logger.getLogger(StackOverFlowConnecter.class.getName());
 	public static final String ID = "stackoverflow.ViewAndDialog.SearchingHistoryView";
 
 	@Inject
 	IWorkbench workbench;
-	SearchingHistoryList searchingHistory;
 	private TableViewer viewer;
 	private Action open;
 	private Action delete;
 	private Action refresh;
 	private Action doubleClickAction;
+	private Action search;
 	private Table table;
+	private SearchingHistoryList searchingHistory;
+
+	private boolean isCustom;
+
+	// value form customTable use date ass a key
+	private ArrayList<String> cdate = new ArrayList<String>();
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 		@Override
@@ -90,7 +102,7 @@ public class SearchingHistoryView extends ViewPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
-
+		LOGGER.setLevel(Level.INFO);
 		// Create table viewer
 		this.viewer = new TableViewer(parent,
 				SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION);
@@ -105,17 +117,18 @@ public class SearchingHistoryView extends ViewPart {
 		contributeToActionBars();
 	}
 
-	String[] text;
-	String[] order;
-	String[] sort;
-	String[] site;
-	String[] tagged;
-	String[] date;
+	private String[] text;
+	private String[] order;
+	private String[] sort;
+	private String[] site;
+	private String[] tagged;
+	private String[] date;
+	private int lenght;
 
-	IWorkbench wb = PlatformUI.getWorkbench();
-	IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-	IWorkbenchPage activeEvent = win.getActivePage();
-	IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+	private IWorkbench wb = PlatformUI.getWorkbench();
+	private IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+	private IWorkbenchPage activeEvent = win.getActivePage();
+	private IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 
 	private void createTable() {
 		table = this.viewer.getTable();
@@ -156,7 +169,7 @@ public class SearchingHistoryView extends ViewPart {
 		table.removeAll();
 		try {
 			searchingHistory = new SearchingHistoryList();
-			int lenght = searchingHistory.getLenght();
+			lenght = searchingHistory.getLenght();
 			text = searchingHistory.getSearchText();
 			order = searchingHistory.getOrder();
 			sort = searchingHistory.getSort();
@@ -175,9 +188,59 @@ public class SearchingHistoryView extends ViewPart {
 		}
 	}
 
+	private void createCustomTableViewer() {
+		SearchHistorySearchDialog dialog = new SearchHistorySearchDialog(win.getShell());
+		dialog.create();
+		if (dialog.open() == Window.OK) {
+			// clear all previous content
+			table.removeAll();
+			cdate.clear();
+			for (int i = 0; i < lenght; i++) {
+				if (isMatch(i, dialog.getSearchText(),dialog.getOrder(),dialog.getSort(),dialog.getSite(),dialog.getTagsText())) {
+					cdate.add(date[i]); // add id as a key for right click function
+					new TableItem(table, SWT.NONE)
+							.setText(new String[] { text[i], order[i], sort[i], site[i], tagged[i], date[i] });
+				}
+			}
+			isCustom = true;
+		}
+	}
+
+	private boolean isMatch(int index, String searchText,String order, String sort, String site, String tagged) {
+		boolean result = false;
+		boolean simSearch = (text[index].toLowerCase().contains(searchText.toLowerCase()) || searchText == null);
+		boolean simOrder = (this.order[index].equals(order) || order.equals("any")) ;
+		boolean simSort = (this.sort[index].equals(sort) || sort.equals("any"));
+		boolean simSite = (this.site[index].equals(site) || site.equals("any"));
+		boolean simTags = (this.tagged[index].toLowerCase().contains(tagged.toLowerCase()) || tagged == null);
+		result = simSearch && simOrder && simSort && simSite && simTags ;
+		LOGGER.info("match data searchtext : "+text[index]+"| date : "+date[index]);
+		return result;
+	}
+	
+	private int getRealIndex() {
+		int currentIndex = viewer.getTable().getSelectionIndex();
+		int index = 0;
+		if (isCustom) {
+			for (int i = 0; i < lenght; i++) {
+				if (cdate.get(currentIndex).equals(date[i])) { //matching cid to actual id to find original index in array and table
+					index = i;
+					LOGGER.info("index = "+index+"||| title = "+ text[index]);
+					LOGGER.info("date : "+date[index]+"=="+"cdate"+cdate.get(currentIndex));
+					break;
+				}
+			}
+		}else {
+			index = currentIndex;
+			LOGGER.info("["+LOGGER.getName()+"] "+"no custom table");
+		}
+		
+		return index;
+	}
+
 	private void open() {
 		String viewerID = "stackoverflow.ViewAndDialog.SearchResultView";
-		int index = viewer.getTable().getSelectionIndex();
+		int index = getRealIndex();
 		String intitle = this.text[index];
 		String order = this.order[index];
 		String sort = this.sort[index];
@@ -214,7 +277,7 @@ public class SearchingHistoryView extends ViewPart {
 	}
 
 	private void delete() {
-		int index = viewer.getTable().getSelectionIndex();
+		int index = getRealIndex();
 		if (searchingHistory.delete(index)) {
 			createTable();
 		}
@@ -239,24 +302,14 @@ public class SearchingHistoryView extends ViewPart {
 //		fillLocalToolBar(bars.getToolBarManager());
 	}
 
-//	private void fillLocalPullDown(IMenuManager manager) {
-//		manager.add(open);
-//		manager.add(new Separator());
-//		manager.add(delete);
-//	}
-
 	private void fillContextMenu(IMenuManager manager) {
 		manager.add(open);
 		manager.add(delete);
 		manager.add(refresh);
+		manager.add(search);
 		// Other plug-ins can contribute there actions here
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
-
-//	private void fillLocalToolBar(IToolBarManager manager) {
-//		manager.add(open);
-//		manager.add(delete);
-//	}
 
 	private void makeActions() {
 		open = new Action() {
@@ -285,7 +338,15 @@ public class SearchingHistoryView extends ViewPart {
 		};
 		refresh.setText("Refresh");
 		refresh.setToolTipText("Refresh this Table");
-
+		
+		search = new Action() {
+			public void run() {
+				createCustomTableViewer();
+			}
+		};
+		search.setText("Search");
+		search.setToolTipText("Search from this table");
+		
 		doubleClickAction = new Action() {
 			public void run() {
 				open();

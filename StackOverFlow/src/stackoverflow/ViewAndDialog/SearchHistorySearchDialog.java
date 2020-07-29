@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-public class UserInputDialog extends TitleAreaDialog {
+public class SearchHistorySearchDialog extends TitleAreaDialog {
 
 	private Text txtSearchText;
 	private Text txtTagsText;
@@ -28,24 +28,18 @@ public class UserInputDialog extends TitleAreaDialog {
 	private String site;
 
 	////List of option
-	private String[] sortList = {"relevance","creation","votes","activity"};
-	private String[] siteList = {"stackoverflow","devops","gamedev","stackapps","superuser","sqa","softwareengineering","reverseengineering","webapps","webmasters"};
+	private String[] sortList = {"any","relevance","creation","votes","activity"};
+	private String[] siteList = {"any","stackoverflow","devops","gamedev","stackapps","superuser","sqa","softwareengineering","reverseengineering","webapps","webmasters"};
+	private String[] orderList = {"any","ASC","DESC"};
 	
-	private String selectedText = "";
-	
-	public UserInputDialog(Shell parentShell) {
+	public SearchHistorySearchDialog(Shell parentShell) {
 		super(parentShell);
-	}
-	
-	public void setText(String selectedText) {
-		this.selectedText = selectedText;
 	}
 
 	@Override
 	public void create() {
 		super.create();
-		setTitle("Stackoverflow Search");
-		setMessage("Search answer from Stackoverflow\n Seperate tags by using \";\" ", IMessageProvider.INFORMATION);
+		setTitle("Local Table Search");
 	}
 
 	@Override
@@ -76,7 +70,7 @@ public class UserInputDialog extends TitleAreaDialog {
 
 	private void createSearchText(Composite container) {
 		Label lbtSearchText = new Label(container, SWT.NONE);
-		lbtSearchText.setText("Search :");
+		lbtSearchText.setText("Search Text :");
 		lbtSearchText.setFont(new org.eclipse.swt.graphics.Font(null, "", 10, SWT.BOLD));
 
 		GridData dataSearchText = new GridData();
@@ -85,7 +79,6 @@ public class UserInputDialog extends TitleAreaDialog {
 
 		txtSearchText = new Text(container, SWT.BORDER);
 		txtSearchText.setLayoutData(dataSearchText);
-		txtSearchText.setText(selectedText);
 
 	}
 	
@@ -126,8 +119,9 @@ public class UserInputDialog extends TitleAreaDialog {
 		gridData1.horizontalAlignment = GridData.BEGINNING;
 		orderCombo = new Combo(filterContainer , SWT.DROP_DOWN | SWT.READ_ONLY);
 		orderCombo.setLayoutData(gridData1);
-		orderCombo.add("ASC");
-		orderCombo.add("DESC");
+		for(String sortBy : orderList) {
+			orderCombo.add(sortBy);
+		}
 		orderCombo.select(0);
 	}
 

@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-public class TableSearchDialog extends TitleAreaDialog {
+public class ViewHistorySearchDialog extends TitleAreaDialog {
 
 	private Text txtSearchText;
 	private Text txtTagsText;
@@ -19,7 +19,7 @@ public class TableSearchDialog extends TitleAreaDialog {
 
 	private String selectedText = "";
 	
-	public TableSearchDialog(Shell parentShell) {
+	public ViewHistorySearchDialog(Shell parentShell) {
 		super(parentShell);
 	}
 	
