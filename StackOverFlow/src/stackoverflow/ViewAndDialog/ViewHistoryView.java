@@ -2,6 +2,7 @@ package stackoverflow.ViewAndDialog;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
@@ -37,31 +38,15 @@ import org.eclipse.ui.part.ViewPart;
 import org.json.JSONException;
 
 import stackoverflow.APIConnecter.AllContentObjectOnly;
+import stackoverflow.APIConnecter.StackOverFlowConnecter;
 import stackoverflow.LocalJsonConnector.ContentWriter;
 import stackoverflow.LocalJsonConnector.FavoriteWriter;
 import stackoverflow.LocalJsonConnector.Log;
 import stackoverflow.LocalJsonConnector.ViewHistoryList;
 
-/**
- * This sample class demonstrates how to plug-in a new workbench view. The view
- * shows data obtained from the model. The sample creates a dummy model on the
- * fly, but a real implementation would connect to the model available either in
- * this or another plug-in (e.g. the workspace). The view is connected to the
- * model using a content provider.
- * <p>
- * The view uses a label provider to define how model objects should be
- * presented in the view. Each view can present the same model objects using
- * different labels and icons, if needed. Alternatively, a single label provider
- * can be shared between views in order to ensure that objects of the same type
- * are presented in the same way everywhere.
- * <p>
- */
-
 public class ViewHistoryView extends ViewPart {
 
-	/**
-	 * The ID of the view as specified by the extension.
-	 */
+	protected static final Logger LOGGER = Logger.getLogger(StackOverFlowConnecter.class.getName());
 	public static final String ID = "stackoverflow.ViewAndDialog.ViewHistoryView";
 
 	@Inject
@@ -208,21 +193,20 @@ public class ViewHistoryView extends ViewPart {
 			for (int i = 0; i < lenght; i++) {
 				if (cdate.get(currentIndex).equals(date[i])) { //matching cid to actual id to find original index in array and table
 					index = i;
-//					System.out.println("real index is "+index+"|||"+title[index]);
-//					System.out.println(date[index]+"=="+cdate.get(currentIndex));
+					LOGGER.info("["+LOGGER.getName()+"] "+"index = "+index+"||| title = "+title[index]);
+					LOGGER.info("["+LOGGER.getName()+"] "+"date : "+date[index]+"=="+"cdate"+cdate.get(currentIndex));
 					break;
 				}
 			}
 		}else {
 			index = currentIndex;
-//			System.out.println("real index is currentIndex "+index+"|||"+title[index]);
+			LOGGER.info("["+LOGGER.getName()+"] "+"no custom table");
 		}
 		
 		return index;
 	}
 
 	private void open() {
-//		int index = viewer.getTable().getSelectionIndex();
 		int index = getRealIndex();
 		String viewerID = "stackoverflow.ViewAndDialog.ContentView";
 
@@ -241,7 +225,6 @@ public class ViewHistoryView extends ViewPart {
 	}
 
 	private void delete() {
-//		int index = viewer.getTable().getSelectionIndex();
 		int index = getRealIndex();
 		if (viewHistory.delete(index)) {
 			createTable();
@@ -249,7 +232,6 @@ public class ViewHistoryView extends ViewPart {
 	}
 
 	private void saveOffline() {
-//		int index = viewer.getTable().getSelectionIndex();
 		int index = getRealIndex();
 		try {
 			new ContentWriter().saveContent(
@@ -262,7 +244,6 @@ public class ViewHistoryView extends ViewPart {
 	}
 
 	private void saveFavorite() {
-//		int index = viewer.getTable().getSelectionIndex();
 		int index = getRealIndex();
 		try {
 			new FavoriteWriter().saveFavorite(title[index], id[index]);
