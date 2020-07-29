@@ -9,5 +9,7 @@ Require-Bundle: org.eclipse.ui,
 Automatic-Module-Name: StackOverFlow
 Bundle-RequiredExecutionEnvironment: JavaSE-13
 Bundle-ClassPath: libs/java-json.jar,
- .
+ .,
+ libs/mongo-java-driver-3.12.6.jar,
+ libs/mongodb-driver-core-4.1.0-rc0.jar
 Import-Package: javax.inject
