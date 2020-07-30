@@ -6,11 +6,6 @@
          point="org.eclipse.ui.commands">
       <command
             categoryId="StackOverFlow.commands.StackOverFlowCategory"
-            id="StackOverFlow.commands.HistoryCommand"
-            name="History">
-      </command>
-      <command
-            categoryId="StackOverFlow.commands.StackOverFlowCategory"
             id="StackOverFlow.commands.SearchCommand"
             name="Search from Stack">
       </command>
@@ -30,16 +25,17 @@
       </command>
       <command
             categoryId="StackOverFlow.commands.StackOverFlowCategory"
+            id="StackOverFlow.commands.HistoryCommand"
+            name="History">
+      </command>
+      <command
+            categoryId="StackOverFlow.commands.StackOverFlowCategory"
             id="StackOverFlow.commands.settingCommand"
             name="Setting">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
-      <handler
-            class="stackoverflow.handlers.HistoryHandler"
-            commandId="StackOverFlow.commands.HistoryCommand">
-      </handler>
       <handler
             class="stackoverflow.handlers.SearchHandler"
             commandId="StackOverFlow.commands.SearchCommand">
@@ -53,18 +49,16 @@
             commandId="StackOverFlow.commands.FavoriteCommand">
       </handler>
       <handler
+            class="stackoverflow.handlers.HistoryHandler"
+            commandId="StackOverFlow.commands.HistoryCommand">
+      </handler>
+      <handler
             class="stackoverflow.handlers.SettingHanlers"
             commandId="StackOverFlow.commands.settingCommand">
       </handler>
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
-      <key
-            commandId="StackOverFlow.commands.HistoryCommand"
-            contextId="org.eclipse.ui.contexts.window"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M1+6">
-      </key>
       <key
             commandId="StackOverFlow.commands.SearchCommand"
             contextId="org.eclipse.ui.contexts.window"
@@ -84,6 +78,12 @@
             sequence="M1+6">
       </key>
       <key
+            commandId="StackOverFlow.commands.HistoryCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+6">
+      </key>
+      <key
             commandId="StackOverFlow.commands.settingCommand"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
@@ -92,31 +92,6 @@
    </extension>
    <extension
          point="org.eclipse.ui.menus">
-      <menuContribution
-            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
-         <menu
-               id="StackOverFlow.menus.StackOverFlowMenu"
-               label="StackOverFlow"
-               mnemonic="M">
-            <command
-                  commandId="StackOverFlow.commands.HistoryCommand"
-                  icon="images/time16px.png"
-                  id="StackOverFlow.menus.HistoryCommand"
-                  mnemonic="S">
-            </command>
-         </menu>
-      </menuContribution>
-      <menuContribution
-            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
-         <toolbar
-               id="StackOverFlow.toolbars.HistoryCommand">
-            <command
-                  commandId="StackOverFlow.commands.HistoryCommand"
-                  icon="images/stackoverflow16px.png"
-                  id="StackOverFlow.toolbars.HistoryCommand">
-            </command>
-         </toolbar>
-      </menuContribution>
       <menuContribution
             locationURI="menu:org.eclipse.ui.main.menu?after=additions">
          <menu
@@ -194,6 +169,31 @@
                   mnemonic="S">
             </command>
          </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="StackOverFlow.menus.StackOverFlowMenu"
+               label="StackOverFlow"
+               mnemonic="M">
+            <command
+                  commandId="StackOverFlow.commands.HistoryCommand"
+                  icon="images/time16px.png"
+                  id="StackOverFlow.menus.HistoryCommand"
+                  mnemonic="S">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="StackOverFlow.toolbars.HistoryCommand">
+            <command
+                  commandId="StackOverFlow.commands.HistoryCommand"
+                  icon="images/stackoverflow16px.png"
+                  id="StackOverFlow.toolbars.HistoryCommand">
+            </command>
+         </toolbar>
       </menuContribution>
       <menuContribution
             locationURI="menu:org.eclipse.ui.main.menu?after=additions">
