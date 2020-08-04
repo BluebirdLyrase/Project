@@ -229,7 +229,7 @@
             icon="images/stackoverflow16px.png"
             id="stackoverflow.ViewAndDialog.SearchResultView"
             inject="true"
-            name="SearchResult View">
+            name="SearchResult">
       </view>
       <category
             id="StackOverFlow"
@@ -241,7 +241,7 @@
             icon="images/stackoverflow16px.png"
             id="stackoverflow.ViewAndDialog.ContentView"
             inject="true"
-            name="Content View">
+            name="Question">
       </view>
       <view
             category="StackOverFlow"
@@ -249,7 +249,7 @@
             icon="images/time16px.png"
             id="stackoverflow.ViewAndDialog.SearchingHistoryView"
             inject="true"
-            name="SearchingHistoryView">
+            name="SearchingHistory">
       </view>
       <view
             category="StackOverFlow"
@@ -257,7 +257,7 @@
             icon="images/time16px.png"
             id="stackoverflow.ViewAndDialog.ViewHistoryView"
             inject="true"
-            name="ViewHistoryView">
+            name="ViewHistory">
       </view>
       <view
             category="StackOverFlow"
@@ -265,7 +265,7 @@
             icon="images/star16px.png"
             id="stackoverflow.ViewAndDialog.FavoriteView"
             inject="true"
-            name="FavoriteView">
+            name="Favorite Question">
       </view>
       <view
             category="StackOverFlow"
@@ -273,7 +273,7 @@
             icon="images/pc-screen16px.png"
             id="stackoverflow.ViewAndDialog.OfflineListView"
             inject="true"
-            name="OfflineListView">
+            name="Offline Storage">
       </view>
    </extension>
    <extension
