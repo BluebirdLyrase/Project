@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import stackoverflow.database.SearchingHistoryDatabaseWriter;
+
 public class SearchingWriter extends LocalJsonList{
 
 	public SearchingWriter() throws IOException, JSONException {
@@ -27,6 +29,9 @@ public class SearchingWriter extends LocalJsonList{
         newArray.put(newData);
         jsonObject.put(arrayName,newArray);
         saveJSONFile(filePath, jsonObject);
+        ///database///
+        //TODO
+        //////////////
 		}catch (JSONException | IOException e) {
 			LOGGER.severe("Error while saving SearchText Histoy : "+e);
 			new Log().saveLog(e);
