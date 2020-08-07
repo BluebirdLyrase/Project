@@ -41,7 +41,10 @@ public class SearchHandler extends AbstractHandler {
 		
 		///////selection is use for right click search function
 		ISelection selection = window.getActivePage().getSelection();
-		String select = selection.toString();
+		String select = "";
+		if(selection!=null) {
+		select = selection.toString();
+		}
 		Pattern pattern = Pattern.compile("text: (.*?), document", Pattern.DOTALL);
 		Matcher matcher = pattern.matcher(select);
 		String selectedText = "";

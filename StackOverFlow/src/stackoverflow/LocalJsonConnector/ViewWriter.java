@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import stackoverflow.database.ViewHistoryDatabaseWriter;
+
 public class ViewWriter extends LocalJsonList {
 
 	public ViewWriter() throws IOException, JSONException {
@@ -21,14 +23,18 @@ public class ViewWriter extends LocalJsonList {
 			arrayTags.put(tags[i]);
 		}
 		try {
+			String date = LocalDateTime.now().toString();
 			newData.put("ID", id);
 			newData.put("Tags", arrayTags);
 			newData.put("Title", title);
-			newData.put("Date", LocalDateTime.now().toString());
+			newData.put("Date", date);
 			JSONArray newArray = jsonObject.getJSONArray(arrayName);
 			newArray.put(newData);
 			jsonObject.put(arrayName, newArray);
 			saveJSONFile(filePath, jsonObject);
+			///database///
+			new ViewHistoryDatabaseWriter(title,id,arrayTags.toString(),date);
+			/////////////
 		} catch (JSONException | IOException e) {
 			LOGGER.severe("Error while saving contentview history : "+e);
 			new Log().saveLog(e);
