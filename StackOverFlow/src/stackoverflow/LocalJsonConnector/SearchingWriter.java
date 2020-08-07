@@ -30,7 +30,7 @@ public class SearchingWriter extends LocalJsonList{
         jsonObject.put(arrayName,newArray);
         saveJSONFile(filePath, jsonObject);
         ///database///
-        //TODO
+        new SearchingHistoryDatabaseWriter(newData);
         //////////////
 		}catch (JSONException | IOException e) {
 			LOGGER.severe("Error while saving SearchText Histoy : "+e);

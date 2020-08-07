@@ -33,7 +33,7 @@ public class ViewWriter extends LocalJsonList {
 			jsonObject.put(arrayName, newArray);
 			saveJSONFile(filePath, jsonObject);
 			///database///
-			new ViewHistoryDatabaseWriter(title,id,arrayTags.toString(),date);
+			new ViewHistoryDatabaseWriter(newData);
 			/////////////
 		} catch (JSONException | IOException e) {
 			LOGGER.severe("Error while saving contentview history : "+e);

@@ -43,7 +43,7 @@ public class getDatabaseTest {
 		 * listObject);
 		 */
 		
-		ViewHistoryDatabaseWriter dbcon = new ViewHistoryDatabaseWriter("\"How to use Chrome&#39;s network debugger with redirects\"","\"10987453\"","\"http\",\"google-chrome\",\"google-chrome-devtools\"","\"2020-07-28T18:10:49.284432800\"");
+//		ViewHistoryDatabaseWriter dbcon = new ViewHistoryDatabaseWriter("\"How to use Chrome&#39;s network debugger with redirects\"","\"10987453\"","\"http\",\"google-chrome\",\"google-chrome-devtools\"","\"2020-07-28T18:10:49.284432800\"");
 
 	
 	   } 
