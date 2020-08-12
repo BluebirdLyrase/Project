@@ -16,8 +16,6 @@
 
 ​	 ถูกเรียกใช้จากจาก **readJsonFromUrl(String url)** เท่านั้น แปลงข้อมูล Reader ให้กลายเป็น String 
 
-### 
-
 ## AllContent 
 
 ​	extends StackOverFlowConnecter

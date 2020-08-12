@@ -12,7 +12,10 @@ import stackoverflow.DataClass.Answer;
 import stackoverflow.DataClass.Question;
 import stackoverflow.LocalJsonConnector.JSONFile;
 import stackoverflow.DataClass.Comment;
-
+/* 
+ * use Structure from stackoverflow.Dataclass to create JSONObject 
+ * using question_id as a key to receive specific data from  API or local file
+ */
 public class AllContent extends StackOverFlowConnecter {
 
 	private Question allConetent;
@@ -43,6 +46,7 @@ public class AllContent extends StackOverFlowConnecter {
 
 	private JSONObject itemObject;
 
+	//TODO now it is an unused method should be remove soon
 	public JSONObject getJsonObject() {
 		return this.json;
 	}
@@ -50,6 +54,12 @@ public class AllContent extends StackOverFlowConnecter {
 	public Question getAllConetent() {
 		return allConetent;
 	}
+	
+	/*
+	 * using question_id as a key to receive specific data from  API or local file
+	 * if is Offline is true question_id.json = filename for local file
+	 * if is Offline is false question_id.json = an id of quetion in API
+	 */
 	
 	public AllContent(String question_id,boolean isOffline) throws IOException, JSONException {
 

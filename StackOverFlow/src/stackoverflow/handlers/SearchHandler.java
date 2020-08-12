@@ -24,7 +24,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.window.Window;
 
-//////Project Eclipse-SOF v1.2.0
+//////Project Eclipse-SOF v1.3.0
 
 public class SearchHandler extends AbstractHandler {
 
@@ -47,9 +47,9 @@ public class SearchHandler extends AbstractHandler {
 		}
 		Pattern pattern = Pattern.compile("text: (.*?), document", Pattern.DOTALL);
 		Matcher matcher = pattern.matcher(select);
-		String selectedText = "";
+		String selectedText = "";//prevent a crash if user did't highlight any thing
 		while (matcher.find()) {
-			selectedText = matcher.group(1);
+			selectedText = matcher.group(1);//get text that user currently highlight
 		}
 		
 		UserInputDialog dialog = new UserInputDialog(window.getShell());
@@ -64,6 +64,7 @@ public class SearchHandler extends AbstractHandler {
 			site = dialog.getSite();
 			tagged = dialog.getTagsText();
 			
+			//filter non english intitle and tagged to prevent bug in saveSearchTextHistory (too large data)
 			boolean intitleIsValid = intitle.matches("[\\p{Graph}\\p{Space}]+") || intitle.isEmpty();
 			boolean taggedIsValid = tagged.matches("[\\p{Graph}\\p{Space}]+") || tagged.isEmpty();
 			boolean isEnglish = intitleIsValid && taggedIsValid ;
@@ -71,7 +72,7 @@ public class SearchHandler extends AbstractHandler {
 				createSearchResult();
 			} else {
 				MessageDialog.openError(window.getShell(), "Error",
-						"not found the result you are searching please dont type other language");
+						"not found the result you are searching ,We currently support only English searching");
 			}
 
 		}

@@ -11,12 +11,15 @@ import java.util.zip.GZIPInputStream;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
+/*
+This class is a parent class for all class in stackoverflow.APIConecter package
+*/
 public class StackOverFlowConnecter {
 	protected static final Logger LOGGER = Logger.getLogger(StackOverFlowConnecter.class.getName());
 	String url;
 	JSONObject json;
 	
+	//convert Reader to String 
 	protected String readAll(Reader rd) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		int cp;
@@ -26,6 +29,8 @@ public class StackOverFlowConnecter {
 		return sb.toString();
 	}
 
+	//this method will connect to API via url parameter and receive json data
+	//then convert it to return in JSONObject form
 	protected JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
 		LOGGER.setLevel(Level.WARNING);
 		LOGGER.info("url : "+url);

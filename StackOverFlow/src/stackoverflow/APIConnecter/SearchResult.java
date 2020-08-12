@@ -3,6 +3,18 @@ package stackoverflow.APIConnecter;
 import java.io.IOException;
 import org.json.JSONException;
 
+/*
+ * API : https://api.stackexchange.com/docs/advanced-search#page=1&pagesize=40&order=asc&sort=relevance&q=What&accepted=True&tagged=java%3Bc%2B%2B&filter=!4(L6lo0bkjbSB1w_D&site=stackoverflow&run=true
+ * parameter
+ * intitle : Search text from UserInputDialog
+ * page : page number of result from API, default value is 1 
+ * pageSize : Array size of questions from API , default value is 40
+ * order : ASC or DESC
+ * sort : determine which variable for ordering data
+ * site : determine which site in StackExchange to search for
+ * tagged : array of tag of the question 
+ */
+
 public class SearchResult extends StackOverFlowConnecter {
 
 	String[] titleList;
