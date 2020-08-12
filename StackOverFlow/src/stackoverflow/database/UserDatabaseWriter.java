@@ -6,7 +6,7 @@ import org.json.JSONException;
 
 public class UserDatabaseWriter extends DatabaseConnector {
 	private String jsonString = "";
-	private String collection = "User";
+	private String collection = "users";
 	public UserDatabaseWriter(String UserID ) throws JSONException, IOException {
 
 		jsonString="{\"UserID\":"+UserID+"}";

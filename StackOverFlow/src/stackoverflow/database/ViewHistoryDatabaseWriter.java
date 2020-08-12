@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 public class ViewHistoryDatabaseWriter extends DatabaseConnector {
 	private String jsonString = "";
-	private String collection = "ViewHistory";
+	private String collection = "viewhistories";
 	public ViewHistoryDatabaseWriter(JSONObject newData) throws JSONException, IOException {
 		JSONObject json = newData ;
 		json.put("UserID","xxx");

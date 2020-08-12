@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 public class SearchingHistoryDatabaseWriter extends DatabaseConnector {
 	private String jsonString = "";
-	private String collection = "SearchingHistory";
+	private String collection = "searchinghistories";
 //	public SearchingHistoryDatabaseWriter(String tilte ,String ID ,String tag ,String date) throws JSONException, IOException {
 ////TODO
 //		jsonString="{\"Title\":\""+tilte+"\",\"ID\"\""+ID+"\",\"Tags\":[\""+tag+"\"],\"Date\":\""+date+"\"}";
