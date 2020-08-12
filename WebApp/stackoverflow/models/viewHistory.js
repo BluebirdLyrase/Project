@@ -8,6 +8,6 @@ const viewHistory = new Schema({
     Date: String
   })
   
-const viewHistoryModel = mongoose.model('users', viewHistory)
+const viewHistoryModel = mongoose.model('viewhistories', viewHistory)
 
 module.exports = viewHistoryModel
