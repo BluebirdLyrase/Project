@@ -5,7 +5,8 @@ const viewHistory = new Schema({
     ID:  String,
     Title: String,
     Tags:  Array, 
-    Date: String
+    Date: String,
+    UserID: String
   })
   
 const viewHistoryModel = mongoose.model('viewhistories', viewHistory)
