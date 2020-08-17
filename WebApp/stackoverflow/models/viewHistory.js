@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const viewHistory = new Schema({
+    _id: Schema.Types.ObjectId,
     ID:  String,
     Title: String,
     Tags:  Array, 

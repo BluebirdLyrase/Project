@@ -22,7 +22,7 @@ app.use(express.static('View'))
 // ===============================
 
 
-var port = process.env.PORT || 8080; 
+var port = process.env.PORT || 8095; 
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -30,6 +30,7 @@ var router = express.Router();              // get an instance of the express Ro
 
 var api = require('./api');
 router.get('/viewHistory', api.getAllViewHistory);
+router.get('/searchingHistory', api.getAllSearchingHistory);
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
