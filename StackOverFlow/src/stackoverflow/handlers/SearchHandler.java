@@ -72,7 +72,7 @@ public class SearchHandler extends AbstractHandler {
 				createSearchResult();
 			} else {
 				MessageDialog.openError(window.getShell(), "Error",
-						"not found the result you are searching ,We currently support only English searching");
+						"We currently support only English searching");
 			}
 
 		}
@@ -102,16 +102,16 @@ public class SearchHandler extends AbstractHandler {
 				myView.setSearchResult(titleList, questionIdList);
 
 			} else {
-				MessageDialog.openError(window.getShell(), "Error", "not found the result you are searching");
+				MessageDialog.openError(window.getShell(), "Error", "Can not find any result");
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 			new Log().saveLog(e);
-			MessageDialog.openError(window.getShell(), "Error", "There is problem occur on API Connection. please check your internet Connection and try agian or email us your Log folder" );
+			MessageDialog.openError(window.getShell(), "Error", "There is a problem occur on API Connection. please check your internet Connection and try agian or email us your Log folder" );
 		} catch (IOException | PartInitException e) {
 			e.printStackTrace();
 			new Log().saveLog(e);
-			MessageDialog.openError(window.getShell(), "Error", "There is problem occur on StackOverFlow Helper plug-in. please email us your Log folder" );
+			MessageDialog.openError(window.getShell(), "Error", "There is a problem occur on StackOverFlow Helper plug-in. please email us your Log in Log folder" );
 		}
 	}
 }
