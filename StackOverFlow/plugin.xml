@@ -275,14 +275,6 @@
             inject="true"
             name="Offline Storage">
       </view>
-      <view
-            category="StackOverFlow"
-            class="stackoverflow.ViewsAndDialog.OfflineContentView"
-            icon="icons/sample.png"
-            id="stackoverflow.ViewsAndDialog.OfflineContentView"
-            inject="true"
-            name="OfflineContentView">
-      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -338,15 +330,6 @@
             targetID="org.eclipse.jdt.ui.JavaPerspective">
          <view
                id="stackoverflow.ViewAndDialog.OfflineListView"
-               ratio="0.5"
-               relationship="right"
-               relative="org.eclipse.ui.views.ProblemView">
-         </view>
-      </perspectiveExtension>
-      <perspectiveExtension
-            targetID="org.eclipse.jdt.ui.JavaPerspective">
-         <view
-               id="stackoverflow.ViewAndDialog.OfflineContentView"
                ratio="0.5"
                relationship="right"
                relative="org.eclipse.ui.views.ProblemView">
