@@ -1,40 +1,54 @@
 package stackoverflow.ViewAndDialog;
 
-import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.IWorkbench;
+
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
 import org.json.JSONException;
 
 import stackoverflow.APIConnecter.AllContentObjectOnly;
 import stackoverflow.LocalJsonConnector.ContentWriter;
 import stackoverflow.LocalJsonConnector.FavoriteWriter;
-
-import java.io.IOException;
-import javax.inject.Inject;
-
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.swt.*;
-import org.eclipse.swt.widgets.*;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.jface.action.*;
+import org.eclipse.ui.*;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.SWTError;
 import org.eclipse.swt.browser.Browser;
 
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.layout.*;
+import java.io.IOException;
 
-public class ContentView extends ViewPart {
 
-	@Inject
-	IWorkbench workbench;
 
+/**
+ * This sample class demonstrates how to plug-in a new
+ * workbench view. The view shows data obtained from the
+ * model. The sample creates a dummy model on the fly,
+ * but a real implementation would connect to the model
+ * available either in this or another plug-in (e.g. the workspace).
+ * The view is connected to the model using a content provider.
+ * <p>
+ * The view uses a label provider to define how model
+ * objects should be presented in the view. Each
+ * view can present the same model objects using
+ * different labels and icons, if needed. Alternatively,
+ * a single label provider can be shared between views
+ * in order to ensure that objects of the same type are
+ * presented in the same way everywhere.
+ * <p>
+ */
+
+public class OfflineContentView extends ViewPart {
+
+	/**
+	 * The ID of the view as specified by the extension.
+	 */
+	public static final String ID = "stackoverflow.ViewAndDialog.OfflineContentView";
 	Composite parent;
-	public static final String ID = "stackoverflow.ViewAndDialog.ContentView";
-
 	private String id = null;
 	private String qtitle = "";
-	boolean isOffline= false;
-	private Action fav;
-	private Action off;
+	boolean isOffline= true;
 	Browser browser;
 
 	public void setContent(String id) {
@@ -107,35 +121,10 @@ public class ContentView extends ViewPart {
 	}
 
 	private void fillLocalToolBar(IToolBarManager manager) {
-			manager.add(off);
-			manager.add(fav);
+
 	}
 
 	private void makeActions() {
-		off = new Action() {
-			public void run() {
-				saveOffline();
-			}
-		};
-		off.setText("Save to Offline");
-		off.setToolTipText("Save this question to your Offline");
-
-		fav = new Action() {
-			public void run() {
-				try {
-					FavoriteWriter favWriter = new FavoriteWriter();
-					favWriter.saveFavorite(qtitle, id);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		};
-		fav.setText("Save to Favorite");
-		fav.setToolTipText("Save this question to Favorite");
 	}
 
 }

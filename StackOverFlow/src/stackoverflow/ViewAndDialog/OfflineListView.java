@@ -139,7 +139,7 @@ public class OfflineListView extends ViewPart {
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 
 		int index = viewer.getTable().getSelectionIndex();
-		String viewerID = "stackoverflow.ViewAndDialog.ContentView";
+		String viewerID = "stackoverflow.ViewAndDialog.OfflineContentView";
 
 		// Random number to be an ID
 		String secondaryId = Double.toString(Math.random());
@@ -147,8 +147,8 @@ public class OfflineListView extends ViewPart {
 			activeEvent.showView(viewerID, secondaryId, IWorkbenchPage.VIEW_ACTIVATE);
 			IViewReference currentView = page.findViewReference(viewerID, secondaryId);
 			IViewPart viewPart = currentView.getView(true);
-			ContentView myView = (ContentView) viewPart;
-			myView.setContent(filename[index],true);
+			OfflineContentView myView = (OfflineContentView) viewPart;
+			myView.setContent(filename[index]);
 		} catch (PartInitException e) {
 			e.printStackTrace();
 			new Log().saveLog(e);

@@ -31,7 +31,7 @@ public class LocalJsonList extends JSONFile {
 
 
 	public LocalJsonList(String filename) {
-		LOGGER.setLevel(Level.ALL);
+		LOGGER.setLevel(Level.WARNING);
 		this.filePath = defaultDir + "\\StackOverFlowHelper\\" + filename + ".json";
 		arrayName = filename;
 		

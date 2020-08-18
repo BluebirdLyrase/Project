@@ -11,27 +11,27 @@ import stackoverflow.DataClass.Question;
 import stackoverflow.LocalJsonConnector.ViewWriter;
 
 public class HTMLBuilder {
-	
+
 	String qtitle = null;
-	AllContent content;
-	Question q;
-	
-	public HTMLBuilder(String id,boolean isOffline) {
+	AllContent content ;
+	Question q ;
+
+	public HTMLBuilder(String id, boolean isOffline) {
 		// check if Allcontent is used for offline mode
 		try {
 			content = new AllContent(id, isOffline);
+			q = content.getAllConetent();
+			qtitle = q.getTitle();
 		} catch (IOException | JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		q = content.getAllConetent();
-		qtitle = q.getTitle();
 	}
-	
+
 	public String getTitle() {
 		return qtitle;
 	}
-	
+
 	public String getHtml() {
 		String answer = "";
 		String question = "";
@@ -62,7 +62,6 @@ public class HTMLBuilder {
 		String tags = "";
 
 		try {
-
 			////// Question
 			question = "<h2>Question : " + q.getTitle() + "</h2>" + "<div style=\" font-size: 18px \"> " + q.getBody()
 					+ "</div><hr>";
