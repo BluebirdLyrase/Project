@@ -32,10 +32,12 @@ public class ContentView extends ViewPart {
 
 	private String id = null;
 	private String qtitle = "";
-	boolean isOffline= false;
+	private String HTMLtext;
+	private boolean isOffline = false;
 	private Action fav;
 	private Action off;
-	Browser browser;
+	private Action home;
+	private Browser browser;
 
 	public void setContent(String id) {
 		this.id = id;
@@ -48,8 +50,6 @@ public class ContentView extends ViewPart {
 		contentViwew.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
 		contentViwew.setLayout(new GridLayout(1, true));
 
-		Browser browser;
-
 		try {
 			browser = new Browser(contentViwew, SWT.NONE);
 			browser.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
@@ -57,12 +57,12 @@ public class ContentView extends ViewPart {
 			System.out.println("Could not instantiate Browser: " + e.getMessage());
 			return;
 		}
-		HTMLBuilder html = new HTMLBuilder(this.id,this.isOffline);
+		HTMLBuilder html = new HTMLBuilder(this.id, this.isOffline);
 		qtitle = html.getTitle();
-		browser.setText(html.getHtml());
+		HTMLtext = html.getHtml();
+		browser.setText(HTMLtext);
 
 	}
-	
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -74,14 +74,14 @@ public class ContentView extends ViewPart {
 	@Override
 	public void setFocus() {
 	}
-	
+
 	private void contributeToActionBars() {
 //		fillLocalPullDown(bars.getMenuManager());
 		IActionBars bars = getViewSite().getActionBars();
 		fillLocalToolBar(bars.getToolBarManager());
 	}
 
-	public void saveOffline() {
+	private void saveOffline() {
 		try {
 			new ContentWriter().saveContent(new AllContentObjectOnly().getJsonObject(id), id, qtitle);
 		} catch (IOException e) {
@@ -93,7 +93,7 @@ public class ContentView extends ViewPart {
 		}
 	}
 
-	public void saveFavorite() {
+	private void saveFavorite() {
 		try {
 			new FavoriteWriter().saveFavorite(qtitle, id);
 
@@ -106,9 +106,14 @@ public class ContentView extends ViewPart {
 		}
 	}
 
+	private void backToHome() {
+		browser.setText(HTMLtext);
+	}
+
 	private void fillLocalToolBar(IToolBarManager manager) {
-			manager.add(off);
-			manager.add(fav);
+		manager.add(off);
+		manager.add(fav);
+		manager.add(home);
 	}
 
 	private void makeActions() {
@@ -122,20 +127,21 @@ public class ContentView extends ViewPart {
 
 		fav = new Action() {
 			public void run() {
-				try {
-					FavoriteWriter favWriter = new FavoriteWriter();
-					favWriter.saveFavorite(qtitle, id);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				saveFavorite();
+
 			}
 		};
 		fav.setText("Save to Favorite");
 		fav.setToolTipText("Save this question to Favorite");
+
+		home = new Action() {
+			public void run() {
+				backToHome();
+			}
+		};
+		home.setText("Home");
+		home.setToolTipText("Back to Stack Overflow Content");
+
 	}
 
 }

@@ -1,6 +1,5 @@
 package stackoverflow.ViewAndDialog;
 
-
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
 import org.json.JSONException;
@@ -19,23 +18,18 @@ import org.eclipse.swt.browser.Browser;
 
 import java.io.IOException;
 
-
-
 /**
- * This sample class demonstrates how to plug-in a new
- * workbench view. The view shows data obtained from the
- * model. The sample creates a dummy model on the fly,
- * but a real implementation would connect to the model
- * available either in this or another plug-in (e.g. the workspace).
- * The view is connected to the model using a content provider.
+ * This sample class demonstrates how to plug-in a new workbench view. The view
+ * shows data obtained from the model. The sample creates a dummy model on the
+ * fly, but a real implementation would connect to the model available either in
+ * this or another plug-in (e.g. the workspace). The view is connected to the
+ * model using a content provider.
  * <p>
- * The view uses a label provider to define how model
- * objects should be presented in the view. Each
- * view can present the same model objects using
- * different labels and icons, if needed. Alternatively,
- * a single label provider can be shared between views
- * in order to ensure that objects of the same type are
- * presented in the same way everywhere.
+ * The view uses a label provider to define how model objects should be
+ * presented in the view. Each view can present the same model objects using
+ * different labels and icons, if needed. Alternatively, a single label provider
+ * can be shared between views in order to ensure that objects of the same type
+ * are presented in the same way everywhere.
  * <p>
  */
 
@@ -45,11 +39,13 @@ public class OfflineContentView extends ViewPart {
 	 * The ID of the view as specified by the extension.
 	 */
 	public static final String ID = "stackoverflow.ViewAndDialog.OfflineContentView";
-	Composite parent;
+	private Composite parent;
 	private String id = null;
+	private String HTMLtext;
 	private String qtitle = "";
-	boolean isOffline= true;
-	Browser browser;
+	private boolean isOffline = true;
+	private Browser browser;
+	private Action home;
 
 	public void setContent(String id) {
 		this.id = id;
@@ -62,8 +58,6 @@ public class OfflineContentView extends ViewPart {
 		contentViwew.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
 		contentViwew.setLayout(new GridLayout(1, true));
 
-		Browser browser;
-
 		try {
 			browser = new Browser(contentViwew, SWT.NONE);
 			browser.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
@@ -71,12 +65,11 @@ public class OfflineContentView extends ViewPart {
 			System.out.println("Could not instantiate Browser: " + e.getMessage());
 			return;
 		}
-		HTMLBuilder html = new HTMLBuilder(this.id,this.isOffline);
+		HTMLBuilder html = new HTMLBuilder(this.id, this.isOffline);
 		qtitle = html.getTitle();
-		browser.setText(html.getHtml());
-
+		HTMLtext = html.getHtml();
+		browser.setText(HTMLtext);
 	}
-	
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -88,43 +81,30 @@ public class OfflineContentView extends ViewPart {
 	@Override
 	public void setFocus() {
 	}
-	
+
 	private void contributeToActionBars() {
-//		fillLocalPullDown(bars.getMenuManager());
 		IActionBars bars = getViewSite().getActionBars();
 		fillLocalToolBar(bars.getToolBarManager());
 	}
-
-	public void saveOffline() {
-		try {
-			new ContentWriter().saveContent(new AllContentObjectOnly().getJsonObject(id), id, qtitle);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public void saveFavorite() {
-		try {
-			new FavoriteWriter().saveFavorite(qtitle, id);
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
+	private void backToHome() {
+		browser.setText(HTMLtext);
 	}
 
 	private void fillLocalToolBar(IToolBarManager manager) {
-
+		manager.add(home);
 	}
 
 	private void makeActions() {
+
+		home = new Action() {
+			public void run() {
+				backToHome();
+			}
+		};
+		home.setText("Home");
+		home.setToolTipText("Back to Stack Overflow Content");
+
 	}
 
 }
