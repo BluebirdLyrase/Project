@@ -7,12 +7,12 @@ import org.json.JSONObject;
 
 public class ViewHistoryDatabaseWriter extends DatabaseConnector {
 	private String jsonString = "";
-	private String collection = "viewhistories";
+	private String apiName = "addViewHistory";
 	public ViewHistoryDatabaseWriter(JSONObject newData) throws JSONException, IOException {
 		JSONObject json = newData ;
 		json.put("UserID","xxx");
 		jsonString = json.toString();
-		databaseWriter(jsonString,collection);
+		databaseWriter(jsonString,apiName);
 	}
 
 }

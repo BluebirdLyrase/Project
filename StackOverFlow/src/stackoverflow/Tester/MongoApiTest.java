@@ -34,9 +34,8 @@ public class MongoApiTest {
 		    request.setEntity(params);
 		    CloseableHttpResponse response = httpClient.execute(request);
 		    System.out.println(response);
-		// handle response here...
 		} catch (Exception ex) {
-			System.out.println(ex);
+			System.out.println(ex); //TODO Log properly
 		} finally {
 		    httpClient.close();
 		}
