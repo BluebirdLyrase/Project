@@ -33,6 +33,7 @@ router.get('/viewHistory', api.getAllViewHistory);
 router.get('/searchingHistory', api.getAllSearchingHistory);
 router.post('/addViewHistory',api.addViewHistory);
 router.post('/addSearchingHistory',api.addSearchingHistory)
+router.post('/authen',api.authen)
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api

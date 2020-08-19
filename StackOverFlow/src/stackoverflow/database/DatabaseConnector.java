@@ -9,7 +9,8 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.json.JSONException;
 
 public class DatabaseConnector {
-	private String baseURL="http://localhost:8095/api/";
+	private String LocationUrl = "http://localhost:8095";
+	private String baseURL= LocationUrl+"/api/";
 	public void databaseWriter(String json,String apiName)throws JSONException, IOException  {
 		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 		try {	
