@@ -27,10 +27,12 @@ function getAllSearchingHistory(req, res) {
 
 function addViewHistory(req, res) {
     var payload = req.body
-    console.log(req.body);
     var NewViewHistory = new viewHistory(payload);
+    console.log(NewViewHistory);
     NewViewHistory.save(function (err) {
-        // if (err) res.status(500).json(err);
+        if (err) {res.status(500).json(err);
+            console.log(err);
+        }
         res.json({status : "added NewViewHistory"});
     });
 }
