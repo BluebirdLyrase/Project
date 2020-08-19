@@ -25,8 +25,19 @@ function getAllSearchingHistory(req, res) {
     });
 }
 
+function addViewHistory(req, res) {
+    var payload = req.body
+    console.log(req.body);
+    var NewViewHistory = new viewHistory(payload);
+    NewViewHistory.save(function (err) {
+        // if (err) res.status(500).json(err);
+        res.json({status : "added NewViewHistory"});
+    });
+}
+
 
 module.exports = {
     getAllViewHistory: getAllViewHistory,
-    getAllSearchingHistory: getAllSearchingHistory
+    getAllSearchingHistory: getAllSearchingHistory,
+    addViewHistory:addViewHistory
 };

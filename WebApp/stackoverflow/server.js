@@ -31,6 +31,8 @@ var router = express.Router();              // get an instance of the express Ro
 var api = require('./api');
 router.get('/viewHistory', api.getAllViewHistory);
 router.get('/searchingHistory', api.getAllSearchingHistory);
+router.post('/addViewHistory',api.addViewHistory);
+// router.post('/addSearchingHistory',api.addSearchingHistory);
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
