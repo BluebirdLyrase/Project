@@ -86,6 +86,7 @@ public class AllContent extends StackOverFlowConnecter {
 		this.title = itemObject.getString("title");
 		LOGGER.info("title : " + title);
 		
+		///catch and fix API bug : ( it's not my fault
 		try {
 		this.id=  itemObject.get("question_id").toString();
 		}catch(JSONException e)
@@ -117,13 +118,13 @@ public class AllContent extends StackOverFlowConnecter {
 			tags[0] = "notag";
 		}
 		
-		
+		///catch and fix API bug : ( it's not my fault
 		try {
 			this.qOwner = qOwnerJson.getString("display_name");
 		}catch(JSONException e)
 		{
-			LOGGER.severe("no question_id bug");
-			this.id = new QuestionID().getQuestionID(this.title);
+			LOGGER.severe("no display_name bug on q Owner");
+			this.qOwner = "Unavailable";
 		}
 
 		
@@ -199,8 +200,17 @@ public class AllContent extends StackOverFlowConnecter {
 
 				JSONObject aOwnerJson = currentAnswerObject.getJSONObject("owner");
 				boolean aHaveImage = aOwnerJson.has("profile_image");
-
-				this.aOwner = aOwnerJson.getString("display_name");
+				
+				///catch and fix API bug : ( it's not my fault
+				try {
+					this.aOwner = aOwnerJson.getString("display_name");
+				}catch(JSONException e)
+				{
+					LOGGER.severe("no display_name bug on aOwner : "+i);
+					this.aOwner = "Unavailable";
+				}
+				
+				
 				LOGGER.info("A owner : " + aOwner);
 
 				if (aHaveImage) {
