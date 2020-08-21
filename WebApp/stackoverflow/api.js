@@ -52,6 +52,7 @@ function addViewHistory(req, res) {
 
 function authen(req, res) {
     user.findOne({UserID:req.body.UserID,Password:req.body.Password}, function (err, data) {   
+        console.log(req)
         if(err){
             res.status(500).json({ status: "error", message: err});
         }
@@ -64,10 +65,23 @@ function authen(req, res) {
     });
 }
 
+function checkConnection(req, res) {
+    status = mongoose.connection.readyState;
+    // console.log(status);
+    res.json(status)
+//     ready states being:
+// 0: disconnected
+// 1: connected
+// 2: connecting
+// 3: disconnecting
+
+}
+
 module.exports = {
     getAllViewHistory: getAllViewHistory,
     getAllSearchingHistory: getAllSearchingHistory,
     addViewHistory:addViewHistory,
     addSearchingHistory:addSearchingHistory,
-    authen:authen
+    authen:authen,
+    checkConnection:checkConnection
 };

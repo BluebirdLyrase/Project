@@ -10,10 +10,15 @@ public class SearchingHistoryDatabaseWriter extends DatabaseConnector {
 	private String apiName = "addSearchingHistory";
 
 	public SearchingHistoryDatabaseWriter(JSONObject newdata)throws JSONException, IOException {
+		if(account.isLoggedIn()) {
 		JSONObject json = newdata;
-		json.put("UserID","xxx");
+		userID = account.getUserID();
+		json.put("UserID",userID);
 		jsonString = json.toString();
 		databaseWriter(jsonString, apiName);
+		}else {
+			//TODO
+		}
 	}
 
 }

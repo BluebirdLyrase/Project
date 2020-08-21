@@ -13,30 +13,21 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import stackoverflow.database.Account;
+
 public class LoginAPiTest {
 	
 	public static void main(String[] args) throws JSONException, IOException {   
-		JSONObject json = new JSONObject("{" + 
-				"    \"UserID\" : \"xxx\"," + 
-				"    \"Password\" : \"yyyllll\"" + 
-				"}");
-		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 
-		try {	
-		    HttpPost request = new HttpPost("http://localhost:8095/api/authen");
-		    StringEntity params = new StringEntity(json.toString());
-		    request.addHeader("content-type", "application/json");
-		    request.setEntity(params);
-		    CloseableHttpResponse response = httpClient.execute(request);
-		    HttpEntity responseBodyentity = response.getEntity();
-		    String responseBodyString = EntityUtils.toString(responseBodyentity);
-		    System.out.println(responseBodyString);
-		} catch (Exception ex) {
-			System.out.println(ex); //TODO Log properly
-		} finally {
-		    httpClient.close();
-		}
-
+//		Account a = new Account();
+		new Account().Loggin("AmornInw", "yyy", "http://localhost:8095/");
+		
+//		new Account().Logout();//this is how you logout
+		
+		String x = new Account().getDatabaseURL();
+		System.out.println(x);
+		String y = new Account().getUserID();
+		System.out.println(y);
 	}
 
 }

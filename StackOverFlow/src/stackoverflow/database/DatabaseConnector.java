@@ -9,11 +9,12 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.json.JSONException;
 
 public class DatabaseConnector {
-	private String LocationUrl = "http://localhost:8095";
-	private String baseURL= LocationUrl+"/api/";
+	protected String userID;
+	protected Account account = new Account();
 	public void databaseWriter(String json,String apiName)throws JSONException, IOException  {
 		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-		try {	
+		try {
+			String baseURL= account.getDatabaseURL()+"/api/";
 			String url = baseURL+apiName;
 		    HttpPost request = new HttpPost(url);
 		    StringEntity params = new StringEntity(json);
