@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const viewHistory = require('./models/viewHistory')
 const searchingHistory = require('./models/searchingHistory')
+const user = require('./models/user')
 // #5 Change URL to your local mongodb
 const url = "mongodb://localhost:27017/StackOverFlowDB";
 // ===============================
@@ -40,7 +41,7 @@ function addSearchingHistory(req, res) {
 function addViewHistory(req, res) {
     var payload = req.body
     var NewViewHistory = new viewHistory(payload);
-    console.log(NewViewHistory);
+    // console.log(req.body.ID);a
     NewViewHistory.save(function (err) {
         if (err) {res.status(500).json(err);
             console.log(err);
@@ -49,10 +50,38 @@ function addViewHistory(req, res) {
     });
 }
 
+function authen(req, res) {
+    user.findOne({UserID:req.body.UserID,Password:req.body.Password}, function (err, data) {   
+        console.log(req)
+        if(err){
+            res.status(500).json({ status: "error", message: err});
+        }
+        console.log(data)
+        if(data!=null){
+        res.json("success");
+        }else{
+        res.json("not success");   
+        }
+    });
+}
+
+function checkConnection(req, res) {
+    status = mongoose.connection.readyState;
+    // console.log(status);
+    res.json(status)
+//     ready states being:
+// 0: disconnected
+// 1: connected
+// 2: connecting
+// 3: disconnecting
+
+}
 
 module.exports = {
     getAllViewHistory: getAllViewHistory,
     getAllSearchingHistory: getAllSearchingHistory,
     addViewHistory:addViewHistory,
-    addSearchingHistory:addSearchingHistory
+    addSearchingHistory:addSearchingHistory,
+    authen:authen,
+    checkConnection:checkConnection
 };

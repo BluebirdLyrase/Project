@@ -15,6 +15,7 @@ import stackoverflow.DataClass.Comment;
 /* 
  * use Structure from stackoverflow.Dataclass to create JSONObject 
  * using question_id as a key to receive specific data from  API or local file
+ * url https://api.stackexchange.com/2.2/questions/891643?order=asc&sort=activity&site=stackoverflow&filter=!6CZol-kjk43Caeu4wbmgfWPFBKTl-6MgX9_mx25H6._QEcG9r2lN3QrdeDe
  */
 public class AllContent extends StackOverFlowConnecter {
 
@@ -85,8 +86,14 @@ public class AllContent extends StackOverFlowConnecter {
 		this.title = itemObject.getString("title");
 		LOGGER.info("title : " + title);
 		
+		///catch and fix API bug : ( it's not my fault
+		try {
 		this.id=  itemObject.get("question_id").toString();
-
+		}catch(JSONException e)
+		{
+			LOGGER.severe("no question_id bug");
+			this.id = new QuestionID().getQuestionID(this.title);
+		}
 		LOGGER.info("question_id : " + id);
 
 		this.body = itemObject.getString("body");
@@ -111,10 +118,16 @@ public class AllContent extends StackOverFlowConnecter {
 			tags[0] = "notag";
 		}
 		
-		
-		
+		///catch and fix API bug : ( it's not my fault
+		try {
+			this.qOwner = qOwnerJson.getString("display_name");
+		}catch(JSONException e)
+		{
+			LOGGER.severe("no display_name bug on q Owner");
+			this.qOwner = "Unavailable";
+		}
 
-		this.qOwner = qOwnerJson.getString("display_name");
+		
 		LOGGER.info("Qowner : " + qOwner);
 
 		if (qHaveImage) {
@@ -187,8 +200,17 @@ public class AllContent extends StackOverFlowConnecter {
 
 				JSONObject aOwnerJson = currentAnswerObject.getJSONObject("owner");
 				boolean aHaveImage = aOwnerJson.has("profile_image");
-
-				this.aOwner = aOwnerJson.getString("display_name");
+				
+				///catch and fix API bug : ( it's not my fault
+				try {
+					this.aOwner = aOwnerJson.getString("display_name");
+				}catch(JSONException e)
+				{
+					LOGGER.severe("no display_name bug on aOwner : "+i);
+					this.aOwner = "Unavailable";
+				}
+				
+				
 				LOGGER.info("A owner : " + aOwner);
 
 				if (aHaveImage) {

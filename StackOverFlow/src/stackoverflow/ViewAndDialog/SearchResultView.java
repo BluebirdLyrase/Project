@@ -240,24 +240,7 @@ public class SearchResultView extends ViewPart {
 
 		doubleClickAction = new Action() {
 			public void run() {
-				int index = viewer.getTable().getSelectionIndex();
-				String viewerID = "stackoverflow.ViewAndDialog.ContentView";
-
-				// Random number to be an ID
-				String secondaryId = Double.toString(Math.random());
-				try {
-					activeEvent.showView(viewerID, secondaryId, IWorkbenchPage.VIEW_ACTIVATE);
-					IViewReference currentView = page.findViewReference(viewerID, secondaryId);
-					IViewPart viewPart = currentView.getView(true);
-					ContentView myView = (ContentView) viewPart;
-
-					myView.setContent(id[index]);
-
-				} catch (PartInitException e) {
-					new Log().saveLog(e);
-					e.printStackTrace();
-				}
-
+				open();
 			}
 		};
 	}
