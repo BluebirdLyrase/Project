@@ -3,8 +3,10 @@ package stackoverflow.ViewAndDialog;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
@@ -17,7 +19,6 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.json.JSONException;
-
 import stackoverflow.LocalJsonConnector.ContentTitleList;
 import stackoverflow.LocalJsonConnector.FavoriteList;
 import stackoverflow.LocalJsonConnector.FavoriteWriter;
@@ -27,14 +28,20 @@ import stackoverflow.LocalJsonConnector.SearchingWriter;
 import stackoverflow.LocalJsonConnector.ViewHistoryList;
 import stackoverflow.LocalJsonConnector.ViewWriter;
 import stackoverflow.LocalJsonConnector.Content;
-public class SettingDialog extends TitleAreaDialog {
-
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.wb.swt.ResourceManager;
+public class SettingDialog extends Dialog {
+	private Text txtDatabaseStatus;
+	private Text text;
+	private Shell parentShell;
 	/**
 	 * Create the dialog.
 	 * @param parentShell
 	 */
 	public SettingDialog(Shell parentShell) {
 		super(parentShell);
+		this.parentShell=parentShell;
 	}
 
 	/**
@@ -44,15 +51,55 @@ public class SettingDialog extends TitleAreaDialog {
 	@Override
 	protected Control createDialogArea(Composite parent) {
 		Composite area = (Composite) super.createDialogArea(parent);
-		Composite container = new Composite(area, SWT.NONE);
-		container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		GridLayout layout = new GridLayout(1, false);
-		container.setLayout(layout);
+		
+		Composite login_Bar = new Composite(area, SWT.BORDER);
+
+		login_Bar.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+		
+		
+		txtDatabaseStatus = new Text(login_Bar, SWT.READ_ONLY);
+		GridData gd_txtDatabaseStatus = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_txtDatabaseStatus.widthHint = 218;
+		txtDatabaseStatus.setLayoutData(gd_txtDatabaseStatus);
+		txtDatabaseStatus.setText("Database Status");
+		
+		text = new Text(login_Bar, SWT.READ_ONLY);
+		GridData gd_text = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_text.widthHint = 77;
+		text.setLayoutData(gd_text);
+		text.setText("\"Status\"");
+		
+		Button loginBtn = new Button(login_Bar, SWT.NONE);
+		loginBtn.setText("Login");
+		loginBtn.addListener(SWT.Selection,new Listener() {
+		      public void handleEvent(Event e) {
+		  		LoginDialog dialog = new LoginDialog(parentShell);
+				dialog.create();
+				if (dialog.open() == Window.OK);
+		        }
+		      });
+
+		
 		
 		Composite buttonContainer = new Composite(area, SWT.NONE|SWT.BORDER);
 		buttonContainer.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		GridLayout filterLayout = new GridLayout(3, false);
+		GridLayout filterLayout2 = new GridLayout(4, false);
 		buttonContainer.setLayout(filterLayout);
+		login_Bar.setLayout(filterLayout2);
+		
+		Button btnLogout = new Button(login_Bar, SWT.NONE);
+		btnLogout.setText("Logout");
+		loginBtn.addListener(SWT.Selection,new Listener() {
+		      public void handleEvent(Event e) {
+//	TODO implement logout page here	  	
+//		    	  LoginDialog dialog = new LoginDialog(parentShell);  
+//				dialog.create();
+//				if (dialog.open() == Window.OK);
+		    	  
+		        }
+		      });
+		
 		
 		createButtonForButtonContainer(buttonContainer);
 		return area;
