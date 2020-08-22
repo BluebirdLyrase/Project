@@ -29,11 +29,20 @@ var port = process.env.PORT || 8095;
 var router = express.Router();              // get an instance of the express Router
 
 var api = require('./api');
+
+//get Data
 router.get('/viewHistory', api.getAllViewHistory);
 router.get('/searchingHistory', api.getAllSearchingHistory);
 router.get('/user', api.getAllUser);
+
+//add Data
 router.post('/addViewHistory',api.addViewHistory);
 router.post('/addSearchingHistory',api.addSearchingHistory)
+router.post('/addUser',api.addUser)
+
+//delete Data
+
+//Connection
 router.post('/authen',api.authen)
 router.post('/checkConnection',api.checkConnection)
 
