@@ -31,6 +31,7 @@ var router = express.Router();              // get an instance of the express Ro
 var api = require('./api');
 router.get('/viewHistory', api.getAllViewHistory);
 router.get('/searchingHistory', api.getAllSearchingHistory);
+router.get('/user', api.getAllUser);
 router.post('/addViewHistory',api.addViewHistory);
 router.post('/addSearchingHistory',api.addSearchingHistory)
 router.post('/authen',api.authen)

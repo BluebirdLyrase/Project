@@ -26,6 +26,15 @@ function getAllSearchingHistory(req, res) {
     });
 }
 
+function getAllUser(req, res) {
+    user.find({}, function (err, data) {   
+        if(err){
+            res.status(500).json({ status: "error", message: err});
+        }     
+        res.json(data);
+    });
+}
+
 function addSearchingHistory(req, res) {
     var payload = req.body
     var NewSearchingHistory = new searchingHistory(payload);
@@ -80,6 +89,7 @@ function checkConnection(req, res) {
 module.exports = {
     getAllViewHistory: getAllViewHistory,
     getAllSearchingHistory: getAllSearchingHistory,
+    getAllUser:getAllUser,
     addViewHistory:addViewHistory,
     addSearchingHistory:addSearchingHistory,
     authen:authen,
