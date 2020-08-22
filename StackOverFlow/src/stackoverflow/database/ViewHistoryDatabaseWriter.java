@@ -13,7 +13,8 @@ public class ViewHistoryDatabaseWriter extends DatabaseConnector {
 	public ViewHistoryDatabaseWriter(JSONObject newData) throws JSONException, IOException {
 		if(account.isLoggedIn()) {
 		JSONObject json = newData ;
-		json.put("UserID","AmornInw");
+		userID = account.getUserID();
+		json.put("UserID",userID);
 		jsonString = json.toString();
 		databaseWriter(jsonString,apiName);
 	}else {
