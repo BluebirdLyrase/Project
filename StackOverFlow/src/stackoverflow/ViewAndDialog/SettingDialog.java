@@ -94,6 +94,7 @@ public class SettingDialog extends Dialog {
 						e1.printStackTrace();
 					}
 				}
+
 			}
 		});
 
