@@ -37,7 +37,6 @@ public class LoginDialog extends Dialog {
 	 */
 	public LoginDialog(Shell parentShell) {
 		super(parentShell);
-		setBlockOnOpen(false);
 		setShellStyle(SWT.CLOSE | SWT.MIN | SWT.RESIZE);
 	}
 
@@ -90,7 +89,7 @@ public class LoginDialog extends Dialog {
 	 */
 	@Override
 	protected Point getInitialSize() {
-		return new Point(450, 300);
+		return new Point(450, 450);
 	}
 	
 	@Override

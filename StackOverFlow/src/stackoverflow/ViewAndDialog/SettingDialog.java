@@ -33,13 +33,9 @@ import stackoverflow.LocalJsonConnector.ViewHistoryList;
 import stackoverflow.LocalJsonConnector.ViewWriter;
 import stackoverflow.database.Account;
 import stackoverflow.LocalJsonConnector.Content;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.wb.swt.ResourceManager;
 
 public class SettingDialog extends Dialog {
 	private Text txtDatabaseStatus;
-	private Text text;
 	private Shell parentShell;
 
 	/**
@@ -84,7 +80,6 @@ public class SettingDialog extends Dialog {
 						String userID = dialog.getUserID();
 						String password = dialog.getPassword();
 						String database = dialog.getDatabaseUrl();
-						System.out.println(userID+password+database);
 						String msg = new Account().Loggin(userID,password,database);
 						IWorkbench wb = PlatformUI.getWorkbench();
 						IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
@@ -118,7 +113,7 @@ public class SettingDialog extends Dialog {
 		});
 
 		Button checkDatabaseStatus = new Button(login_Bar, SWT.NONE);
-		checkDatabaseStatus.setText("Status");
+		checkDatabaseStatus.setText("Refresh");
 		checkDatabaseStatus.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event e) {
 //	TODO implement Status page here	  	
