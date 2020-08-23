@@ -14,10 +14,25 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 
 public class LoginDialog extends Dialog {
-	private Text text;
-	private Text text_1;
-	private Text text_2;
+	private Text userIDText;
+	private Text passwordText;
+	private Text databaseUrlText;
 
+	public String getUserID() {
+		return userID;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public String getDatabaseUrl() {
+		return databaseUrl;
+	}
+
+	private String userID;
+	private String password;
+	private String databaseUrl;	
 	/**
 	 * Create the dialog.
 	 * @param parentShell
@@ -42,15 +57,15 @@ public class LoginDialog extends Dialog {
 		lblNewLabel.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		lblNewLabel.setText("User :");
 		
-		text = new Text(container, SWT.BORDER);
-		text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		userIDText = new Text(container, SWT.BORDER);
+		userIDText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
 		Label lblNewLabel_1 = new Label(container, SWT.NONE);
 		lblNewLabel_1.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		lblNewLabel_1.setText("Password :");
 		
-		text_1 = new Text(container, SWT.BORDER | SWT.PASSWORD);
-		text_1.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		passwordText = new Text(container, SWT.BORDER | SWT.PASSWORD);
+		passwordText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		new Label(container, SWT.NONE);
 		new Label(container, SWT.NONE);
 		
@@ -58,10 +73,16 @@ public class LoginDialog extends Dialog {
 		lblNewLabel_2.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		lblNewLabel_2.setText("Database URL :");
 		
-		text_2 = new Text(container, SWT.BORDER);
-		text_2.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		databaseUrlText = new Text(container, SWT.BORDER);
+		databaseUrlText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 
 		return container;
+	}
+	
+	private void saveInput() {
+		userID =  userIDText.getText();
+		password = passwordText.getText();
+		databaseUrl = databaseUrlText.getText();
 	}
 
 	/**
@@ -80,6 +101,12 @@ public class LoginDialog extends Dialog {
 	@Override
 	protected Point getInitialSize() {
 		return new Point(450, 300);
+	}
+	
+	@Override
+	protected void okPressed() {
+		saveInput();
+		super.okPressed();
 	}
 
 }

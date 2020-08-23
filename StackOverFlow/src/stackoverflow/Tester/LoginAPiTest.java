@@ -20,14 +20,15 @@ public class LoginAPiTest {
 	public static void main(String[] args) throws JSONException, IOException {   
 
 //		Account a = new Account();
-		new Account().Loggin("AmornInw", "yyy", "http://localhost:8095/");
-		
+		String i = new Account().Loggin("AmornInw", "yyy", "http://localhost:8095/");
+		System.out.println(i);
 //		new Account().Logout();//this is how you logout
 		
 		String x = new Account().getDatabaseURL();
 		System.out.println(x);
 		String y = new Account().getUserID();
 		System.out.println(y);
+		
 	}
 
 }

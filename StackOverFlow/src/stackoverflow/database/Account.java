@@ -29,6 +29,10 @@ public class Account extends LocalJsonList {
 
 	private String DatabaseURL;
 	private String userID;
+	private String LoginMSG ;
+	private String success = "Successfully logged in";
+	private String wrong = "Incorrect username ot password";
+	private String error = "Server unavailable";
 
 	public boolean Logout() {
 		
@@ -43,7 +47,7 @@ public class Account extends LocalJsonList {
 		return result;
 	}
 	
-	public void Loggin(String userID,String password,String DatabaseURL) throws IOException, JSONException{
+	public String Loggin(String userID,String password,String DatabaseURL) throws IOException, JSONException{
 		this.DatabaseURL = "http://"+DatabaseURL.replaceAll("/", "").replaceAll("http:", "");//remove "http://" if user already type it
 		JSONObject json = new JSONObject("{" + 
 				"    \"UserID\" : \""+userID+"\"," + 
@@ -60,18 +64,22 @@ public class Account extends LocalJsonList {
 		    CloseableHttpResponse response = httpClient.execute(request);
 		    HttpEntity responseBodyentity = response.getEntity();
 		    String responseBodyString = EntityUtils.toString(responseBodyentity);
-		    if(responseBodyString.equals("\"success\"")) {	
+		    if(responseBodyString.equals("\"success\"")) {
+		    	LoginMSG = success;
 		    	this.userID = userID;
 		    	setDatabase();
 		    	}else {
+		    		LoginMSG = wrong;
 		    		LOGGER.severe(responseBodyString+":: incorrect username / password  " + this.DatabaseURL);
 		    		//TODO else properly
 		    	}
 		} catch (Exception ex) {
+			LoginMSG = error;
 			System.out.println(ex); //TODO Log properly
 		} finally {
 		    httpClient.close();
 		}
+		return LoginMSG;
 	}
 	
 	private void setDatabase() throws JSONException, IOException {
