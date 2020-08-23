@@ -49,6 +49,8 @@ public class SettingDialog extends Dialog {
 	 */
 	public SettingDialog(Shell parentShell) {
 		super(parentShell);
+		setShellStyle(SWT.CLOSE | SWT.MIN | SWT.RESIZE);
+		setBlockOnOpen(false);
 		this.parentShell = parentShell;
 	}
 

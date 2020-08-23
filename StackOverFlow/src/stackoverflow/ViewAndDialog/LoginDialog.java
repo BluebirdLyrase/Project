@@ -39,6 +39,8 @@ public class LoginDialog extends Dialog {
 	 */
 	public LoginDialog(Shell parentShell) {
 		super(parentShell);
+		setBlockOnOpen(false);
+		setShellStyle(SWT.CLOSE | SWT.MIN | SWT.RESIZE);
 	}
 
 	/**
@@ -66,8 +68,6 @@ public class LoginDialog extends Dialog {
 		
 		passwordText = new Text(container, SWT.BORDER | SWT.PASSWORD);
 		passwordText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		new Label(container, SWT.NONE);
-		new Label(container, SWT.NONE);
 		
 		Label lblNewLabel_2 = new Label(container, SWT.NONE);
 		lblNewLabel_2.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
