@@ -58,16 +58,16 @@ public class SettingDialog extends Dialog {
 		
 		
 		txtDatabaseStatus = new Text(login_Bar, SWT.READ_ONLY);
-		GridData gd_txtDatabaseStatus = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_txtDatabaseStatus.widthHint = 218;
+		GridData gd_txtDatabaseStatus = new GridData(SWT.LEFT, SWT.LEFT, false, false, 1, 1);
+		gd_txtDatabaseStatus.widthHint = 300;
 		txtDatabaseStatus.setLayoutData(gd_txtDatabaseStatus);
-		txtDatabaseStatus.setText("Database Status");
+		txtDatabaseStatus.setText("Database Status : "+"Connected");
 		
-		text = new Text(login_Bar, SWT.READ_ONLY);
-		GridData gd_text = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_text.widthHint = 77;
-		text.setLayoutData(gd_text);
-		text.setText("\"Status\"");
+//		text = new Text(login_Bar, SWT.READ_ONLY);
+//		GridData gd_text = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+//		gd_text.widthHint = 77;
+//		text.setLayoutData(gd_text);
+//		text.setText("");
 		
 		Button loginBtn = new Button(login_Bar, SWT.NONE);
 		loginBtn.setText("Login");
