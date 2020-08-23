@@ -81,8 +81,11 @@ public class SettingDialog extends Dialog {
 				dialog.create();
 				if (dialog.open() == Window.OK) {
 					try {
-						String msg = new Account().Loggin(dialog.getUserID(), dialog.getPassword(),
-								dialog.getDatabaseUrl());
+						String userID = dialog.getUserID();
+						String password = dialog.getPassword();
+						String database = dialog.getDatabaseUrl();
+						System.out.println(userID+password+database);
+						String msg = new Account().Loggin(userID,password,database);
 						IWorkbench wb = PlatformUI.getWorkbench();
 						IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 						MessageDialog.openInformation(win.getShell(), "Atention", msg);
