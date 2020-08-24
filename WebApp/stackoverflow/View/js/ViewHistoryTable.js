@@ -8,7 +8,7 @@ $(function () {
     if (status == 'success') {
       console.log(data);
       $(data).ready( function () {
-        $('#dataTable').DataTable({
+        var table = $('#dataTable').DataTable({
           destroy: true,
           searching: true,
           data: data,
@@ -19,9 +19,19 @@ $(function () {
             { data: 'Tags' },
             { data: 'Date' },
             { data: 'UserID' },
+            { data: '_id' , render : function ( data, type, row, meta ) {
+              return type === 'display'  ?
+                '<a href="'+data+'" class="btn btn-danger" >Delete</a>' :
+                data;
+            }},
           ]
         });
     } );
+
+    table.button( '3-1' ).text( 'Not available' );
+
+
+
     }
 });
   

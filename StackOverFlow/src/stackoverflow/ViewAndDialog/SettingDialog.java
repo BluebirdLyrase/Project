@@ -80,6 +80,7 @@ public class SettingDialog extends Dialog {
 						String userID = dialog.getUserID();
 						String password = dialog.getPassword();
 						String database = dialog.getDatabaseUrl();
+						
 						String msg = new Account().Loggin(userID,password,database);
 						IWorkbench wb = PlatformUI.getWorkbench();
 						IWorkbenchWindow win = wb.getActiveWorkbenchWindow();

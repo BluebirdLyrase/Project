@@ -13,9 +13,18 @@ $(function () {
             searching: true,
             data: data,
             columns: [
-              // { data: '_id' },
               { data: 'UserID' },
-              { data: 'Password' }
+              { data: 'Password' },
+              { data: '_id' , render : function ( data, type, row, meta ) {
+                return type === 'display'  ?
+                  '<a href="'+data+'" class="btn btn-primary" >edit</a>' :
+                  data;
+              }},
+              { data: '_id' , render : function ( data, type, row, meta ) {
+                return type === 'display'  ?
+                  '<a href="'+data+'" class="btn btn-danger" >Delete</a>' :
+                  data;
+              }},
             ]
           });
       } );

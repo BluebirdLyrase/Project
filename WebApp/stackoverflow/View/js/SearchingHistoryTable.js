@@ -22,6 +22,11 @@ $(function () {
               { data: 'Site' },
               { data: 'Date' },
               { data: 'UserID' },
+              { data: '_id' , render : function ( data, type, row, meta ) {
+                return type === 'display'  ?
+                  '<a href="'+data+'" class="btn btn-danger" >Delete</a>' :
+                  data;
+              }},
             ]
           });
       } );
