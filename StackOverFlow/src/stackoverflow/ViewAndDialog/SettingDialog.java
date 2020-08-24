@@ -37,6 +37,8 @@ import stackoverflow.LocalJsonConnector.Content;
 public class SettingDialog extends Dialog {
 	private Text txtDatabaseStatus;
 	private Shell parentShell;
+	private IWorkbench wb = PlatformUI.getWorkbench();
+	private IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 
 	/**
 	 * Create the dialog.
@@ -66,9 +68,9 @@ public class SettingDialog extends Dialog {
 		txtDatabaseStatus = new Text(login_Bar, SWT.READ_ONLY);
 		GridData gd_txtDatabaseStatus = new GridData(SWT.LEFT, SWT.LEFT, false, false, 1, 1);
 		gd_txtDatabaseStatus.widthHint = 300;
+		gd_txtDatabaseStatus.heightHint = 90;
 		txtDatabaseStatus.setLayoutData(gd_txtDatabaseStatus);
-		txtDatabaseStatus.setText("Database Status : " + "Connected");
-
+		setDatabaseStatusText();
 		Button loginBtn = new Button(login_Bar, SWT.NONE);
 		loginBtn.setText("Login");
 		loginBtn.addListener(SWT.Selection, new Listener() {
@@ -80,15 +82,13 @@ public class SettingDialog extends Dialog {
 						String userID = dialog.getUserID();
 						String password = dialog.getPassword();
 						String database = dialog.getDatabaseUrl();
-						
 						String msg = new Account().Loggin(userID,password,database);
-						IWorkbench wb = PlatformUI.getWorkbench();
-						IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 						MessageDialog.openInformation(win.getShell(), "Atention", msg);
 					} catch (IOException | JSONException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+					setDatabaseStatusText();
 				}
 
 			}
@@ -117,7 +117,7 @@ public class SettingDialog extends Dialog {
 		checkDatabaseStatus.setText("Refresh");
 		checkDatabaseStatus.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event e) {
-//	TODO implement Status page here	  	
+				setDatabaseStatusText();
 			}
 		});
 
@@ -268,6 +268,27 @@ public class SettingDialog extends Dialog {
 	@Override
 	protected boolean isResizable() {
 		return true;
+	}
+	
+	private void setDatabaseStatusText() {
+		String status = "not Logged in" ;
+		String userID = "n\\a";
+		String url = "n\\a";
+		try {
+			Account account = new Account();
+			if(account.isLoggedIn()) {
+			status = account.getConnectionStatus() ;
+			userID = account.getUserID();
+			url = account.getDatabaseURL();
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		txtDatabaseStatus.setText("Database Status: " + status + "\n" +		
+				"User ID: " + userID + "\n"+
+				"URL: "+url);
 	}
 
 }

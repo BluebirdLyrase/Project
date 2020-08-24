@@ -1,20 +1,14 @@
 package stackoverflow.database;
 
 import java.io.IOException;
-
-import javax.swing.JFileChooser;
-
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,18 +27,10 @@ public class Account extends LocalJsonList {
 	private String success = "Successfully logged in";
 	private String wrong = "Incorrect username ot password";
 	private String error = "Server unavailable";
+	private String connectionstatus;
 
-	public boolean Logout() {
-		
-		boolean result = true;
-//		IWorkbench wb = PlatformUI.getWorkbench();
-//		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-//		result = MessageDialog.openConfirm(win.getShell(), "Atention", "Are you sure you want to Log-Out?");
-		if (result) {
+	public void Logout() {
 			deleteFile(filePath);
-//			MessageDialog.openInformation(win.getShell(), "Atention", "Log-Out Successfully");
-		}
-		return result;
 	}
 	
 	public String Loggin(String userID,String password,String DatabaseURL) throws IOException, JSONException{
@@ -122,8 +108,26 @@ public class Account extends LocalJsonList {
 		
 	}
 	
-//	public boolean getConnectionStatus() {
-//		
-//	}
+	public String getConnectionStatus(){
+		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+		  try {
+		String authenURL = getDatabaseURL() +"/api/checkConnection";
+		HttpPost request = new HttpPost(authenURL);
+	    CloseableHttpResponse response = httpClient.execute(request);
+	    HttpEntity responseBodyentity = response.getEntity();
+	    String responseBodyString = EntityUtils.toString(responseBodyentity);
+	    switch(responseBodyString) {
+	    case "0": connectionstatus = "Disconnected" ; break;
+	    case "1": connectionstatus = "Connected" ; break;
+	    case "2": connectionstatus = "Connecting" ; break;
+	    case "3": connectionstatus = "Disconnecting" ; break;
+	    }
+		} catch (ParseException | IOException | JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return connectionstatus;
+	}
 	
 }
