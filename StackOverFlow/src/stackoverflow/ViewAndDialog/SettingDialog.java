@@ -156,9 +156,10 @@ public class SettingDialog extends Dialog {
 			clearOfflineButton.setText("Clear Offline");
 			clearOfflineButton.addListener(SWT.Selection, new Listener() {
 				public void handleEvent(Event e) {
-
 					try {
-						if (new Content().clear()) {
+						if (confirmPopUp("do you want to remove all Offline Content data?")) {
+							new Content().clear();
+							showMsg("Succesfully remove all OfflineContent data");
 							offlineSize.setText("Favorite contents size: 0 KB");
 							strOfflineLenght.setText("0");
 						}
@@ -180,7 +181,9 @@ public class SettingDialog extends Dialog {
 				public void handleEvent(Event e) {
 
 					try {
-						if (new FavoriteWriter().clear()) {
+						if (confirmPopUp("Are you sure, You want to remove all Favorite Data?")) {
+							new FavoriteWriter().clear();
+							showMsg("Succesfully remove all Favorite data");
 							favoriteSize.setText("Favorite contents size: 0 KB");
 							strfavLenght.setText("0");
 						}
@@ -202,7 +205,9 @@ public class SettingDialog extends Dialog {
 				public void handleEvent(Event e) {
 
 					try {
-						if (new ViewWriter().clear()) {
+						if (confirmPopUp("Are you sure, You want to remove all View History Data?")) {
+							new ViewWriter().clear();
+							showMsg("Succesfully remove all OfflineContent data");
 							viewHistorySize.setText("View history contents size: 0 KB");
 							StrVHistoryLenght.setText("0");
 						}
@@ -224,7 +229,9 @@ public class SettingDialog extends Dialog {
 				public void handleEvent(Event e) {
 
 					try {
-						if (new SearchingWriter().clear()) {
+						if (confirmPopUp("Are you sure, You want to remove all Searching Histpry Data?")) {
+							new SearchingWriter().clear();
+							showMsg("Succesfully remove all Searching History data");
 							seacrhHistorySize.setText("View history contents size: 0 KB");
 							strSHistoryLenght.setText("0");
 						}
@@ -245,8 +252,10 @@ public class SettingDialog extends Dialog {
 				public void handleEvent(Event e) {
 
 					try {
-						if (new Content().clearAll()) {
+						if (confirmPopUp("Are you sure, You want to Remove All data?")) {
+							new Content().clearAll();
 							allSize.setText("All saved contents size: 0 KB");
+							showMsg("Succesfully remove All data");
 						}
 
 					} catch (IOException | JSONException e1) {
@@ -289,6 +298,15 @@ public class SettingDialog extends Dialog {
 		txtDatabaseStatus.setText("Database Status: " + status + "\n" +		
 				"User ID: " + userID + "\n"+
 				"URL: "+url);
+	}
+	
+	private boolean confirmPopUp(String msg) {
+		boolean result = MessageDialog.openConfirm(win.getShell(), "Atention", msg);
+		return result;
+	}
+	
+	private void showMsg(String msg) {
+		MessageDialog.openInformation(win.getShell(), "Atention", msg);
 	}
 
 }

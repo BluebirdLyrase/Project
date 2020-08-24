@@ -18,12 +18,9 @@ public class Content extends JSONFile {
 	protected String fileDirURL = (defaultDir + "\\StackOverFlowHelper\\OfflineContent");
 	private File fileDir = new File(fileDirURL);
 	protected String arrayName = "items";
-	
-	protected String delConfrimMsg = "do you want to delete this?";
-	protected String clearConfrimMsg = "do you want to remove all Offline Content data?";
-	protected String clearMsg = "Succesfully remove all OfflineContent data";
 
-	
+	protected String delConfrimMsg = "do you want to delete this?";
+
 	public Content() throws IOException, JSONException {
 		LOGGER.setLevel(Level.SEVERE);
 		// Check if there is already Stackoverflow dir if not create one
@@ -52,58 +49,42 @@ public class Content extends JSONFile {
 		return result;
 	}
 
-	public boolean clear() {
-		IWorkbench wb = PlatformUI.getWorkbench();
-		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-		boolean result = true;
-		result = MessageDialog.openConfirm(win.getShell(), "Atention", clearConfrimMsg);
-		
-		if (result) {
-				try {
-					
-					String[] entries = fileDir.list();
-					for(String s: entries) {
-						deleteFile(fileDirURL + "\\" + s);
-					}
-					new ContentTitleWriter().clear();
-					MessageDialog.openInformation(win.getShell(), "Atention", clearMsg);
-				} catch (IOException | JSONException e) {
-					e.printStackTrace();
-					new Log().saveLog(e);
-				}
+	public void clear() {
+		try {
+
+			String[] entries = fileDir.list();
+			for (String s : entries) {
+				deleteFile(fileDirURL + "\\" + s);
+			}
+			new ContentTitleWriter().clear();
+		} catch (IOException | JSONException e) {
+			e.printStackTrace();
+			new Log().saveLog(e);
 		}
-		return result;
 	}
-	
-	private String claerAllConfrimMsg = "Do you want to remove all data?" ;
-	public boolean clearAll() {
-		IWorkbench wb = PlatformUI.getWorkbench();
-		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-		boolean result = true;
-		result = MessageDialog.openConfirm(win.getShell(), "Atention", claerAllConfrimMsg);
-		if (result) {
-			
-		//Clear Every List
+
+	public void clearAll() {
+
+		// Clear Every List
 		File otherfileDir = new File(defaultDir + "\\StackOverFlowHelper");
 		String[] otherEntries = otherfileDir.list();
-		for(String s: otherEntries) {
+		for (String s : otherEntries) {
 			deleteFile(otherfileDir.getPath() + "\\" + s);
 		}
 		otherfileDir.delete();
-		
-		///Clear Offline Content
+		/// Clear Offline Content
 		String[] entries = fileDir.list();
-		for(String s: entries) {
-			deleteFile(fileDirURL + "\\" + s);
+		if (entries != null) {
+			for (String s : entries) {
+				deleteFile(fileDirURL + "\\" + s);
+			}
 		}
 		fileDir.delete();
-		MessageDialog.openInformation(win.getShell(), "Atention", claerAllConfrimMsg);
-		}
-		return result;
+
 	}
-	
+
 	public double getSize() {
-		double size = 0.0 ;
+		double size = 0.0;
 		try {
 			double listSize = new ContentTitleList().getSize();
 			double ContentSize = super.getSize(fileDirURL);
