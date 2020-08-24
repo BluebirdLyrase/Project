@@ -16,11 +16,9 @@ public class FavoriteWriter extends LocalJsonList {
 		super("Favorite");
 	}
 
-	public void saveFavorite(String title, String id) {
-		IWorkbench wb = PlatformUI.getWorkbench();
-		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+	public String saveFavorite(String title, String id) {
+			String result;
 		try {
-
 			int lenght = jsonObject.getJSONArray(arrayName).length();
 			boolean isNotDuplicate = true;
 			for (int i = 0; i < lenght; i++) {
@@ -41,21 +39,17 @@ public class FavoriteWriter extends LocalJsonList {
 				newArray.put(newData);
 				jsonObject.put(arrayName, newArray);
 				saveJSONFile(filePath, jsonObject);
-				MessageDialog.openInformation(
-						win.getShell(),
-						"StackOverFlow",
-						"Save to Favortie Sucessful");
+				result = "Save to Favortie Sucessful";
 			} else {
-				MessageDialog.openInformation(
-						win.getShell(),
-						"StackOverFlow",
-						"Already add this Question as Favortie");
+				result = "Already add this Question as Favortie" ;
 				LOGGER.info("duplicate id");
 			}
 		} catch (JSONException | IOException e) {
+			result = "Error while saving to Favorite";
 			LOGGER.severe("Error while saving Favorite : " + e);
 			new Log().saveLog(e);
 		}
+		return result;
 	}
 
 }

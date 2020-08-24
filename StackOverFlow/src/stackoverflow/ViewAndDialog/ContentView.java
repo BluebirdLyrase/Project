@@ -2,6 +2,8 @@ package stackoverflow.ViewAndDialog;
 
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.*;
 import org.json.JSONException;
 
@@ -14,6 +16,7 @@ import javax.inject.Inject;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.*;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.SWT;
@@ -83,7 +86,8 @@ public class ContentView extends ViewPart {
 
 	private void saveOffline() {
 		try {
-			new ContentWriter().saveContent(new AllContentObjectOnly().getJsonObject(id), id, qtitle);
+			String msg = new ContentWriter().saveContent(new AllContentObjectOnly().getJsonObject(id), id, qtitle);
+			showMsg(msg);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -95,8 +99,8 @@ public class ContentView extends ViewPart {
 
 	private void saveFavorite() {
 		try {
-			new FavoriteWriter().saveFavorite(qtitle, id);
-
+			String msg = new FavoriteWriter().saveFavorite(qtitle, id);
+			showMsg(msg);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -104,6 +108,12 @@ public class ContentView extends ViewPart {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	private void showMsg(String msg) {
+		IWorkbench wb = PlatformUI.getWorkbench();
+		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+		MessageDialog.openInformation(win.getShell(), "Atention", msg);
 	}
 
 	private void backToHome() {

@@ -15,7 +15,6 @@ import org.json.JSONObject;
 
 public class ContentWriter extends Content{
 	
-	private boolean isSave;
 	private String filePath;
 	private JSONObject jsonObject;
 
@@ -23,7 +22,8 @@ public class ContentWriter extends Content{
 		super();
 	}
 	
-	public boolean saveContent(JSONObject jsonObject,String id,String title) {
+	public String saveContent(JSONObject jsonObject,String id,String title) {
+		String result;
 		this.jsonObject = jsonObject;
 		filePath = fileDirURL + "//" + id + ".json";
 		File newFile = new File(filePath);
@@ -32,26 +32,20 @@ public class ContentWriter extends Content{
 			IWorkbench wb = PlatformUI.getWorkbench();
 			IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 			if (newFile.createNewFile()) {
-				MessageDialog.openInformation(
-						win.getShell(),
-						"StackOverFlow",
-						"Save to Offline Storage Sucessful");
+				result = "Save to Offline Storage Sucessful";
 				LOGGER.info("File created : " + newFile.getName());
 				Files.writeString(Paths.get(filePath), "", StandardOpenOption.WRITE);
 				writeContent();
 				new ContentTitleWriter().saveContentTitle(title,id);
 			} else {
-				MessageDialog.openInformation(
-						win.getShell(),
-						"StackOverFlow",
-						"Duplicate Qeustion in Offline Storage");
+				result = "Duplicate Qeustion in Offline Storage";
 				LOGGER.info("File already exists : "+filePath);
 			}
 		} catch (IOException | JSONException e) {
+			result = "Error while saving to Offline mode";
 			LOGGER.severe("Error while creating new json in Content : "+e);
-			isSave = false;
 		}
-		return isSave;
+		return result;
 	}
 	
 	private boolean writeContent() {

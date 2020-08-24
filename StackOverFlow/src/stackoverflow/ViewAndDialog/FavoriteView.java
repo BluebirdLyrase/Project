@@ -15,6 +15,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.*;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 //import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.*;
@@ -157,14 +158,20 @@ public class FavoriteView extends ViewPart {
 	private void saveOffline() {
 		int index = viewer.getTable().getSelectionIndex();
 		try {
-			new ContentWriter().saveContent(
+			String msg = new ContentWriter().saveContent(
 					// call AllContentObjectOnly() to create JSON Object
 					new AllContentObjectOnly().getJsonObject(id[index]), id[index], title[index]);
+			showMsg(msg);
 		} catch (IOException | JSONException e) {
 			new Log().saveLog(e);
 			e.printStackTrace();
 		}
-
+	}
+	
+	private void showMsg(String msg) {
+		IWorkbench wb = PlatformUI.getWorkbench();
+		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+		MessageDialog.openInformation(win.getShell(), "Atention", msg);
 	}
 
 	private void hookContextMenu() {

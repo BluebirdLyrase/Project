@@ -12,6 +12,7 @@ import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnViewerToolTipSupport;
@@ -161,7 +162,8 @@ public class SearchResultView extends ViewPart {
 	private void saveOffline() {
 		int index = viewer.getTable().getSelectionIndex();
 		try {
-			new ContentWriter().saveContent(new AllContentObjectOnly().getJsonObject(id[index]), id[index], titleList[index]);
+			String msg = new ContentWriter().saveContent(new AllContentObjectOnly().getJsonObject(id[index]), id[index], titleList[index]);
+			showMsg(msg);
 		} catch (IOException | JSONException e) {
 			new Log().saveLog(e);
 			e.printStackTrace();
@@ -171,11 +173,18 @@ public class SearchResultView extends ViewPart {
 	private void saveFavorite() {
 		int index = viewer.getTable().getSelectionIndex();
 		try {
-			new FavoriteWriter().saveFavorite(titleList[index], id[index]);
+			String msg = new FavoriteWriter().saveFavorite(titleList[index], id[index]);
+			showMsg(msg);
 		} catch (IOException | JSONException e) {
 			new Log().saveLog(e);
 			e.printStackTrace();
 		}
+	}
+	
+	private void showMsg(String msg) {
+		IWorkbench wb = PlatformUI.getWorkbench();
+		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+		MessageDialog.openInformation(win.getShell(), "Atention", msg);
 	}
 
 	private void hookContextMenu() {

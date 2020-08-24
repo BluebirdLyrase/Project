@@ -11,6 +11,7 @@ import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -232,9 +233,10 @@ public class ViewHistoryView extends ViewPart {
 	private void saveOffline() {
 		int index = getRealIndex();
 		try {
-			new ContentWriter().saveContent(
+			String msg = new ContentWriter().saveContent(
 					// call AllContentObjectOnly() to create JSON Object
 					new AllContentObjectOnly().getJsonObject(id[index]), id[index], title[index]);
+			showMsg(msg);
 		} catch (IOException | JSONException e) {
 			new Log().saveLog(e);
 			e.printStackTrace();
@@ -244,12 +246,20 @@ public class ViewHistoryView extends ViewPart {
 	private void saveFavorite() {
 		int index = getRealIndex();
 		try {
-			new FavoriteWriter().saveFavorite(title[index], id[index]);
+			String msg = new FavoriteWriter().saveFavorite(title[index], id[index]);
+			showMsg(msg);
 		} catch (IOException | JSONException e) {
 			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 	}
+	
+	private void showMsg(String msg) {
+		IWorkbench wb = PlatformUI.getWorkbench();
+		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+		MessageDialog.openInformation(win.getShell(), "Atention", msg);
+	}
+
 
 	private void hookContextMenu() {
 		MenuManager menuMgr = new MenuManager("#PopupMenu");
