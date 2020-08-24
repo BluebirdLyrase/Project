@@ -87,13 +87,9 @@ public class AllContent extends StackOverFlowConnecter {
 		LOGGER.info("title : " + title);
 		
 		///catch and fix API bug : ( it's not my fault
-		try {
-		this.id=  itemObject.get("question_id").toString();
-		}catch(JSONException e)
-		{
-			LOGGER.severe("no question_id bug");
-			this.id = new QuestionID().getQuestionID(this.title);
-		}
+
+		this.id=  question_id;
+
 		LOGGER.info("question_id : " + id);
 
 		this.body = itemObject.getString("body");
