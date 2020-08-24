@@ -61,12 +61,12 @@ public class HTMLBuilder {
 				+ "    }\r\n" + "</script>";
 		String tags = "";
 
-		try {
+
 			////// Question
 			question = "<h2>Question : " + q.getTitle() + "</h2>" + "<div style=\" font-size: 18px \"> " + q.getBody()
 					+ "</div><hr>";
 
-			new ViewWriter().saveContentViewHistory(q.getId(), q.getTags(), q.getTitle());
+				new ViewWriter().saveContentViewHistory(q.getId(), q.getTags(), q.getTitle());
 
 			for (int t = 0; t < q.getTags().length; t++) {
 				tags = tags + "<code>" + q.getTags()[t] + "</code> ";
@@ -140,13 +140,6 @@ public class HTMLBuilder {
 			} else {
 				answer = "<h2>No Answer</h2>";
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		HTMLbody = HTMLHeader + question + questionComment + questionOwner + answer + script;
 		String codeBgColor = "background-color: #eff0f1;";
 		HTMLbody = HTMLbody.replaceAll("<pre", "<pre style=\"" + codeBgColor + "\"");

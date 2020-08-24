@@ -16,14 +16,14 @@ public class ViewWriter extends LocalJsonList {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void saveContentViewHistory(String id, String[] tags, String title) {
+	public void saveContentViewHistory(String id, String[] tags, String title){
 		JSONObject newData = new JSONObject();
 		JSONArray arrayTags = new JSONArray();
 		for (int i = 0; i < tags.length; i++) {
 			arrayTags.put(tags[i]);
 		}
-		try {
 			String date = LocalDateTime.now().toString();
+			try {
 			newData.put("ID", id);
 			newData.put("Tags", arrayTags);
 			newData.put("Title", title);
@@ -35,10 +35,10 @@ public class ViewWriter extends LocalJsonList {
 			///database///
 			new ViewHistoryDatabaseWriter(newData);
 			/////////////
-		} catch (JSONException | IOException e) {
-			LOGGER.severe("Error while saving contentview history : "+e);
-			new Log().saveLog(e);
-		}
+			}catch (JSONException | IOException e) {
+				e.printStackTrace();
+				 //TODO: handle exception
+			}
 	}
 
 }
