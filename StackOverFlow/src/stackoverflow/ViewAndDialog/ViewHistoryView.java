@@ -162,7 +162,7 @@ public class ViewHistoryView extends ViewPart {
 		ViewHistorySearchDialog dialog = new ViewHistorySearchDialog(win.getShell());
 		dialog.create();
 		if (dialog.open() == Window.OK) {
-			//clear all previous content
+			// clear all previous content
 			table.removeAll();
 			cdate.clear();
 			for (int i = 0; i < lenght; i++) {
@@ -188,18 +188,19 @@ public class ViewHistoryView extends ViewPart {
 		int index = 0;
 		if (isCustom) {
 			for (int i = 0; i < lenght; i++) {
-				if (cdate.get(currentIndex).equals(date[i])) { //matching cid to actual id to find original index in array and table
+				if (cdate.get(currentIndex).equals(date[i])) { // matching cid to actual id to find original index in
+																// array and table
 					index = i;
-					LOGGER.info("index = "+index+"||| title = "+title[index]);
-					LOGGER.info("date : "+date[index]+"=="+"cdate"+cdate.get(currentIndex));
+					LOGGER.info("index = " + index + "||| title = " + title[index]);
+					LOGGER.info("date : " + date[index] + "==" + "cdate" + cdate.get(currentIndex));
 					break;
 				}
 			}
-		}else {
+		} else {
 			index = currentIndex;
 			LOGGER.info("no custom table");
 		}
-		
+
 		return index;
 	}
 
@@ -223,9 +224,9 @@ public class ViewHistoryView extends ViewPart {
 
 	private void delete() {
 		int index = getRealIndex();
-		if (viewHistory.delete(index)) {
+		viewHistory.delete(index);
 			createTable();
-		}
+		
 	}
 
 	private void saveOffline() {

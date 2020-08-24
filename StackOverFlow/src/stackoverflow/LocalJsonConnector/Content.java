@@ -18,9 +18,7 @@ public class Content extends JSONFile {
 	protected String fileDirURL = (defaultDir + "\\StackOverFlowHelper\\OfflineContent");
 	private File fileDir = new File(fileDirURL);
 	protected String arrayName = "items";
-
-	protected String delConfrimMsg = "do you want to delete this?";
-
+	
 	public Content() throws IOException, JSONException {
 		LOGGER.setLevel(Level.SEVERE);
 		// Check if there is already Stackoverflow dir if not create one
@@ -31,11 +29,7 @@ public class Content extends JSONFile {
 		}
 	}
 
-	public boolean delete(String filename, int index) {
-		IWorkbench wb = PlatformUI.getWorkbench();
-		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-		boolean result = MessageDialog.openConfirm(win.getShell(), "Atention", delConfrimMsg);
-		if (result) {
+	public void delete(String filename, int index) {
 			try {
 				deleteFile(fileDirURL + "\\" + filename);
 				new ContentTitleWriter().delete(index);
@@ -43,10 +37,6 @@ public class Content extends JSONFile {
 				e.printStackTrace();
 				new Log().saveLog(e);
 			}
-		} else {
-			LOGGER.info("Delete has been cancel by user.");
-		}
-		return result;
 	}
 
 	public void clear() {

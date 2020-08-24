@@ -61,7 +61,6 @@ public class FavoriteView extends ViewPart {
 	private String[] id;
 	private FavoriteList fav;
 
-
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 		@Override
 		public String getColumnText(Object obj, int index) {
@@ -111,7 +110,7 @@ public class FavoriteView extends ViewPart {
 	private void createTable() {
 		try {
 			fav = new FavoriteList();
-		 title = fav.getTitle();
+			title = fav.getTitle();
 			id = fav.getID();
 			viewer.setInput(null);
 			viewer.setInput(title);
@@ -120,9 +119,9 @@ public class FavoriteView extends ViewPart {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void createCustomTable() {
-		
+
 	}
 
 	private void open() {
@@ -145,15 +144,14 @@ public class FavoriteView extends ViewPart {
 			new Log().saveLog(e);
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	private void delete() {
 
 		int index = viewer.getTable().getSelectionIndex();
-		if (fav.delete(index)) {
-			createTable();
-		}
+		fav.delete(index);
+		createTable();
 	}
 
 	private void saveOffline() {
@@ -195,8 +193,6 @@ public class FavoriteView extends ViewPart {
 		manager.add(saveOffline);
 	}
 
-
-
 	private void makeActions() {
 		open = new Action() {
 			public void run() {
@@ -229,7 +225,7 @@ public class FavoriteView extends ViewPart {
 		};
 		refresh.setText("Refresh");
 		refresh.setToolTipText("Refresh this page");
-		
+
 		doubleClickAction = new Action() {
 			public void run() {
 				open();
@@ -244,7 +240,6 @@ public class FavoriteView extends ViewPart {
 			}
 		});
 	}
-
 
 	@Override
 	public void setFocus() {

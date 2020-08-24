@@ -30,19 +30,15 @@ public class ContentTitleWriter extends LocalJsonList{
 	}
 	
 	@Override
-	public boolean delete(int index) {
-		boolean result = true;
+	public void delete(int index) {
 		try {
 			jsonObject.getJSONArray(arrayName).remove(index);
 			saveJSONFile(filePath, jsonObject);
 		} catch (JSONException | IOException e) {
-			result = false;
 			e.printStackTrace();
 			LOGGER.severe("Error while removing item." + e);
 			new Log().saveLog(e);
 		}
-		
-		return result;
 	}
 	
 	@Override

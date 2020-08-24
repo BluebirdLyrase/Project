@@ -158,13 +158,16 @@ public class OfflineListView extends ViewPart {
 	public void delete() {
 		int index = viewer.getTable().getSelectionIndex();
 		try {
-			boolean result = new Content().delete(filename[index], index);
-			if(result) {createTable();}
+			 new Content().delete(filename[index], index);
+			 createTable();
 		} catch (IOException | JSONException e) {
 			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 	}
+	
+	private IWorkbench wb = PlatformUI.getWorkbench();
+	private IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 
 	private void hookContextMenu() {
 		MenuManager menuMgr = new MenuManager("#PopupMenu");

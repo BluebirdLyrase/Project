@@ -196,7 +196,8 @@ public class SearchingHistoryView extends ViewPart {
 			table.removeAll();
 			cdate.clear();
 			for (int i = 0; i < lenght; i++) {
-				if (isMatch(i, dialog.getSearchText(),dialog.getOrder(),dialog.getSort(),dialog.getSite(),dialog.getTagsText())) {
+				if (isMatch(i, dialog.getSearchText(), dialog.getOrder(), dialog.getSort(), dialog.getSite(),
+						dialog.getTagsText())) {
 					cdate.add(date[i]); // add id as a key for right click function
 					new TableItem(table, SWT.NONE)
 							.setText(new String[] { text[i], order[i], sort[i], site[i], tagged[i], date[i] });
@@ -206,35 +207,36 @@ public class SearchingHistoryView extends ViewPart {
 		}
 	}
 
-	private boolean isMatch(int index, String searchText,String order, String sort, String site, String tagged) {
+	private boolean isMatch(int index, String searchText, String order, String sort, String site, String tagged) {
 		boolean result = false;
 		boolean simSearch = (text[index].toLowerCase().contains(searchText.toLowerCase()) || searchText == null);
-		boolean simOrder = (this.order[index].equals(order) || order.equals("any")) ;
+		boolean simOrder = (this.order[index].equals(order) || order.equals("any"));
 		boolean simSort = (this.sort[index].equals(sort) || sort.equals("any"));
 		boolean simSite = (this.site[index].equals(site) || site.equals("any"));
 		boolean simTags = (this.tagged[index].toLowerCase().contains(tagged.toLowerCase()) || tagged == null);
-		result = simSearch && simOrder && simSort && simSite && simTags ;
-		LOGGER.info("match data searchtext : "+text[index]+"| date : "+date[index]);
+		result = simSearch && simOrder && simSort && simSite && simTags;
+		LOGGER.info("match data searchtext : " + text[index] + "| date : " + date[index]);
 		return result;
 	}
-	
+
 	private int getRealIndex() {
 		int currentIndex = viewer.getTable().getSelectionIndex();
 		int index = 0;
 		if (isCustom) {
 			for (int i = 0; i < lenght; i++) {
-				if (cdate.get(currentIndex).equals(date[i])) { //matching cid to actual id to find original index in array and table
+				if (cdate.get(currentIndex).equals(date[i])) { // matching cid to actual id to find original index in
+																// array and table
 					index = i;
-					LOGGER.info("index = "+index+"||| title = "+ text[index]);
-					LOGGER.info("date : "+date[index]+"=="+"cdate"+cdate.get(currentIndex));
+					LOGGER.info("index = " + index + "||| title = " + text[index]);
+					LOGGER.info("date : " + date[index] + "==" + "cdate" + cdate.get(currentIndex));
 					break;
 				}
 			}
-		}else {
+		} else {
 			index = currentIndex;
 			LOGGER.info("no custom table");
 		}
-		
+
 		return index;
 	}
 
@@ -278,9 +280,9 @@ public class SearchingHistoryView extends ViewPart {
 
 	private void delete() {
 		int index = getRealIndex();
-		if (searchingHistory.delete(index)) {
-			createTable();
-		}
+		searchingHistory.delete(index);
+		createTable();
+
 	}
 
 	private void hookContextMenu() {
@@ -338,7 +340,7 @@ public class SearchingHistoryView extends ViewPart {
 		};
 		refresh.setText("Refresh");
 		refresh.setToolTipText("Refresh this Table");
-		
+
 		search = new Action() {
 			public void run() {
 				createCustomTableViewer();
@@ -346,7 +348,7 @@ public class SearchingHistoryView extends ViewPart {
 		};
 		search.setText("Search");
 		search.setToolTipText("Search from this table");
-		
+
 		doubleClickAction = new Action() {
 			public void run() {
 				open();
