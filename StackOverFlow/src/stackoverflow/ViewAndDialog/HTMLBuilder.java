@@ -66,7 +66,12 @@ public class HTMLBuilder {
 			question = "<h2>Question : " + q.getTitle() + "</h2>" + "<div style=\" font-size: 18px \"> " + q.getBody()
 					+ "</div><hr>";
 
-				new ViewWriter().saveContentViewHistory(q.getId(), q.getTags(), q.getTitle());
+				try {
+					new ViewWriter().saveContentViewHistory(q.getId(), q.getTags(), q.getTitle());
+				} catch (JSONException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 			for (int t = 0; t < q.getTags().length; t++) {
 				tags = tags + "<code>" + q.getTags()[t] + "</code> ";

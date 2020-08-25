@@ -16,14 +16,13 @@ public class ViewWriter extends LocalJsonList {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void saveContentViewHistory(String id, String[] tags, String title){
+	public void saveContentViewHistory(String id, String[] tags, String title) throws JSONException, IOException{
 		JSONObject newData = new JSONObject();
 		JSONArray arrayTags = new JSONArray();
 		for (int i = 0; i < tags.length; i++) {
 			arrayTags.put(tags[i]);
 		}
 			String date = LocalDateTime.now().toString();
-			try {
 			newData.put("ID", id);
 			newData.put("Tags", arrayTags);
 			newData.put("Title", title);
@@ -31,14 +30,15 @@ public class ViewWriter extends LocalJsonList {
 			JSONArray newArray = jsonObject.getJSONArray(arrayName);
 			newArray.put(newData);
 			jsonObject.put(arrayName, newArray);
-			saveJSONFile(filePath, jsonObject);
+			try {
+				saveJSONFile(filePath, jsonObject);
+			} catch (JSONException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			///database///
 			new ViewHistoryDatabaseWriter(newData);
 			/////////////
-			}catch (JSONException | IOException e) {
-				e.printStackTrace();
-				 //TODO: handle exception
-			}
 	}
 
 }
