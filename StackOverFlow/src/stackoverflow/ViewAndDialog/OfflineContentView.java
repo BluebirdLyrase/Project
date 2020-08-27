@@ -42,7 +42,6 @@ public class OfflineContentView extends ViewPart {
 	private Composite parent;
 	private String id = null;
 	private String HTMLtext;
-	private String qtitle = "";
 	private boolean isOffline = true;
 	private Browser browser;
 	private Action home;
@@ -66,7 +65,6 @@ public class OfflineContentView extends ViewPart {
 			return;
 		}
 		HTMLBuilder html = new HTMLBuilder(this.id, this.isOffline);
-		qtitle = html.getTitle();
 		HTMLtext = html.getHtml();
 		browser.setText(HTMLtext);
 	}

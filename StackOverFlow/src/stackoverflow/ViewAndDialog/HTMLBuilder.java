@@ -8,6 +8,7 @@ import stackoverflow.APIConnecter.AllContent;
 import stackoverflow.DataClass.Answer;
 import stackoverflow.DataClass.Comment;
 import stackoverflow.DataClass.Question;
+import stackoverflow.LocalJsonConnector.Log;
 import stackoverflow.LocalJsonConnector.ViewWriter;
 
 public class HTMLBuilder {
@@ -23,7 +24,7 @@ public class HTMLBuilder {
 			q = content.getAllConetent();
 			qtitle = q.getTitle();
 		} catch (IOException | JSONException e) {
-			// TODO Auto-generated catch block
+			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 	}
@@ -69,7 +70,7 @@ public class HTMLBuilder {
 				try {
 					new ViewWriter().saveContentViewHistory(q.getId(), q.getTags(), q.getTitle());
 				} catch (JSONException | IOException e) {
-					// TODO Auto-generated catch block
+					new Log().saveLog(e);
 					e.printStackTrace();
 				}
 

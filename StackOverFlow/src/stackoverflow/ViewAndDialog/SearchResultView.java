@@ -138,7 +138,7 @@ public class SearchResultView extends ViewPart {
 		makeActions();
 		hookContextMenu();
 		hookDoubleClickAction();
-		contributeToActionBars();
+//		contributeToActionBars();
 	}
 
 	private void open() {
@@ -200,11 +200,11 @@ public class SearchResultView extends ViewPart {
 		getSite().registerContextMenu(menuMgr, viewer);
 	}
 
-	private void contributeToActionBars() {
-		IActionBars bars = getViewSite().getActionBars();
+//	private void contributeToActionBars() {
+//		IActionBars bars = getViewSite().getActionBars();
 	//	fillLocalPullDown(bars.getMenuManager());
 //		fillLocalToolBar(bars.getToolBarManager());
-	}
+//	}
 
 
 	private void fillContextMenu(IMenuManager manager) {

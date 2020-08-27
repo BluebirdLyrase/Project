@@ -5,6 +5,8 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import stackoverflow.LocalJsonConnector.Log;
+
 public class QuestionID extends StackOverFlowConnecter {
 	
 	public String getQuestionID(String title) {
@@ -15,7 +17,7 @@ public class QuestionID extends StackOverFlowConnecter {
 			JSONObject itemObject = json.getJSONArray("items").getJSONObject(0);
 			questionID = itemObject.get("question_id").toString();	
 		} catch (IOException | JSONException e) {
-			// TODO Auto-generated catch block
+			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 		return questionID;

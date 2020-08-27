@@ -17,7 +17,7 @@ public class SearchingHistoryDatabaseWriter extends DatabaseConnector {
 		jsonString = json.toString();
 		databaseWriter(jsonString, apiName);
 		}else {
-			//TODO
+			//TODO 
 		}
 	}
 

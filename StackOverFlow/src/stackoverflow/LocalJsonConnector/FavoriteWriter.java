@@ -1,11 +1,6 @@
 package stackoverflow.LocalJsonConnector;
 
 import java.io.IOException;
-
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

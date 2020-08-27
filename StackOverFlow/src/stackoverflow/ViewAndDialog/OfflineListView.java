@@ -117,7 +117,7 @@ public class OfflineListView extends ViewPart {
 		makeActions();
 		hookContextMenu();
 		hookDoubleClickAction();
-		contributeToActionBars();
+//		contributeToActionBars();
 	}
 
 	public void createTable() {
@@ -166,9 +166,6 @@ public class OfflineListView extends ViewPart {
 		}
 	}
 	
-	private IWorkbench wb = PlatformUI.getWorkbench();
-	private IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-
 	private void hookContextMenu() {
 		MenuManager menuMgr = new MenuManager("#PopupMenu");
 		menuMgr.setRemoveAllWhenShown(true);
@@ -182,10 +179,9 @@ public class OfflineListView extends ViewPart {
 		getSite().registerContextMenu(menuMgr, viewer);
 	}
 
-	private void contributeToActionBars() {
-		IActionBars bars = getViewSite().getActionBars();
-
-	}
+//	private void contributeToActionBars() {
+//		IActionBars bars = getViewSite().getActionBars();
+//	}
 
 
 

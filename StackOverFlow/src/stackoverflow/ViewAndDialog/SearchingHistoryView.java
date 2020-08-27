@@ -114,7 +114,7 @@ public class SearchingHistoryView extends ViewPart {
 		makeActions();
 		hookContextMenu();
 		hookDoubleClickAction();
-		contributeToActionBars();
+//		contributeToActionBars();
 	}
 
 	private String[] text;
@@ -127,7 +127,6 @@ public class SearchingHistoryView extends ViewPart {
 
 	private IWorkbench wb = PlatformUI.getWorkbench();
 	private IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-	private IWorkbenchPage activeEvent = win.getActivePage();
 	private IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 
 	private void createTable() {
@@ -298,11 +297,11 @@ public class SearchingHistoryView extends ViewPart {
 		getSite().registerContextMenu(menuMgr, viewer);
 	}
 
-	private void contributeToActionBars() {
-		IActionBars bars = getViewSite().getActionBars();
+//	private void contributeToActionBars() {
+//		IActionBars bars = getViewSite().getActionBars();
 //		fillLocalPullDown(bars.getMenuManager());
 //		fillLocalToolBar(bars.getToolBarManager());
-	}
+//	}
 
 	private void fillContextMenu(IMenuManager manager) {
 		manager.add(open);

@@ -5,11 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,8 +24,6 @@ public class ContentWriter extends Content{
 		File newFile = new File(filePath);
 		//Check if there is already .json file
 		try {
-			IWorkbench wb = PlatformUI.getWorkbench();
-			IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 			if (newFile.createNewFile()) {
 				result = "Save to Offline Storage Sucessful";
 				LOGGER.info("File created : " + newFile.getName());

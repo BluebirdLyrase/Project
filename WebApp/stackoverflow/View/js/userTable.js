@@ -17,12 +17,7 @@ $(function () {
               { data: 'Password' },
               { data: '_id' , render : function ( data, type, row, meta ) {
                 return type === 'display'  ?
-                  '<a href="'+data+'" class="btn btn-primary" >edit</a>' :
-                  data;
-              }},
-              { data: '_id' , render : function ( data, type, row, meta ) {
-                return type === 'display'  ?
-                  '<a href="'+data+'" class="btn btn-danger" >Delete</a>' :
+                  '<a href="'+data+'" class="btn btn-primary" >edit</a> <a href="'+data+'" class="btn btn-danger" >Delete</a>' :
                   data;
               }},
             ]

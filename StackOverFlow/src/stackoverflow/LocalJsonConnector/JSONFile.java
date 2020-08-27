@@ -6,11 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.logging.Logger;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import stackoverflow.APIConnecter.StackOverFlowConnecter;
 
 public class JSONFile {
 	protected static final Logger LOGGER = Logger.getLogger(JSONFile.class.getName());

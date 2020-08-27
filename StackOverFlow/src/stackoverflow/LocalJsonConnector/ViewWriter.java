@@ -13,7 +13,6 @@ public class ViewWriter extends LocalJsonList {
 
 	public ViewWriter() throws IOException, JSONException {
 		super("ViewHistory");
-		// TODO Auto-generated constructor stub
 	}
 
 	public void saveContentViewHistory(String id, String[] tags, String title) throws JSONException, IOException{
@@ -33,7 +32,7 @@ public class ViewWriter extends LocalJsonList {
 			try {
 				saveJSONFile(filePath, jsonObject);
 			} catch (JSONException | IOException e) {
-				// TODO Auto-generated catch block
+				new Log().saveLog(e);
 				e.printStackTrace();
 			}
 			///database///

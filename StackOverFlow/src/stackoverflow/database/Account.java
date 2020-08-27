@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import stackoverflow.LocalJsonConnector.LocalJsonList;
+import stackoverflow.LocalJsonConnector.Log;
 
 public class Account extends LocalJsonList {
 	
@@ -57,11 +58,12 @@ public class Account extends LocalJsonList {
 		    	}else {
 		    		LoginMSG = wrong;
 		    		LOGGER.severe(responseBodyString+":: incorrect username / password  " + this.DatabaseURL);
-		    		//TODO else properly
+		    		
 		    	}
-		} catch (Exception ex) {
+		} catch (Exception e) {
 			LoginMSG = error;
-			System.out.println(ex); //TODO Log properly
+			e.printStackTrace();
+			new Log().saveLog(e);
 		} finally {
 		    httpClient.close();
 		}
@@ -123,8 +125,9 @@ public class Account extends LocalJsonList {
 	    case "3": connectionstatus = "Disconnecting" ; break;
 	    }
 		} catch (ParseException | IOException | JSONException e) {
-			// TODO Auto-generated catch block
+			connectionstatus = "Unavailable";
 			e.printStackTrace();
+			new Log().saveLog(e);
 		}
 		
 		return connectionstatus;

@@ -80,8 +80,6 @@ public class LoginDialog extends Dialog {
 		userID =  userIDText.getText();
 		password = passwordText.getText();
 		databaseUrl = databaseUrlText.getText();
-//		System.out.println("save input : "+userID+password+databaseUrl); TODO
-		
 	}
 
 	/**

@@ -8,6 +8,8 @@ import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.json.JSONException;
 
+import stackoverflow.LocalJsonConnector.Log;
+
 public class DatabaseConnector {
 	protected String userID;
 	protected Account account = new Account();
@@ -23,7 +25,8 @@ public class DatabaseConnector {
 		    CloseableHttpResponse response = httpClient.execute(request);
 		    System.out.println(response);
 		} catch (Exception ex) {
-			System.out.println(ex); //TODO Log properly
+			ex.printStackTrace();
+			new Log().saveLog(ex);
 		} finally {
 		    httpClient.close();
 		}

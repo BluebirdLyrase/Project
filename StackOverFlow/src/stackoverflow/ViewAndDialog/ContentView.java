@@ -10,6 +10,7 @@ import org.json.JSONException;
 import stackoverflow.APIConnecter.AllContentObjectOnly;
 import stackoverflow.LocalJsonConnector.ContentWriter;
 import stackoverflow.LocalJsonConnector.FavoriteWriter;
+import stackoverflow.LocalJsonConnector.Log;
 
 import java.io.IOException;
 import javax.inject.Inject;
@@ -88,11 +89,8 @@ public class ContentView extends ViewPart {
 		try {
 			String msg = new ContentWriter().saveContent(new AllContentObjectOnly().getJsonObject(id), id, qtitle);
 			showMsg(msg);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+		} catch (IOException|JSONException e) {
+			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 	}
@@ -101,11 +99,8 @@ public class ContentView extends ViewPart {
 		try {
 			String msg = new FavoriteWriter().saveFavorite(qtitle, id);
 			showMsg(msg);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+		} catch (IOException|JSONException e) {
+			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 	}

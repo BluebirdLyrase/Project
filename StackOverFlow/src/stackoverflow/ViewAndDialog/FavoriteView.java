@@ -105,7 +105,7 @@ public class FavoriteView extends ViewPart {
 		makeActions();
 		hookContextMenu();
 		hookDoubleClickAction();
-		contributeToActionBars();
+//		contributeToActionBars();
 	}
 
 	private void createTable() {
@@ -119,10 +119,6 @@ public class FavoriteView extends ViewPart {
 			new Log().saveLog(e);
 			e.printStackTrace();
 		}
-	}
-
-	private void createCustomTable() {
-
 	}
 
 	private void open() {
@@ -187,9 +183,9 @@ public class FavoriteView extends ViewPart {
 		getSite().registerContextMenu(menuMgr, viewer);
 	}
 
-	private void contributeToActionBars() {
-		IActionBars bars = getViewSite().getActionBars();
-	}
+//	private void contributeToActionBars() {
+//		IActionBars bars = getViewSite().getActionBars();
+//	}
 
 	private void fillContextMenu(IMenuManager manager) {
 		manager.add(open);
