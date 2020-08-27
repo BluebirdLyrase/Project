@@ -1,4 +1,4 @@
-package stackoverflow.Tester;
+package stackoverflow.Tester.manueltest;
 
 public class langTest {
 	public static void main(String[] args) {

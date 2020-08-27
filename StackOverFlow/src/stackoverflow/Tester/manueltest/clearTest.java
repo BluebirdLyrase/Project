@@ -1,4 +1,4 @@
-package stackoverflow.Tester;
+package stackoverflow.Tester.manueltest;
 
 import java.io.IOException;
 import java.util.Scanner;
