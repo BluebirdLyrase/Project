@@ -70,63 +70,67 @@ function addUser(req, res) {
     var newId = new mongoose.mongo.ObjectId();
     var payload = req.body;
     payload._id = newId; // add _id
+    
     var NewUser = new user(payload);
-    var isPassed = true;
-    // console.log(req.body.ID);
-
-    //check to prevent empty userID
-    if(payload.UserID == null){
-        res.json(" Empty UserID ");
-        isPassed = false
-    }
-
-    if(payload.Password == null){
-        res.json(" Empty Password ");
-        isPassed = false
-    }
-
-    if(isPassed){
-    //check if that UserID is already exist
-    user.findOne({ UserID: payload.UserID }, function (err, data) {
-        if (data != null) {
-            res.json(" Duplicate UserID! ");
-        }else{
-            NewUser.save(function (err) {
-                if (err) {
-                    res.status(500).json(err);
-                    console.log(err);
-                }else{
-                    res.json("Successfully add new User");
-                }
-            });
+    console.log(NewUser);
+    NewUser.save(function (err) {
+        if (err) {
+            res.status(500).json(err);
+        } else {
+            res.json({ status: "added NewUser" });
         }
     });
 }
+
+function findUser(req, res) {
+    var userID = req.params.userid;
+    //check if that UserID is already exist
+    user.findOne({ UserID: userID }, function (err, data) {
+        console.log('sent '+userID)
+        if (data != null) {
+            console.log('Dupe')
+            res.json("Duplicate");
+        } else {
+            console.log('Success')
+            res.json("Success");
+        }
+    });
 }
 
+// function editUser(req, res) {
+//     var payload = req.body
+//     var id = req.params.id; 
+//     console.log(payload) 
+//     user.findByIdAndUpdate(id,payload,function (err) {
+//         if (err) res.status(500).json(err);
+//         res.json({status : "update user"});
+//     });
+// }
+
+
 function deleteSearchingHistory(req, res) {
-    var id = req.params.id;    
-    searchingHistory.findByIdAndRemove(id,function (err) {
+    var id = req.params.id;
+    searchingHistory.findByIdAndRemove(id, function (err) {
         if (err) res.status(500).json(err);
-        res.json({status : "delete a data"});
+        res.json({ status: "delete a data" });
     });
     // ===============================
 }
 
 function deleteViewHistory(req, res) {
-    var id = req.params.id;    
-    viewHistory.findByIdAndRemove(id,function (err) {
+    var id = req.params.id;
+    viewHistory.findByIdAndRemove(id, function (err) {
         if (err) res.status(500).json(err);
-        res.json({status : "delete a data"});
+        res.json({ status: "delete a data" });
     });
     // ===============================
 }
 
 function deleteUser(req, res) {
-    var id = req.params.id;    
-    user.findByIdAndRemove(id,function (err) {
+    var id = req.params.id;
+    user.findByIdAndRemove(id, function (err) {
         if (err) res.status(500).json(err);
-        res.json({status : "delete a data"});
+        res.json({ status: "delete a data" });
     });
     // ===============================
 }
@@ -165,8 +169,10 @@ module.exports = {
     addViewHistory: addViewHistory,
     addSearchingHistory: addSearchingHistory,
     addUser: addUser,
+    findUser: findUser,
+    // editUser: editUser,
     deleteViewHistory: deleteViewHistory,
-    deleteSearchingHistory:deleteSearchingHistory,
+    deleteSearchingHistory: deleteSearchingHistory,
     deleteUser: deleteUser,
     authen: authen,
     checkConnection: checkConnection

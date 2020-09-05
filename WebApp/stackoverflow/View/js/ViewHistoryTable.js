@@ -1,7 +1,6 @@
+var url = "/api/viewHistory/";
 
 $(function () {
-
-  var url = "/api/viewHistory";
 
   // Get data when first time open
   $.get(url, function (data, status) {
@@ -38,16 +37,13 @@ function Delete(id){
 function Model(id){
   $('#confirmModal').modal('toggle');
   $("#confirmdelete").click(function () {
-    console.log("delete "+id);
-    // #15 Get a delete product and go back to product list 
-    // use $.get and winidow.location.href
+    console.log("delete "+id);``
     $.ajax({
-        url: '/api/viewHistory/'+id,
+        url: url+id,
         type: 'DELETE',
         success: function (result) {
             window.location.href = "ViewHistory.html";
         }
     });
-    // ===============================
 });
 }

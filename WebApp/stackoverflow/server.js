@@ -45,6 +45,9 @@ router.delete('/viewHistory/:id',api.deleteViewHistory)
 router.delete('/searchingHistory/:id',api.deleteSearchingHistory)
 router.delete('/user/:id',api.deleteUser)
 
+//edit user
+// router.put('/user/:id',api.editUser)
+router.get('/user/:userid',api.findUser)
 
 //Connection
 router.post('/authen',api.authen)
