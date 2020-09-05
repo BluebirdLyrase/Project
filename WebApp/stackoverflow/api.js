@@ -104,6 +104,15 @@ function addUser(req, res) {
 }
 }
 
+function deleteSearchingHistory(req, res) {
+    var id = req.params.id;    
+    searchingHistory.findByIdAndRemove(id,function (err) {
+        if (err) res.status(500).json(err);
+        res.json({status : "delete a data"});
+    });
+    // ===============================
+}
+
 function authen(req, res) {
     user.findOne({ UserID: req.body.UserID, Password: req.body.Password }, function (err, data) {
         console.log(req)
@@ -138,6 +147,7 @@ module.exports = {
     addViewHistory: addViewHistory,
     addSearchingHistory: addSearchingHistory,
     addUser: addUser,
+    deleteSearchingHistory:deleteSearchingHistory,
     authen: authen,
     checkConnection: checkConnection
 };
