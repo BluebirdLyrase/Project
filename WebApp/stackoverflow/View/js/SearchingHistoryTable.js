@@ -24,15 +24,14 @@ $(function () {
               { data: 'UserID' },
               { data: '_id' , render : function ( data, type, row, meta ) {
                 return type === 'display'  ?
-                  '<botton onclick="Delete(`'+data+'`)" class="btn btn-danger" >Delete</botton>' :
-                  data;
+                  '<botton onclick="Delete(`'+data+'`)" class="btn btn-danger" >Delete</botton>' : data;
               }},
             ]
           });
       } );
       }
   });
-  })
+  });
 
 
   function Delete(id){

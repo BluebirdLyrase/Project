@@ -21,19 +21,33 @@ $(function () {
             { data: 'UserID' },
             { data: '_id' , render : function ( data, type, row, meta ) {
               return type === 'display'  ?
-                '<a href="'+data+'" class="btn btn-danger" >Delete</a>' :
-                data;
+              '<botton onclick="Delete(`'+data+'`)" class="btn btn-danger" >Delete</botton>' : data;
             }},
           ]
         });
     } );
-
-    table.button( '3-1' ).text( 'Not available' );
-
-
-
     }
 });
-  
+});
 
-})
+  
+function Delete(id){
+  Model(id);
+}
+
+function Model(id){
+  $('#confirmModal').modal('toggle');
+  $("#confirmdelete").click(function () {
+    console.log("delete "+id);
+    // #15 Get a delete product and go back to product list 
+    // use $.get and winidow.location.href
+    $.ajax({
+        url: '/api/viewHistory/'+id,
+        type: 'DELETE',
+        success: function (result) {
+            window.location.href = "ViewHistory.html";
+        }
+    });
+    // ===============================
+});
+}

@@ -41,7 +41,10 @@ router.post('/addSearchingHistory',api.addSearchingHistory)
 router.post('/addUser',api.addUser)
 
 //delete Data
+router.delete('/viewHistory/:id',api.deleteViewHistory)
 router.delete('/searchingHistory/:id',api.deleteSearchingHistory)
+router.delete('/user/:id',api.deleteUser)
+
 
 //Connection
 router.post('/authen',api.authen)
