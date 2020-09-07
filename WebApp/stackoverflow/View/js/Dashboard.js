@@ -3,37 +3,35 @@ $(function () {
 
   var url = "/api/viewHistory/";
 
+
   // Get data when first time open
 
   $.get(url, function (data, status) {
     if (status == 'success') {
       console.log(data);
       $(data).ready(function () {
-          //set most tag card
-        var most_tag = $('#most_tag').text();
-        console.log(most_tag);
-
+        //set most tag card
         var most;
         var alltag = [];
         //loop get TagS 
         for (var i = 0; i < data.length; i++) {
           var obj = data[i];
           obj_tag = obj.Tags;
-
-          console.log(obj_tag);
           alltag = alltag.concat(obj_tag);
         }
+        console.log(obj_tag);
         most = getMostFrequentElement(alltag);
         console.log(most);
         $("#most_tag").text(most[0]);
 
         //end of set tag
-        
+
         var alluse = data.length;
         $('#most_all').text(alluse);
         //set most tag card
 
         //end of set tag
+
       });
 
     }
@@ -51,20 +49,21 @@ $(function () {
     if (status == 'success') {
       console.log(data);
       $(data).ready(function () {
-        var most_site = $('#most_site').text();
-        console.log(most_site);
 
         var most;
-        var alltag = [];
+        var allsite = [];
         //loop get TagS 
         for (var i = 0; i < data.length; i++) {
           var obj = data[i];
           obj_site = obj.Site;
-          console.log(obj_site);
+          allsite = allsite.concat(obj_site);
+
         }
-        most = getMostFrequentElement([obj_site]);
+        console.log(allsite);
+        most = getMostFrequentElement(allsite);
         console.log(most);
         $("#most_site").text(most[0]);
+
       });
 
     }
@@ -74,8 +73,37 @@ $(function () {
 
 
 
+// set most site card
+$(function () {
+
+  var url = "/api/user/";
+
+  // Get data when first time open
+  $.get(url, function (data, status) {
+    if (status == 'success') {
+      
+      console.log(data);
+      $(data).ready(function () {
+        $('#most_user').text(data.length)
+        for (var i = 0; i < data.length; i++) {
+          var obj = data[i];
+          obj_userID = obj.UserID;
+          console.log('name'+obj_userID);
+        }
+        
+
+      });
+
+    }
+
+  });
+});
+
+
+
+
 // This is form Stack Overflow : Xotic750 authur
-// It's  a function to find most frequene element  
+// It's  a function to find most frequent element  
 function getMostFrequentElement(inputArg) {
   var type = typeof inputArg,
     length,
