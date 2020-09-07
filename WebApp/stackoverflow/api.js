@@ -173,13 +173,18 @@ function checkConnection(req, res) {
 
 //Dashboard
 function distinctTags(req,res){
-    viewHistory.find().distinct('Tags', function(err,data) {
-        if (err) {
-            res.status(500).json({ status: "error", message: err });
-        }
-        res.json(data);
-    });
-}
+    viewHistory.aggregate([
+        { $unwind: "$Tags" }, 
+        { $group: { "_id": "$Tags", "count": { $sum: 1 } } }, 
+        { $project: { "Tags": "$_id", "count": 1 } },
+        { $sort:{"count":-1}},
+
+],        function(err,data) {
+    if (err) {
+        res.status(500).json({ status: "error", message: err });
+    }
+    res.json(data);
+})}
 
 
 module.exports = {

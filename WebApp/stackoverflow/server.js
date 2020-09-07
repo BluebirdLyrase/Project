@@ -55,10 +55,19 @@ router.post('/checkConnection',api.checkConnection)
 
 //Dashboard
 router.get('/distinctTags',api.distinctTags)
-//return array of distunct Tags
-//Example ["android","android-asynctask","assert","assertions",]
-
-// router.get('countTags',api.countTags)
+//return array of distunct Tags and count
+//[
+//     {
+//         "_id": "java",
+//         "count": 7,
+//         "Tags": "java"
+//     },
+//     {
+//         "_id": "javascript",
+//         "count": 3,
+//         "Tags": "javascript"
+//     }
+// ]
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
