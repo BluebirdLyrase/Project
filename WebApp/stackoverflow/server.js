@@ -45,13 +45,20 @@ router.delete('/viewHistory/:id',api.deleteViewHistory)
 router.delete('/searchingHistory/:id',api.deleteSearchingHistory)
 router.delete('/user/:id',api.deleteUser)
 
-//edit user
+//User Management
 // router.put('/user/:id',api.editUser)
 router.get('/user/:userid',api.findUser)
 
-//Connection
+//Connection with plugin
 router.post('/authen',api.authen)
 router.post('/checkConnection',api.checkConnection)
+
+//Dashboard
+router.get('/distinctTags',api.distinctTags)
+//return array of distunct Tags
+//Example ["android","android-asynctask","assert","assertions",]
+
+// router.get('countTags',api.countTags)
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
@@ -59,3 +66,4 @@ app.use('/api', cors(), router);
 
 // #10 Start the server
 app.listen(port);
+console.log(port);

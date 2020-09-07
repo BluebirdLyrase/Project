@@ -8,6 +8,8 @@ const url = "mongodb://localhost:27017/StackOverFlowDB";
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
 
+//get Data
+
 function getAllViewHistory(req, res) {
     viewHistory.find({}, function (err, data) {
         if (err) {
@@ -34,6 +36,8 @@ function getAllUser(req, res) {
         res.json(data);
     });
 }
+
+//add Data
 
 function addSearchingHistory(req, res) {
     var newId = new mongoose.mongo.ObjectId();
@@ -82,6 +86,36 @@ function addUser(req, res) {
     });
 }
 
+
+//delete Data
+
+function deleteSearchingHistory(req, res) {
+    var id = req.params.id;
+    searchingHistory.findByIdAndRemove(id, function (err) {
+        if (err) res.status(500).json(err);
+        res.json({ status: "delete a data" });
+    });
+}
+
+function deleteViewHistory(req, res) {
+    var id = req.params.id;
+    viewHistory.findByIdAndRemove(id, function (err) {
+        if (err) res.status(500).json(err);
+        res.json({ status: "delete a data" });
+    });
+}
+
+function deleteUser(req, res) {
+    var id = req.params.id;
+    user.findByIdAndRemove(id, function (err) {
+        if (err) res.status(500).json(err);
+        res.json({ status: "delete a data" });
+    });
+    // ===============================
+}
+
+//User Management
+
 function findUser(req, res) {
     var userID = req.params.userid;
     //check if that UserID is already exist
@@ -89,10 +123,10 @@ function findUser(req, res) {
         console.log('sent '+userID)
         if (data != null) {
             console.log('Dupe')
-            res.json("Duplicate");
+            res.json("not found");
         } else {
             console.log('Success')
-            res.json("Success");
+            res.json("found");
         }
     });
 }
@@ -108,32 +142,7 @@ function findUser(req, res) {
 // }
 
 
-function deleteSearchingHistory(req, res) {
-    var id = req.params.id;
-    searchingHistory.findByIdAndRemove(id, function (err) {
-        if (err) res.status(500).json(err);
-        res.json({ status: "delete a data" });
-    });
-    // ===============================
-}
-
-function deleteViewHistory(req, res) {
-    var id = req.params.id;
-    viewHistory.findByIdAndRemove(id, function (err) {
-        if (err) res.status(500).json(err);
-        res.json({ status: "delete a data" });
-    });
-    // ===============================
-}
-
-function deleteUser(req, res) {
-    var id = req.params.id;
-    user.findByIdAndRemove(id, function (err) {
-        if (err) res.status(500).json(err);
-        res.json({ status: "delete a data" });
-    });
-    // ===============================
-}
+//Connection with plugin
 
 function authen(req, res) {
     user.findOne({ UserID: req.body.UserID, Password: req.body.Password }, function (err, data) {
@@ -162,6 +171,17 @@ function checkConnection(req, res) {
 
 }
 
+//Dashboard
+function distinctTags(req,res){
+    viewHistory.find().distinct('Tags', function(err,data) {
+        if (err) {
+            res.status(500).json({ status: "error", message: err });
+        }
+        res.json(data);
+    });
+}
+
+
 module.exports = {
     getAllViewHistory: getAllViewHistory,
     getAllSearchingHistory: getAllSearchingHistory,
@@ -175,5 +195,6 @@ module.exports = {
     deleteSearchingHistory: deleteSearchingHistory,
     deleteUser: deleteUser,
     authen: authen,
-    checkConnection: checkConnection
+    checkConnection: checkConnection,
+    distinctTags:distinctTags
 };

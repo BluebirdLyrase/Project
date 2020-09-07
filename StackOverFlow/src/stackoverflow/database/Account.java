@@ -107,7 +107,6 @@ public class Account extends LocalJsonList {
 			result = true;
 		}
 		return result;
-		
 	}
 	
 	public String getConnectionStatus(){

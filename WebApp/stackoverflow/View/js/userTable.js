@@ -49,7 +49,7 @@ function Add(id) {
   $("#saveuser").click(function () {
 
     $.get(url + $("#userid").val(), function (data, status) {
-      if (data == 'Success') {
+      if (data == 'found') {
        
         if (id == null) {
           var newuser = {
