@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SOHP Admin Dashboard</title>
+  <title>SOH Admin Dashboard</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -242,7 +242,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Most Search tag</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Java</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800" id="most_tag">Java</div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-tags fa-2x text-gray-300"></i>
@@ -259,7 +259,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Most Search site</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Stack Overflow</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800" id="most_site">Stack Overflow</div>
                     </div>
                     <div class="col-auto">
                       <i class="fab fa-stack-overflow fa-2x text-gray-300"></i>
@@ -275,16 +275,13 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Most use User</div>
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Number of User</div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
                           <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"></div>
                         </div>
                         <div class="col">
-                          <!-- <div class="progress progress-sm mr-2">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div> -->
-                          <div class="h5 mb-0 font-weight-bold text-gray-800">Amonthep</div>
+                          <div class="h5 mb-0 font-weight-bold text-gray-800" id="most_user">Amonthep</div>
                         </div>
                       </div>
                     </div>
@@ -303,7 +300,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">All Searches</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">112</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800" id="most_all">112</div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-search fa-2x text-gray-300"></i>
@@ -323,7 +320,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Tag Searching Overview</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Searching Overview</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
@@ -620,6 +617,7 @@
   <!-- Page level custom scripts -->
   <script src="js/PieChart.js"></script>
   <script src="js/BarChart.js"></script>
+  <script src="js/Dashboard.js"></script>
   <!-- <script src="js/demo/chart-pie-demo.js"></script> -->
 
 </body>
