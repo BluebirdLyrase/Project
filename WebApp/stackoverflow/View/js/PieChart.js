@@ -1,7 +1,7 @@
 // Set new default font family and font color to mimic Bootstrap's default styling
 $(function () {
 
-  var url = "/api/viewHistory/";
+  var url = "/api/distinctTags/";
 
   $.get(url, function (data, status) {
     if (status == 'success') {
@@ -11,16 +11,44 @@ $(function () {
         Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
         Chart.defaults.global.defaultFontColor = '#858796';
 
-        // Pie Chart Example
+        // Pie Chart
+
+        var allTags = [];
+        var allCount = [];
+        var other_Count = 0;
+        var colorArr = [];
+        var color;
+        for (var i = 0; i < data.length; i++) {
+          var obj = data[i];
+          obj_tags = obj.Tags;
+          obj_count = obj.count;
+          console.log([obj_tags] + [obj_count]);
+
+          if (obj_count >= 2) {
+            allCount = allCount.concat([obj_count]);
+            allTags = allTags.concat([obj_tags]);
+            other_Count++;
+            color = randomColor((other_Count/(i+1)));
+          }
+
+          
+          colorArr=colorArr.concat([color]);
+        }
+        console.log(colorArr);
+        console.log(allTags);
+        console.log(allCount);
+        console.log([other_Count]);
+
+
         var ctx = document.getElementById("myPieChart");
         var myPieChart = new Chart(ctx, {
           type: 'doughnut',
           data: {
-            labels: ["Java", "SWT", "Jface"], //it's an array can put entire Json element here
+            labels: allTags.concat(["Other"]), //it's an array can put entire Json element here
             datasets: [{
-              data: [55, 30, 15], //
-              backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-              hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+              data: allCount.concat([other_Count]), //
+              backgroundColor: colorArr,
+              hoverBackgroundColor: [],
               hoverBorderColor: "rgba(234, 236, 244, 1)",
             }],
           },
@@ -46,3 +74,13 @@ $(function () {
     }
   })
 });
+
+function randomColor(brightness) { //bright =0-255
+  function randomChannel(brightness) {
+    var r = 255 - brightness;
+    var n = 0 | ((Math.random() * r) + brightness);
+    var s = n.toString(16);
+    return (s.length == 1) ? '0' + s : s;
+  }
+  return '#' + randomChannel(brightness) + randomChannel(brightness) + randomChannel(brightness);
+}
