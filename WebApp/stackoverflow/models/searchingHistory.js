@@ -9,7 +9,7 @@ const searchingHistory = new Schema({
     "Sort By": String,
     UserID: String,
     "Search Text": String,
-    Date: String
+    Date: Date
   })
   
 const searchingHistoryModel = mongoose.model('searchinghistories', searchingHistory)

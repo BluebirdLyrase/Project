@@ -6,7 +6,7 @@ const viewHistory = new Schema({
     ID:  String,
     Title: String,
     Tags:  Array, 
-    Date: String,
+    Date: Date,
     UserID: String
   })
   

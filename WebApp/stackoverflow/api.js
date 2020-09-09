@@ -43,6 +43,7 @@ function addSearchingHistory(req, res) {
     var newId = new mongoose.mongo.ObjectId();
     var payload = req.body; // add _id
     payload._id = newId;
+    payload.Date = new Date(payload.Date)
     console.log(payload);
     var NewSearchingHistory = new searchingHistory(payload);
     console.log(NewSearchingHistory);
@@ -59,6 +60,7 @@ function addViewHistory(req, res) {
     var newId = new mongoose.mongo.ObjectId();
     var payload = req.body;
     payload._id = newId; // add _id
+    payload.Date = new Date(payload.Date)
     var NewViewHistory = new viewHistory(payload);
     // console.log(req.body.ID);a
     NewViewHistory.save(function (err) {
@@ -222,6 +224,20 @@ function findSearchingByUser(req, res) {
     });
 }
 
+function ViewFrequency(req,res){
+    viewHistory.aggregate([
+        { $unwind: "$Tags" }, 
+        { $group: { "_id": {
+            month : {$month : "$Date"},
+            year : {$year : "$Date"}
+            }, "count": { $sum: 1 } } }, 
+        { $sort:{"Date":1}}],        function(err,data) {
+    if (err) {
+        res.status(500).json({ status: "error", message: err });
+    }
+    res.json(data);
+})}
+
 module.exports = {
     //get
     getAllViewHistory: getAllViewHistory,
@@ -244,5 +260,6 @@ module.exports = {
     distinctTags:distinctTags,
     findViewByUser:findViewByUser,
     findSearchingByUser:findSearchingByUser,
-    distinctTagsByUser:distinctTagsByUser
+    distinctTagsByUser:distinctTagsByUser,
+    ViewFrequency:ViewFrequency
 };

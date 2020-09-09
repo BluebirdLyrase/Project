@@ -74,6 +74,26 @@ router.get('/distinctTagsByUser/:userid',api.distinctTagsByUser)
 // Example URL for api 
 // http://localhost:8095/api/findViewByUser/Pisit
 
+router.get('/ViewFrequency',api.ViewFrequency)
+// return an array 
+//Example
+// [
+//     {
+//         "_id": {
+//             "month": 8,
+//             "year": 2020
+//         },
+//         "count": 66
+//     },
+//     {
+//         "_id": {
+//             "month": 9,
+//             "year": 2020
+//         },
+//         "count": 7
+//     }
+// ]
+
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', cors(), router);
