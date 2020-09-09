@@ -224,19 +224,31 @@ function findSearchingByUser(req, res) {
     });
 }
 
-function ViewFrequency(req,res){
+function viewFrequency(req,res){
     viewHistory.aggregate([
-        { $unwind: "$Tags" }, 
         { $group: { "_id": {
             month : {$month : "$Date"},
             year : {$year : "$Date"}
             }, "count": { $sum: 1 } } }, 
-        { $sort:{"Date":1}}],        function(err,data) {
+        { $sort:{"Date":-1}}],        function(err,data) {
     if (err) {
         res.status(500).json({ status: "error", message: err });
     }
     res.json(data);
 })}
+
+function searchingFrequency(req,res){
+    searchingHistory.aggregate([
+        { $group: { "_id": {
+            month : {$month : "$Date"},
+            year : {$year : "$Date"}
+            }, "count": { $sum: 1 } } }, 
+        { $sort:{"Date":-1}}],        function(err,data) {
+    if (err) {
+        res.status(500).json({ status: "error", message: err });
+    }
+    res.json(data);
+})} 
 
 module.exports = {
     //get
@@ -261,5 +273,6 @@ module.exports = {
     findViewByUser:findViewByUser,
     findSearchingByUser:findSearchingByUser,
     distinctTagsByUser:distinctTagsByUser,
-    ViewFrequency:ViewFrequency
+    viewFrequency: viewFrequency,
+    searchingFrequency:searchingFrequency
 };

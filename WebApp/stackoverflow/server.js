@@ -74,7 +74,8 @@ router.get('/distinctTagsByUser/:userid',api.distinctTagsByUser)
 // Example URL for api 
 // http://localhost:8095/api/findViewByUser/Pisit
 
-router.get('/ViewFrequency',api.ViewFrequency)
+router.get('/viewFrequency',api.viewFrequency)
+router.get('/searchingFrequency',api.searchingFrequency)
 // return an array 
 //Example
 // [
