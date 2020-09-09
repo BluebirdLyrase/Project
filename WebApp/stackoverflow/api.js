@@ -230,7 +230,7 @@ function viewFrequency(req,res){
             month : {$month : "$Date"},
             year : {$year : "$Date"}
             }, "count": { $sum: 1 } } }, 
-        { $sort:{"Date":-1}}],        function(err,data) {
+        { $sort:{"_id.month":1}}],        function(err,data) {
     if (err) {
         res.status(500).json({ status: "error", message: err });
     }
@@ -243,7 +243,7 @@ function searchingFrequency(req,res){
             month : {$month : "$Date"},
             year : {$year : "$Date"}
             }, "count": { $sum: 1 } } }, 
-        { $sort:{"Date":-1}}],        function(err,data) {
+        { $sort:{"_id.month":1}}],        function(err,data) {
     if (err) {
         res.status(500).json({ status: "error", message: err });
     }
