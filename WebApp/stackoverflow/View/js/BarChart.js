@@ -1,11 +1,28 @@
 $(function () {
 
-  var url = "/api/viewHistory/"; 
+  var url = "/api/distinctTags/";
 
   $.get(url, function (data, status) {
     if (status == 'success') {
+      console.log('distincttag');
       console.log(data);
+      console.log('-----');
+      var countSearch;
+
       $(data).ready(function () {
+        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        for (var i = 0; i < data.length; i++) {
+          var obj = data[i];
+          obj_count = obj.count;
+          console.log([obj_tags] + [obj_count]);
+          
+        }
+        // var myStr = "The quick brown fox jumps over the lazy dog";
+        // var subStr = myStr.substring(4, 20);
+
+
+
+
 
         // Set new default font family and font color to mimic Bootstrap's default styling
         Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
@@ -41,9 +58,9 @@ $(function () {
         var myBarChart = new Chart(ctx, {
           type: 'bar',
           data: {
-            labels: ["January", "February", "March", "April", "May", "June"],
+            labels: months,
             datasets: [{
-              label: "Revenue",
+              label: "Times",
               backgroundColor: "#4e73df",
               hoverBackgroundColor: "#2e59d9",
               borderColor: "#4e73df",
@@ -70,7 +87,7 @@ $(function () {
                   drawBorder: false
                 },
                 ticks: {
-                  maxTicksLimit: 6
+                  maxTicksLimit: months.length
                 },
                 maxBarThickness: 25,
               }],
