@@ -1,24 +1,33 @@
+var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 $(function () {
 
-  var url = "/api/viewHistory/";
+  var url = "/api/viewFrequency/";
 
   $.get(url, function (data, status) {
     if (status == 'success') {
       console.log(data);
       var countSearch;
-
+      var countArr = [];
       $(data).ready(function () {
-        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-        
+        var monthforBar=[];
       console.log(data.length)
       
       for (var i = 0; i < data.length; i++) {
           var obj = data[i];
-          
-          
+          var obj_Count=obj.count;
+          var obj_ID = obj._id;
+          var obj_month= obj_ID.month;
+          console.log(obj_Count);
+          countArr=countArr.concat([obj_Count]);
+          var monthName=  monthNumToName(obj_month);
+          monthforBar=monthforBar.concat([monthName]);
+      //    monthsInt.splice(1, 1, 1010);
+          console.log(obj_month);
+          console.log(monthforBar);
+          console.log(monthName);
+
         }
-        // var myStr = "The quick brown fox jumps over the lazy dog";
-        // var subStr = myStr.substring(6, 7);
+        
 
       
 
@@ -58,13 +67,13 @@ $(function () {
         var myBarChart = new Chart(ctx, {
           type: 'bar',
           data: {
-            labels: months,
+            labels: monthforBar,
             datasets: [{
               label: "Times",
               backgroundColor: "#4e73df",
               hoverBackgroundColor: "#2e59d9",
               borderColor: "#4e73df",
-              data: [42, 32, 25, 41, 21, 14],
+              data: countArr,
             }],
           },
           options: {
@@ -87,7 +96,7 @@ $(function () {
                   drawBorder: false
                 },
                 ticks: {
-                  maxTicksLimit: months.length
+                  maxTicksLimit: monthforBar.length
                 },
                 maxBarThickness: 25,
               }],
@@ -139,3 +148,7 @@ $(function () {
     }
   })
 });
+
+function monthNumToName(monthnum) {
+  return months[monthnum - 1] || '';
+}
