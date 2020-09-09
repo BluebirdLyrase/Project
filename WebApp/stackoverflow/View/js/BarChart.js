@@ -1,26 +1,26 @@
 $(function () {
 
-  var url = "/api/distinctTags/";
+  var url = "/api/viewHistory/";
 
   $.get(url, function (data, status) {
     if (status == 'success') {
-      console.log('distincttag');
       console.log(data);
-      console.log('-----');
       var countSearch;
 
       $(data).ready(function () {
         var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-        for (var i = 0; i < data.length; i++) {
+        
+      console.log(data.length)
+      
+      for (var i = 0; i < data.length; i++) {
           var obj = data[i];
-          obj_count = obj.count;
-          console.log([obj_tags] + [obj_count]);
+          
           
         }
         // var myStr = "The quick brown fox jumps over the lazy dog";
-        // var subStr = myStr.substring(4, 20);
+        // var subStr = myStr.substring(6, 7);
 
-
+      
 
 
 

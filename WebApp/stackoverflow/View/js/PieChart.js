@@ -18,6 +18,7 @@ $(function () {
         var other_Count = 0;
         var colorArr = [];
         var color;
+        var otherColor;
         for (var i = 0; i < data.length; i++) {
           var obj = data[i];
           obj_tags = obj.Tags;
@@ -27,13 +28,18 @@ $(function () {
           if (obj_count >= 2) {
             allCount = allCount.concat([obj_count]);
             allTags = allTags.concat([obj_tags]);
+            color = randomColor(2);
+            colorArr = colorArr.concat([color]);
+          } else {
             other_Count++;
-            color = randomColor((other_Count/(i+1)));
           }
 
-          
-          colorArr=colorArr.concat([color]);
+
+
         }
+        otherColor = randomColor(other_Count/10);
+        console.log(colorArr)
+        colorArr = colorArr.concat(otherColor);
         console.log(colorArr);
         console.log(allTags);
         console.log(allCount);
