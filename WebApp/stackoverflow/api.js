@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const viewHistory = require('./models/viewHistory')
 const searchingHistory = require('./models/searchingHistory')
-const user = require('./models/user')
+const user = require('./models/user');
 // #5 Change URL to your local mongodb
 const url = "mongodb://localhost:27017/StackOverFlowDB";
 // ===============================
@@ -186,20 +186,63 @@ function distinctTags(req,res){
     res.json(data);
 })}
 
+function findViewByUser(req, res) {
+    var userID = req.params.userid;
+        viewHistory.find({ UserID: userID }, function (err, data) {
+        if (err) {
+            res.status(500).json({ status: "error", message: err });
+        }
+        res.json(data);
+    });
+}
+
+function distinctTagsByUser(req,res){
+    var userID = req.params.userid;
+    viewHistory.aggregate([
+        { $match: { UserID: userID } },
+        { $unwind: "$Tags" }, 
+        { $group: { "_id": "$Tags", "count": { $sum: 1 } } }, 
+        { $project: { "Tags": "$_id", "count": 1 } },
+        { $sort:{"count":-1}},
+
+],        function(err,data) {
+    if (err) {
+        res.status(500).json({ status: "error", message: err });
+    }
+    res.json(data);
+})}
+
+function findSearchingByUser(req, res) {
+    var userID = req.params.userid;
+        searchingHistory.find({ UserID: userID }, function (err, data) {
+        if (err) {
+            res.status(500).json({ status: "error", message: err });
+        }
+        res.json(data);
+    });
+}
 
 module.exports = {
+    //get
     getAllViewHistory: getAllViewHistory,
     getAllSearchingHistory: getAllSearchingHistory,
     getAllUser: getAllUser,
+    //add
     addViewHistory: addViewHistory,
     addSearchingHistory: addSearchingHistory,
     addUser: addUser,
     findUser: findUser,
     // editUser: editUser,
+    //Delete
     deleteViewHistory: deleteViewHistory,
     deleteSearchingHistory: deleteSearchingHistory,
     deleteUser: deleteUser,
+    //Connecting
     authen: authen,
     checkConnection: checkConnection,
-    distinctTags:distinctTags
+    //Dash Board
+    distinctTags:distinctTags,
+    findViewByUser:findViewByUser,
+    findSearchingByUser:findSearchingByUser,
+    distinctTagsByUser:distinctTagsByUser
 };

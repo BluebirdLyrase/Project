@@ -68,6 +68,11 @@ router.get('/distinctTags',api.distinctTags)
 //         "Tags": "javascript"
 //     }
 // ]
+router.get('/findViewByUser/:userid',api.findViewByUser)
+router.get('/findSearchingByUser/:userid',api.findSearchingByUser)
+router.get('/distinctTagsByUser/:userid',api.distinctTagsByUser)
+// Example URL for api 
+// http://localhost:8095/api/findViewByUser/Pisit
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
