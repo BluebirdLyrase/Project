@@ -82,7 +82,7 @@ public class SettingDialog extends Dialog {
 						String userID = dialog.getUserID();
 						String password = dialog.getPassword();
 						String database = dialog.getDatabaseUrl();
-						String msg = new Account().Loggin(userID,password,database);
+						String msg = new Account().Loggin(userID, password, database);
 						MessageDialog.openInformation(win.getShell(), "Atention", msg);
 					} catch (IOException | JSONException e1) {
 						// TODO Auto-generated catch block
@@ -105,11 +105,9 @@ public class SettingDialog extends Dialog {
 		btnLogout.setText("Logout");
 		btnLogout.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event e) {
-//	TODO implement logout page here	  	
-//		    	  LoginDialog dialog = new LoginDialog(parentShell);  
-//				dialog.create();
-//				if (dialog.open() == Window.OK);
-
+				new Account().Logout();
+				MessageDialog.openInformation(win.getShell(), "Atention", "Successfully Log-out");
+				setDatabaseStatusText();
 			}
 		});
 
@@ -278,33 +276,33 @@ public class SettingDialog extends Dialog {
 	protected boolean isResizable() {
 		return true;
 	}
-	
+
 	private void setDatabaseStatusText() {
-		String status = "not Logged in" ;
+		String status = "not Logged in";
 		String userID = "n\\a";
 		String url = "n\\a";
 		try {
 			Account account = new Account();
-			if(account.isLoggedIn()) {
-			status = account.getConnectionStatus() ;
-			userID = account.getUserID();
-			url = account.getDatabaseURL();
+			if (account.isLoggedIn()) {
+				status = account.getConnectionStatus();
+			}
+			if (account.haveAccount()) {
+				userID = account.getUserID();
+				url = account.getDatabaseURL();
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+			new Log().saveLog(e);
 			e.printStackTrace();
 		}
-		
-		txtDatabaseStatus.setText("Database Status: " + status + "\n" +		
-				"User ID: " + userID + "\n"+
-				"URL: "+url);
+
+		txtDatabaseStatus.setText("Database Status: " + status + "\n" + "User ID: " + userID + "\n" + "URL: " + url);
 	}
-	
+
 	private boolean confirmPopUp(String msg) {
 		boolean result = MessageDialog.openConfirm(win.getShell(), "Atention", msg);
 		return result;
 	}
-	
+
 	private void showMsg(String msg) {
 		MessageDialog.openInformation(win.getShell(), "Atention", msg);
 	}
