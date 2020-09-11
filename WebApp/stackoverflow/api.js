@@ -125,10 +125,10 @@ function findUser(req, res) {
         console.log('sent '+userID)
         if (data != null) {
             console.log('Dupe')
-            res.json("not found");
+            res.json(true);
         } else {
-            console.log('Success')
-            res.json("found");
+            console.log('not Dupe')
+            res.json(false);
         }
     });
 }

@@ -1,6 +1,8 @@
 package stackoverflow.database;
 
 import java.io.IOException;
+import java.util.logging.Logger;
+
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
@@ -13,11 +15,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import stackoverflow.APIConnecter.StackOverFlowConnecter;
 import stackoverflow.LocalJsonConnector.LocalJsonList;
 import stackoverflow.LocalJsonConnector.Log;
 
 public class Account extends LocalJsonList {
-	
+	protected static final Logger LOGGER = Logger.getLogger(StackOverFlowConnecter.class.getName());
 	public Account() {
 		super("Account");
 	}
@@ -31,7 +34,7 @@ public class Account extends LocalJsonList {
 	private String connectionstatus;
 
 	public void Logout() {
-			deleteFile(filePath);
+			
 	}
 	
 	public String Loggin(String userID,String password,String DatabaseURL) throws IOException, JSONException{
@@ -74,6 +77,7 @@ public class Account extends LocalJsonList {
 		JSONObject newData = new JSONObject();
 		newData.put("userID", userID);
 		newData.put("databaseURL", DatabaseURL);
+		newData.put("login", true);
 		JSONArray newArray = new JSONArray();
 		newArray.put(newData);
 		JSONObject newJSONObject = new JSONObject();
@@ -84,52 +88,64 @@ public class Account extends LocalJsonList {
 	
 	public String getDatabaseURL() throws JSONException {
 		String url = null;
-		if(isLoggedIn()) {
 		JSONObject object = jsonObject.getJSONArray(arrayName).getJSONObject(0);
 		url = object.getString("databaseURL");
-		}
 		return url;
 	}
 	
 	public String getUserID() throws JSONException {
 		String userID = null;
-		if(isLoggedIn()) {
 		JSONObject object = jsonObject.getJSONArray(arrayName).getJSONObject(0);
 		userID = object.getString("userID");
-		}
 		return userID;
 	}
 	
 	public boolean isLoggedIn() throws JSONException {
-		int lenght = jsonObject.getJSONArray(arrayName).length();
 		boolean result = false;
-		if(lenght==1) {
-			result = true;
+		JSONObject json ;
+		int lenght = jsonObject.getJSONArray(arrayName).length();
+		LOGGER.info("lenght:"+lenght);
+		boolean login = false;
+		if(lenght!=0) {
+			json  = jsonObject.getJSONArray(arrayName).getJSONObject(0);
+			login = json.getBoolean("login");
+			LOGGER.info("login:"+login);
+			if(login) {
+				String userID = json.getString("userID");
+				String responseBodyString = databaseReader("/api/user/"+userID);
+				LOGGER.info("responseBodyString:"+responseBodyString);
+				result = Boolean.parseBoolean(responseBodyString);
+			}
 		}
 		return result;
 	}
 	
 	public String getConnectionStatus(){
-		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-		  try {
-		String authenURL = getDatabaseURL() +"/api/checkConnection";
-		HttpPost request = new HttpPost(authenURL);
-	    CloseableHttpResponse response = httpClient.execute(request);
-	    HttpEntity responseBodyentity = response.getEntity();
-	    String responseBodyString = EntityUtils.toString(responseBodyentity);
+		String responseBodyString = databaseReader("/api/checkConnection");	
 	    switch(responseBodyString) {
 	    case "0": connectionstatus = "Disconnected" ; break;
 	    case "1": connectionstatus = "Connected" ; break;
 	    case "2": connectionstatus = "Connecting" ; break;
 	    case "3": connectionstatus = "Disconnecting" ; break;
 	    }
+		return connectionstatus;
+	}
+	
+	private String databaseReader(String apiURL) {	
+		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+		String responseBodyString = null;	
+		try {
+		String authenURL = getDatabaseURL() + apiURL;
+		HttpPost request = new HttpPost(authenURL);
+	    CloseableHttpResponse response = httpClient.execute(request);
+	    HttpEntity responseBodyentity = response.getEntity();
+	    responseBodyString = EntityUtils.toString(responseBodyentity);
 		} catch (ParseException | IOException | JSONException e) {
 			connectionstatus = "Unavailable";
 			e.printStackTrace();
 			new Log().saveLog(e);
 		}
-		
-		return connectionstatus;
+	    return responseBodyString;
 	}
 	
 }

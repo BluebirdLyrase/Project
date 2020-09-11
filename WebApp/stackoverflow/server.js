@@ -47,7 +47,7 @@ router.delete('/user/:id',api.deleteUser)
 
 //User Management
 // router.put('/user/:id',api.editUser)
-router.get('/user/:userid',api.findUser)
+router.post('/user/:userid',api.findUser)
 
 //Connection with plugin
 router.post('/authen',api.authen)

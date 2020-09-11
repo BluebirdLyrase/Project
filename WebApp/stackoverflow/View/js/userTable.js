@@ -44,60 +44,59 @@ function Delete(id) {
   });
 }
 
-function Add(id) {
+$("#adduser").click(function() {
+  console.log("addclick")
   $('#addModal').modal('toggle');
-  $("#saveuser").click(function () {
+});
 
-    $.get(url + $("#userid").val(), function (data, status) {
-      if (data == 'found') {
-       
-        if (id == null) {
-          var newuser = {
-            _id: id,
-            UserID: $("#userid").val(),
-            Password: $("#password").val(),
-            type: $("#type").val(),
-          }
-          console.log("add new ");
-          $.ajax({
-            url: '/api/addUser',
-            type: 'POST',
-            data: newuser,
-            success: function (result) {
-              window.location.href = "user.html";
-            }
-          });
-        } else {
-          console.log('this is editing')
-        }
-      } else {
-        $('#alertModal').modal('toggle');
-        console.log("Duplicate UserID")
-
+$("#saveuser").click(function () {
+  $.post(url + $("#userid").val(), function (data, status) {
+    if (!data) {
+      console.log("add/edit user");
+      var newuser = {
+        _id: null,
+        UserID: $("#userid").val(),
+        Password: $("#password").val(),
+        type: $("#type").val(),
       }
-      //   var edituser = {
-      //     _id: id,
-      //     UserID: $("#userid").val(),
-      //     Password: $("#password").val(),
-      //     type: $("#type").val(),
-      //   }
-      //   console.log("edit " + id);
-      //   $.ajax({
-      //     url: url + id,
-      //     type: 'PUT',
-      //     data: edituser,
-      //     success: function (result) {
-      //       window.location.href = "user.html";
-      //     }
-      //   });
-      // }else{
+      console.log("add new ");
+      $.ajax({
+        url: '/api/addUser',
+        type: 'POST',
+        data: newuser,
+        success: function (result) {
+          window.location.href = "user.html";
+        }
+      });
+
+    } else {
+      $('#alertModal').modal('toggle');
+      console.log("Duplicate UserID")
+
+    }
+    //   var edituser = {
+    //     _id: id,
+    //     UserID: $("#userid").val(),
+    //     Password: $("#password").val(),
+    //     type: $("#type").val(),
+    //   }
+    //   console.log("edit " + id);
+    //   $.ajax({
+    //     url: url + id,
+    //     type: 'PUT',
+    //     data: edituser,
+    //     success: function (result) {
+    //       window.location.href = "user.html";
+    //     }
+    //   });
+    // }else{
 
 
 
-      // }
-    });
+    // }
   });
-}
+});
+
 
 
 
