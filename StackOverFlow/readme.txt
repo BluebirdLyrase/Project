@@ -1,3 +1,5 @@
+Stack Overflow Helper v2.1.0
+
 We use icon from free website
 
 attribute icon author

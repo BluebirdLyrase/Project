@@ -34,9 +34,9 @@ public class FavoriteWriter extends LocalJsonList {
 				newArray.put(newData);
 				jsonObject.put(arrayName, newArray);
 				saveJSONFile(filePath, jsonObject);
-				result = "Save to Favortie Sucessful";
+				result = "Successfully saved to Favortie";
 			} else {
-				result = "Already add this Question as Favortie" ;
+				result = "Already saved this Question as Favorite" ;
 				LOGGER.info("duplicate id");
 			}
 		} catch (JSONException | IOException e) {

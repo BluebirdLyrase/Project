@@ -18,7 +18,7 @@ $(function () {
               data: '_id', render: function (data, type, row, meta) {
                 return type === 'display' ?
                   '<botton onclick="Delete(`' + data + '`)" class="btn btn-danger" >Delete</botton> '
-                  // + '<botton onclick="Add(`' + data + '`)" class="btn btn-primary" >Edit</botton>'
+                  + '<botton onclick="Edit(`' + data + '`)" class="btn btn-primary" >Edit</botton>'
                   : data;
               }
             },

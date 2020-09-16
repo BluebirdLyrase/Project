@@ -25,17 +25,17 @@ public class ContentWriter extends Content{
 		//Check if there is already .json file
 		try {
 			if (newFile.createNewFile()) {
-				result = "Save to Offline Storage Sucessful";
+				result = "Successfullys saved to Offline Storage";
 				LOGGER.info("File created : " + newFile.getName());
 				Files.writeString(Paths.get(filePath), "", StandardOpenOption.WRITE);
 				writeContent();
 				new ContentTitleWriter().saveContentTitle(title,id);
 			} else {
-				result = "Duplicate Qeustion in Offline Storage";
+				result = "Already saved this Qeustion in Offline Storage";
 				LOGGER.info("File already exists : "+filePath);
 			}
 		} catch (IOException | JSONException e) {
-			result = "Error while saving to Offline mode";
+			result = "Error while saving to Offline Storage";
 			LOGGER.severe("Error while creating new json in Content : "+e);
 		}
 		return result;

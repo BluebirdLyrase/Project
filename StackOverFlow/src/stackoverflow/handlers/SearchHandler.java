@@ -24,7 +24,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.window.Window;
 
-//////Project Eclipse-SOF v1.3.0
 
 public class SearchHandler extends AbstractHandler {
 
