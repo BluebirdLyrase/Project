@@ -2,6 +2,26 @@ var url = "/api/viewHistory/";
 
 $(function () {
 
+  var sUserID = sessionStorage.getItem("userID");
+  var sPassword=  sessionStorage.getItem("password");
+ 
+      var authen = {
+        UserID: sUserID,
+        Password: sPassword
+      }
+
+      $.ajax({
+        url: "api/authenAdmin",
+        type: 'POST',
+        data: authen,
+        success: function (result) {
+          if(!result){
+          sessionStorage.setItem("session", "ViewHistory.html");
+          window.location.href = "login.html";
+         }
+        }
+      });
+
   // Get data when first time open
   $.get(url, function (data, status) {
     if (status == 'success') {

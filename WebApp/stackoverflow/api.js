@@ -154,7 +154,7 @@ function editUser(req, res) {
 }
 
 
-//Connection with plugin
+//Connection and authen
 
 function authen(req, res) {
     user.findOne({ UserID: req.body.UserID, Password: req.body.Password }, function (err, data) {
@@ -164,9 +164,9 @@ function authen(req, res) {
         }
         console.log(data)
         if (data != null) {
-            res.json("success");
+            res.json(true);
         } else {
-            res.json("not success");
+            res.json(false);
         }
     });
 }
@@ -180,7 +180,21 @@ function checkConnection(req, res) {
     // 1: connected
     // 2: connecting
     // 3: disconnecting
+}
 
+function authenAdmin(req, res) {
+    user.findOne({ UserID: req.body.UserID, Password: req.body.Password,type:"admin" }, function (err, data) {
+        console.log(req)
+        if (err) {
+            res.status(500).json({ status: "error", message: err });
+        }
+        console.log(data)
+        if (data != null) {
+            res.json(true);
+        } else {
+            res.json(false);
+        }
+    });
 }
 
 //Dashboard
@@ -279,6 +293,7 @@ module.exports = {
     //Connecting
     authen: authen,
     checkConnection: checkConnection,
+    authenAdmin: authenAdmin,
     //Dash Board
     distinctTags:distinctTags,
     findViewByUser:findViewByUser,

@@ -53,6 +53,7 @@ router.post('/user/:userid',api.findUser)
 //Connection with plugin
 router.post('/authen',api.authen)
 router.post('/checkConnection',api.checkConnection)
+router.post('/authenAdmin',api.authenAdmin)
 
 //Dashboard
 router.get('/distinctTags',api.distinctTags)

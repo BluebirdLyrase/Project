@@ -79,8 +79,8 @@ public class Account extends LocalJsonList {
 			request.setEntity(params);
 			CloseableHttpResponse response = httpClient.execute(request);
 			HttpEntity responseBodyentity = response.getEntity();
-			String responseBodyString = EntityUtils.toString(responseBodyentity);
-			if (responseBodyString.equals("\"success\"")) {
+			boolean responseBodyString = Boolean.parseBoolean(EntityUtils.toString(responseBodyentity));
+			if (responseBodyString) {
 				LoginMSG = success;
 				this.userID = userID;
 				setDatabase();
