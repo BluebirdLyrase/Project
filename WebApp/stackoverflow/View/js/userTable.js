@@ -29,6 +29,68 @@ $(function () {
   });
 });
 
+function Edit(id){
+console.log("editclick : "+id+"::")
+$("#Editmodal-title").empty()
+$("#useridEdit").empty()
+$("#passwordEdit").empty()
+
+$.get(url+id, function (data, status) {
+  
+  $("#Editmodal-title").append("Edit User : "+data.UserID)
+  $("#useridEdit").attr("value",data.UserID)
+  $("#passwordEdit").attr("value",data.Password)
+  $("#typeEdit").val(data.type);
+  $("#edituser").attr("onclick","editUser(`" + id + "`,`" + data.UserID + "`)")
+  $('#editModal').modal('toggle');
+
+});
+
+}
+
+function editUser(id,Userid){
+
+  var newUserID =  $("#useridEdit").val();
+  var newPassword =  $("#passwordEdit").val();
+  var newType = $("#typeEdit").val();
+
+  if(newUserID==Userid){
+    console.log("not change userID");
+    saveUser(id,newUserID,newPassword,newType);
+  }else{
+
+    $.post(url + newUserID, function (data, status) {
+      if (!data) {
+        saveUser(id,newUserID,newPassword,newType);
+      }else{
+        $('#alertModal').modal('toggle');
+        console.log("Duplicate UserID")
+      }
+    });
+
+  }
+
+}
+
+function saveUser(id,newUserID,newPassword,newType){
+
+  var editeduser = {
+    _id: id,
+    UserID: newUserID,
+    Password: newPassword,
+    type: newType
+  }
+  console.log("add new ");
+  $.ajax({
+    url: url+id,
+    type: 'PUT',
+    data: editeduser,
+    success: function (result) {
+      window.location.href = "user.html";
+    }
+  });
+
+}
 
 function Delete(id) {
   $('#confirmModal').modal('toggle');
@@ -72,28 +134,7 @@ $("#saveuser").click(function () {
     } else {
       $('#alertModal').modal('toggle');
       console.log("Duplicate UserID")
-
     }
-    //   var edituser = {
-    //     _id: id,
-    //     UserID: $("#userid").val(),
-    //     Password: $("#password").val(),
-    //     type: $("#type").val(),
-    //   }
-    //   console.log("edit " + id);
-    //   $.ajax({
-    //     url: url + id,
-    //     type: 'PUT',
-    //     data: edituser,
-    //     success: function (result) {
-    //       window.location.href = "user.html";
-    //     }
-    //   });
-    // }else{
-
-
-
-    // }
   });
 });
 

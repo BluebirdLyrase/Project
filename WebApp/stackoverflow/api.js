@@ -37,6 +37,16 @@ function getAllUser(req, res) {
     });
 }
 
+function getOneUser(req, res) {
+    var ID = req.params.id;
+    user.findOne({_id:ID}, function (err, data) {
+        if (err) {
+            res.status(500).json({ status: "error", message: err });
+        }
+        res.json(data);
+    });
+}
+
 //add Data
 
 function addSearchingHistory(req, res) {
@@ -133,15 +143,15 @@ function findUser(req, res) {
     });
 }
 
-// function editUser(req, res) {
-//     var payload = req.body
-//     var id = req.params.id; 
-//     console.log(payload) 
-//     user.findByIdAndUpdate(id,payload,function (err) {
-//         if (err) res.status(500).json(err);
-//         res.json({status : "update user"});
-//     });
-// }
+function editUser(req, res) {
+    var payload = req.body
+    var id = req.params.id; 
+    console.log(payload) 
+    user.findByIdAndUpdate(id,payload,function (err) {
+        if (err) res.status(500).json(err);
+        res.json({status : "updated user"});
+    });
+}
 
 
 //Connection with plugin
@@ -255,12 +265,13 @@ module.exports = {
     getAllViewHistory: getAllViewHistory,
     getAllSearchingHistory: getAllSearchingHistory,
     getAllUser: getAllUser,
+    getOneUser: getOneUser,
     //add
     addViewHistory: addViewHistory,
     addSearchingHistory: addSearchingHistory,
     addUser: addUser,
     findUser: findUser,
-    // editUser: editUser,
+    editUser: editUser,
     //Delete
     deleteViewHistory: deleteViewHistory,
     deleteSearchingHistory: deleteSearchingHistory,

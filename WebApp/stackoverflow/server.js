@@ -34,6 +34,7 @@ var api = require('./api');
 router.get('/viewHistory', api.getAllViewHistory);
 router.get('/searchingHistory', api.getAllSearchingHistory);
 router.get('/user', api.getAllUser);
+router.get('/user/:id',api.getOneUser)
 
 //add Data
 router.post('/addViewHistory',api.addViewHistory);
@@ -46,7 +47,7 @@ router.delete('/searchingHistory/:id',api.deleteSearchingHistory)
 router.delete('/user/:id',api.deleteUser)
 
 //User Management
-// router.put('/user/:id',api.editUser)
+router.put('/user/:id',api.editUser)
 router.post('/user/:userid',api.findUser)
 
 //Connection with plugin
