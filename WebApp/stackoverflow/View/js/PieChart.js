@@ -18,41 +18,26 @@ $(function () {
         var other_Count = 0;
         var colorArr = [];
         var color;
-        var otherColor;
         for (var i = 0; i < data.length; i++) {
           var obj = data[i];
           obj_tags = obj.Tags;
           obj_count = obj.count;
           console.log([obj_tags] + [obj_count]);
-
-          if (obj_count >= 2) {
             allCount = allCount.concat([obj_count]);
             allTags = allTags.concat([obj_tags]);
             color = randomColor(2);
             colorArr = colorArr.concat([color]);
-          } else {
-            other_Count++;
-          }
-
-
-
         }
-        otherColor = randomColor(other_Count/10);
-        console.log(colorArr)
-        colorArr = colorArr.concat(otherColor);
-        console.log(colorArr);
-        console.log(allTags);
-        console.log(allCount);
-        console.log([other_Count]);
 
 
         var ctx = document.getElementById("myPieChart");
+     console.log(ctx);
         var myPieChart = new Chart(ctx, {
           type: 'doughnut',
           data: {
-            labels: allTags.concat(["Other"]), //it's an array can put entire Json element here
+            labels: allTags, //it's an array can put entire Json element here
             datasets: [{
-              data: allCount.concat([other_Count]), //
+              data: allCount, //
               backgroundColor: colorArr,
               hoverBackgroundColor: [],
               hoverBorderColor: "rgba(234, 236, 244, 1)",

@@ -2,10 +2,7 @@
 $(function () {
 
   var url = "/api/viewHistory/";
-
-
   // Get data when first time open
-
   $.get(url, function (data, status) {
     if (status == 'success') {
       console.log(data);
@@ -81,16 +78,16 @@ $(function () {
   // Get data when first time open
   $.get(url, function (data, status) {
     if (status == 'success') {
-      
+
       console.log(data);
       $(data).ready(function () {
         $('#most_user').text(data.length)
         for (var i = 0; i < data.length; i++) {
           var obj = data[i];
           obj_userID = obj.UserID;
-          console.log('name'+obj_userID);
+          console.log('name' + obj_userID);
         }
-        
+
 
       });
 
@@ -175,3 +172,101 @@ function logMostFrequentElement(inputArg) {
 // logMostFrequentElement([3, 'a', 'a', 'a', 2, 3, 'a', 3, 'a', 2, 4, 9, 3]);
 // logMostFrequentElement([34, 'ab', 'ab', 'ab', 21, 34, 'ab', 34, 'ab', 21, 45, 99, 34]);
 // logMostFrequentElement('Also works with strings.');
+
+
+$(function () {
+  var url = "/api/user/";
+
+  $.get(url, function (data, status) {
+    if (status == 'success') {
+      $(data).ready(function () {
+        for (var ii = 0; ii < data.length; ii++) {
+          var obj = data[ii];
+          var obj_UserID = obj.UserID;
+          var allTags2 = [];
+          var allCount2 = [];
+          var colorArr2 = [];
+          var color;
+          var chartCard = ` 
+          <div class="col-xl-6 col-lg-6">
+          <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">`+obj_UserID+`</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+              <div class="chart-area-img ">
+                  <canvas id="eachUserCard`+ii+`"></canvas>
+              </div>
+            </div>
+            
+          </div>
+          
+
+        </div>`
+             $('#chartContent').append(chartCard);
+
+             var url2 = "/api/distinctTagsByUser/" + obj_UserID;
+          $.get(url2, function (data2, status) {
+            console.log(data2)
+            if (status == 'success') {
+              $(data2).ready(function () {
+
+                for (var i = 0; i < data2.length; i++) {
+                  var obj2 = data2[i];
+                  obj2_tags = obj2.Tags;
+                  obj2_count = obj2.count;
+                  allCount2 = allCount2.concat([obj2_count]);
+                  allTags2 = allTags2.concat([obj2_tags]);
+                  color = randomColor(2);
+                  colorArr2 = colorArr2.concat([color]);
+                }
+                console.log(allCount2);
+              });
+
+            }
+          });
+          var ctz = document.getElementById("eachUserCard"+ii);
+          console.log(ctz);
+          var eachUserCard = new Chart(ctz, {
+            type: 'doughnut',
+            data: {
+              labels: allTags2, //it's an array can put entire Json element here
+              datasets: [{
+                data: allCount2, //
+                backgroundColor: colorArr2,
+                hoverBackgroundColor: [],
+                hoverBorderColor: "rgba(234, 236, 244, 1)",
+              }],
+            },
+            options: {
+              maintainAspectRatio: false,
+              tooltips: {
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                caretPadding: 10,
+              },
+              legend: {
+                display: false
+              },
+              cutoutPercentage: 70,
+            },
+          });
+            }
+      });
+
+    }
+
+  });
+
+
+
+});
+
+
