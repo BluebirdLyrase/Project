@@ -2,8 +2,26 @@ var url = "/api/searchingHistory/";
 
 $(function () {
 
-    // var url = "http://localhost:8095/api/searchHistory"
-  
+  var sUserID = sessionStorage.getItem("userID");
+  var sPassword=  sessionStorage.getItem("password");
+ 
+      var authen = {
+        UserID: sUserID,
+        Password: sPassword
+      }
+
+      $.ajax({
+        url: "api/authenAdmin",
+        type: 'POST',
+        data: authen,
+        success: function (result) {
+          if(!result){
+          sessionStorage.setItem("session", "SearchingHistory.html");
+          window.location.href = "login.html";
+         }
+        }
+      });
+
     // Get data when first time open
     $.get(url, function (data, status) {
       if (status == 'success') {

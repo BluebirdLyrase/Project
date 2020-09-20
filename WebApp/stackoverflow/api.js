@@ -37,6 +37,16 @@ function getAllUser(req, res) {
     });
 }
 
+function getOneUser(req, res) {
+    var ID = req.params.id;
+    user.findOne({_id:ID}, function (err, data) {
+        if (err) {
+            res.status(500).json({ status: "error", message: err });
+        }
+        res.json(data);
+    });
+}
+
 //add Data
 
 function addSearchingHistory(req, res) {
@@ -133,18 +143,18 @@ function findUser(req, res) {
     });
 }
 
-// function editUser(req, res) {
-//     var payload = req.body
-//     var id = req.params.id; 
-//     console.log(payload) 
-//     user.findByIdAndUpdate(id,payload,function (err) {
-//         if (err) res.status(500).json(err);
-//         res.json({status : "update user"});
-//     });
-// }
+function editUser(req, res) {
+    var payload = req.body
+    var id = req.params.id; 
+    console.log(payload) 
+    user.findByIdAndUpdate(id,payload,function (err) {
+        if (err) res.status(500).json(err);
+        res.json({status : "updated user"});
+    });
+}
 
 
-//Connection with plugin
+//Connection and authen
 
 function authen(req, res) {
     user.findOne({ UserID: req.body.UserID, Password: req.body.Password }, function (err, data) {
@@ -154,9 +164,9 @@ function authen(req, res) {
         }
         console.log(data)
         if (data != null) {
-            res.json("success");
+            res.json(true);
         } else {
-            res.json("not success");
+            res.json(false);
         }
     });
 }
@@ -170,7 +180,21 @@ function checkConnection(req, res) {
     // 1: connected
     // 2: connecting
     // 3: disconnecting
+}
 
+function authenAdmin(req, res) {
+    user.findOne({ UserID: req.body.UserID, Password: req.body.Password,type:"admin" }, function (err, data) {
+        console.log(req)
+        if (err) {
+            res.status(500).json({ status: "error", message: err });
+        }
+        console.log(data)
+        if (data != null) {
+            res.json(true);
+        } else {
+            res.json(false);
+        }
+    });
 }
 
 //Dashboard
@@ -255,12 +279,13 @@ module.exports = {
     getAllViewHistory: getAllViewHistory,
     getAllSearchingHistory: getAllSearchingHistory,
     getAllUser: getAllUser,
+    getOneUser: getOneUser,
     //add
     addViewHistory: addViewHistory,
     addSearchingHistory: addSearchingHistory,
     addUser: addUser,
     findUser: findUser,
-    // editUser: editUser,
+    editUser: editUser,
     //Delete
     deleteViewHistory: deleteViewHistory,
     deleteSearchingHistory: deleteSearchingHistory,
@@ -268,6 +293,7 @@ module.exports = {
     //Connecting
     authen: authen,
     checkConnection: checkConnection,
+    authenAdmin: authenAdmin,
     //Dash Board
     distinctTags:distinctTags,
     findViewByUser:findViewByUser,
