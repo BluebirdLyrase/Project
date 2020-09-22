@@ -21,3 +21,13 @@ $("#loginBtn").click(function () {
         });
 
 });
+
+$(function () {
+
+  $.post('api/addDefaultAdmin', function (data, status) {
+
+    console.log(data);
+
+  });
+
+});

@@ -29,7 +29,6 @@ var port = process.env.PORT || 8095;
 var router = express.Router();              // get an instance of the express Router
 
 var api = require('./api');
-
 //get Data
 router.get('/viewHistory', api.getAllViewHistory);
 router.get('/searchingHistory', api.getAllSearchingHistory);
@@ -40,6 +39,7 @@ router.get('/user/:id',api.getOneUser)
 router.post('/addViewHistory',api.addViewHistory);
 router.post('/addSearchingHistory',api.addSearchingHistory)
 router.post('/addUser',api.addUser)
+router.post('/addDefaultAdmin',api.addDefaultAdmin)
 
 //delete Data
 router.delete('/viewHistory/:id',api.deleteViewHistory)

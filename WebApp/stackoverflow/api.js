@@ -9,7 +9,6 @@ const url = "mongodb://localhost:27017/StackOverFlowDB";
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
 
 //get Data
-
 function getAllViewHistory(req, res) {
     viewHistory.find({}, function (err, data) {
         if (err) {
@@ -153,6 +152,36 @@ function editUser(req, res) {
     });
 }
 
+function addDefaultAdmin(req, res) {
+
+    user.findOne({ type: "admin" }, function (err, data) { 
+        if (data == null) {
+
+            var newId = new mongoose.mongo.ObjectId(); 
+            var NewUser = new user({
+                _id : newId,
+                UserID : "admin",
+                Password : "admin",
+                type : "admin"
+            });
+            console.log(NewUser);
+            NewUser.save(function (err) {
+                if (err) {
+                    res.status(500).json(err);
+                } else {
+                    res.json({ status: "added default admin" });
+                }
+            });
+
+        }else{
+            res.json({ status: "already have admin" });
+        }
+    });
+
+
+
+}
+
 
 //Connection and authen
 
@@ -286,6 +315,7 @@ module.exports = {
     addUser: addUser,
     findUser: findUser,
     editUser: editUser,
+    addDefaultAdmin:addDefaultAdmin,
     //Delete
     deleteViewHistory: deleteViewHistory,
     deleteSearchingHistory: deleteSearchingHistory,
