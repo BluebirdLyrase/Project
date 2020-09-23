@@ -4,7 +4,7 @@
  * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-the-big-picture/blob/master/LICENSE)
  */
 body {
-  background: url('https://cdn.discordapp.com/attachments/351229685834842115/745740051216072885/DBBG2.jpg') no-repeat center center fixed;
+  background: url('../img/stackpastaBG.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
