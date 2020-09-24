@@ -41,13 +41,15 @@ public class OfflineContentView extends ViewPart {
 	public static final String ID = "stackoverflow.ViewAndDialog.OfflineContentView";
 	private Composite parent;
 	private String id = null;
+	private String site;
 	private String HTMLtext;
 	private boolean isOffline = true;
 	private Browser browser;
 	private Action home;
 
-	public void setContent(String id) {
+	public void setContent(String id,String site) {
 		this.id = id;
+		this.site = site;
 		parent.layout(true, true);
 		final Point newSize = parent.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
 		parent.setSize(newSize);
@@ -64,7 +66,7 @@ public class OfflineContentView extends ViewPart {
 			System.out.println("Could not instantiate Browser: " + e.getMessage());
 			return;
 		}
-		HTMLBuilder html = new HTMLBuilder(this.id, this.isOffline);
+		HTMLBuilder html = new HTMLBuilder(this.id, this.isOffline,this.site);
 		HTMLtext = html.getHtml();
 		browser.setText(HTMLtext);
 	}

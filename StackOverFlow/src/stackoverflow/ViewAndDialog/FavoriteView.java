@@ -60,6 +60,7 @@ public class FavoriteView extends ViewPart {
 	private Action saveOffline;
 	private Action doubleClickAction;
 	private String[] id;
+	private String[] site;
 	private FavoriteList fav;
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
@@ -113,6 +114,7 @@ public class FavoriteView extends ViewPart {
 			fav = new FavoriteList();
 			title = fav.getTitle();
 			id = fav.getID();
+			site  = fav.getSite();
 			viewer.setInput(null);
 			viewer.setInput(title);
 		} catch (IOException | JSONException e) {
@@ -136,7 +138,7 @@ public class FavoriteView extends ViewPart {
 			IViewReference currentView = page.findViewReference(viewerID, secondaryId);
 			IViewPart viewPart = currentView.getView(true);
 			ContentView myView = (ContentView) viewPart;
-			myView.setContent(id[index]);
+			myView.setContent(id[index],site[index]);
 		} catch (PartInitException e) {
 			new Log().saveLog(e);
 			e.printStackTrace();
@@ -156,7 +158,7 @@ public class FavoriteView extends ViewPart {
 		try {
 			String msg = new ContentWriter().saveContent(
 					// call AllContentObjectOnly() to create JSON Object
-					new AllContentObjectOnly().getJsonObject(id[index]), id[index], title[index]);
+					new AllContentObjectOnly().getJsonObject(id[index],site[index]), id[index], title[index],site[index]);
 			showMsg(msg);
 		} catch (IOException | JSONException e) {
 			new Log().saveLog(e);

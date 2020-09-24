@@ -68,9 +68,13 @@ function addSearchingHistory(req, res) {
 function addViewHistory(req, res) {
     var newId = new mongoose.mongo.ObjectId();
     var payload = req.body;
+    console.log(payload);
     payload._id = newId; // add _id
     payload.Date = new Date(payload.Date)
     var NewViewHistory = new viewHistory(payload);
+    console.log(payload.site)
+    console.log("------")
+    console.log(NewViewHistory)
     // console.log(req.body.ID);a
     NewViewHistory.save(function (err) {
         if (err) {

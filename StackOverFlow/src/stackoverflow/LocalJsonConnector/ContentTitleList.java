@@ -12,16 +12,19 @@ public class ContentTitleList extends LocalJsonList {
 		this.lenght = jsonObject.getJSONArray(arrayName).length();
 		title = new String[this.lenght];
 		filename = new String[this.lenght];
+		site = new String[this.lenght];
 		for (int i = 0; i < this.lenght; i++) {
 			JSONObject object = jsonObject.getJSONArray(arrayName).getJSONObject(i);
 			title[i] = object.getString("Title");
 			filename[i] = object.getString("Filename");
+			site[i] = object.getString("Site");
 		}
 	}
 
 	private int lenght;
 	private String[] title;
 	private String[] filename;
+	private String[] site;
 
 	public String[] getTitle() {
 		return title;
@@ -29,6 +32,10 @@ public class ContentTitleList extends LocalJsonList {
 
 	public String[] getFilename() {
 		return filename;
+	}
+	
+	public String[] getSite() {
+		return site;
 	}
 
 	public int getLenght() {

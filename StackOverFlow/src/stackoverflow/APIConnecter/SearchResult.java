@@ -17,10 +17,11 @@ import org.json.JSONException;
 
 public class SearchResult extends StackOverFlowConnecter {
 
-	String[] titleList;
-	String[] questionIdList;
-	String item;
-	boolean result;
+	private String[] titleList;
+	private String[] questionIdList;
+	private String item;
+	private boolean result;
+	private String site = "stackoverflow";
 
 	public SearchResult(String intitle) throws IOException, JSONException {
 		this(intitle, 1, 40, "asc", "relevance", "stackoverflow");
@@ -43,9 +44,10 @@ public class SearchResult extends StackOverFlowConnecter {
 		
 		this.url = "https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=" + Integer.toString(pageSize)
 				+ "&order=" + order + "&sort=" + sort + "&q=" + intitle + "&accepted=True" + tagContent
-				+ "&site=stackoverflow&filter=!4(L6lo9D9J9Y3508i";
+				+ "&site="+site+"&filter=!4(L6lo9D9J9Y3508i";
 		
 		String newUrl = this.url.replaceAll(" ", "%20");
+		this.site = site;
 		this.json = readJsonFromUrl(newUrl);
 	}
 
@@ -65,6 +67,10 @@ public class SearchResult extends StackOverFlowConnecter {
 			questionIdList[i] = json.getJSONArray("items").getJSONObject(i).get("question_id").toString();
 		}
 		return questionIdList;
+	}
+	
+	public String getSite() {
+		return this.site;
 	}
 
 	//check if there are any result from searching

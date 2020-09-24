@@ -17,10 +17,10 @@ public class ContentWriter extends Content{
 		super();
 	}
 	
-	public String saveContent(JSONObject jsonObject,String id,String title) {
+	public String saveContent(JSONObject jsonObject,String id,String title,String site) {
 		String result;
 		this.jsonObject = jsonObject;
-		filePath = fileDirURL + "//" + id + ".json";
+		filePath = fileDirURL + "//" + id + site + ".json";
 		File newFile = new File(filePath);
 		//Check if there is already .json file
 		try {
@@ -29,7 +29,7 @@ public class ContentWriter extends Content{
 				LOGGER.info("File created : " + newFile.getName());
 				Files.writeString(Paths.get(filePath), "", StandardOpenOption.WRITE);
 				writeContent();
-				new ContentTitleWriter().saveContentTitle(title,id);
+				new ContentTitleWriter().saveContentTitle(title,id,site);
 			} else {
 				result = "Already saved this Qeustion in Offline Storage";
 				LOGGER.info("File already exists : "+filePath);

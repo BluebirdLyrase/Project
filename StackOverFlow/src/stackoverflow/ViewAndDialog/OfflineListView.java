@@ -74,6 +74,7 @@ public class OfflineListView extends ViewPart {
 	private Action doubleClickAction;
 	private ContentTitleList contentTitle;
 	private String[] filename;
+	private String[] site;
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 		@Override
@@ -128,6 +129,7 @@ public class OfflineListView extends ViewPart {
 		}
 		viewer.setInput(null);
 		filename = contentTitle.getFilename();
+		site = contentTitle.getSite();
 		String[] title = contentTitle.getTitle();
 		viewer.setInput(title);
 	}
@@ -148,7 +150,7 @@ public class OfflineListView extends ViewPart {
 			IViewReference currentView = page.findViewReference(viewerID, secondaryId);
 			IViewPart viewPart = currentView.getView(true);
 			OfflineContentView myView = (OfflineContentView) viewPart;
-			myView.setContent(filename[index]);
+			myView.setContent(filename[index],site[index]);
 		} catch (PartInitException e) {
 			e.printStackTrace();
 			new Log().saveLog(e);

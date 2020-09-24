@@ -65,6 +65,7 @@ public class ViewHistoryView extends ViewPart {
 	private String[] title;
 	private String[] tags;
 	private String[] date;
+	private String[] site;
 	private int lenght;
 	private Table table;
 	private ViewHistoryList viewHistory;
@@ -133,6 +134,11 @@ public class ViewHistoryView extends ViewPart {
 		TableViewerColumn idColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
 		idColumn.getColumn().setWidth(100);
 		idColumn.getColumn().setText("ID");
+		
+		TableViewerColumn siteColumn = new TableViewerColumn(this.viewer, SWT.CENTER);
+		siteColumn.getColumn().setWidth(100);
+		siteColumn.getColumn().setText("Site");
+		
 		createTableViewer();
 
 	}
@@ -146,9 +152,10 @@ public class ViewHistoryView extends ViewPart {
 			tags = viewHistory.getTags();
 			date = viewHistory.getViewDate();
 			id = viewHistory.getId();
-
+			site = viewHistory.getSite();
+			
 			for (int i = 0; i < lenght; i++) {
-				new TableItem(table, SWT.NONE).setText(new String[] { title[i], tags[i], date[i], id[i] });
+				new TableItem(table, SWT.NONE).setText(new String[] { title[i], tags[i], date[i], id[i],site[i] });
 			}
 
 			isCustom = false;
@@ -216,7 +223,7 @@ public class ViewHistoryView extends ViewPart {
 			IViewReference currentView = page.findViewReference(viewerID, secondaryId);
 			IViewPart viewPart = currentView.getView(true);
 			ContentView myView = (ContentView) viewPart;
-			myView.setContent(id[index]);
+			myView.setContent(id[index],site[index]);
 		} catch (PartInitException e) {
 			new Log().saveLog(e);
 			e.printStackTrace();
@@ -235,7 +242,7 @@ public class ViewHistoryView extends ViewPart {
 		try {
 			String msg = new ContentWriter().saveContent(
 					// call AllContentObjectOnly() to create JSON Object
-					new AllContentObjectOnly().getJsonObject(id[index]), id[index], title[index]);
+					new AllContentObjectOnly().getJsonObject(id[index],site[index]), id[index], title[index], site[index]);
 			showMsg(msg);
 		} catch (IOException | JSONException e) {
 			new Log().saveLog(e);
@@ -246,7 +253,7 @@ public class ViewHistoryView extends ViewPart {
 	private void saveFavorite() {
 		int index = getRealIndex();
 		try {
-			String msg = new FavoriteWriter().saveFavorite(title[index], id[index]);
+			String msg = new FavoriteWriter().saveFavorite(title[index], id[index], site[index]);
 			showMsg(msg);
 		} catch (IOException | JSONException e) {
 			new Log().saveLog(e);
