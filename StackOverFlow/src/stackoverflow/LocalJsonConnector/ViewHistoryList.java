@@ -36,7 +36,7 @@ public class ViewHistoryList extends LocalJsonList {
 			}
 			
 			tags[i] = tag;
-			site[i] = object.getString("site");
+			site[i] = object.getString("Site");
 			
 		}
 

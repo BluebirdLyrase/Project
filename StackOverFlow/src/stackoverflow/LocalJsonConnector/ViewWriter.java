@@ -26,7 +26,7 @@ public class ViewWriter extends LocalJsonList {
 			newData.put("Tags", arrayTags);
 			newData.put("Title", title);
 			newData.put("Date", date);
-			newData.put("site", site);
+			newData.put("Site", site);
 			JSONArray newArray = jsonObject.getJSONArray(arrayName);
 			newArray.put(newData);
 			jsonObject.put(arrayName, newArray);

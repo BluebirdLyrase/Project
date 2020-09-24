@@ -36,6 +36,7 @@ $(function () {
             { data: 'ID' },
             { data: 'Title' },
             { data: 'Tags' },
+            { data: 'Site' },
             { data: 'Date' },
             { data: 'UserID' },
             { data: '_id' , render : function ( data, type, row, meta ) {
