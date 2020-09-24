@@ -176,7 +176,8 @@ function logMostFrequentElement(inputArg) {
 
 $(function () {
   var url = "/api/user/";
-
+    var   ctz ;
+    var   eachUserCard;
   $.get(url, function (data, status) {
     if (status == 'success') {
       $(data).ready(function () {
@@ -227,9 +228,9 @@ $(function () {
 
             }
           });
-          var ctz = document.getElementById("eachUserCard"+ii);
+          ctz = document.getElementById("eachUserCard"+ii);
           console.log(ctz);
-          var eachUserCard = new Chart(ctz, {
+           eachUserCard = new Chart(ctz, {
             type: 'doughnut',
             data: {
               labels: allTags2, //it's an array can put entire Json element here
@@ -257,7 +258,8 @@ $(function () {
               },
               cutoutPercentage: 70,
             },
-          });
+          }); console.log(eachUserCard);
+          
             }
       });
 

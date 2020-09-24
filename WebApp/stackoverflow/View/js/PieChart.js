@@ -61,6 +61,7 @@ $(function () {
             cutoutPercentage: 70,
           },
         });
+        console.log(myPieChart);
       });
     }
   })
