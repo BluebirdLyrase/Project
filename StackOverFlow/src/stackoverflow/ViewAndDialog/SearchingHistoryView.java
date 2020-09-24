@@ -265,7 +265,7 @@ public class SearchingHistoryView extends ViewPart {
 
 				SearchResultView myView = (SearchResultView) viewPart;
 
-				myView.setSearchResult(titleList, questionIdList);
+				myView.setSearchResult(titleList, questionIdList, site);
 
 			} else {
 				MessageDialog.openError(win.getShell(), "Error", "not found the result you are searching");

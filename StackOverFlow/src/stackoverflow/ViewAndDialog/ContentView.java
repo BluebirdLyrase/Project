@@ -42,9 +42,11 @@ public class ContentView extends ViewPart {
 	private Action off;
 	private Action home;
 	private Browser browser;
-
-	public void setContent(String id) {
+	private String site;
+	
+	public void setContent(String id,String site) {
 		this.id = id;
+		this.site = site;
 		parent.layout(true, true);
 		final Point newSize = parent.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
 		parent.setSize(newSize);
@@ -61,7 +63,7 @@ public class ContentView extends ViewPart {
 			System.out.println("Could not instantiate Browser: " + e.getMessage());
 			return;
 		}
-		HTMLBuilder html = new HTMLBuilder(this.id, this.isOffline);
+		HTMLBuilder html = new HTMLBuilder(this.id, this.isOffline,this.site);
 		qtitle = html.getTitle();
 		HTMLtext = html.getHtml();
 		browser.setText(HTMLtext);
@@ -87,7 +89,7 @@ public class ContentView extends ViewPart {
 
 	private void saveOffline() {
 		try {
-			String msg = new ContentWriter().saveContent(new AllContentObjectOnly().getJsonObject(id), id, qtitle);
+			String msg = new ContentWriter().saveContent(new AllContentObjectOnly().getJsonObject(id,site), id, qtitle,site);
 			showMsg(msg);
 		} catch (IOException|JSONException e) {
 			new Log().saveLog(e);
@@ -97,7 +99,7 @@ public class ContentView extends ViewPart {
 
 	private void saveFavorite() {
 		try {
-			String msg = new FavoriteWriter().saveFavorite(qtitle, id);
+			String msg = new FavoriteWriter().saveFavorite(qtitle, id,site);
 			showMsg(msg);
 		} catch (IOException|JSONException e) {
 			new Log().saveLog(e);

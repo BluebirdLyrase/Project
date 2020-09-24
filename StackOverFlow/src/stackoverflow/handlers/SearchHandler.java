@@ -90,7 +90,8 @@ public class SearchHandler extends AbstractHandler {
 
 				String[] titleList = searchResult.getTitleList();
 				String[] questionIdList = searchResult.getQuestionIdList();
-
+				String site = searchResult.getSite();
+				
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				window.getActivePage().showView(viewerID);
 
@@ -98,7 +99,7 @@ public class SearchHandler extends AbstractHandler {
 
 				SearchResultView myView = (SearchResultView) viewPart;
 
-				myView.setSearchResult(titleList, questionIdList);
+				myView.setSearchResult(titleList, questionIdList,site);
 
 			} else {
 				MessageDialog.openError(window.getShell(), "Error", "Can not find any result");

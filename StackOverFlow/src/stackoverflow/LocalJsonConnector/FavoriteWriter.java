@@ -11,7 +11,7 @@ public class FavoriteWriter extends LocalJsonList {
 		super("Favorite");
 	}
 
-	public String saveFavorite(String title, String id) {
+	public String saveFavorite(String title, String id,String site) {
 			String result;
 		try {
 			int lenght = jsonObject.getJSONArray(arrayName).length();
@@ -30,6 +30,7 @@ public class FavoriteWriter extends LocalJsonList {
 				JSONObject newData = new JSONObject();
 				newData.put("Title", title);
 				newData.put("ID", id);
+				newData.put("Site", site);
 				JSONArray newArray = jsonObject.getJSONArray(arrayName);
 				newArray.put(newData);
 				jsonObject.put(arrayName, newArray);

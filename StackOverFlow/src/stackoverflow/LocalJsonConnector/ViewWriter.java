@@ -15,7 +15,7 @@ public class ViewWriter extends LocalJsonList {
 		super("ViewHistory");
 	}
 
-	public void saveContentViewHistory(String id, String[] tags, String title) throws JSONException, IOException{
+	public void saveContentViewHistory(String id, String[] tags, String title,String site) throws JSONException, IOException{
 		JSONObject newData = new JSONObject();
 		JSONArray arrayTags = new JSONArray();
 		for (int i = 0; i < tags.length; i++) {
@@ -26,6 +26,7 @@ public class ViewWriter extends LocalJsonList {
 			newData.put("Tags", arrayTags);
 			newData.put("Title", title);
 			newData.put("Date", date);
+			newData.put("site", site);
 			JSONArray newArray = jsonObject.getJSONArray(arrayName);
 			newArray.put(newData);
 			jsonObject.put(arrayName, newArray);

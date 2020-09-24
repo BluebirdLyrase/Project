@@ -62,10 +62,9 @@ public class AllContent extends StackOverFlowConnecter {
 	 * if is Offline is false question_id.json = an id of quetion in API
 	 */
 	
-	public AllContent(String question_id,boolean isOffline) throws IOException, JSONException {
+	public AllContent(String question_id,boolean isOffline,String site) throws IOException, JSONException {
 
 		// All Question that can be found by the URL will have an Accepted Answer or
-
 		//Check if AllContent is used for offline content
 		if(isOffline) {
 			JSONFile local = new JSONFile();
@@ -75,7 +74,7 @@ public class AllContent extends StackOverFlowConnecter {
 			
 		}else {
 		this.url = "https://api.stackexchange.com/2.2/questions/" + question_id
-				+ "?order=asc&sort=activity&site=stackoverflow&filter="
+				+ "?order=asc&sort=activity&site="+site+"&filter="
 				+ "!6CZol-kjk43Caeu4wbmgfWPFBKTl-6MgX9_mx25H6._QEcG9r2lN3QrdeDe";
 
 		this.json = readJsonFromUrl(this.url);
@@ -253,7 +252,7 @@ public class AllContent extends StackOverFlowConnecter {
 
 		}
 
-		this.allConetent = new Question(title, body, qComment, answer, haveComment, haveAnswer, qOwner, qOwnerImage,qScore,haveTags,tags,id);
+		this.allConetent = new Question(title, body, qComment, answer, haveComment, haveAnswer, qOwner, qOwnerImage,qScore,haveTags,tags,id,site);
 
 	}
 

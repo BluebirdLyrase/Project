@@ -68,6 +68,7 @@ public class SearchResultView extends ViewPart {
 	@Inject
 	IWorkbench workbench;
 	private String[] id;
+	private String site;
 	private TableViewer viewer;
 	private Action doubleClickAction;
 	private Action saveFavorite;
@@ -113,10 +114,10 @@ public class SearchResultView extends ViewPart {
 	IWorkbenchPage activeEvent = win.getActivePage();
 	IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 
-	public void setSearchResult(String[] titleList, String[] questionIdList) {
+	public void setSearchResult(String[] titleList, String[] questionIdList, String site) {
 		this.titleList = titleList;
 		this.questionIdList = questionIdList;
-
+		this.site = site;
 		/// setData to next result page
 		id = new String[questionIdList.length];
 		for (int i = 0; i < questionIdList.length; i++) {
@@ -152,7 +153,7 @@ public class SearchResultView extends ViewPart {
 			IViewReference currentView = page.findViewReference(viewerID, secondaryId);
 			IViewPart viewPart = currentView.getView(true);
 			ContentView myView = (ContentView) viewPart;
-			myView.setContent(id[index]);
+			myView.setContent(id[index],site);
 		} catch (PartInitException e) {
 			new Log().saveLog(e);
 			e.printStackTrace();
@@ -162,7 +163,7 @@ public class SearchResultView extends ViewPart {
 	private void saveOffline() {
 		int index = viewer.getTable().getSelectionIndex();
 		try {
-			String msg = new ContentWriter().saveContent(new AllContentObjectOnly().getJsonObject(id[index]), id[index], titleList[index]);
+			String msg = new ContentWriter().saveContent(new AllContentObjectOnly().getJsonObject(id[index],site), id[index], titleList[index],site);
 			showMsg(msg);
 		} catch (IOException | JSONException e) {
 			new Log().saveLog(e);
@@ -173,7 +174,7 @@ public class SearchResultView extends ViewPart {
 	private void saveFavorite() {
 		int index = viewer.getTable().getSelectionIndex();
 		try {
-			String msg = new FavoriteWriter().saveFavorite(titleList[index], id[index]);
+			String msg = new FavoriteWriter().saveFavorite(titleList[index], id[index], site);
 			showMsg(msg);
 		} catch (IOException | JSONException e) {
 			new Log().saveLog(e);

@@ -7,10 +7,11 @@ import org.json.JSONObject;
 
 public class ViewHistoryList extends LocalJsonList {
 	
-	public String[] id;
-	public String[] tags;
-	public String[] title;
-	public String[] viewDate;
+	private String[] id;
+	private String[] tags;
+	private String[] title;
+	private String[] viewDate;
+	private String[] site;
 	private int lenght;
 
 	public ViewHistoryList() throws IOException, JSONException {
@@ -20,6 +21,7 @@ public class ViewHistoryList extends LocalJsonList {
 		tags = new String[lenght];
 		title = new String[lenght];
 		viewDate = new String[lenght];
+		site = new String[lenght];
 
 		for (int i = 0; i < lenght; i++) {
 			JSONObject object = jsonObject.getJSONArray(arrayName).getJSONObject(i);
@@ -34,6 +36,7 @@ public class ViewHistoryList extends LocalJsonList {
 			}
 			
 			tags[i] = tag;
+			site[i] = object.getString("site");
 			
 		}
 
@@ -53,6 +56,10 @@ public class ViewHistoryList extends LocalJsonList {
 
 	public String[] getTitle() {
 		return title;
+	}
+	
+	public String[] getSite() {
+		return site;
 	}
 
 	public String[] getViewDate() {

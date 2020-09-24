@@ -17,10 +17,10 @@ public class HTMLBuilder {
 	AllContent content ;
 	Question q ;
 
-	public HTMLBuilder(String id, boolean isOffline) {
+	public HTMLBuilder(String id, boolean isOffline,String site) {
 		// check if Allcontent is used for offline mode
 		try {
-			content = new AllContent(id, isOffline);
+			content = new AllContent(id, isOffline,site);
 			q = content.getAllConetent();
 			qtitle = q.getTitle();
 		} catch (IOException | JSONException e) {
@@ -64,11 +64,12 @@ public class HTMLBuilder {
 
 
 			////// Question
-			question = "<h2>Question : " + q.getTitle() + "</h2>" + "<div style=\" font-size: 18px \"> " + q.getBody()
-					+ "</div><hr>";
+			question = "<h2>Question : " + 
+			q.getTitle() + "</h2>" + "<div style=\" font-size: 18px \"> " + 
+			q.getBody() + "</div><hr>";
 
 				try {
-					new ViewWriter().saveContentViewHistory(q.getId(), q.getTags(), q.getTitle());
+					new ViewWriter().saveContentViewHistory(q.getId(), q.getTags(), q.getTitle(),q.getSite());
 				} catch (JSONException | IOException e) {
 					new Log().saveLog(e);
 					e.printStackTrace();

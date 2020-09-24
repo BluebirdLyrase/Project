@@ -12,12 +12,13 @@ public class ContentTitleWriter extends LocalJsonList{
 		super("OfflineContentList");
 	}
 	
-	public void saveContentTitle(String title,String id) {
+	public void saveContentTitle(String title,String id,String site) {
 		JSONObject newData = new JSONObject();
-		String filename = id+".json";
+		String filename = id+site+".json";
 		try {
 		newData.put("Title", title);
 		newData.put("Filename", filename);
+		newData.put("Site",site);
         JSONArray newArray = jsonObject.getJSONArray(arrayName);
         newArray.put(newData);
         jsonObject.put(arrayName,newArray);
