@@ -43,7 +43,7 @@ public class SearchResult extends StackOverFlowConnecter {
 		
 		this.url = "https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=" + Integer.toString(pageSize)
 				+ "&order=" + order + "&sort=" + sort + "&q=" + intitle + "&accepted=True" + tagContent
-				+ "&site=stackoverflow&filter=!4(L6lo9D9J9Y3508i";
+				+ "&site="+site+"&filter=!4(L6lo9D9J9Y3508i";
 		
 		String newUrl = this.url.replaceAll(" ", "%20");
 		this.json = readJsonFromUrl(newUrl);

@@ -104,4 +104,4 @@ app.use('/api', cors(), router);
 
 // #10 Start the server
 app.listen(port);
-console.log(port);
+console.log('Stack Pasta runing at port '+port);
