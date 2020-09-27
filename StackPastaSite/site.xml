@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/Stack_Pasta_1.0.0.202009270711.jar" id="Stack_Pasta" version="1.0.0.202009270711">
+      <category name="StackPasta"/>
+   </feature>
+   <category-def name="StackPasta" label="StackPasta"/>
+</site>

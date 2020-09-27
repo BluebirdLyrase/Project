@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="Stack_Pasta"
+      label="Stack_Pasta"
+      version="1.0.0.qualifier">
+
+   <description url="http://www.example.com/description">
+      Stack Pasta is an Eclipse Plug-in that enables you to search
+and get answers from Stack Overflow and other sites in Stack
+Exchange Network to Eclipse IDE.
+features
+- Search from stack via StackExchange API by typing your question
+or highlighting your source code/output to quickly search for
+solutions
+- Mark the question to favorite list 
+- Download the question to read in offline mode 
+- see your searching and view history 
+- connect all history with database to work with youe team
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      Stack Pasta is a free plugin Software.
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      Stack Pasta is a free plugin Software.
+   </license>
+
+   <plugin
+         id="StackOverFlow"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
