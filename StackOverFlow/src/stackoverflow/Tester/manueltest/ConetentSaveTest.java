@@ -13,13 +13,11 @@ import stackoverflow.LocalJsonConnector.ContentWriter;
 public class ConetentSaveTest {
 	
 	public static void main(String[] args) throws IOException, JSONException {
-		AllContent c = new AllContent("11227809",false);
-//		AllContent c = new AllContent("62153991",false);
-//		AllContent c = new AllContent("1678122",false);
+		AllContent c = new AllContent("11227809",false,"stackoverflow");
 		Question q = c.getAllConetent();
 		
 		JSONObject x = c.getJsonObject() ;
-		new ContentWriter().saveContent(x,q.getId(),q.getTitle());
+		new ContentWriter().saveContent(x,q.getId(),q.getTitle(), "stackoverflow");
 	}
 
 }

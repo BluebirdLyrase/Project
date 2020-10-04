@@ -8,11 +8,8 @@ import stackoverflow.LocalJsonConnector.FavoriteWriter;
 public class FavoriteTest {
 	
 	public static void main(String[] args) throws IOException, JSONException {
-		new FavoriteWriter().saveFavorite("aaa", "123");
-		new FavoriteWriter().saveFavorite("bbb", "456");
-		new FavoriteWriter().saveFavorite("ccc", "789");
-		new FavoriteWriter().saveFavorite("ccc", "789");
-		
+		new FavoriteWriter().saveFavorite("Why is processing a sorted array faster than processing an unsorted array?", 
+				"11227809","stackoverflow");
 		FavoriteList f = new FavoriteList();
 		int x= f.getLenght();
 		
