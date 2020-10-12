@@ -17,7 +17,7 @@ import stackoverflow.DataClass.Comment;
  * using question_id as a key to receive specific data from  API or local file
  * url https://api.stackexchange.com/2.2/questions/891643?order=asc&sort=activity&site=stackoverflow&filter=!6CZol-kjk43Caeu4wbmgfWPFBKTl-6MgX9_mx25H6._QEcG9r2lN3QrdeDe
  */
-public class AllContent extends StackOverFlowConnecter {
+public class AllContent extends StackExchangeConnecter {
 
 	private Question allConetent;
 	private String title;

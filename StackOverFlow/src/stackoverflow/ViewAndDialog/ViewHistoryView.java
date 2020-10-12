@@ -39,7 +39,7 @@ import org.eclipse.ui.part.ViewPart;
 import org.json.JSONException;
 
 import stackoverflow.APIConnecter.AllContentObjectOnly;
-import stackoverflow.APIConnecter.StackOverFlowConnecter;
+import stackoverflow.APIConnecter.StackExchangeConnecter;
 import stackoverflow.LocalJsonConnector.ContentWriter;
 import stackoverflow.LocalJsonConnector.FavoriteWriter;
 import stackoverflow.LocalJsonConnector.Log;
@@ -47,7 +47,7 @@ import stackoverflow.LocalJsonConnector.ViewHistoryList;
 
 public class ViewHistoryView extends ViewPart {
 
-	private static final Logger LOGGER = Logger.getLogger(StackOverFlowConnecter.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(StackExchangeConnecter.class.getName());
 	public static final String ID = "stackoverflow.ViewAndDialog.ViewHistoryView";
 
 	@Inject

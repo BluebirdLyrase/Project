@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 import stackoverflow.LocalJsonConnector.Log;
 
-public class QuestionID extends StackOverFlowConnecter {
+public class QuestionID extends StackExchangeConnecter {
 	
 	public String getQuestionID(String title) {
 		this.url = "https://api.stackexchange.com/2.2/search?page=1&pagesize=1&order=desc&sort=activity&intitle="+title+"&site=stackoverflow&filter=!)8aF*u2F.Dui-Vt";

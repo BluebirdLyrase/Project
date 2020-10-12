@@ -15,12 +15,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import stackoverflow.APIConnecter.StackOverFlowConnecter;
+import stackoverflow.APIConnecter.StackExchangeConnecter;
 import stackoverflow.LocalJsonConnector.LocalJsonList;
 import stackoverflow.LocalJsonConnector.Log;
 
 public class Account extends LocalJsonList {
-	protected static final Logger LOGGER = Logger.getLogger(StackOverFlowConnecter.class.getName());
+	protected static final Logger LOGGER = Logger.getLogger(StackExchangeConnecter.class.getName());
 
 	public Account() {
 		super("Account");

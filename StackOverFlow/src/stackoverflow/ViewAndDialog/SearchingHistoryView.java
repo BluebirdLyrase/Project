@@ -39,7 +39,7 @@ import org.eclipse.ui.part.ViewPart;
 import org.json.JSONException;
 
 import stackoverflow.APIConnecter.SearchResult;
-import stackoverflow.APIConnecter.StackOverFlowConnecter;
+import stackoverflow.APIConnecter.StackExchangeConnecter;
 import stackoverflow.LocalJsonConnector.Log;
 import stackoverflow.LocalJsonConnector.SearchingHistoryList;
 import stackoverflow.LocalJsonConnector.SearchingWriter;
@@ -64,7 +64,7 @@ public class SearchingHistoryView extends ViewPart {
 	/**
 	 * The ID of the view as specified by the extension.
 	 */
-	private static final Logger LOGGER = Logger.getLogger(StackOverFlowConnecter.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(StackExchangeConnecter.class.getName());
 	public static final String ID = "stackoverflow.ViewAndDialog.SearchingHistoryView";
 
 	@Inject

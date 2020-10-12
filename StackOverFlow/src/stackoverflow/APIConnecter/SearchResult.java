@@ -15,7 +15,7 @@ import org.json.JSONException;
  * tagged : array of tag of the question 
  */
 
-public class SearchResult extends StackOverFlowConnecter {
+public class SearchResult extends StackExchangeConnecter {
 
 	private String[] titleList;
 	private String[] questionIdList;

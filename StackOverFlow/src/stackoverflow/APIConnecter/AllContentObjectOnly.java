@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class AllContentObjectOnly extends StackOverFlowConnecter{
+public class AllContentObjectOnly extends StackExchangeConnecter{
 	
 	//return JsonObject for save to Offline function in every tableview
 	public JSONObject getJsonObject(String question_id,String site) throws IOException, JSONException {
