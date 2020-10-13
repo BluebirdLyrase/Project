@@ -3,6 +3,10 @@ package stackoverflow.ViewAndDialog;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
+import org.json.JSONException;
+
+import stackoverflow.database.PinnedQuestionList;
+
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.jface.action.*;
@@ -61,12 +65,36 @@ public class PinnedQuestionView extends ViewPart {
 		}
 	}
 
+	
+	
+	private String[] titleList;
+	private String[] questionIdList;
+	private String[] siteList;
+	private String[] databaseIDList;
+	private String[] pinTextList;
+	private String[] OwnerIdList;
+
+	
 	@Override
 	public void createPartControl(Composite parent) {
+		
+		PinnedQuestionList list = new PinnedQuestionList();
+		try {
+		this.titleList = list.getTitleList();
+		this.questionIdList = list.getQuestionIdList();
+		this.siteList = list.getSiteList();
+		this.databaseIDList = list.getDatabaseIdList();
+		this.OwnerIdList = list.getOwnerID();
+		this.pinTextList = list.getPinText();
+		
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.setContentProvider(ArrayContentProvider.getInstance());
-		viewer.setInput(new String[] { "One", "Two", "Three" });
+		viewer.setInput(titleList);
 		
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	viewer.setLabelProvider(new ViewLabelProvider());
 
@@ -77,10 +105,6 @@ public class PinnedQuestionView extends ViewPart {
 		hookContextMenu();
 		hookDoubleClickAction();
 		contributeToActionBars();
-	}
-	
-	public void setup() {
-		
 	}
 
 	private void hookContextMenu() {

@@ -15,6 +15,7 @@ public class PinnedQuestionListTester {
 		System.out.println(x.getQuestionIdList()[i]);
 		System.out.println(x.getSiteList()[i]);
 		System.out.println(x.getTitleList()[i]);
+		System.out.println(x.getDatabaseIdList()[i]);
 		}
 	}
 

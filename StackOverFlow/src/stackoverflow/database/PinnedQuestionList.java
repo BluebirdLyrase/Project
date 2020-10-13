@@ -9,6 +9,7 @@ public class PinnedQuestionList extends APIConnectorGet {
 
 	private String[] titleList;
 	private String[] questionIdList;
+	private String[] databaseIdList;
 	private String[] siteList;
 	private String[] ownerID;
 	private String[] pinText;
@@ -36,6 +37,14 @@ public class PinnedQuestionList extends APIConnectorGet {
 	}
 
 
+	public String[] getDatabaseIdList() throws JSONException {
+		questionIdList = new String[lenght];
+		for (int i = 0; i < lenght; i++) {
+			questionIdList[i] = json.getJSONArray("item").getJSONObject(i).get("_id").toString();
+		}
+		return questionIdList;
+	}
+
 	public String[] getQuestionIdList() throws JSONException {
 		questionIdList = new String[lenght];
 		for (int i = 0; i < lenght; i++) {
@@ -43,7 +52,6 @@ public class PinnedQuestionList extends APIConnectorGet {
 		}
 		return questionIdList;
 	}
-
 
 	public String[] getSiteList() throws JSONException {
 		siteList = new String[lenght];
