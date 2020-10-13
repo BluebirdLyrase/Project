@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class SearchingHistoryDatabaseWriter extends DatabaseConnectorPost {
+public class SearchingHistoryDatabaseWriter extends APIConnectorPost {
 	private String jsonString = "";
 	private String apiName = "addSearchingHistory";
 

@@ -5,14 +5,13 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class PinnedQuestionList extends DatabaseConnectorGet {
+public class PinnedQuestionList extends APIConnectorGet {
 
 	private String[] titleList;
 	private String[] questionIdList;
 	private String[] siteList;
 	private String[] ownerID;
 	private String[] pinText;
-	private Account account = new Account();
 	private JSONObject json;
 
 	private int lenght;

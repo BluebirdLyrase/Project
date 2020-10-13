@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ViewHistoryDatabaseWriter extends DatabaseConnectorPost {
+public class ViewHistoryDatabaseWriter extends APIConnectorPost {
 	
 	private String jsonString = "";
 	private String apiName = "addViewHistory";

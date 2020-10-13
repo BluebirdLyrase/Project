@@ -1,7 +1,7 @@
 package stackoverflow.database;
 import java.io.IOException;
 
-import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
@@ -12,17 +12,17 @@ import org.json.JSONException;
 
 import stackoverflow.LocalJsonConnector.Log;
 
-public class DatabaseConnectorPost {
-	private String apiResponse = "no response";
+public class APIConnectorDelete {
+	private String apiResponse = "server not response";
 	protected String userID;
 	protected Account account = new Account();
 	
-	public String databaseWriter(String json,String apiName)throws JSONException, IOException  {
+	public String databaseDelete(String json,String apiName)throws JSONException, IOException  {
 		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 		try {
 			String baseURL= account.getDatabaseURL()+"/api/";
 			String url = baseURL+apiName;
-		    HttpPost request = new HttpPost(url);
+		    HttpDelete request = new HttpDelete(url);
 		    StringEntity params = new StringEntity(json);
 		    request.addHeader("content-type", "application/json");
 		    request.setEntity(params);
