@@ -1,25 +1,32 @@
 package stackoverflow.database;
 
+import java.io.IOException;
+
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import stackoverflow.LocalJsonConnector.Log;
 
-public class PinnedQuestionDelete {
+public class PinnedQuestionDelete extends APIConnectorDelete{
 	private String userID ;
 	private String msg = "";
-	public String deletePinned() {
+	
+	//databaseID parameter is databaseIDList[i] in viewer
+	public String deletePinned(String databaseID) {
 		Account account = new Account();
 		
 		try {
 			this.userID = account.getUserID();
 			if (account.isLoggedIn()) {
-				
-				
-			}else {
-				
-				
+				userID = account.getUserID();
+				JSONObject newData = new JSONObject();
+				newData.put("_id", databaseID);
+				newData.put("UserID", userID);
+				msg = databaseDelete(newData.toString(),"deletePinned");
+			}else {	
+				msg = "This message is impossible to reach";
 			}
-		} catch (JSONException e) {
+		} catch (JSONException | IOException e) {
 			new Log().saveLog(e);
 			e.printStackTrace();
 		}

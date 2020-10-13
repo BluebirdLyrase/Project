@@ -21,7 +21,7 @@ public class FavoriteHandler extends AbstractHandler {
 		} catch (PartInitException e) {
 			e.printStackTrace();
 			new Log().saveLog(e);
-			MessageDialog.openError(window.getShell(), "Error", "There is problem occur on StackOverFlow Helper plug-in. please email us your Log folder" );
+			MessageDialog.openError(window.getShell(), "Error", "There is a problem occur. please email us your Log folder" );
 		}
 		return null;
 	}

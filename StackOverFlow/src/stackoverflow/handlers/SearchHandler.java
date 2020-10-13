@@ -111,7 +111,7 @@ public class SearchHandler extends AbstractHandler {
 		} catch (IOException | PartInitException e) {
 			e.printStackTrace();
 			new Log().saveLog(e);
-			MessageDialog.openError(window.getShell(), "Error", "There is a problem occur on StackOverFlow Helper plug-in. please email us your Log in Log folder" );
+			MessageDialog.openError(window.getShell(), "Error", "There is a problem occur. please email us your Log folder" );
 		}
 	}
 }
