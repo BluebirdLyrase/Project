@@ -25,6 +25,11 @@
       </command>
       <command
             categoryId="StackOverFlow.commands.StackOverFlowCategory"
+            id="StackOverFlow.commands.PinnedQuestion"
+            name="Pinned Question">
+      </command>
+      <command
+            categoryId="StackOverFlow.commands.StackOverFlowCategory"
             id="StackOverFlow.commands.HistoryCommand"
             name="History">
       </command>
@@ -56,6 +61,10 @@
             class="stackoverflow.handlers.SettingHanlers"
             commandId="StackOverFlow.commands.settingCommand">
       </handler>
+      <handler
+            class="stackoverflow.handlers.PinnedQuestion"
+            commandId="StackOverFlow.commands.PinnedQuestion">
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
@@ -73,6 +82,12 @@
       </key>
       <key
             commandId="StackOverFlow.commands.OfflineCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+6">
+      </key>
+      <key
+            commandId="StackOverFlow.commands.PinnedQuestion"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+6">
@@ -169,6 +184,31 @@
                   mnemonic="S">
             </command>
          </menu>
+      </menuContribution>
+<menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="StackOverFlow.menus.StackOverFlowMenu"
+               label="StackOverFlow"
+               mnemonic="M">
+            <command
+                  commandId="StackOverFlow.commands.PinnedQuestion"
+                  id="StackOverFlow.menus.PinnedQuestion"
+                  mnemonic="S">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="StackOverFlow.toolbars.PinnedQuestion">
+            <command
+                  commandId="StackOverFlow.commands.PinnedQuestion"
+                  icon="icons/sample.png"
+                  id="StackOverFlow.toolbars.PinnedQuestion"
+                  tooltip="Pinned Question">
+            </command>
+         </toolbar>
       </menuContribution>
       <menuContribution
             locationURI="menu:org.eclipse.ui.main.menu?after=additions">
