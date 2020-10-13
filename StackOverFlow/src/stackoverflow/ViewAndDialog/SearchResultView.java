@@ -184,12 +184,16 @@ public class SearchResultView extends ViewPart {
 		}
 	}
 	private void pinToTeam() throws IOException, JSONException {
-		PinTextInputDialog  PinDl = new PinTextInputDialog(win.getShell());
-		PinDl.createDialogArea(win.getShell());
-		PinDl.close();
+		PinTextInputDialog  pinDl = new PinTextInputDialog(win.getShell());
+		pinDl.createDialogArea(win.getShell());
+		pinDl.open();
+		String pintext  = pinDl.getPinText();
+		System.out.print("Pintext  : "+pintext);
+		
 		int index = viewer.getTable().getSelectionIndex();
-		String msg = new PinnedQuestionWriter().pinnedWriter(id[index],site,titleList[index],PinDl.getPinText()) ;
+		String msg = new PinnedQuestionWriter().pinnedWriter(id[index],site,titleList[index],pintext) ;
 		showMsg(msg);
+		pinDl.close();
 	}
 	
 	private void showMsg(String msg) {

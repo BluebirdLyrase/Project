@@ -95,6 +95,7 @@ public class ViewHistorySearchDialog extends TitleAreaDialog {
 		TagsText = txtTagsText.getText();
 
 	}
+	
 
 	@Override
 	protected void okPressed() {

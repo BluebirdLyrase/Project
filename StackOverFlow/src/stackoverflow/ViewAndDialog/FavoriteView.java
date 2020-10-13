@@ -9,6 +9,7 @@ import stackoverflow.APIConnecter.AllContentObjectOnly;
 import stackoverflow.LocalJsonConnector.ContentWriter;
 import stackoverflow.LocalJsonConnector.FavoriteList;
 import stackoverflow.LocalJsonConnector.Log;
+import stackoverflow.database.PinnedQuestionWriter;
 
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.graphics.Image;
@@ -61,6 +62,7 @@ public class FavoriteView extends ViewPart {
 	private String[] id;
 	private String[] site;
 	private FavoriteList fav;
+	private Action pinToTeam;
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 		@Override
@@ -164,6 +166,20 @@ public class FavoriteView extends ViewPart {
 			e.printStackTrace();
 		}
 	}
+	private void pinToTeam() throws IOException, JSONException {
+		IWorkbench wb = PlatformUI.getWorkbench();
+		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+		PinTextInputDialog  pinDl = new PinTextInputDialog(win.getShell());
+		pinDl.createDialogArea(win.getShell());
+		pinDl.open();
+		String pintext  = pinDl.getPinText();
+		System.out.print("Pintext  : "+pintext);
+		
+		int index = viewer.getTable().getSelectionIndex();
+		String msg = new PinnedQuestionWriter().pinnedWriter(id[index],site[index],title[index],pintext) ;
+		showMsg(msg);
+		pinDl.close();
+	}
 	
 	private void showMsg(String msg) {
 		IWorkbench wb = PlatformUI.getWorkbench();
@@ -195,6 +211,7 @@ public class FavoriteView extends ViewPart {
 		// Other plug-ins can contribute there actions here
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 		manager.add(saveOffline);
+		manager.add(pinToTeam);
 	}
 
 	private void makeActions() {
@@ -229,7 +246,24 @@ public class FavoriteView extends ViewPart {
 		};
 		refresh.setText("Refresh");
 		refresh.setToolTipText("Refresh this page");
-
+		
+		pinToTeam = new Action() {
+			public void run() {
+				try {
+					pinToTeam();
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		};
+		pinToTeam.setText("Pin To Team");
+		pinToTeam.setToolTipText("Pin this question to developing team");
+		
 		doubleClickAction = new Action() {
 			public void run() {
 				open();

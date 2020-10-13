@@ -44,6 +44,7 @@ import stackoverflow.LocalJsonConnector.ContentWriter;
 import stackoverflow.LocalJsonConnector.FavoriteWriter;
 import stackoverflow.LocalJsonConnector.Log;
 import stackoverflow.LocalJsonConnector.ViewHistoryList;
+import stackoverflow.database.PinnedQuestionWriter;
 
 public class ViewHistoryView extends ViewPart {
 
@@ -61,6 +62,7 @@ public class ViewHistoryView extends ViewPart {
 	private Action refresh;
 	private Action doubleClickAction;
 	private Action search;
+	private Action pinToTeam;
 	private String[] id;
 	private String[] title;
 	private String[] tags;
@@ -260,6 +262,20 @@ public class ViewHistoryView extends ViewPart {
 			e.printStackTrace();
 		}
 	}
+	private void pinToTeam() throws IOException, JSONException {
+		IWorkbench wb = PlatformUI.getWorkbench();
+		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+		PinTextInputDialog  pinDl = new PinTextInputDialog(win.getShell());
+		pinDl.createDialogArea(win.getShell());
+		pinDl.open();
+		String pintext  = pinDl.getPinText();
+		System.out.print("Pintext  : "+pintext);
+		
+		int index = viewer.getTable().getSelectionIndex();
+		String msg = new PinnedQuestionWriter().pinnedWriter(id[index],site[index],title[index],pintext) ;
+		showMsg(msg);
+		pinDl.close();
+	}
 	
 	private void showMsg(String msg) {
 		IWorkbench wb = PlatformUI.getWorkbench();
@@ -296,6 +312,7 @@ public class ViewHistoryView extends ViewPart {
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 		manager.add(saveFavorite);
 		manager.add(saveOffline);
+		manager.add(pinToTeam);
 	}
 
 	private void makeActions() {
@@ -347,6 +364,27 @@ public class ViewHistoryView extends ViewPart {
 		saveOffline.setText("save to Offline");
 		saveOffline.setToolTipText("save this question to Offline list");
 
+		doubleClickAction = new Action() {
+			public void run() {
+				open();
+			}
+		};
+		pinToTeam = new Action() {
+			public void run() {
+				try {
+					pinToTeam();
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		};
+		pinToTeam.setText("Pin To Team");
+		pinToTeam.setToolTipText("Pin this question to developing team");
 		doubleClickAction = new Action() {
 			public void run() {
 				open();

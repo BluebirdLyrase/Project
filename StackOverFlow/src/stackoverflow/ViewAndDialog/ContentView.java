@@ -11,6 +11,7 @@ import stackoverflow.APIConnecter.AllContentObjectOnly;
 import stackoverflow.LocalJsonConnector.ContentWriter;
 import stackoverflow.LocalJsonConnector.FavoriteWriter;
 import stackoverflow.LocalJsonConnector.Log;
+import stackoverflow.database.PinnedQuestionWriter;
 
 import java.io.IOException;
 import javax.inject.Inject;
@@ -41,6 +42,7 @@ public class ContentView extends ViewPart {
 	private Action fav;
 	private Action off;
 	private Action home;
+	private Action pin;
 	private Browser browser;
 	private String site;
 	
@@ -96,6 +98,19 @@ public class ContentView extends ViewPart {
 			e.printStackTrace();
 		}
 	}
+	private void pinToTeam() throws IOException, JSONException {
+		IWorkbench wb = PlatformUI.getWorkbench();
+		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+		PinTextInputDialog  pinDl = new PinTextInputDialog(win.getShell());
+		pinDl.createDialogArea(win.getShell());
+		pinDl.open();
+		String pintext  = pinDl.getPinText();
+		System.out.print("Pintext  : "+pintext);
+		
+		String msg = new PinnedQuestionWriter().pinnedWriter(id,site,qtitle,pintext) ;
+		showMsg(msg);
+		pinDl.close();
+	}
 
 	private void saveFavorite() {
 		try {
@@ -121,6 +136,7 @@ public class ContentView extends ViewPart {
 		manager.add(off);
 		manager.add(fav);
 		manager.add(home);
+		manager.add(pin);
 	}
 
 	private void makeActions() {
@@ -148,6 +164,24 @@ public class ContentView extends ViewPart {
 		};
 		home.setText("Home");
 		home.setToolTipText("Back to Stack Overflow Content");
+		
+		pin = new Action() {
+			public void run() {
+				try {
+					pinToTeam();
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		};
+		pin.setText("Pin To Team");
+		pin.setToolTipText("Pin this question to developing team");
+		
 
 	}
 

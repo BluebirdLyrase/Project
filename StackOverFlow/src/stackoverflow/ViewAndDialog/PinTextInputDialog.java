@@ -42,8 +42,7 @@ public class PinTextInputDialog extends Dialog {
 		GridData gd_text = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		gd_text.heightHint = 112;
 		text.setLayoutData(gd_text);
-		strPinText=text.getText();
-		
+		System.out.print("PinDiaLog Is here"+text.getText());
 		
 		
 		return container;
@@ -56,6 +55,7 @@ public class PinTextInputDialog extends Dialog {
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
 		createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
+		
 		createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
 	}
 
@@ -67,7 +67,14 @@ public class PinTextInputDialog extends Dialog {
 		return new Point(450, 300);
 	}
 	String getPinText() {
-		String pinText=this.strPinText;
-		return pinText;
+		return strPinText;
+	}
+	void saveInput(){
+		strPinText=text.getText();
+	}
+	@Override
+	protected void okPressed() {
+		saveInput();
+		super.okPressed();
 	}
 }
