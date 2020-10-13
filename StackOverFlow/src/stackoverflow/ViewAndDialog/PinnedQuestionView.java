@@ -74,10 +74,7 @@ public class PinnedQuestionView extends ViewPart {
 	private String[] pinTextList;
 	private String[] OwnerIdList;
 
-	
-	@Override
-	public void createPartControl(Composite parent) {
-		
+	private void createTable() {
 		PinnedQuestionList list = new PinnedQuestionList();
 		try {
 		this.titleList = list.getTitleList();
@@ -86,15 +83,20 @@ public class PinnedQuestionView extends ViewPart {
 		this.databaseIDList = list.getDatabaseIdList();
 		this.OwnerIdList = list.getOwnerID();
 		this.pinTextList = list.getPinText();
-		
-		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-		viewer.setContentProvider(ArrayContentProvider.getInstance());
-		viewer.setInput(titleList);
-		
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		viewer.setInput(null);
+		viewer.setInput(titleList);
+	}
+	
+	@Override
+	public void createPartControl(Composite parent) {
+	
+		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+		viewer.setContentProvider(ArrayContentProvider.getInstance());
+		createTable();
 		
 	viewer.setLabelProvider(new ViewLabelProvider());
 
