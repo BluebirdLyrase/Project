@@ -1,18 +1,16 @@
 package stackoverflow.database;
 import java.io.IOException;
 
-import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
-import org.apache.hc.core5.http.HttpEntity;
-import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.json.JSONException;
 
 import stackoverflow.LocalJsonConnector.Log;
 
-public class DatabaseConnectorPost {
+public class DatabaseConnectorDelete {
 	private String apiResponse = "no response";
 	protected String userID;
 	protected Account account = new Account();
@@ -22,14 +20,13 @@ public class DatabaseConnectorPost {
 		try {
 			String baseURL= account.getDatabaseURL()+"/api/";
 			String url = baseURL+apiName;
-		    HttpPost request = new HttpPost(url);
+		    HttpDelete request = new HttpDelete(url);
 		    StringEntity params = new StringEntity(json);
 		    request.addHeader("content-type", "application/json");
 		    request.setEntity(params);
 		    CloseableHttpResponse response = httpClient.execute(request);
-		    HttpEntity entity = response.getEntity();
-		    apiResponse = EntityUtils.toString(entity);
-		    System.out.println("API response : "+ apiResponse);
+		    System.out.println(response);
+		    apiResponse = response.toString();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			new Log().saveLog(ex);

@@ -20,7 +20,7 @@ public class PinnedQuestionList extends DatabaseConnectorGet {
 	
 	public PinnedQuestionList(){
 		try {
-			this.json = readJsonFromUrl("getPinned");
+			this.json = readJsonFromUrl("PinQuestion");
 			this.lenght = json.getJSONArray("item").length();
 		} catch (JSONException | IOException e) {
 			// TODO Auto-generated catch block
