@@ -59,10 +59,11 @@ public class FavoriteView extends ViewPart {
 	private Action refresh;
 	private Action saveOffline;
 	private Action doubleClickAction;
+	private Action pinToTeam;
 	private String[] id;
 	private String[] site;
 	private FavoriteList fav;
-	private Action pinToTeam;
+
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 		@Override
