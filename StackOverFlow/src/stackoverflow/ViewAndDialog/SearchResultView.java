@@ -34,6 +34,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.part.ViewPart;
 import org.json.JSONException;
 import org.osgi.framework.Bundle;
@@ -42,6 +43,7 @@ import stackoverflow.APIConnecter.AllContentObjectOnly;
 import stackoverflow.LocalJsonConnector.ContentWriter;
 import stackoverflow.LocalJsonConnector.FavoriteWriter;
 import stackoverflow.LocalJsonConnector.Log;
+import stackoverflow.database.PinnedQuestionWriter;
 
 /**
  * This sample class demonstrates how to plug-in a new workbench view. The view
@@ -74,7 +76,7 @@ public class SearchResultView extends ViewPart {
 	private Action saveFavorite;
 	private Action saveOffline;
 	private Action open;
-
+	private Action pinToTeam;
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 
 		@Override
@@ -181,6 +183,14 @@ public class SearchResultView extends ViewPart {
 			e.printStackTrace();
 		}
 	}
+	private void pinToTeam() throws IOException, JSONException {
+		PinTextInputDialog  PinDl = new PinTextInputDialog(win.getShell());
+		PinDl.createDialogArea(win.getShell());
+		PinDl.close();
+		int index = viewer.getTable().getSelectionIndex();
+		String msg = new PinnedQuestionWriter().pinnedWriter(id[index],site,titleList[index],PinDl.getPinText()) ;
+		showMsg(msg);
+	}
 	
 	private void showMsg(String msg) {
 		IWorkbench wb = PlatformUI.getWorkbench();
@@ -215,6 +225,7 @@ public class SearchResultView extends ViewPart {
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 		manager.add(saveFavorite);
 		manager.add(saveOffline);
+		manager.add(pinToTeam);
 	}
 
 	private void makeActions() {
@@ -247,7 +258,25 @@ public class SearchResultView extends ViewPart {
 		saveOffline.setText("save to Offline");
 		saveOffline.setToolTipText("save this question to Offline list");
 //		saveOffline.setImageDescriptor(workbench.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
-
+		
+		pinToTeam = new Action() {
+			public void run() {
+				try {
+					pinToTeam();
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		};
+		pinToTeam.setText("Pin To Team");
+		pinToTeam.setToolTipText("Pin this question to developing team");
+		
+		
 		doubleClickAction = new Action() {
 			public void run() {
 				open();
