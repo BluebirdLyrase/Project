@@ -3,6 +3,7 @@ package stackoverflow.ViewAndDialog;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
 import org.json.JSONException;
+import org.osgi.framework.Bundle;
 
 import stackoverflow.LocalJsonConnector.Log;
 import stackoverflow.database.PinnedQuestionDelete;
@@ -10,11 +11,18 @@ import stackoverflow.database.PinnedQuestionList;
 
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.*;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.*;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.SWT;
+
+import java.io.IOException;
+import java.net.URL;
+
 import javax.inject.Inject;
 
 /**
@@ -60,8 +68,21 @@ public class PinnedQuestionView extends ViewPart {
 		}
 
 		@Override
-		public Image getImage(Object obj) {
-			return workbench.getSharedImages().getImage(ISharedImages.IMG_OBJ_ELEMENT);
+		public Image getImage(Object obj) { 
+			String path = "\\images\\pin.png";
+			Bundle bundle = Platform.getBundle("StackOverFlow");
+			URL url = FileLocator.find(bundle, new org.eclipse.core.runtime.Path(path), null);
+			URL fileURL = null;
+			try {
+				fileURL = FileLocator.toFileURL(url);
+			} catch (IOException e) {
+				new Log().saveLog(e);
+				e.printStackTrace();
+			}
+			ImageDescriptor imageDesc = ImageDescriptor.createFromURL(fileURL);
+			Image image = imageDesc.createImage();
+
+			return image;
 		}
 	}
 
@@ -86,8 +107,22 @@ public class PinnedQuestionView extends ViewPart {
 			e.printStackTrace();
 		}
 		viewer.setInput(null);
-		viewer.setInput(titleList);
+		
+		//create input list
+		int lenght = titleList.length;
+		String[] inputList = new String[lenght];
+		for(int i = 0;i<lenght;i++) {
+			if(pinTextList[i].equals("")) {
+				inputList[i] = titleList[i];
+			}else {
+				inputList[i] = pinTextList[i];
+			}
+		}
+		
+		viewer.setInput(inputList);
 	}
+	
+
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -108,7 +143,8 @@ public class PinnedQuestionView extends ViewPart {
 	}
 	private void delete() {
 		int index = viewer.getTable().getSelectionIndex();
-		new PinnedQuestionDelete().deletePinned(databaseIDList[index]);
+		String msg = new PinnedQuestionDelete().deletePinned(databaseIDList[index]);
+		showMessage(msg);
 		createTable();
 	}
 	private void refresh() {
@@ -197,7 +233,6 @@ public class PinnedQuestionView extends ViewPart {
 		delete = new Action() {
 			public void run() {
 				 delete();
-				showMessage("Deleted");
 			}
 		};
 		delete.setText("Delete");

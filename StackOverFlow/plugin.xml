@@ -193,6 +193,7 @@
                mnemonic="M">
             <command
                   commandId="StackOverFlow.commands.PinnedQuestion"
+                  icon="images/pin16px.png"
                   id="StackOverFlow.menus.PinnedQuestion"
                   mnemonic="S">
             </command>
