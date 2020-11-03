@@ -50,6 +50,7 @@ public class ErrorMessageParserTest {
             };
 
     @Theory
+
     public void testFindPattern(RegexTestDataPoint regexTestDataPoint) {
         List<String> javaVersionsResult = ErrorMessageParser.findPattern(
                 ErrorMessageParser.javaVersionPattern_6, 6, regexTestDataPoint.text);

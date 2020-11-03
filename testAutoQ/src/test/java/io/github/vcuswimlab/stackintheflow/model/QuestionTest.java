@@ -33,6 +33,7 @@ public class QuestionTest {
         assertEquals("", nullQuestion.getExcerpt());
         assertEquals("", nullQuestion.getTitle());
         assertEquals("http://www.stackoverflow.com/", nullQuestion.getLink());
+
     }
 
     @Test

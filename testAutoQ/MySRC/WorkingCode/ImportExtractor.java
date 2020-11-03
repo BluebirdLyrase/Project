@@ -47,6 +47,7 @@ public class ImportExtractor {
 	            System.out.println(imports);
 
 	            String[] lines = editorText.split("\\n");
+	            System.out.println(lines.length);
 	 }
 
 }
