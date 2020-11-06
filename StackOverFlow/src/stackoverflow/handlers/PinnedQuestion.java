@@ -28,7 +28,7 @@ public class PinnedQuestion extends AbstractHandler {
 			MessageDialog.openInformation(window.getShell(), "Attention!", "This feature only availible while logged in server" );
 		}
 		
-		} catch (PartInitException | JSONException e) {
+		} catch (PartInitException e) {
 			e.printStackTrace();
 			new Log().saveLog(e);
 			MessageDialog.openError(window.getShell(), "Error", "There is a problem occur. please email us your Log folder" );

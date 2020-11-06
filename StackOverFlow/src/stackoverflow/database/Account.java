@@ -28,6 +28,7 @@ public class Account extends LocalJsonList {
 
 	private String DatabaseURL;
 	private String userID;
+	private String password;
 	private String LoginMSG;
 	private String success = "Successfully logged in";
 	private String wrong = "Incorrect username or password";
@@ -82,7 +83,9 @@ public class Account extends LocalJsonList {
 			boolean responseBodyString = Boolean.parseBoolean(EntityUtils.toString(responseBodyentity));
 			if (responseBodyString) {
 				LoginMSG = success;
-				this.userID = userID;
+				this.userID = userID; 
+				//TODO encrypt password
+				this.password = password;
 				setDatabase();
 			} else {
 				LoginMSG = wrong;
@@ -103,6 +106,7 @@ public class Account extends LocalJsonList {
 		JSONObject newData = new JSONObject();
 		newData.put("userID", userID);
 		newData.put("databaseURL", DatabaseURL);
+		newData.put("password", password);
 		newData.put("login", true);
 		JSONArray newArray = new JSONArray();
 		newArray.put(newData);
@@ -126,10 +130,12 @@ public class Account extends LocalJsonList {
 		return userID;
 	}
 
-	public boolean isLoggedIn() throws JSONException {
+	public boolean isLoggedIn() {
 		boolean result = false;
 		JSONObject json;
 		boolean login = false;
+		CloseableHttpClient httpClient = null;
+		try {
 		// Check if Account.json have any Data
 		if (haveAccount()) {
 			json = jsonObject.getJSONArray(arrayName).getJSONObject(0);
@@ -137,21 +143,44 @@ public class Account extends LocalJsonList {
 			LOGGER.info("login:" + login);
 			// Check login status in local file
 			if (login) {
-				String userID = json.getString("userID");
-				String responseBodyString = "false";
-				try {
-					// check if current userID match any userID in Database
-					responseBodyString = databaseReader("/api/user/" + userID);
-				} catch (ParseException | IOException e) {
-					responseBodyString = "false";
-					new Log().saveLog(e);
-					e.printStackTrace();
-					Logout();
-				}
-				LOGGER.info("responseBodyString:" + responseBodyString);
-				result = Boolean.parseBoolean(responseBodyString);
+				httpClient = HttpClientBuilder.create().build();
+				
+				//TODO decrypt password
+					String userID = json.getString("userID");
+					String password = json.getString("password");
+					JSONObject bodyjson = new JSONObject(
+							"{" + "    \"UserID\" : \"" + userID + "\"," + "    \"Password\" : \"" + password + "\"" + "}");
+
+					String authenURL = this.DatabaseURL + "/api/authen";
+					HttpPost request = new HttpPost(authenURL);
+					StringEntity params = new StringEntity(bodyjson.toString());
+					request.addHeader("content-type", "application/json");
+					request.setEntity(params);
+					CloseableHttpResponse response = httpClient.execute(request);
+					HttpEntity responseBodyentity = response.getEntity();
+					boolean responseBodyString = Boolean.parseBoolean(EntityUtils.toString(responseBodyentity));
+					if (responseBodyString) {
+						result  = true;
+					} else {
+						LoginMSG = wrong;
+						LOGGER.severe(responseBodyString + ":: incorrect username / password  " + this.DatabaseURL);
+
+					}
+			}
+			}
+		} catch ( JSONException | IOException | ParseException e) {
+			LoginMSG = error;
+			e.printStackTrace();
+			new Log().saveLog(e);
+		} finally {
+			try {
+				httpClient.close();
+			} catch (IOException e) {
+				new Log().saveLog(e);
+				e.printStackTrace();
 			}
 		}
+		
 		return result;
 	}
 
