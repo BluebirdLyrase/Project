@@ -6,13 +6,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.logging.Level;
-import javax.swing.JFileChooser;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LocalJsonList extends JSONFile {
 
-	private String defaultDir = new JFileChooser().getFileSystemView().getDefaultDirectory().toString();
+	private String defaultDir = new DefaultDir().getDefaultDir();
 	private File fileDir = new File(defaultDir + "\\StackOverFlowHelper");
 	protected String filePath;
 	protected String arrayName;

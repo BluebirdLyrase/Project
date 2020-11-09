@@ -134,7 +134,7 @@ public class Account extends LocalJsonList {
 		boolean result = false;
 		JSONObject json;
 		boolean login = false;
-		CloseableHttpClient httpClient = null;
+//		CloseableHttpClient httpClient = null;
 		try {
 		// Check if Account.json have any Data
 		if (haveAccount()) {
@@ -143,7 +143,7 @@ public class Account extends LocalJsonList {
 			LOGGER.info("login:" + login);
 			// Check login status in local file
 			if (login) {
-				httpClient = HttpClientBuilder.create().build();
+				CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 				
 				//TODO decrypt password
 					String userID = json.getString("userID");
@@ -166,19 +166,13 @@ public class Account extends LocalJsonList {
 						LOGGER.severe(responseBodyString + ":: incorrect username / password  " + this.DatabaseURL);
 
 					}
+					httpClient.close();
 			}
 			}
 		} catch ( JSONException | IOException | ParseException e) {
 			LoginMSG = error;
 			e.printStackTrace();
 			new Log().saveLog(e);
-		} finally {
-			try {
-				httpClient.close();
-			} catch (IOException e) {
-				new Log().saveLog(e);
-				e.printStackTrace();
-			}
 		}
 		
 		return result;

@@ -3,18 +3,11 @@ package stackoverflow.LocalJsonConnector;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
-
-import javax.swing.JFileChooser;
-
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 import org.json.JSONException;
 
 public class Content extends JSONFile {
 
-	private String defaultDir = new JFileChooser().getFileSystemView().getDefaultDirectory().toString();
+	private String defaultDir = new DefaultDir().getDefaultDir();
 	protected String fileDirURL = (defaultDir + "\\StackOverFlowHelper\\OfflineContent");
 	private File fileDir = new File(fileDirURL);
 	protected String arrayName = "items";

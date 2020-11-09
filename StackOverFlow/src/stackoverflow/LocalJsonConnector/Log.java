@@ -11,13 +11,11 @@ import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JFileChooser;
-
 public class Log {
 	
 	protected static final Logger LOGGER = Logger.getLogger(Log.class.getName());
 
-	private String defaultDir = new JFileChooser().getFileSystemView().getDefaultDirectory().toString();
+	private String defaultDir = new DefaultDir().getDefaultDir();
 	protected String fileDirURL = (defaultDir + "\\StackOverFlowHelper\\LOG");
 	private File fileDir = new File(fileDirURL);
 	protected String arrayName = "items";

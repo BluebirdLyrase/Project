@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import stackoverflow.DataClass.Answer;
 import stackoverflow.DataClass.Question;
+import stackoverflow.LocalJsonConnector.DefaultDir;
 import stackoverflow.LocalJsonConnector.JSONFile;
 import stackoverflow.DataClass.Comment;
 /* 
@@ -68,7 +69,7 @@ public class AllContent extends StackExchangeConnecter {
 		//Check if AllContent is used for offline content
 		if(isOffline) {
 			JSONFile local = new JSONFile();
-			String defaultDir = new JFileChooser().getFileSystemView().getDefaultDirectory().toString();
+			String defaultDir = new DefaultDir().getDefaultDir();
 			String fileDirURL = (defaultDir + "\\StackOverFlowHelper\\OfflineContent\\"+question_id);
 			this.json = local.parseJSONFile(fileDirURL);
 			
