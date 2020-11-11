@@ -38,6 +38,11 @@
             id="StackOverFlow.commands.settingCommand"
             name="Setting">
       </command>
+      <command
+            categoryId="StackOverFlow.commands.StackOverFlowCategory"
+            id="StackOverFlow.commands.AutoQ"
+            name="AutoQ">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -64,6 +69,10 @@
       <handler
             class="stackoverflow.handlers.PinnedQuestion"
             commandId="StackOverFlow.commands.PinnedQuestion">
+      </handler>
+      <handler
+            class="stackoverflow.handlers.AutoQHandler"
+            commandId="StackOverFlow.commands.AutoQ">
       </handler>
    </extension>
    <extension
@@ -103,6 +112,12 @@
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M3+O">
+      </key>
+      <key
+            commandId="StackOverFlow.commands.AutoQ"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+6">
       </key>
    </extension>
    <extension
