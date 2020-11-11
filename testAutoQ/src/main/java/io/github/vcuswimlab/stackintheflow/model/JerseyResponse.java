@@ -1,3 +1,4 @@
+
 package io.github.vcuswimlab.stackintheflow.model;
 
 import javax.xml.bind.annotation.XmlRootElement;

@@ -53,13 +53,13 @@ public class ContentView extends ViewPart {
 		final Point newSize = parent.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
 		parent.setSize(newSize);
 
-		Composite contentViwew;
-		contentViwew = new Composite(parent, SWT.None);
-		contentViwew.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
-		contentViwew.setLayout(new GridLayout(1, true));
+		Composite contentView;
+		contentView = new Composite(parent, SWT.None);
+		contentView.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
+		contentView.setLayout(new GridLayout(1, true));
 
 		try {
-			browser = new Browser(contentViwew, SWT.NONE);
+			browser = new Browser(contentView, SWT.NONE);
 			browser.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
 		} catch (SWTError e) {
 			System.out.println("Could not instantiate Browser: " + e.getMessage());

@@ -72,7 +72,7 @@
       </handler>
       <handler
             class="stackoverflow.handlers.AutoQHandler"
-            commandId="StackOverFlow.commands.AutoQ">
+            commandId="StackOverFlow.commands.AutoQuerySearchCommand">
       </handler>
    </extension>
    <extension
@@ -474,7 +474,23 @@
                id="StackOverFlow.menus.popupSearch"
                label="Search from Stack"
                mnemonic="M1+P"
-               tooltip="Do something with this project">
+               tooltip="Search from Stack Overflow">
+         </command>
+      </menuContribution>
+   </extension>
+   
+      <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+         locationURI=
+         "popup:org.eclipse.ui.popup.any?after=additions">
+         <command
+               commandId="StackOverFlow.commands.AutoQuerySearchCommand"
+               icon="images/stackoverflow16px.png"
+               id="StackOverFlow.menus.popupAutoQuerySearch"
+               label="Auto Query"
+               mnemonic="M1+P"
+               tooltip="Search from Stack Overflow buy auto generated Query ">
          </command>
       </menuContribution>
    </extension>
