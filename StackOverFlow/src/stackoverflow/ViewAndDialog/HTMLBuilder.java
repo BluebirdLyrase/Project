@@ -110,7 +110,7 @@ public class HTMLBuilder {
 							+ "<div style=\" font-size: 16px \"> " + answers[i].getBody() + "</div><hr>");
 					if (answers[i].isAccepted()) {
 						answer = answer.replaceAll("<div class=\"none" + i + "\"><h2>Answer #", "<div class=\"none" + i
-								+ " \"><h2 tilte=\"Accepted answer\" style=\"color:#00C851\">✅Answer #");
+								+ " \"><h2 tilte=\"Accepted answer\" style=\"color:#00C851\">Answer #");
 					}
 
 					if (answers[i].isHaveComment()) {
