@@ -1,4 +1,4 @@
-package stat;
+package stackoverflow.stat;
 public class Stat {
 
     private long ctf;
