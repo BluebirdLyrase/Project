@@ -41,6 +41,7 @@ public class AutoQHandler extends AbstractHandler {
 	private String sort;
 	private String site;
 	private String tagged;
+
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		Map<String, Integer> termsFreqMap = new HashMap<>();
@@ -64,7 +65,7 @@ public class AutoQHandler extends AbstractHandler {
 
 			System.out.println(imports);
 
-		//	String[] lines = editorText.split("\\n");
+			// String[] lines = editorText.split("\\n");
 			// System.out.print(lines.length);
 			Combiner combiner1 = new Combiner() {
 				@Override
@@ -86,44 +87,37 @@ public class AutoQHandler extends AbstractHandler {
 					.limit(MAX_QUERY_TERMS).map(Map.Entry::getKey).collect(Collectors.toList());
 
 			System.out.print(top.stream().collect(Collectors.joining(" ")));
-			 String editorContent= 
-						top.stream().collect(Collectors.joining(" "));
-			 
-				
-				UserInputDialog dialog = new UserInputDialog(window.getShell());
-				dialog.setText(editorContent);
-				dialog.create();
-				if (dialog.open() == Window.OK) {
+			String editorContent = top.stream().collect(Collectors.joining(" "));
 
-					intitle = dialog.getSearchText();
-					order = dialog.getOrder();
-					sort = dialog.getSort();
-					site = dialog.getSite();
-					tagged = dialog.getTagsText();
-					System.out.println(intitle);
-					//filter non english intitle and tagged to prevent bug in saveSearchTextHistory (too large data)
-					boolean intitleIsValid = intitle.matches("[\\p{Graph}\\p{Space}]+") || intitle.isEmpty();
-					boolean taggedIsValid = tagged.matches("[\\p{Graph}\\p{Space}]+") || tagged.isEmpty();
-					boolean isEnglish = intitleIsValid && taggedIsValid ;
-					if (isEnglish) {
-						createSearchResult();
-					} else {
-						MessageDialog.openError(window.getShell(), "Error",
-								"We currently support only English searching");
-					}
+			UserInputDialog dialog = new UserInputDialog(window.getShell());
+			dialog.setText(editorContent);
+			dialog.create();
+			if (dialog.open() == Window.OK) {
 
+				intitle = dialog.getSearchText();
+				order = dialog.getOrder();
+				sort = dialog.getSort();
+				site = dialog.getSite();
+				tagged = dialog.getTagsText();
+				System.out.println(intitle);
+				// filter non english intitle and tagged to prevent bug in saveSearchTextHistory
+				// (too large data)
+				boolean intitleIsValid = intitle.matches("[\\p{Graph}\\p{Space}]+") || intitle.isEmpty();
+				boolean taggedIsValid = tagged.matches("[\\p{Graph}\\p{Space}]+") || tagged.isEmpty();
+				boolean isEnglish = intitleIsValid && taggedIsValid;
+				if (isEnglish) {
+					createSearchResult();
+				} else {
+					MessageDialog.openError(window.getShell(), "Error", "We currently support only English searching");
 				}
-			 
-			 
-			//MessageDialog.openInformation(window.getShell(), "StackOverFlow",editorContent);
-			
-			
-			//search.
+
+			}
 
 		}
 
 		return null;
 	}
+
 	private void createSearchResult() {
 		try {
 			String viewerID = "stackoverflow.ViewAndDialog.SearchResultView";
@@ -136,7 +130,7 @@ public class AutoQHandler extends AbstractHandler {
 				String[] titleList = searchResult.getTitleList();
 				String[] questionIdList = searchResult.getQuestionIdList();
 				String site = searchResult.getSite();
-				
+
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				window.getActivePage().showView(viewerID);
 
@@ -144,7 +138,7 @@ public class AutoQHandler extends AbstractHandler {
 
 				SearchResultView myView = (SearchResultView) viewPart;
 
-				myView.setSearchResult(titleList, questionIdList,site);
+				myView.setSearchResult(titleList, questionIdList, site);
 
 			} else {
 				MessageDialog.openError(window.getShell(), "Error", "Can not find any result");
@@ -152,11 +146,13 @@ public class AutoQHandler extends AbstractHandler {
 		} catch (JSONException e) {
 			e.printStackTrace();
 			new Log().saveLog(e);
-			MessageDialog.openError(window.getShell(), "Error", "There is a problem occur on API Connection. please check your internet Connection and try agian or email us your Log folder" );
+			MessageDialog.openError(window.getShell(), "Error",
+					"There is a problem occur on API Connection. please check your internet Connection and try agian or email us your Log folder");
 		} catch (IOException | PartInitException e) {
 			e.printStackTrace();
 			new Log().saveLog(e);
-			MessageDialog.openError(window.getShell(), "Error", "There is a problem occur. please email us your Log folder" );
+			MessageDialog.openError(window.getShell(), "Error",
+					"There is a problem occur. please email us your Log folder");
 		}
 	}
 

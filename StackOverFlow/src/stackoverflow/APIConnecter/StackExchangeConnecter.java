@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.Socket;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.zip.GZIPInputStream;
 
@@ -34,16 +36,23 @@ public class StackExchangeConnecter {
 	protected JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
 		LOGGER.setLevel(Level.WARNING);
 		LOGGER.info("url : "+url);
-		InputStream is = new URL(url).openStream();
+		JSONObject result = null;
+		URL myUrl = new URL(url);
+		URLConnection con = myUrl.openConnection();
+		con.setConnectTimeout(10000);
+		con.setReadTimeout(10000);
+		InputStream is = con.getInputStream();
+		
+//		//Encryption
 		is = new GZIPInputStream(is);
 		try {
 			BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF8")));
 			String jsonText = readAll(rd);
-			JSONObject json = new JSONObject(jsonText);
-			return json;
+			result = new JSONObject(jsonText);
 		} finally {
 			is.close();
 		}
+		return result;
 	}
 
 }
