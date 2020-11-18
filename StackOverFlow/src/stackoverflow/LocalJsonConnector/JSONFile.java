@@ -1,6 +1,7 @@
 package stackoverflow.LocalJsonConnector;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -18,7 +19,10 @@ public class JSONFile {
 	}
 
 	protected void saveJSONFile(String filePath,JSONObject JsonObject) throws JSONException, IOException {
-		Files.writeString(Paths.get(filePath), JsonObject.toString(), StandardOpenOption.WRITE);
+//		Files.writeString(Paths.get(filePath), JsonObject.toString(), StandardOpenOption.WRITE); // Havw a bug
+	      FileWriter myWriter = new FileWriter(filePath);
+	      myWriter.write(JsonObject.toString());
+	      myWriter.close();
 	}
 
 	protected void deleteFile(String filepath) {

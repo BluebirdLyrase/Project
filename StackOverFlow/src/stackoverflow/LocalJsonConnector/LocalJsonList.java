@@ -54,6 +54,7 @@ public class LocalJsonList extends JSONFile {
 	public void delete(int index) {
 			try {
 				jsonObject.getJSONArray(arrayName).remove(index);
+				System.out.println(jsonObject);
 				saveJSONFile(filePath, jsonObject);
 			} catch (JSONException | IOException e) {
 				new Log().saveLog(e);
