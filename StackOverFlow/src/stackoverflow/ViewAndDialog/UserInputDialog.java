@@ -91,7 +91,7 @@ public class UserInputDialog extends TitleAreaDialog {
 	
 	private void createTagsText(Composite container) {
 		Label lbtSearchText = new Label(container, SWT.NONE);
-		lbtSearchText.setText("Tagged :");
+		lbtSearchText.setText("Tag(s) :");
 		
 		GridData gridData1 = new GridData();
 		gridData1.grabExcessHorizontalSpace = true;
