@@ -20,5 +20,7 @@ Bundle-ClassPath: libs/java-json.jar,
  libs/slf4j-api-1.7.25.jar,
  libs/slf4j-simple-1.6.2.jar,
  libs/org.eclipse.ui.workbench.texteditor.jar,
- libs/org.eclipse.text_3.5.0
+ libs/org.eclipse.text_3.5.0,
+ libs/stax2-api-3.0.4.jar,
+ libs/wstx-asl-4.0.0.jar
 Import-Package: javax.inject

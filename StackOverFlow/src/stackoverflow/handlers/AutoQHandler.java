@@ -32,6 +32,16 @@ import stackoverflow.LocalJsonConnector.SearchingWriter;
 import stackoverflow.ViewAndDialog.SearchResultView;
 import stackoverflow.ViewAndDialog.UserInputDialog;
 import stackoverflow.stat.*;
+import stackInTheFlow.score.IctfScorer;
+import stackInTheFlow.score.IdfScorer;
+import stackInTheFlow.score.Scorer;
+import stackInTheFlow.score.ScqScorer;
+import stackInTheFlow.score.VarScorer;
+import stackInTheFlow.score.combiner.SumCombiner;
+
+import java.util.Collection;
+import stackInTheFlow.score.*;
+import stackInTheFlow.score.stat.terms.TermStatComponent;
 
 public class AutoQHandler extends AbstractHandler {
 	private static final int MAX_QUERY_TERMS = 4;
@@ -41,7 +51,8 @@ public class AutoQHandler extends AbstractHandler {
 	private String sort;
 	private String site;
 	private String tagged;
-
+	private Collection<Scorer> scorers;
+	
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		Map<String, Integer> termsFreqMap = new HashMap<>();
@@ -67,13 +78,18 @@ public class AutoQHandler extends AbstractHandler {
 
 			// String[] lines = editorText.split("\\n");
 			// System.out.print(lines.length);
-			Combiner combiner1 = new Combiner() {
-				@Override
-				public double generateCumulativeScore(String term) {
-					// TODO Auto-generated method stub
-					return 0;
-				}
-			};
+			
+	        scorers = new TermStatComponent().getScorer();
+	        
+	        SumCombiner combiner1 = new SumCombiner(scorers);
+
+//			Combiner combiner1 = new Combiner() {
+//				@Override
+//				public double generateCumulativeScore(String term) {
+//					// TODO Auto-generated method stub
+//					return 0;
+//				}
+//			};
 
 			String currentLine = document.get();
 			Arrays.stream(currentLine.toLowerCase().split("\\b"))

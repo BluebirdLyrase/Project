@@ -15,5 +15,7 @@
 	<classpathentry kind="lib" path="libs/org.eclipse.text_3.5.0.jar" sourcepath="libs/org.eclipse.text_3.5.0.jar"/>
 	<classpathentry kind="lib" path="libs/org.eclipse.ui.workbench.texteditor.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="libs/wstx-asl-4.0.0.jar"/>
+	<classpathentry kind="lib" path="libs/stax2-api-3.0.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
