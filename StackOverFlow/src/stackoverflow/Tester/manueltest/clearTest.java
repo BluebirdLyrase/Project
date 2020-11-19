@@ -10,7 +10,7 @@ public class clearTest {
 	public static void main(String[] args) throws IOException, JSONException {
 
 		Scanner x = new Scanner(System.in);
-		String y = x.nextLine();
+		String  y = x.nextLine();
 
 		switch (y) {
 		case "1":new Content().clear();break; //claer Offline Content

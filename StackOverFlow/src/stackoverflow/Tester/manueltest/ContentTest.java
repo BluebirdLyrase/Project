@@ -43,6 +43,7 @@ public class ContentTest {
 			System.out.println("Comment : "+comment[i].getBody());
 			System.out.println(comment[i].getScore());
 			System.out.println(comment[i].getOwner());
+			
 			}
 		}
 
