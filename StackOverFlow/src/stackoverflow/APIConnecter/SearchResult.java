@@ -46,9 +46,15 @@ public class SearchResult extends StackExchangeConnecter {
 				+ "&order=" + order + "&sort=" + sort + "&q=" + intitle + "&accepted=True" + tagContent
 				+ "&site="+site+"&filter=!4(L6lo9D9J9Y3508i";
 		
+//		System.out.println("URL : " + this.url) ;
+		
 		String newUrl = this.url.replaceAll(" ", "%20");
 		this.site = site;
 		this.json = readJsonFromUrl(newUrl);
+		
+//		System.out.println(this.json) ;
+		
+		
 	}
 
 	public String[] getTitleList() throws JSONException {

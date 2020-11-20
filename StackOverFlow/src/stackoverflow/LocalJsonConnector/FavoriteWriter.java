@@ -18,8 +18,9 @@ public class FavoriteWriter extends LocalJsonList {
 			boolean isNotDuplicate = true;
 			for (int i = 0; i < lenght; i++) {
 				int intID = jsonObject.getJSONArray(arrayName).getJSONObject(i).getInt("ID");
+				String currentSite = jsonObject.getJSONArray(arrayName).getJSONObject(i).getString("Site");
 				String currentID = Integer.toString(intID);
-				if (id.equals(currentID)) {
+				if (id.equals(currentID)&&site.equals(currentSite)) {
 					isNotDuplicate = false;
 					break;
 				}
