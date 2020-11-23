@@ -27,53 +27,88 @@ public class PinnedQuestionList extends APIConnectorGet {
 		}
 	}
 	
-	public String[] getTitleList() throws JSONException {
+	public String[] getTitleList() {
 		titleList = new String[lenght];
 		for (int i = 0; i < lenght; i++) {
-			titleList[i] = json.getJSONArray("item").getJSONObject(i).getString("Title");
+			try {
+				titleList[i] = json.getJSONArray("item").getJSONObject(i).getString("Title");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				titleList[i] = "";
+				e.printStackTrace();
+			}
 		}
 		return titleList;
 	}
 
 
-	public String[] getDatabaseIdList() throws JSONException {
+	public String[] getDatabaseIdList() {
 		databaseIdList = new String[lenght];
 		for (int i = 0; i < lenght; i++) {
-			databaseIdList[i] = json.getJSONArray("item").getJSONObject(i).get("_id").toString();
+			try {
+				databaseIdList[i] = json.getJSONArray("item").getJSONObject(i).get("_id").toString();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				databaseIdList[i] = "";
+				e.printStackTrace();
+			}
 		}
 		return databaseIdList;
 	}
 
-	public String[] getQuestionIdList() throws JSONException {
+	public String[] getQuestionIdList() {
 		questionIdList = new String[lenght];
 		for (int i = 0; i < lenght; i++) {
-			questionIdList[i] = json.getJSONArray("item").getJSONObject(i).get("ID").toString();
+			try {
+				questionIdList[i] = json.getJSONArray("item").getJSONObject(i).get("ID").toString();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				questionIdList[i] = "";
+				e.printStackTrace();
+			}
 		}
 		return questionIdList;
 	}
 
-	public String[] getSiteList() throws JSONException {
+	public String[] getSiteList() {
 		siteList = new String[lenght];
 		for (int i = 0; i < lenght; i++) {
-			siteList[i] = json.getJSONArray("item").getJSONObject(i).get("Site").toString();
+			try {
+				siteList[i] = json.getJSONArray("item").getJSONObject(i).get("Site").toString();
+			} catch (JSONException e) {
+				siteList[i] = "";
+				e.printStackTrace();
+			}
 		}
 		return siteList;
 	}
 
 
-	public String[] getOwnerID() throws JSONException {
+	public String[] getOwnerID() {
 		ownerID = new String[lenght];
 		for (int i = 0; i < lenght; i++) {
-			ownerID[i] = json.getJSONArray("item").getJSONObject(i).get("UserID").toString();
+			try {
+				ownerID[i] = json.getJSONArray("item").getJSONObject(i).get("UserID").toString();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				ownerID[i] = "";
+				e.printStackTrace();
+			}
 		}
 		return ownerID;
 	}
 
 
-	public String[] getPinText() throws JSONException {
+	public String[] getPinText() {
 		pinText = new String[lenght];
 		for (int i = 0; i < lenght; i++) {
-			pinText[i] = json.getJSONArray("item").getJSONObject(i).get("PinText").toString();
+			try {
+				pinText[i] = json.getJSONArray("item").getJSONObject(i).get("PinText").toString();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				pinText[i] = "";
+				e.printStackTrace();
+			}
 		}
 		return pinText;
 	}
