@@ -20,7 +20,7 @@ import stackoverflow.DataClass.Comment;
  */
 public class AllContent extends StackExchangeConnecter {
 
-	private Question allConetent;
+	private Question allContent;
 	private String title;
 	private String id;
 	private String body;
@@ -54,7 +54,7 @@ public class AllContent extends StackExchangeConnecter {
 	}
 
 	public Question getAllConetent() {
-		return allConetent;
+		return allContent;
 	}
 	
 	/*
@@ -253,7 +253,7 @@ public class AllContent extends StackExchangeConnecter {
 
 		}
 
-		this.allConetent = new Question(title, body, qComment, answer, haveComment, haveAnswer, qOwner, qOwnerImage,qScore,haveTags,tags,id,site);
+		this.allContent = new Question(title, body, qComment, answer, haveComment, haveAnswer, qOwner, qOwnerImage,qScore,haveTags,tags,id,site);
 
 	}
 

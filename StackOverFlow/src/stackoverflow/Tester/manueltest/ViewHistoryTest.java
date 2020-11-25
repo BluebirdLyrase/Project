@@ -15,7 +15,7 @@ public class ViewHistoryTest {
 		String[] date = s.getViewDate();
 		String[] tags = s.getTags();
 		String[] title = s.getTitle();
-		
+		System.out.println("test");
 		for(int i = 0;i<x;i++) {
 			System.out.println(id[i]+" : : "+date[i]+" : : "+tags[i]+" : : "+title[i]);
 		}

@@ -20,12 +20,13 @@ public class ContentTest {
 		AllContent c = new AllContent("1678122",false,"stackoverflow");
 		Question q = c.getAllConetent();
 		
-		System.out.println(q.getBody());
-		System.out.println(q.getTitle());
-		System.out.println(q.getOwner());
-		System.out.println(q.getOwnerImage());
-		System.out.println(q.getScore());
-		System.out.println(q.IsHaveTags());
+		System.out.println("Body"+q.getBody()+"End body");
+		System.out.println("Title"+q.getTitle()+"End Title");
+		System.out.println("Ownwer"+q.getOwner()+"End Ownwer");
+		System.out.println("OwnerImage"+q.getOwnerImage()+"OwnerImage");
+		System.out.println("Score"+q.getScore()+"End Score");
+		System.out.println("HaveTags"+q.IsHaveTags()+"End HaveTags");
+		
 		if(q.IsHaveTags()){
 			String[] tags = q.getTags();
 			for(int i=0;i<tags.length;i++)

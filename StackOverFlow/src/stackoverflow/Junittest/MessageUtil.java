@@ -1,4 +1,4 @@
-package stackoverflow.junittest;
+package stackoverflow.Junittest;
 
 public class MessageUtil {
 	

@@ -16,6 +16,7 @@ public class SearchHistoryTest {
 		String[] text = s.getSearchText();
 		String[] date = s.getSearchingDate();
 		
+		
 		for(int i = 0;i<x;i++) {
 			System.out.println(text[i]+" : : "+date[i]);
 		}
