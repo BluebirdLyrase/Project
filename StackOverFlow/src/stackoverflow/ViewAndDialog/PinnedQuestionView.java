@@ -95,17 +95,14 @@ public class PinnedQuestionView extends ViewPart {
 
 	private void createTable() {
 		PinnedQuestionList list = new PinnedQuestionList();
-		try {
+	
 			this.titleList = list.getTitleList();
 			this.questionIdList = list.getQuestionIdList();
 			this.siteList = list.getSiteList();
 			this.databaseIDList = list.getDatabaseIdList();
 			this.OwnerIdList = list.getOwnerID();
 			this.pinTextList = list.getPinText();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		viewer.setInput(null);
 		
 		//create input list

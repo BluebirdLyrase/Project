@@ -66,8 +66,9 @@ public class Account extends LocalJsonList {
 	}
 
 	public String Loggin(String userID, String password, String DatabaseURL) throws IOException, JSONException {
-		this.DatabaseURL = "http://" + DatabaseURL.replaceAll("/", "").replaceAll("http:", "");// remove "http://" if
+//		this.DatabaseURL = "http://" + DatabaseURL.replaceAll("/", "").replaceAll("http:", "");// remove "http://" if
 																								// user already type it
+		this.DatabaseURL = DatabaseURL;
 		JSONObject json = new JSONObject(
 				"{" + "    \"UserID\" : \"" + userID + "\"," + "    \"Password\" : \"" + password + "\"" + "}");
 		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
@@ -148,11 +149,13 @@ public class Account extends LocalJsonList {
 				//TODO decrypt password
 					String userID = json.getString("userID");
 					String password = json.getString("password");
+					String databaseURL = json.getString("databaseURL");
 					JSONObject bodyjson = new JSONObject(
 							"{" + "    \"UserID\" : \"" + userID + "\"," + "    \"Password\" : \"" + password + "\"" + "}");
 
-					String authenURL = this.DatabaseURL + "/api/authen";
+					String authenURL = databaseURL + "/api/authen";
 					HttpPost request = new HttpPost(authenURL);
+					LOGGER.info(authenURL);
 					StringEntity params = new StringEntity(bodyjson.toString());
 					request.addHeader("content-type", "application/json");
 					request.setEntity(params);
