@@ -1,4 +1,4 @@
-package stackoverflow.junittest;
+package stackoverflow.Junittest;
 
 import stackoverflow.APIConnecter.SearchResult;
 
