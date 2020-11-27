@@ -45,8 +45,8 @@ public class ContentView extends ViewPart {
 	private Action pin;
 	private Browser browser;
 	private String site;
-	
-	public void setContent(String id,String site) {
+
+	public void setContent(String id, String site, String qtitle) {
 		this.id = id;
 		this.site = site;
 		parent.layout(true, true);
@@ -65,10 +65,17 @@ public class ContentView extends ViewPart {
 			System.out.println("Could not instantiate Browser: " + e.getMessage());
 			return;
 		}
-		HTMLBuilder html = new HTMLBuilder(this.id, this.isOffline,this.site);
-		qtitle = html.getTitle();
-		HTMLtext = html.getHtml();
-		browser.setText(HTMLtext);
+		HTMLBuilder html;
+		try {
+			html = new HTMLBuilder(this.id, this.isOffline, this.site);
+			HTMLtext = html.getHtml();
+			browser.setText(HTMLtext);
+		} catch (IOException | JSONException e) {
+			browser.setText("Error : No internet connection");
+			new Log().saveLog(e);
+			e.printStackTrace();
+		}
+
 
 	}
 
@@ -91,37 +98,39 @@ public class ContentView extends ViewPart {
 
 	private void saveOffline() {
 		try {
-			String msg = new ContentWriter().saveContent(new AllContentObjectOnly().getJsonObject(id,site), id, qtitle,site);
+			String msg = new ContentWriter().saveContent(new AllContentObjectOnly().getJsonObject(id, site), id, qtitle,
+					site);
 			showMsg(msg);
-		} catch (IOException|JSONException e) {
+		} catch (IOException | JSONException e) {
 			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 	}
+
 	private void pinToTeam() throws IOException, JSONException {
 		IWorkbench wb = PlatformUI.getWorkbench();
 		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-		PinTextInputDialog  pinDl = new PinTextInputDialog(win.getShell());
+		PinTextInputDialog pinDl = new PinTextInputDialog(win.getShell());
 		pinDl.createDialogArea(win.getShell());
 		pinDl.open();
-		String pintext  = pinDl.getPinText();
-		System.out.print("Pintext  : "+pintext);
-		
-		String msg = new PinnedQuestionWriter().pinnedWriter(id,site,qtitle,pintext) ;
+		String pintext = pinDl.getPinText();
+		System.out.print("Pintext  : " + pintext);
+
+		String msg = new PinnedQuestionWriter().pinnedWriter(id, site, qtitle, pintext);
 		showMsg(msg);
 		pinDl.close();
 	}
 
 	private void saveFavorite() {
 		try {
-			String msg = new FavoriteWriter().saveFavorite(qtitle, id,site);
+			String msg = new FavoriteWriter().saveFavorite(qtitle, id, site);
 			showMsg(msg);
-		} catch (IOException|JSONException e) {
+		} catch (IOException | JSONException e) {
 			new Log().saveLog(e);
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void showMsg(String msg) {
 		IWorkbench wb = PlatformUI.getWorkbench();
 		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
@@ -164,12 +173,12 @@ public class ContentView extends ViewPart {
 		};
 		home.setText("Home");
 		home.setToolTipText("Back to Stack Overflow Content");
-		
+
 		pin = new Action() {
 			public void run() {
 				try {
 					pinToTeam();
-					
+
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -181,7 +190,6 @@ public class ContentView extends ViewPart {
 		};
 		pin.setText("Pin To Team");
 		pin.setToolTipText("Pin this question to developing team");
-		
 
 	}
 

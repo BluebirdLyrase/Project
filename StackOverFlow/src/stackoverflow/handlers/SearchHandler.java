@@ -104,14 +104,14 @@ public class SearchHandler extends AbstractHandler {
 			} else {
 				MessageDialog.openError(window.getShell(), "Error", "Can not find any result");
 			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-			new Log().saveLog(e);
-			MessageDialog.openError(window.getShell(), "Error", "There is a problem occur on API Connection. please check your internet Connection and try agian or email us your Log folder" );
-		} catch (IOException | PartInitException e) {
+		} catch (JSONException | PartInitException e) {
 			e.printStackTrace();
 			new Log().saveLog(e);
 			MessageDialog.openError(window.getShell(), "Error", "There is a problem occur. please email us your Log folder" );
+		} catch (IOException e) {
+			e.printStackTrace();
+			new Log().saveLog(e);
+			MessageDialog.openError(window.getShell(), "Error", "There is a problem occur on API Connection. please check your internet Connection and try agian or email us your Log folder" );
 		}
 	}
 }

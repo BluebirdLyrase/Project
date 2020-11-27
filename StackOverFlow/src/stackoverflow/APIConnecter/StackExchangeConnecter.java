@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.net.Socket;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
@@ -39,6 +38,7 @@ public class StackExchangeConnecter {
 		JSONObject result = null;
 		URL myUrl = new URL(url);
 		URLConnection con = myUrl.openConnection();
+		//set timeout to prevent freezing
 		con.setConnectTimeout(10000);
 		con.setReadTimeout(10000);
 		InputStream is = con.getInputStream();

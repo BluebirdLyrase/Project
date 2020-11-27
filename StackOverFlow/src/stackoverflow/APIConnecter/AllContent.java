@@ -2,8 +2,6 @@ package stackoverflow.APIConnecter;
 
 import java.io.IOException;
 
-import javax.swing.JFileChooser;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,11 +46,8 @@ public class AllContent extends StackExchangeConnecter {
 
 	private JSONObject itemObject;
 
-	//TODO now it is an unused method should be remove soon
-	public JSONObject getJsonObject() {
-		return this.json;
-	}
 
+	
 	public Question getAllConetent() {
 		return allConetent;
 	}

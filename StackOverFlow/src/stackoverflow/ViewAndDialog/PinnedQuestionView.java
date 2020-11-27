@@ -164,7 +164,7 @@ public class PinnedQuestionView extends ViewPart {
 			IViewReference currentView = page.findViewReference(viewerID, secondaryId);
 			IViewPart viewPart = currentView.getView(true);
 			ContentView myView = (ContentView) viewPart;
-			myView.setContent(questionIdList[index], siteList[index]);
+			myView.setContent(questionIdList[index], siteList[index],titleList[index]);
 		} catch (PartInitException e) {
 			new Log().saveLog(e);
 			e.printStackTrace();

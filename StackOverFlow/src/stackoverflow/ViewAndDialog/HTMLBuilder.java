@@ -17,16 +17,12 @@ public class HTMLBuilder {
 	AllContent content ;
 	Question q ;
 
-	public HTMLBuilder(String id, boolean isOffline,String site) {
+	public HTMLBuilder(String id, boolean isOffline,String site) throws IOException, JSONException {
 		// check if Allcontent is used for offline mode
-		try {
 			content = new AllContent(id, isOffline,site);
 			q = content.getAllConetent();
 			qtitle = q.getTitle();
-		} catch (IOException | JSONException e) {
-			new Log().saveLog(e);
-			e.printStackTrace();
-		}
+
 	}
 
 	public String getTitle() {

@@ -140,7 +140,7 @@ public class FavoriteView extends ViewPart {
 			IViewReference currentView = page.findViewReference(viewerID, secondaryId);
 			IViewPart viewPart = currentView.getView(true);
 			ContentView myView = (ContentView) viewPart;
-			myView.setContent(id[index],site[index]);
+			myView.setContent(id[index],site[index],title[index]);
 		} catch (PartInitException e) {
 			new Log().saveLog(e);
 			e.printStackTrace();

@@ -155,7 +155,7 @@ public class SearchResultView extends ViewPart {
 			IViewReference currentView = page.findViewReference(viewerID, secondaryId);
 			IViewPart viewPart = currentView.getView(true);
 			ContentView myView = (ContentView) viewPart;
-			myView.setContent(id[index],site);
+			myView.setContent(id[index],site,titleList[index]);
 		} catch (PartInitException e) {
 			new Log().saveLog(e);
 			e.printStackTrace();

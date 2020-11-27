@@ -23,10 +23,12 @@ public class SearchResult extends StackExchangeConnecter {
 	private boolean result;
 	private String site = "stackoverflow";
 
+	//use for testing
 	public SearchResult(String intitle) throws IOException, JSONException {
 		this(intitle, 1, 40, "asc", "relevance", "stackoverflow");
 	}
 	
+	//use for testing
 	public SearchResult(String intitle, int page, int pageSize, String order, String sort, String site)
 			throws IOException, JSONException {
 		this(intitle, 1, 40, "asc", "relevance", "stackoverflow", null);

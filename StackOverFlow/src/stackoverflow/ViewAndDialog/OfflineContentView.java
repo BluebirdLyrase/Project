@@ -4,9 +4,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
 import org.json.JSONException;
 
-import stackoverflow.APIConnecter.AllContentObjectOnly;
-import stackoverflow.LocalJsonConnector.ContentWriter;
-import stackoverflow.LocalJsonConnector.FavoriteWriter;
+import stackoverflow.LocalJsonConnector.Log;
+
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -66,9 +65,15 @@ public class OfflineContentView extends ViewPart {
 			System.out.println("Could not instantiate Browser: " + e.getMessage());
 			return;
 		}
+		try {
 		HTMLBuilder html = new HTMLBuilder(this.id, this.isOffline,this.site);
 		HTMLtext = html.getHtml();
 		browser.setText(HTMLtext);
+		} catch (IOException | JSONException e) {
+			browser.setText("Error : No internet connection");
+			new Log().saveLog(e);
+			e.printStackTrace();
+		}
 	}
 
 	@Override
