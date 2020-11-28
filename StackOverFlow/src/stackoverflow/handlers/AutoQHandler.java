@@ -32,15 +32,10 @@ import stackoverflow.LocalJsonConnector.SearchingWriter;
 import stackoverflow.ViewAndDialog.SearchResultView;
 import stackoverflow.ViewAndDialog.UserInputDialog;
 import stackoverflow.stat.*;
-import stackInTheFlow.score.IctfScorer;
-import stackInTheFlow.score.IdfScorer;
 import stackInTheFlow.score.Scorer;
-import stackInTheFlow.score.ScqScorer;
-import stackInTheFlow.score.VarScorer;
 import stackInTheFlow.score.combiner.SumCombiner;
 
 import java.util.Collection;
-import stackInTheFlow.score.*;
 import stackInTheFlow.score.stat.terms.TermStatComponent;
 
 public class AutoQHandler extends AbstractHandler {

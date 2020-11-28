@@ -173,6 +173,7 @@ public class Account extends LocalJsonList {
 			}
 			}
 		} catch ( JSONException | IOException | ParseException e) {
+			Logout(); //auto logout to prevent freezing issue
 			LoginMSG = error;
 			e.printStackTrace();
 			new Log().saveLog(e);

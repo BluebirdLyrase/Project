@@ -6,7 +6,6 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.json.JSONException;
 
 import stackoverflow.LocalJsonConnector.Log;
 import stackoverflow.database.Account;
