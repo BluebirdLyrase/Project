@@ -25,13 +25,19 @@ public class SearchResult extends StackExchangeConnecter {
 
 	//use for testing
 	public SearchResult(String intitle) throws IOException, JSONException {
-		this(intitle, 1, 40, "asc", "relevance", "stackoverflow");
+		this(intitle, "asc", "relevance", "stackoverflow");
 	}
 	
 	//use for testing
-	public SearchResult(String intitle, int page, int pageSize, String order, String sort, String site)
+	public SearchResult(String intitle,String order, String sort, String site)
 			throws IOException, JSONException {
 		this(intitle, 1, 40, "asc", "relevance", "stackoverflow", null);
+	}
+	
+	//use for testing
+	public SearchResult(String intitle,String order, String sort, String site, String tags)
+			throws IOException, JSONException {
+		this(intitle, 1, 40, "asc", "relevance", "stackoverflow", tags);
 	}
 
 	public SearchResult(String intitle, int page, int pageSize, String order, String sort, String site, String tagged)
