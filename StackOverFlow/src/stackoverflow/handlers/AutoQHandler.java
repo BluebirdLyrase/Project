@@ -71,20 +71,9 @@ public class AutoQHandler extends AbstractHandler {
 
 			System.out.println(imports);
 
-			// String[] lines = editorText.split("\\n");
-			// System.out.print(lines.length);
-			
 	        scorers = new TermStatComponent().getScorer();
 	        
 	        SumCombiner combiner1 = new SumCombiner(scorers);
-
-//			Combiner combiner1 = new Combiner() {
-//				@Override
-//				public double generateCumulativeScore(String term) {
-//					// TODO Auto-generated method stub
-//					return 0;
-//				}
-//			};
 
 			String currentLine = document.get();
 			Arrays.stream(currentLine.toLowerCase().split("\\b"))
