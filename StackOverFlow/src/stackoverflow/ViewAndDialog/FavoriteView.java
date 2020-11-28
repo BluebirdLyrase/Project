@@ -171,14 +171,10 @@ public class FavoriteView extends ViewPart {
 		IWorkbench wb = PlatformUI.getWorkbench();
 		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 		PinTextInputDialog  pinDl = new PinTextInputDialog(win.getShell());
-		pinDl.createDialogArea(win.getShell());
-		pinDl.open();
-		String pintext  = pinDl.getPinText();
-		System.out.print("Pintext  : "+pintext);
-		
 		int index = viewer.getTable().getSelectionIndex();
-		String msg = new PinnedQuestionWriter().pinnedWriter(id[index],site[index],title[index],pintext) ;
-		showMsg(msg);
+		pinDl.setData(id[index],site[index],title[index]);
+		pinDl.createDialogArea(win.getShell());
+		pinDl.open();		
 		pinDl.close();
 	}
 	

@@ -266,14 +266,10 @@ public class ViewHistoryView extends ViewPart {
 		IWorkbench wb = PlatformUI.getWorkbench();
 		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 		PinTextInputDialog  pinDl = new PinTextInputDialog(win.getShell());
+		int index = viewer.getTable().getSelectionIndex();
+		pinDl.setData(id[index],site[index],title[index]);
 		pinDl.createDialogArea(win.getShell());
 		pinDl.open();
-		String pintext  = pinDl.getPinText();
-		System.out.print("Pintext  : "+pintext);
-		
-		int index = viewer.getTable().getSelectionIndex();
-		String msg = new PinnedQuestionWriter().pinnedWriter(id[index],site[index],title[index],pintext) ;
-		showMsg(msg);
 		pinDl.close();
 	}
 	

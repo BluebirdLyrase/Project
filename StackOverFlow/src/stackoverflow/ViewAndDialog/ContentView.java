@@ -11,7 +11,6 @@ import stackoverflow.APIConnecter.AllContentObjectOnly;
 import stackoverflow.LocalJsonConnector.ContentWriter;
 import stackoverflow.LocalJsonConnector.FavoriteWriter;
 import stackoverflow.LocalJsonConnector.Log;
-import stackoverflow.database.PinnedQuestionWriter;
 
 import java.io.IOException;
 import javax.inject.Inject;
@@ -47,6 +46,7 @@ public class ContentView extends ViewPart {
 	private String site;
 
 	public void setContent(String id, String site, String qtitle) {
+		this.qtitle = qtitle;
 		this.id = id;
 		this.site = site;
 		parent.layout(true, true);
@@ -111,13 +111,9 @@ public class ContentView extends ViewPart {
 		IWorkbench wb = PlatformUI.getWorkbench();
 		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
 		PinTextInputDialog pinDl = new PinTextInputDialog(win.getShell());
+		pinDl.setData(id, site, qtitle);
 		pinDl.createDialogArea(win.getShell());
 		pinDl.open();
-		String pintext = pinDl.getPinText();
-		System.out.print("Pintext  : " + pintext);
-
-		String msg = new PinnedQuestionWriter().pinnedWriter(id, site, qtitle, pintext);
-		showMsg(msg);
 		pinDl.close();
 	}
 

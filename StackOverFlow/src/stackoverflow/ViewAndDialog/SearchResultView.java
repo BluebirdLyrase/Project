@@ -185,14 +185,10 @@ public class SearchResultView extends ViewPart {
 	}
 	private void pinToTeam() throws IOException, JSONException {
 		PinTextInputDialog  pinDl = new PinTextInputDialog(win.getShell());
+		int index = viewer.getTable().getSelectionIndex();
+		pinDl.setData(id[index],site,titleList[index]);
 		pinDl.createDialogArea(win.getShell());
 		pinDl.open();
-		String pintext  = pinDl.getPinText();
-		System.out.print("Pintext  : "+pintext);
-		
-		int index = viewer.getTable().getSelectionIndex();
-		String msg = new PinnedQuestionWriter().pinnedWriter(id[index],site,titleList[index],pintext) ;
-		showMsg(msg);
 		pinDl.close();
 	}
 	
