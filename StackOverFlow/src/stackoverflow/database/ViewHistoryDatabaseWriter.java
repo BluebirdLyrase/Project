@@ -17,8 +17,6 @@ public class ViewHistoryDatabaseWriter extends APIConnectorPost {
 		json.put("UserID",userID);
 		jsonString = json.toString();
 		databaseWriter(jsonString,apiName);
-	}else {
-		//TODO
 	}
 	}
 

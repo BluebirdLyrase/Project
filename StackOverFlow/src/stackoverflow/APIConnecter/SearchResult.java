@@ -13,13 +13,15 @@ import org.json.JSONException;
  * sort : determine which variable for ordering data
  * site : determine which site in StackExchange to search for
  * tagged : array of tag of the question 
- */
+ */ 
+
+//TODO change fileter  = !)rbHx(DLnCbcJwPi7448
 
 public class SearchResult extends StackExchangeConnecter {
 
 	private String[] titleList;
 	private String[] questionIdList;
-	private String item;
+//	private String item;
 	private boolean result;
 	private String site = "stackoverflow";
 
@@ -52,7 +54,7 @@ public class SearchResult extends StackExchangeConnecter {
 		
 		this.url = "https://api.stackexchange.com/2.2/search/advanced?page=1&pagesize=" + Integer.toString(pageSize)
 				+ "&order=" + order + "&sort=" + sort + "&q=" + intitle + "&accepted=True" + tagContent
-				+ "&site="+site+"&filter=!4(L6lo9D9J9Y3508i";
+				+ "&site="+site+"&filter=!)rbHx(DLnCbcJwPi7448";
 		
 //		System.out.println("URL : " + this.url) ;
 		
@@ -89,12 +91,14 @@ public class SearchResult extends StackExchangeConnecter {
 
 	//check if there are any result from searching
 	public Boolean haveResult() throws JSONException {
-		item = json.getJSONArray("items").toString();
-		if (item.equals("[]")) {
+		int total = json.getInt("total");
+		if (total>0) {
+			result = true;
+		} else {
 			LOGGER.warning("There is no result");
 			result = false;
-		} else
-			result = true;
+		}
+			
 		return result;
 	}
 

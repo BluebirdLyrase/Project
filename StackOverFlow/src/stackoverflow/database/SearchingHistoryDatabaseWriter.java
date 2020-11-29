@@ -16,8 +16,6 @@ public class SearchingHistoryDatabaseWriter extends APIConnectorPost {
 		json.put("UserID",userID);
 		jsonString = json.toString();
 		databaseWriter(jsonString, apiName);
-		}else {
-			//TODO 
 		}
 	}
 
