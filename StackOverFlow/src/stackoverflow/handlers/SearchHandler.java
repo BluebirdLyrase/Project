@@ -62,8 +62,10 @@ public class SearchHandler extends AbstractHandler {
 			sort = dialog.getSort();
 			site = dialog.getSite();
 			tagged = dialog.getTagsText();
-			System.out.println(intitle);
 			//filter non english intitle and tagged to prevent bug in saveSearchTextHistory (too large data)
+			intitle = intitle.replaceAll("#", "%23").replaceAll("&", "%26");
+			tagged = tagged.replaceAll("#", "%23").replaceAll("&", "%26");
+			System.out.println(intitle);
 			boolean intitleIsValid = intitle.matches("[\\p{Graph}\\p{Space}]+") || intitle.isEmpty();
 			boolean taggedIsValid = tagged.matches("[\\p{Graph}\\p{Space}]+") || tagged.isEmpty();
 			boolean isEnglish = intitleIsValid && taggedIsValid ;

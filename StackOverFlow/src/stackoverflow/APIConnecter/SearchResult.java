@@ -59,6 +59,7 @@ public class SearchResult extends StackExchangeConnecter {
 //		System.out.println("URL : " + this.url) ;
 		
 		String newUrl = this.url.replaceAll(" ", "%20");
+//		System.out.println(newUrl);
 		this.site = site;
 		this.json = readJsonFromUrl(newUrl);
 		
