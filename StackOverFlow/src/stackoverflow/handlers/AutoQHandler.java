@@ -66,12 +66,12 @@ public class AutoQHandler extends AbstractHandler {
 			editorText = document.get();
 			Set<String> imports = StringMatchUtils.extractImports(editorText);
 
-			imports.forEach(i -> Arrays.stream(i.toLowerCase().split("\\."))
-					.forEach(t -> termsFreqMap.put(t, 1 + termsFreqMap.getOrDefault(t, 0))));
+//			imports.forEach(i -> Arrays.stream(i.toLowerCase().split("\\."))
+//					.forEach(t -> termsFreqMap.put(t, 1 + termsFreqMap.getOrDefault(t, 0))));
 
 			System.out.println(imports);
 
-	        scorers = new TermStatComponent().getScorer();
+//	        scorers = new TermStatComponent().getScorer();
 	        
 	        SumCombiner combiner1 = new SumCombiner(scorers);
 

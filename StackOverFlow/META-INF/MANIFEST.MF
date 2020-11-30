@@ -7,9 +7,13 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.swt,
  org.junit,
+ org.eclipse.swtbot.junit4_x,
+ org.eclipse.swtbot.forms.finder,
+ org.eclipse.swtbot.eclipse.finder,
  org.junit.jupiter.api,
  org.eclipse.jface.text;bundle-version="3.16.300",
- org.eclipse.ui.workbench.texteditor
+ org.eclipse.ui.workbench.texteditor,
+ org.eclipse.swtbot.eclipse.finder
 Automatic-Module-Name: StackOverFlow
 Bundle-RequiredExecutionEnvironment: JavaSE-13
 Bundle-ClassPath: libs/java-json.jar,

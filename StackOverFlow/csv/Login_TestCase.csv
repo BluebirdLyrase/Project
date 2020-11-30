@@ -1,0 +1,28 @@
+Testcase,ID,Password,URL,Result
+1,admin,admin,http://localhost:8095,Successfully logged in
+2,admin,admin,http://localhost:8094,Server unavailable
+3,admin,admin,null,Server unavailable
+4,admin,admid,http://localhost:8095,Incorrect username or password
+5,admin,admid,http://localhost:8094,Server unavailable
+6,admin,admid,null,Server unavailable
+7,admin,null,http://localhost:8095,Incorrect username or password
+8,admin,null,http://localhost:8094,Server unavailable
+9,admin,null,null,Server unavailable
+10,admid,admin,http://localhost:8095,Incorrect username or password
+11,admid,admin,http://localhost:8094,Server unavailable
+12,admid,admin,null,Server unavailable
+13,admid,admid,http://localhost:8095,Incorrect username or password
+14,admid,admid,http://localhost:8094,Server unavailable
+15,admid,admid,null,Server unavailable
+16,admid,null,http://localhost:8095,Incorrect username or password
+17,admid,null,http://localhost:8094,Server unavailable
+18,admid,null,null,Server unavailable
+19,null,admin,http://localhost:8095,Incorrect username or password
+20,null,admin,http://localhost:8094,Server unavailable
+21,null,admin,null,Server unavailable
+22,null,admid,http://localhost:8095,Incorrect username or password
+23,null,admid,http://localhost:8094,Server unavailable
+24,null,admid,null,Server unavailable
+25,null,null,http://localhost:8095,Incorrect username or password
+26,null,null,http://localhost:8094,Server unavailable
+27,null,null,null,Server unavailable
