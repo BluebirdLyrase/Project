@@ -19,7 +19,7 @@ public class PinnedQuestionWriter extends APIConnectorPost{
 		Account account = new Account();
 		try {
 			if (account.isLoggedIn()) {
-
+				
 				this.userID = account.getUserID();
 				this.date = LocalDateTime.now().toString();
 				JSONObject newData = new JSONObject();
@@ -32,7 +32,7 @@ public class PinnedQuestionWriter extends APIConnectorPost{
 				msg = databaseWriter(newData.toString(),"addPin");
 				
 			}else {
-				msg = "You need to login to use this function";
+				msg = "this feature is only available while logged in serve";
 			}
 		} catch (JSONException | IOException e) {
 			new Log().saveLog(e);
