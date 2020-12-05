@@ -75,7 +75,7 @@ public class SearchResultTest {
 	public void haveResultTest() throws IOException, JSONException, InterruptedException {
 		String tag;
 		for (int i = 0; i < intitles.size(); i++) {
-			Thread.sleep(1000);
+			Thread.sleep(10000);
 			tag = tags.get(i);
 			if (tag == "null") {
 				tag = null;
