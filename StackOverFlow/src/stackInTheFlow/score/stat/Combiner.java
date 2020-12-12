@@ -1,4 +1,4 @@
-package stackoverflow.stat;
+package stackInTheFlow.score.stat;
 
 public interface Combiner {
 

@@ -31,11 +31,12 @@ import stackoverflow.LocalJsonConnector.Log;
 import stackoverflow.LocalJsonConnector.SearchingWriter;
 import stackoverflow.ViewAndDialog.SearchResultView;
 import stackoverflow.ViewAndDialog.UserInputDialog;
-import stackoverflow.stat.*;
 import stackInTheFlow.score.Scorer;
 import stackInTheFlow.score.combiner.SumCombiner;
 
 import java.util.Collection;
+
+import stackInTheFlow.score.stat.StringMatchUtils;
 import stackInTheFlow.score.stat.terms.TermStatComponent;
 
 public class AutoQHandler extends AbstractHandler {

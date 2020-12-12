@@ -1,5 +1,4 @@
 package stackInTheFlow.score.stat;
-
 /**
  * Created by Chase on 2/11/2017.
  */
